@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "39333548415",
+    "project_id": "t36phenocount",
+    "storage_bucket": "t36phenocount.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39333548415:android:deeb6de23a5cc0a7ebca4a",
+        "android_client_info": {
+          "package_name": "com.cmput301w21t36.phenocount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39333548415-ejsmg4hobua6978ihu3on7rv75ehrdus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgEDK6PCW8IIRDCY5dnxqpnJugSQ6sAeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39333548415-ejsmg4hobua6978ihu3on7rv75ehrdus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
