@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PhenoCount</string>
+    <string name="title_activity_location">Map</string>
 </resources>
