@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * so the DiscussionActivity class has its own UI.
  *
  */
-public class DiscussionActivity extends AppCompatActivity, ShowFragment.OnFragmentInteractionListener {
+public class DiscussionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener {
     //a collection of question posts of a certain experiment
     private ListView qList;
     private ArrayList<Question> questions;
