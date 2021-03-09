@@ -10,12 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
-        <activity android:name=".ScanQRActivity"></activity>
-        <activity android:name=".GenerateQrActivity"></activity>
+        <activity android:name=".ScanBarcodeActivity" />
+        <activity android:name=".ScanQRActivity" />
+        <activity android:name=".GenerateQrActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
