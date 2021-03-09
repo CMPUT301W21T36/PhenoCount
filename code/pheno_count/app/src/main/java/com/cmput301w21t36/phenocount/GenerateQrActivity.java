@@ -41,15 +41,15 @@ public class GenerateQrActivity extends AppCompatActivity {
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Initializing the QR Encoder with your value to be encoded, type you required and Dimension
+                // Create QR Encoder with value to be encoded
                 QRGEncoder qrgEncoder = new QRGEncoder(info, null, QRGContents.Type.TEXT, 500);
                 try {
-                    // Getting QR-Code as Bitmap
+                    // Getting QR as Bitmap
                     Bitmap bitmap = qrgEncoder.getBitmap();
-                    // Setting Bitmap to ImageView
+                    // Set QR to ImageView
                     qrImage.setImageBitmap(bitmap);
                 } catch (Exception e) {
-                    Log.v("TAG", e.toString());
+                    Log.v("Exception", e.toString());
                 }
             }
         });
