@@ -1,5 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
+import android.widget.ListView;
+
 import java.util.ArrayList;
 
 /**
@@ -11,6 +13,7 @@ import java.util.ArrayList;
  * activity page, where you can browse all its replied and give replies.
  */
 public class Question extends Post{
+    private ListView rList;
     private ArrayList<Reply> replies;
 
     public Question(User author, String text){

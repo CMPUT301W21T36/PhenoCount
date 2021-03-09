@@ -1,5 +1,11 @@
 package com.cmput301w21t36.phenocount;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -11,15 +17,17 @@ import java.util.ArrayList;
  * so the DiscussionActivity class has its own UI.
  *
  */
-public class DiscussionActivity {
+public class DiscussionActivity extends AppCompatActivity, ShowFragment.OnFragmentInteractionListener {
     //a collection of question posts of a certain experiment
+    private ListView qList;
     private ArrayList<Question> questions;
     private Experiment experiment;
     private User user; //I think we need to get who is currently viewing this forum
 
-    public DiscussionActivity(User user, Experiment experiment){
-        this.user = user;
-        this.experiment = experiment;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.discussion_activity);
     }
 
     /**
@@ -33,6 +41,14 @@ public class DiscussionActivity {
         String text = ""; //get from the user input in edit text in the fragment
         Question question = new Question(user, text);
         questions.add(question);
+    }
+
+    public void onAddQuePressed(){
+        Intent intent = new Intent(this, Question.class);
+        //intent.putExtra(EXTRA_MESSAGE, index);
+        startActivity(intent);
+        }
+
     }
 
 }
