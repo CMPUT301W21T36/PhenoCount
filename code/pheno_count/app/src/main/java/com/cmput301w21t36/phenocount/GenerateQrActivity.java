@@ -16,6 +16,11 @@ import com.google.zxing.WriterException;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
+// Use this to get here
+//Intent i = new Intent(ExperimentActivity.this, GenerateQRActivity.class);
+//i.putExtra("info", info);
+//startActivityForResult(i, 1);
+
 public class GenerateQrActivity extends AppCompatActivity {
     ImageView qrImage;
     Button generateButton;
