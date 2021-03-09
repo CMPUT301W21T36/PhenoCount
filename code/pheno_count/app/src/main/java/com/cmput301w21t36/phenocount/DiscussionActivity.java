@@ -22,12 +22,17 @@ public class DiscussionActivity {
     /**
      * This method allows user to ask a question of the experiment,
      * the newly added question will be stored in the discussion forum.
+     * how: click '+' button in UI, a fragment shows, has two text boxes,
+     * the top one is a title, says 'New Question',
+     * the bottom one is the an edit text, let the user type in the question body.
      * @return
      *      return the asked question
      */
-    public Question addQuestion(){
-        Question question = new Question();
-
+    public void addQuestion(){
+        User author = new User(); //get the current user
+        String text = ""; //get from the user input in edit text in the fragment
+        Question question = new Question(author, text);
+        questions.add(question);
 
     }
 
