@@ -11,7 +11,24 @@ import java.util.ArrayList;
  *
  */
 public class DiscussionActivity {
-    private ArrayList<Post> posts;
+    //a collection of question posts of a certain experiment
+    private ArrayList<Question> questions;
     private Experiment experiment;
+
+    public DiscussionActivity(Experiment experiment){
+        this.experiment = experiment;
+    }
+
+    /**
+     * This method allows user to ask a question of the experiment,
+     * the newly added question will be stored in the discussion forum.
+     * @return
+     *      return the asked question
+     */
+    public Question addQuestion(){
+        Question question = new Question();
+
+
+    }
 
 }
