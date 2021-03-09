@@ -9,28 +9,29 @@
 
 
     <TextView
-        android:id="@+id/discuss_forum_text_view"
+        android:id="@+id/question_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Discussion Forum"
+        android:text="Q: "
+        android:textAlignment="textStart"
         android:textSize="24sp" />
 
     <ListView
-        android:id="@+id/question_list_view"
+        android:id="@+id/reply_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/discuss_forum_text_view">
+        android:layout_below="@+id/question_text_view">
     </ListView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/add_question"
+        android:id="@+id/add_reply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="bottom|right"
-        android:contentDescription="@string/ask_a_question_desc"
-        android:text="@string/add_question"
+        android:contentDescription="@string/reply_a_question_desc"
+        android:text="@string/add_reply"
         app:icon="@drawable/ic_baseline_add_24"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

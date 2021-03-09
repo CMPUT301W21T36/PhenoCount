@@ -3,9 +3,10 @@ package com.cmput301w21t36.phenocount;
 import java.util.ArrayList;
 
 /**
+ * @author Charffy
  * This DiscussionActivity class stores all the questions asked by
  * users related to a certain experiment.
- * It extends the MenuActivity class, which extends the ExperimentActivity Class.
+ * Context: ExperimentActivity -> MenuActivity-> 'Discuss' button -> this;
  * Click 'Discuss' button in the MenuActivity can transfer user to the this activity,
  * so the DiscussionActivity class has its own UI.
  *
@@ -14,8 +15,10 @@ public class DiscussionActivity {
     //a collection of question posts of a certain experiment
     private ArrayList<Question> questions;
     private Experiment experiment;
+    private User user; //I think we need to get who is currently viewing this forum
 
-    public DiscussionActivity(Experiment experiment){
+    public DiscussionActivity(User user, Experiment experiment){
+        this.user = user;
         this.experiment = experiment;
     }
 
@@ -25,15 +28,11 @@ public class DiscussionActivity {
      * how: click '+' button in UI, a fragment shows, has two text boxes,
      * the top one is a title, says 'New Question',
      * the bottom one is the an edit text, let the user type in the question body.
-     * @return
-     *      return the asked question
      */
     public void addQuestion(){
-        User author = new User(); //get the current user
         String text = ""; //get from the user input in edit text in the fragment
-        Question question = new Question(author, text);
+        Question question = new Question(user, text);
         questions.add(question);
-
     }
 
 }
