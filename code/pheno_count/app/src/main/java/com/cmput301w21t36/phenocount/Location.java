@@ -1,5 +1,9 @@
 package com.cmput301w21t36.phenocount;
 
+/**
+ * This class represents the Geolocation
+ * @author Anisha
+ */
 public class Location {
     private double latitude;
     private double longitude;
