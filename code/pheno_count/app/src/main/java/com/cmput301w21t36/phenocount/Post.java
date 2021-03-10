@@ -32,4 +32,8 @@ public abstract class Post {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         date = LocalDateTime.now();
     }
+
+    public String getText() {
+        return text;
+    }
 }

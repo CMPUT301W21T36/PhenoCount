@@ -1,10 +1,16 @@
 package com.cmput301w21t36.phenocount;
 
 
-
 /*
-get from the lab, need to be changed later, since this ons is still
-for adding experiments
+Citation:
+Ruiqin Pi, "Lab 3", 2021-02-04, Public Domain,
+URL: https://eclass.srv.ualberta.ca/pluginfile.php/6713986/mod_resource/content/0/Lab%203%20Instructions%20-%20Fragments.pdf
+*/
+
+/**
+ * @author: Charffy
+ * This is a general fragment class that shows the fragment when you want to
+ * add a question, reply, or something else.
  */
 
 import android.app.AlertDialog;
@@ -22,12 +28,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
-/*
-Citation:
-Ruiqin Pi, "Lab 3", 2021-02-04, Public Domain,
-URL: https://eclass.srv.ualberta.ca/pluginfile.php/6713986/mod_resource/content/0/Lab%203%20Instructions%20-%20Fragments.pdf
-*/
 
 
 public class ShowFragment extends DialogFragment {

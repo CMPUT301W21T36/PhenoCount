@@ -3,6 +3,7 @@ package com.cmput301w21t36.phenocount;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,6 +48,19 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
                 addQuestion();
             }
         });
+
+        /*
+         Select a question on the list view for browsing its replies or add replies
+         */
+        qList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //when you click on a question for browsing/add replies
+                Question queTarget = questions.get(position);
+                browseReplies(queTarget);
+            }
+        });
+
     }
 
     @Override
@@ -73,6 +87,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     }
 
     /**
+     * @param text
      * Inside this 'ask question' fragment, if 'OK' is pressed, then
      * this question is saved to the discussion forum's question list.
      * If 'Cancel' is pressed, this question is deleted.
@@ -82,6 +97,20 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         Question newQue = new Question(user, text);
         questions.add(newQue);
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * @param target
+     * When you click on a question in the list view, you will be
+     * transferred to this question's activity page, where you
+     * can browse all its replies and add replies
+     */
+    public void browseReplies(Question target){
+        String questionText = target.getText();
+        Intent intent = new Intent(this, Question.class);
+        intent.putExtra("questionText", questionText);
+        startActivity(intent);
+
     }
 
 
