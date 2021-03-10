@@ -1,12 +1,13 @@
 package com.cmput301w21t36.phenocount;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represents the Experiment objects
  * @author Anisha
  */
-public class Experiment {
+public class Experiment implements Serializable {
     private String name;
     private String description;
     private String region;
