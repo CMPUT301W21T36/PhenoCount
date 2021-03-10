@@ -38,6 +38,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+/**
+ * This is a model class that deals with displaying maps for geo-location functions.
+ * @author Ananya
+ */
 public class LocationActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
@@ -74,16 +78,16 @@ public class LocationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This checks for required location permissions and sets location markers appropriately.
+     * It is called when the map is ready to be used.
+     * @param googleMap
+     * This is the internal representation of the map
+     *
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        /**
-         LatLng sydney = new LatLng(-34, 151);
-         mGoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); */
-
-
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(120000); // two minute interval
         mLocationRequest.setFastestInterval(120000);
