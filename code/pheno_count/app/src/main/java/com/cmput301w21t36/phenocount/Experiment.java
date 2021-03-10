@@ -11,10 +11,12 @@ public class Experiment {
     private String description;
     private String region;
     private int minimumTrials;
+    private boolean requireLocation;
+    private User owner;
     private ArrayList<Trial> trials;
     private Statistic stats;
     private int expStatus; // 0 for add, 1 for published, 2 for ended, 3 for unpublished, 4 for subscribed
-    private boolean requireLocation;
+
 
     /**
      * This constructs a new experiment object
@@ -95,7 +97,7 @@ public class Experiment {
      * This method creates a QR code for the experiment
      */
     public void createQR(){
-
+        // to do
     }
 
     /**
@@ -216,5 +218,23 @@ public class Experiment {
 
     public void setRequireLocation(boolean requireLocation) {
         this.requireLocation = requireLocation;
+    }
+
+    /**
+     * This method returns the owner of the experiment
+     * @return
+     * returns the owner of the experiment
+     */
+    public User getOwner() {
+        return owner;
+    }
+
+    /**
+     * This method saves/adds the owner to the experiment
+     * @param owner
+     * The owner for the experiment that has to be saved/added
+     */
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
