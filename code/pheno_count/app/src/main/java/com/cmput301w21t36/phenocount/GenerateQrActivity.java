@@ -35,6 +35,8 @@ public class GenerateQrActivity extends AppCompatActivity {
         info = getIntent().getSerializableExtra("info").toString(); // get information to be put into QR code
 
         qrImage = findViewById(R.id.imageView);
+
+        //Just for testing
         generateButton = findViewById(R.id.generateButton);
         inputText = findViewById(R.id.inputText);
 

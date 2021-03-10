@@ -20,6 +20,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Open the camera to scan Barcode
                 new IntentIntegrator(ScanBarcodeActivity.this).initiateScan();
             }
         });
