@@ -20,6 +20,9 @@ public abstract class Post {
         this.author = author;
         this.text = text;
     }
+    public Post(){
+
+    }
 
     /**
      * It returns the current date when the post is created.

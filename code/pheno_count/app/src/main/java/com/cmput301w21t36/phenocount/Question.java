@@ -19,6 +19,9 @@ public class Question extends Post{
     public Question(User author, String text){
         super(author, text);
     }
+    public Question(){
+
+    }
 
     /**
      * This method allows user to reply a question of the experiment,

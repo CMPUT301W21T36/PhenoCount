@@ -1,39 +1,57 @@
 package com.cmput301w21t36.phenocount;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
 /*
 get from the lab, need to be changed later, since this ons is still
 for adding experiments
  */
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
+/*
+Citation:
+Ruiqin Pi, "Lab 3", 2021-02-04, Public Domain,
+URL: https://eclass.srv.ualberta.ca/pluginfile.php/6713986/mod_resource/content/0/Lab%203%20Instructions%20-%20Fragments.pdf
+*/
+
+
 public class ShowFragment extends DialogFragment {
-    private EditText cityName;
-    private EditText provinceName;
-    private City cityTarget;
+    private String type; //to add a question or a reply
+    private EditText body;
+    private String title;
     private OnFragmentInteractionListener listener;
 
     public interface OnFragmentInteractionListener {
-        void onOkPressedAdd(City newCity);
-        void onOkPressedEdit(City editedCity);
+        void onOkPressedAdd(String text);
     }
 
-    public AddCityFragment(City city) {
-        this.cityTarget = city;
-    }
+    //constructor of fragment, you have to know the type,
+    // thus we can set up the title and hint for it.
+    public ShowFragment(String type) {
+        this.type = type;
 
-    public AddCityFragment() {
+        if(type == "question"){
+            Question newQue = new Question(); //may have to pass user and experiment to it
+            title = "Ask a Question";
+        }else if (type == "reply"){
+            Reply newRep = new Reply(); //may have to pass user and experiment to it
+            title = "Give a Reply";
+        }
     }
 
     @Override
@@ -50,32 +68,20 @@ public class ShowFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_city_fragment_layout, null);
-        cityName = view.findViewById(R.id.city_name_editText);
-        provinceName = view.findViewById(R.id.province_editText);
+        //may change the name of this layout later
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_question_fragment, null);
+        body = view.findViewById(R.id.body_edit_text);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
                 .setView(view)
-                .setTitle("Add/Edit City")
+                .setTitle(title)
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (cityTarget == null) {
-                            cityTarget = new City();
-                            String city = cityName.getText().toString();
-                            String province = provinceName.getText().toString();
-                            cityTarget.setCity(city);
-                            cityTarget.setProvince(province);
-                            listener.onOkPressedAdd(cityTarget);
-                        }else{
-                            String city = cityName.getText().toString();
-                            String province = provinceName.getText().toString();
-                            cityTarget.setCity(city);
-                            cityTarget.setProvince(province);
-                            listener.onOkPressedEdit(cityTarget);
-                        }
+                        String bodyText = body.getText().toString();
+                        listener.onOkPressedAdd(bodyText);
                     }}).create();
     }
 }
