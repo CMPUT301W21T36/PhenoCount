@@ -21,7 +21,9 @@ import java.util.ArrayList;
  * Context: ExperimentActivity -> MenuActivity-> 'Discuss' button -> this;
  * Click 'Discuss' button in the MenuActivity can transfer user to the this activity,
  * so the DiscussionActivity class has its own UI.
- *
+ * When a question in the lsit view is clicked, the user is transferred to
+ * the QuestionActivity page, where they can browse all the replies the question
+ * has received.
  */
 public class DiscussionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
     //a collection of question posts of a certain experiment
@@ -106,7 +108,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      */
     public void browseReplies(Question target){
         String questionText = target.getText();
-        Intent intent = new Intent(this, Question.class);
+        Intent intent = new Intent(this, QuestionActivity.class);
         intent.putExtra("questionText", questionText);
         startActivity(intent);
 

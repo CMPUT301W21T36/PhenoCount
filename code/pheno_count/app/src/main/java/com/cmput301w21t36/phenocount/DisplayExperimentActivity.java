@@ -12,7 +12,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_experiment_information);
+        setContentView(R.layout.activity_experiment_display);
         exp = new Experiment("try", "just to see","Edmot", 10, false);
         //exp.setOwner("1");
 

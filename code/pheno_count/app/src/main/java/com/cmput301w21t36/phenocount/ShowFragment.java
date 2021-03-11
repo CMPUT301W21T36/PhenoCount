@@ -43,7 +43,7 @@ public class ShowFragment extends DialogFragment {
         this.type = type;
 
         if(type == "question"){
-            Question newQue = new Question(); //may have to pass user and experiment to it
+            QuestionActivity newQue = new QuestionActivity(); //may have to pass user and experiment to it
             title = "Ask a Question";
         }else if (type == "reply"){
             Reply newRep = new Reply(); //may have to pass user and experiment to it
