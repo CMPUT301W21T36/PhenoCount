@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Intent i = new Intent(this, LocationActivity.class);
-        //a i.putExtra("info", info);
+        //i.putExtra("info", info);
         //startActivityForResult(i, 1);
 
     }
