@@ -1,19 +1,27 @@
 package com.cmput301w21t36.phenocount;
 
-public class User {
+import java.util.ArrayList;
 
-    private String UID = "111"; // This is a garbage UID that will be updated when connected to Firestore
+public class User {
+    private ArrayList<Experiment> expPublished;
+    private ArrayList<Experiment> expSubscribed;
+    private String UID;
     private String displayName;
     private String contact;
 
+    public User(String UID) {
+        this.UID = UID;
+    }
 
+    public String getUID() {
+        return UID;
+    }
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
     public void setContact(String contact) {
-
         this.contact = contact;
     }
 }

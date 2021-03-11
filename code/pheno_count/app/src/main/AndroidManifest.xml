@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
+        <activity android:name=".ProfileActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -32,21 +33,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKRmfspGJ8QiQQYMLSn8rR1eibczh1PJo" />
 
-        <activity android:name=".PublishExperimentActivity"></activity>
-        <activity android:name=".DisplayExperimentActivity"></activity>
-
-        <activity android:name=".DiscussionActivity"
-            android:parentActivityName=".DisplayExperimentActivity"></activity>
-        <activity android:name=".QuestionActivity"
-            android:parentActivityName=".DiscussionActivity"></activity>
-
+        <activity android:name=".PublishExperimentActivity" />
+        <activity android:name=".DisplayExperimentActivity" />
+        <activity
+            android:name=".DiscussionActivity"
+            android:parentActivityName=".DisplayExperimentActivity" />
+        <activity
+            android:name=".QuestionActivity"
+            android:parentActivityName=".DiscussionActivity" />
         <activity
             android:name=".LocationActivity"
-            android:label="@string/title_activity_location"></activity>
-
-        <activity android:name=".ScanBarcodeActivity"></activity>
-        <activity android:name=".ScanQRActivity"></activity>
-        <activity android:name=".GenerateQrActivity"></activity>
+            android:label="@string/title_activity_location" />
+        <activity android:name=".ScanBarcodeActivity" />
+        <activity android:name=".ScanQRActivity" />
+        <activity android:name=".GenerateQrActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
