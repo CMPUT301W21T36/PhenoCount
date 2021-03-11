@@ -1,5 +1,6 @@
 package com.cmput301w21t36.phenocount;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,11 +9,14 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,12 +40,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * This is a model class that deals with displaying maps for geo-location functions.
- * @author Ananya
- */
 public class LocationActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
@@ -51,6 +53,8 @@ public class LocationActivity extends AppCompatActivity
     Location mLastLocation;
     Marker mCurrLocationMarker;
     FusedLocationProviderClient mFusedLocationClient;
+    LatLng ChosenLocation;
+    Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,25 @@ public class LocationActivity extends AppCompatActivity
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
 
+        /**
+        //PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                //getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
+        //autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            //@Override
+            public void onPlaceSelected(Place place) {
+                mGoogleMap.clear();
+                mGoogleMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName().toString()));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 12.0f));
+            }
+
+            @Override
+            public void onError(Status status) {
+
+            }
+        });
+            */
     }
 
 
@@ -78,16 +100,84 @@ public class LocationActivity extends AppCompatActivity
         }
     }
 
-    /**
-     * This checks for required location permissions and sets location markers appropriately.
-     * It is called when the map is ready to be used.
-     * @param googleMap
-     * This is the internal representation of the map
-     *
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
+        /**
+         LatLng sydney = new LatLng(-34, 151);
+         mGoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+         */
+        View myView = findViewById(R.id.map);
+
+
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(marker.equals(mCurrLocationMarker)){
+                    Log.w("Click", "test");
+
+
+
+                    new AlertDialog.Builder(LocationActivity.this)
+                            .setIcon(android.R.drawable.ic_delete)
+                            .setTitle("Confirmation")
+                            .setMessage("Do you want to add this as your location?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ChosenLocation = mCurrLocationMarker.getPosition();
+                                    Toast.makeText(
+                                            LocationActivity.this,
+                                            "Your location is: Lat " + ChosenLocation.latitude + " " + "Long " + ChosenLocation.longitude,
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton("No",null)
+                            .show();
+                    return false;
+                    //return true;
+                }
+                return false;
+
+            }
+        });
+
+        mGoogleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker arg0) {
+                // TODO Auto-generated method stub
+                Log.d("System out", "onMarkerDragStart..."+arg0.getPosition().latitude+"..."+arg0.getPosition().longitude);
+
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public void onMarkerDragEnd(Marker arg0) {
+                // TODO Auto-generated method stub
+                Log.d("System out", "onMarkerDragEnd..."+arg0.getPosition().latitude+"..."+arg0.getPosition().longitude);
+
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(arg0.getPosition()));
+                mCurrLocationMarker.setPosition(new LatLng(arg0.getPosition().latitude,arg0.getPosition().longitude));
+                List<Address> addresses = null;
+                geocoder = new Geocoder(LocationActivity.this, Locale.getDefault());
+                try {
+                    addresses = geocoder.getFromLocation(arg0.getPosition().latitude,arg0.getPosition().longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mCurrLocationMarker.setTitle(addresses.get(0).getAddressLine(0));
+                //myView.performClick();
+            }
+
+            @Override
+            public void onMarkerDrag(Marker arg0) {
+                // TODO Auto-generated method stub
+                Log.i("System out", "onMarkerDrag...");
+            }
+        });
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(120000); // two minute interval
         mLocationRequest.setFastestInterval(120000);
@@ -111,6 +201,8 @@ public class LocationActivity extends AppCompatActivity
         }
     }
 
+
+
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
@@ -124,19 +216,32 @@ public class LocationActivity extends AppCompatActivity
                     mCurrLocationMarker.remove();
                 }
 
+
                 //Place current location marker
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.title(latLng.toString());
+
+                List<Address> addresses = null;
+                geocoder = new Geocoder(LocationActivity.this, Locale.getDefault());
+                try {
+                    addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                markerOptions.title(addresses.get(0).getAddressLine(0));
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
                 mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+                mCurrLocationMarker.setDraggable(true);
 
                 //move map camera
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
             }
         }
     };
+
+
 
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -209,3 +314,7 @@ public class LocationActivity extends AppCompatActivity
         }
     }
 }
+
+
+
+

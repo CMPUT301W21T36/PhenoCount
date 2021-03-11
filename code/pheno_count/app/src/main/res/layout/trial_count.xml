@@ -9,26 +9,13 @@
         android:id="@+id/recordbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="64dp"
-        android:text="Success"
+        android:layout_marginBottom="140dp"
+        android:text="Add"
         android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/failbtn"
-        app:layout_constraintHorizontal_bias="0.241"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype" />
-
-    <Button
-        android:id="@+id/failbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="50dp"
-        android:text="Failure"
-        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype" />
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/desc"
@@ -75,28 +62,16 @@
         app:layout_constraintTop_toBottomOf="@+id/status" />
 
     <TextView
-        android:id="@+id/count"
+        android:id="@+id/thecount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="16dp"
-        android:text="Succsess"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toStartOf="@+id/fno"
-        app:layout_constraintHorizontal_bias="0.26"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordbtn" />
-
-    <TextView
-        android:id="@+id/fno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="80dp"
         android:text="TextView"
-        android:textSize="15dp"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/recordbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/failbtn" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exptype"
+        app:layout_constraintVertical_bias="0.723" />
 
     <Button
         android:id="@+id/locationbtn2"
@@ -107,8 +82,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/count"
-        app:layout_constraintVertical_bias="0.784" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

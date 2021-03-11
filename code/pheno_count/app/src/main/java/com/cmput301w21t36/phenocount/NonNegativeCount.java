@@ -14,18 +14,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class NonNegativeCount extends AppCompatActivity {
-    Trial trial = new Trial();
-    Experiment newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-    ArrayList<Trial> trials = newexp.getTrials(); // stores the list of trial objects in trials
+    Trial trial;
+    Experiment newexp;//defining the Experiment object
+    ArrayList<Trial> trials; // stores the list of trial objects in trials
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         // receiving intent object
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.trial_non_negative_count);
 
-        Trial trial = new Trial();
-        ArrayList<Trial> trials = newexp.getTrials(); // stores the list of trial objects in trials
+        newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        trials = newexp.getTrials(); // stores the list of trial objects in trials
+        trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
+
 
         // Capture the layout's TextView and set the string as its text
 

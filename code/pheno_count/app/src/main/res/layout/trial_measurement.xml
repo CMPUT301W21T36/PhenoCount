@@ -64,15 +64,16 @@
         android:id="@+id/measurement_editText"
         android:layout_width="142dp"
         android:layout_height="42dp"
+        android:layout_marginTop="96dp"
         android:ems="10"
         android:hint="Enter measurement here"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/recordbtn"
+        app:layout_constraintBottom_toTopOf="@+id/recordvbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exptype"
-        app:layout_constraintVertical_bias="0.513" />
+        app:layout_constraintVertical_bias="0.01" />
 
     <TextView
         android:id="@+id/textView2"
@@ -80,7 +81,7 @@
         android:layout_height="wrap_content"
         android:text="Value : "
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/count_editText"
+        app:layout_constraintEnd_toStartOf="@+id/measurement_editText"
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
