@@ -2,15 +2,23 @@ package com.cmput301w21t36.phenocount;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -27,19 +35,55 @@ import java.util.ArrayList;
  */
 public class DiscussionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
     //a collection of question posts of a certain experiment
-    private ListView qList;
-    ArrayAdapter<Experiment> expAdapter;
-    private ArrayList<Question> questions;
+    private ListView qListView;
+    ArrayAdapter<Question> queAdapter;
+    private ArrayList<Question> queData;
     private Experiment experiment;
     private User user; //I think we need to get who is currently viewing this forum
+    private FirebaseFirestore db;
+    private String TAG = "Sample";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
 
+        qListView = findViewById(R.id.question_list_view);
+
+
+        //queAdapter = new CustomList(this, queData);
+        qListView.setAdapter(queAdapter);
+
+        //Access a Cloud Firestore instance from your Activity
+        db = FirebaseFirestore.getInstance();
+
+        // Get a top-level reference to the collection.
+        final CollectionReference collectionReference = db.collection("Question");
+
+
+        // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
+        // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            //tracking the changes in the collection 'Question'
+            public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
+                // clear the old list
+                queData.clear();
+                //add documents in the collection to the list view
+                for (QueryDocumentSnapshot que : questions) {
+                    Log.d(TAG, String.valueOf(que.getId()));
+                    String qText = (String) que.getData().get("text");
+                    User qAuthor =  (User) que.getData().get("author");
+                    queData.add(new Question(qAuthor, qText));
+                }
+                queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+            }
+        });
+
         /*
-        When the 'add question' button is pressed in this activity,
+        When the 'ask question' button is pressed in this activity,
         a fragment will display to let the user ask a new question.
          */
         final ExtendedFloatingActionButton addQueButton = findViewById(R.id.add_question_btn);
@@ -53,11 +97,11 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         /*
          Select a question on the list view for browsing its replies or add replies
          */
-        qList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        qListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //when you click on a question for browsing/add replies
-                Question queTarget = questions.get(position);
+                Question queTarget = queData.get(position);
                 browseReplies(queTarget);
             }
         });
@@ -67,7 +111,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     protected void onResume() {
         super.onResume();
-        expAdapter.notifyDataSetChanged();
+        queAdapter.notifyDataSetChanged();
 
     }
 
@@ -96,7 +140,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     public void onOkPressedAdd(String text) {
         Question newQue = new Question(user, text);
-        questions.add(newQue);
+        queData.add(newQue);
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
     }
 
@@ -107,7 +151,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      * can browse all its replies and add replies
      */
     public void browseReplies(Question target){
-        String questionText = target.getText();
+        String questionText = target.text;
         Intent intent = new Intent(this, QuestionActivity.class);
         intent.putExtra("questionText", questionText);
         startActivity(intent);

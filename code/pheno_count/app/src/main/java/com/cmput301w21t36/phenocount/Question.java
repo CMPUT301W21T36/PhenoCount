@@ -13,6 +13,9 @@ public class Question extends Post{
         super(author, text);
     }
 
+    //do I have to create an attribute author, text?
+    //if not, how to set up getters?
+
     private ListView rList;
     private ArrayList<Reply> replies;
 
@@ -28,4 +31,6 @@ public class Question extends Post{
         Reply reply = new Reply(author, replyText);
         replies.add(reply);
     }
+
+
 }
