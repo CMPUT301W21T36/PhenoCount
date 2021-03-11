@@ -33,7 +33,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDKRmfspGJ8QiQQYMLSn8rR1eibczh1PJo" />
-
+        <activity android:name=".DiscussionActivity"
+            android:parentActivityName=".MainActivity">
         <activity
             android:name=".LocationActivity"
             android:label="@string/title_activity_location" />

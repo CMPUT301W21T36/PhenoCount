@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +34,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.discussion_activity);
+        setContentView(R.layout.activity_discussion);
 
         /*
         When the 'add question' button is pressed in this activity,

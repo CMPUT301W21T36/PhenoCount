@@ -9,6 +9,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_publish_experiment);
+        setContentView(R.layout.activity_experiment_publish);
     }
 }

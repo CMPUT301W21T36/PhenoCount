@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 public class DisplayExperimentActivity extends AppCompatActivity {
@@ -13,7 +12,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_experiment);
+        setContentView(R.layout.activity_experiment_information);
         exp = new Experiment("try", "just to see","Edmot", 10, false);
         //exp.setOwner("1");
 

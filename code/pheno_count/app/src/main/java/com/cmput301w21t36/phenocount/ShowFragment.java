@@ -17,13 +17,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,7 +66,7 @@ public class ShowFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         //may change the name of this layout later
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_question_fragment, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_question_reply, null);
         body = view.findViewById(R.id.body_edit_text);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
