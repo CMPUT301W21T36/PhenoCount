@@ -1,6 +1,8 @@
 package com.cmput301w21t36.phenocount;
 
-public class Trial {
+import java.io.Serializable;
+
+public class Trial implements Serializable {
 
     private String name;
     private String desc;
@@ -32,4 +34,6 @@ public class Trial {
     public int getValue() {
         return value;
     }
+
+
 }

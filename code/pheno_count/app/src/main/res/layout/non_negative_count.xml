@@ -87,5 +87,18 @@
     //tools:layout_editor_absoluteX="-68dp"
     //tools:layout_editor_absoluteY="334dp" />
 
+    <Button
+        android:id="@+id/locationbtn4"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@android:color/holo_red_dark"
+        app:icon="@drawable/ic_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/count"
+        app:layout_constraintVertical_bias="0.784" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

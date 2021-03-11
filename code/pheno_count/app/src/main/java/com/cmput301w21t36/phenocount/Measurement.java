@@ -14,18 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class Measurement extends AppCompatActivity {
+    Trial trial = new Trial();
+    Experiment newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+    ArrayList<Trial> trials = newexp.getTrials(); // stores the list of trial objects in trials
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         // receiving intent object
         super.onCreate(savedInstanceState);
-        Bundle intent = getIntent().getExtras();
-        Experiment newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        int position = intent.getInt("position"); //since we have bundle
-
-        Trial trial = new Trial();
-        ArrayList<Trial> trials = newexp.getTrials(); // stores the list of trial objects in trials
-
         // Capture the layout's TextView and set the string as its text
 
         TextView desc = findViewById(R.id.desc);
@@ -57,7 +53,6 @@ public class Measurement extends AppCompatActivity {
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("newexp",newexp);
-                returnIntent.putExtra("position",position);
                 setResult(Activity.RESULT_OK,returnIntent);
 
                 finish();
@@ -65,5 +60,32 @@ public class Measurement extends AppCompatActivity {
             }
         });
 
+        final Button lbtn = findViewById(R.id.locationbtn3);
+        lbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent (Measurement.this,LocationActivity.class);
+                intent.putExtra("trial_obj",trial);
+
+                int LAUNCH_SECOND_ACTIVITY = 1;
+                startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
+        });
+    }
+    @Override
+    //Sends the experiment object and retrieves the updated object
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        int LAUNCH_SECOND_ACTIVITY = 1;
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+                Trial trial = (Trial) data.getSerializableExtra("trial_obj");
+                trials.add(trial);
+                newexp.setTrials(trials);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                System.out.println("No Data");
+            }
+        }
     }
 }
