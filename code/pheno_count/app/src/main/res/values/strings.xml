@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PhenoCount</string>
     <string name="title_activity_location">Map</string>
-    <string name = "ask_a_question_desc">Ask a new question</string>
+    <string name="ask_a_question_desc">Ask a new question</string>
     <string name="add_question">Ask Question</string>
     <string name="reply_a_question_desc">Reply to this question</string>
     <string name="add_reply">Add Reply</string>

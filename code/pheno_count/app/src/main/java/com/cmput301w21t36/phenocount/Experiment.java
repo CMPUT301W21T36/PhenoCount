@@ -16,8 +16,8 @@ public class Experiment implements Serializable {
     private User owner;
     private ArrayList<Trial> trials;
     private Statistic stats;
-    private int expStatus; // 0 for add, 1 for published, 2 for ended, 3 for unpublished, 4 for subscribed
-
+    private int expStatus = -1; // 0 for add, 1 for published, 2 for ended, 3 for unpublished
+    private int subscribe = 0;
 
     /**
      * This constructs a new experiment object
@@ -33,7 +33,6 @@ public class Experiment implements Serializable {
      * @param requireLocation
      * This specifies if the geolocation is required for the Experiment
      */
-
     public Experiment(String name, String description, String region, int minimumTrials, boolean requireLocation) {
         this.name = name;
         this.description = description;
@@ -88,7 +87,7 @@ public class Experiment implements Serializable {
      * false if the experiment's status is not subscribed
      */
     public boolean isSubscribed() {
-        if (expStatus==4){
+        if (subscribe==1){
             return true;
         }
         return false;
