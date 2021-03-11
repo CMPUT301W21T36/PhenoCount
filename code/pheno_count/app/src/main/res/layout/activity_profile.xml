@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,19 +7,31 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="348dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="135dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="43dp" />
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="86dp" />
 
-    <EditText
-        android:id="@+id/user_contact_editText"
-        android:layout_width="348dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="115dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="206dp"
+        android:textColor="#333"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+
+        android:text="TextView" />
+</RelativeLayout>
