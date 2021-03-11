@@ -22,6 +22,15 @@
         android:theme="@style/Theme.PhenoCount">
         <activity android:name=".PublishExperimentActivity"></activity>
         <activity android:name=".DisplayExperimentActivity" />
+        <activity android:name=".Binomial" />
+        <activity android:name=".Count" />
+        <activity android:name=".Measurement" />
+        <activity android:name=".NonNegativeCount" />
+
+
+
+
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

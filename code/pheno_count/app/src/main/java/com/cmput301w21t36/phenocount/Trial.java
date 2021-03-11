@@ -14,6 +14,12 @@ public class Trial implements Serializable {
     private float measurement;
     private int value;
 
+    public Trial(String name,String desc,User owner,String type){
+        this.count = 0;
+        this.measurement=0;
+        this.value =0;
+    }
+
     void isSuccess() {this.result = true;}
     void isFailure() {this.result = false;}
 
