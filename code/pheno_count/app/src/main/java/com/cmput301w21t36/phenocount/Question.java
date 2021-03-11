@@ -3,25 +3,18 @@ package com.cmput301w21t36.phenocount;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-
 /**
  * @author: Charffy
  * This Question class extends the Post class;
  * it contains basic information about a question.
- * It can be an activity itself, when one question on the list view
- * in the discussion forum is clicked, you are transferred to the question's own
- * activity page, where you can browse all its replied and give replies.
  */
 public class Question extends Post{
-    private ListView rList;
-    private ArrayList<Reply> replies;
-
     public Question(User author, String text){
         super(author, text);
     }
-    public Question(){
 
-    }
+    private ListView rList;
+    private ArrayList<Reply> replies;
 
     /**
      * This method allows user to reply a question of the experiment,
@@ -34,7 +27,5 @@ public class Question extends Post{
         String replyText = "";
         Reply reply = new Reply(author, replyText);
         replies.add(reply);
-
     }
-
 }
