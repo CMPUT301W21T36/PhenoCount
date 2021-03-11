@@ -22,7 +22,7 @@ public class Measurement extends AppCompatActivity {
 
         // receiving intent object
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.measurement);
+        setContentView(R.layout.trial_measurement);
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trials = newexp.getTrials(); // stores the list of trial objects in trials

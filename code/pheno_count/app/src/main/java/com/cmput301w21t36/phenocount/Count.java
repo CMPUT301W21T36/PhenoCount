@@ -21,7 +21,7 @@ public class Count extends AppCompatActivity {
 
         // recieving intent object
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.count);
+        setContentView(R.layout.trial_count);
 
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object

@@ -22,7 +22,7 @@ public class Binomial extends AppCompatActivity {
 
         // recieving intent object
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.binomial);
+        setContentView(R.layout.trial_binomial);
 
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
