@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         profileButton = findViewById(R.id.profileButton);
 
-        expAdapter = new ExperimentList(this,expDataList);
+        expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
