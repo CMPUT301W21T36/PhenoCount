@@ -25,7 +25,7 @@ public class GenerateQrActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_generate_qr);
+        setContentView(R.layout.activity_qr_generate);
 
         info = getIntent().getSerializableExtra("info").toString(); // get information to be put into QR code
 
