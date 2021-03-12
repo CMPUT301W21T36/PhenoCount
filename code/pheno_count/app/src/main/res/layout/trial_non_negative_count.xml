@@ -64,15 +64,21 @@
         android:id="@+id/count_editText"
         android:layout_width="142dp"
         android:layout_height="42dp"
+        android:layout_marginTop="84dp"
         android:ems="10"
         android:hint="Enter count here"
         android:inputType="numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/recordbtn"
+        app:layout_constraintBottom_toTopOf="@+id/recordcbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exptype"
-        app:layout_constraintVertical_bias="0.513" />
+        app:layout_constraintVertical_bias="0.238" /><![CDATA[
+
+    //tools:layout_editor_absoluteX="-68dp"
+    //tools:layout_editor_absoluteY="334dp" />
+
+    ]]>
 
     <TextView
         android:id="@+id/textView2"
@@ -81,11 +87,9 @@
         android:text="Count : "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/count_editText"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    //tools:layout_editor_absoluteX="-68dp"
-    //tools:layout_editor_absoluteY="334dp" />
 
     <Button
         android:id="@+id/locationbtn4"

@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private Profile profile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

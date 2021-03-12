@@ -11,6 +11,7 @@ public class Experiment implements Serializable {
     private String name;
     private String description;
     private String region;
+    private String expType;
     private int minimumTrials;
     private boolean requireLocation;
     private User owner;
@@ -32,13 +33,17 @@ public class Experiment implements Serializable {
      * This is an Experiment's minimum number of trials
      * @param requireLocation
      * This specifies if the geolocation is required for the Experiment
+     * @param expType
+     * This specifies the type of the experiment being conducted
      */
-    public Experiment(String name, String description, String region, int minimumTrials, boolean requireLocation) {
+    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation) {
         this.name = name;
         this.description = description;
         this.region = region;
         this.minimumTrials = minimumTrials;
         this.requireLocation = requireLocation;
+        this.expType = expType;
+        this.trials = new ArrayList<>();
     }
 
     /**
@@ -237,4 +242,8 @@ public class Experiment implements Serializable {
     public void setOwner(User owner) {
         this.owner = owner;
     }
+
+    public String getExpType(){ return expType; }
+
+    public void setExpType(String expType){this.expType=expType;}
 }

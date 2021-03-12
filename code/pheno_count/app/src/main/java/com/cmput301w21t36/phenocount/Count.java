@@ -13,21 +13,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class Count extends AppCompatActivity {
-    Trial trial = new Trial();
-    Experiment newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-    ArrayList<Trial> trials = newexp.getTrials(); // stores the list of trial objects in trials
+    Trial trial;
+    Experiment newexp;//defining the Experiment object
+    ArrayList<Trial> trials; // stores the list of trial objects in trials
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         // recieving intent object
         super.onCreate(savedInstanceState);
-        Bundle intent = getIntent().getExtras();
+        setContentView(R.layout.trial_count);
+
+
+        newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        trials = newexp.getTrials(); // stores the list of trial objects in trials
+        trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
 
 
         // Capture the layout's TextView and set the string as its text
 
         TextView desc = findViewById(R.id.desc);
-        desc.setText("Description:" + String.valueOf(newexp.getOwner()));
+        desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
         TextView owner = findViewById(R.id.owner);
         owner.setText("Owner:" + String.valueOf(newexp.getOwner()));
@@ -38,8 +43,9 @@ public class Count extends AppCompatActivity {
         TextView exptype= findViewById(R.id.exptype);
         exptype.setText("Experiment Type: Count");
 
-        /*TextView count = findViewById(R.id.count);
-        count.setText("Count:"+String.valueOf(newexp.getCount()));*/
+
+        TextView count = findViewById(R.id.thecount);
+        count.setText("Count:"+String.valueOf(trial.getCount()));
 
 
         final Button countbtn = findViewById((R.id.recordbtn));

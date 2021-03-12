@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/item1"
+        android:title="Add Trial"
+        app:showAsAction="never"/>
+    <item android:id="@+id/item2"
+        android:title="Subscribe"
+        app:showAsAction="never"/>
+    <item android:id="@+id/item3"
+        android:title="Discuss"
+        app:showAsAction="never"/>
+    <item android:id="@+id/item4"
+        android:title="See Results"
+        app:showAsAction="never"/>
+    <item android:id="@+id/item5"
+        android:title="Owner Actions"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/item6"
+                android:title="Unpublish"
+                app:showAsAction="never"/>
+            <item android:id="@+id/item7"
+                android:title="End"
+                app:showAsAction="never"/>
+            <item android:id="@+id/item8"
+                android:title="Edit"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
+
+
+
+</menu>
