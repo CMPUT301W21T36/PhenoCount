@@ -18,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton profileButton;
+    ImageButton profileButton;
     FirebaseFirestore db;
 
     ListView experiments;
@@ -49,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
         expAdapter = new ExperimentList(this,expDataList);
         experiments.setAdapter(expAdapter);
 
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProfile();
+            }
+        });
+
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
     public void addExperiment(View view){
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         startActivity(intent);
+
+    }
+
+    public void openProfile(){
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+
 
     }
 

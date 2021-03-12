@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
         <activity android:name=".PublishExperimentActivity"></activity>
+        <activity android:name=".ProfileActivity"/>
         <activity android:name=".DisplayExperimentActivity" />
         <activity android:name=".Binomial" />
         <activity android:name=".Count" />
