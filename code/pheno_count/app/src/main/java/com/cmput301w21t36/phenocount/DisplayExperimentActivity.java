@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class DisplayExperimentActivity extends AppCompatActivity {
@@ -57,6 +59,15 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         //expType.setText(exp.getTrials().get(1).getType());
         if(exp.isRequireLocation()== true) { expReqLoc.setText("YES"); }
         else {expReqLoc.setText("NO");}
+
+        final Button camerabtn = findViewById((R.id.camerabtn));
+        camerabtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+
     }
 
     @Override
