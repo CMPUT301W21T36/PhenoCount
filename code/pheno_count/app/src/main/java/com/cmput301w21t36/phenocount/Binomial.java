@@ -29,6 +29,7 @@ public class Binomial extends AppCompatActivity {
         trials = newexp.getTrials(); // stores the list of trial objects in trials
         trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
 
+
         // Capture the layout's TextView and set the string as its text
 
         TextView desc = findViewById(R.id.desc1);
@@ -48,13 +49,14 @@ public class Binomial extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //increment successes
-                trial.isSuccess();
+                //trial.isSuccess();
                 trials.add(trial);
                 newexp.setTrials(trials);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("experiment",newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
+                System.out.println("RUNNING OKAY");
 
                 finish(); // closes this activity
 
