@@ -2,29 +2,15 @@ package com.cmput301w21t36.phenocount;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 /**
  * @author Charffy
@@ -40,13 +26,11 @@ import java.util.HashMap;
 public class DiscussionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
     //a collection of question posts of a certain experiment
     private ListView qListView;
-    ArrayAdapter<Question> queAdapter;
+    private ArrayAdapter<Question> queAdapter;
+    private DiscussionManager disManager;
     private ArrayList<Question> queData;
     private Experiment experiment;
     private User user; //I think we need to get who is currently viewing this forum
-    private FirebaseFirestore db;
-    private CollectionReference collectionReference;
-    private String TAG = "Discussion";
 
 
 
@@ -55,33 +39,12 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
 
+        disManager.updateQueCol();
+        queData = disManager.getQuestions();
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
 
-        //Access a Cloud Firestore instance from your Activity
-        db = FirebaseFirestore.getInstance();
-        // Get a top-level reference to the collection.
-        collectionReference = db.collection("Question");
 
-
-        // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
-        // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            //tracking the changes in the collection 'Question'
-            public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
-                // clear the old list
-                queData.clear();
-                //add documents in the collection to the list view
-                for (QueryDocumentSnapshot que : questions) {
-                    Log.d(TAG, String.valueOf(que.getId()));
-                    String qText = (String) que.getData().get("text");
-                    User qAuthor =  (User) que.getData().get("author");
-                    queData.add(new Question(qAuthor, qText));
-                }
-                queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
-            }
-        });
 
         /*
         When the 'ask question' button is pressed in this activity,
@@ -140,41 +103,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      */
     @Override
     public void onOkPressedAdd(String text) {
-        //Use HashMap to store a key-value pair in firestore.
-        HashMap<String, String> data = new HashMap<>();
-        if (text.length() > 0) { // We do not add anything if the fields are empty.
-
-            // If there is some data in the EditText field, then we create a new key-value pair.
-            data.put("text", text);
-
-            // The set method sets a unique id for the document.
-            collectionReference
-                    .document(text) //should this be the question's text as the document reference?
-                    .set(data)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // These are a method which gets executed when the task is successful.
-                            Log.d(TAG, "Question has been added successfully!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // This method gets executed if there is any problem.
-                            Log.d(TAG, "Question could not be added!" + e.toString());
-                        }
-                    });
-
-            // Setting the fields to null so the user can add a new city.
-        }
-    }
-
-
-
-
-    Question newQue = new Question(user, text);
-        queData.add(newQue);
+        disManager.addQueDoc(text);
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
 }
 
