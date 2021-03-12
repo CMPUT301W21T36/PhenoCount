@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,15 +17,15 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
-<<<<<<< HEAD
+
     private ImageButton profileButton;
     FirebaseFirestore db;
-=======
+
     ListView experiments;
     ArrayList<Experiment> expDataList;
     ArrayAdapter<Experiment> expAdapter;
 
->>>>>>> 30f8586974f31896f209375cd64981c26839d33d
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
         Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, false);
         expDataList.add(exp);
 
-<<<<<<< HEAD
+
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("User");
 
         profileButton = findViewById(R.id.profileButton);
-=======
+
         expAdapter = new ExperimentList(this,expDataList);
         experiments.setAdapter(expAdapter);
->>>>>>> 30f8586974f31896f209375cd64981c26839d33d
+
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
