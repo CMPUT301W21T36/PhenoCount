@@ -6,8 +6,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -55,6 +57,7 @@ public class LocationActivity extends AppCompatActivity
     FusedLocationProviderClient mFusedLocationClient;
     LatLng ChosenLocation;
     Geocoder geocoder;
+    Trial trial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +132,16 @@ public class LocationActivity extends AppCompatActivity
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     ChosenLocation = mCurrLocationMarker.getPosition();
+
+                                    //updating the selected location in the trial object(marz)
+                                    trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the Experiment object
+                                    trial.setLocation(ChosenLocation);
+
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra("trial_obj",trial);
+                                    setResult(Activity.RESULT_OK,returnIntent);
+                                    System.out.println("RUNNING OKAY");
+
                                     Toast.makeText(
                                             LocationActivity.this,
                                             "Your location is: Lat " + ChosenLocation.latitude + " " + "Long " + ChosenLocation.longitude,

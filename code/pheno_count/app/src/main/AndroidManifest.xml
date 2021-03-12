@@ -48,6 +48,8 @@
             android:name=".LocationActivity"
             android:label="@string/title_activity_location" />
         <activity android:name=".ScanBarcodeActivity" />
+        <activity android:name=".DiscussionActivity" />
+        <activity android:name=".QuestionActivity"/>
         <activity android:name=".ScanQRActivity" />
         <activity android:name=".GenerateQrActivity" />
         <activity android:name=".MainActivity">
