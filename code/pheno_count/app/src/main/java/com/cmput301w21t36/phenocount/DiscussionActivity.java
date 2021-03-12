@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
@@ -44,7 +46,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     private User user; //I think we need to get who is currently viewing this forum
     private FirebaseFirestore db;
     private CollectionReference collectionReference;
-    private String TAG = "Sample";
+    private String TAG = "Discussion";
 
 
 
@@ -54,14 +56,11 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         setContentView(R.layout.activity_discussion);
 
         qListView = findViewById(R.id.question_list_view);
-
-
-        //queAdapter = new CustomList(this, queData);
+        queAdapter = new CustomAdapter(this, R.layout.content_question, queData);
         qListView.setAdapter(queAdapter);
 
         //Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance();
-
         // Get a top-level reference to the collection.
         collectionReference = db.collection("Question");
 
@@ -151,27 +150,24 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
 
             // The set method sets a unique id for the document.
             collectionReference
-                    .document(cityName)
+                    .document(text) //should this be the question's text as the document reference?
                     .set(data)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             // These are a method which gets executed when the task is successful.
-                            Log.d(TAG, "Data has been added successfully!");
-                            Toast.makeText(DiscussionActivity.this, "City Added!", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Question has been added successfully!");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             // This method gets executed if there is any problem.
-                            Log.d(TAG, "Data could not be added!" + e.toString());
+                            Log.d(TAG, "Question could not be added!" + e.toString());
                         }
                     });
 
             // Setting the fields to null so the user can add a new city.
-            CityEditText.setText("");
-            ProvinceEditText.setText("");
         }
     }
 

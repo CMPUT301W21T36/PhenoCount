@@ -5,4 +5,5 @@
     <string name="add_question">Ask Question</string>
     <string name="reply_a_question_desc">Reply to this question</string>
     <string name="add_reply">Add Reply</string>
+    <string name="question_content">Question: </string>
 </resources>
