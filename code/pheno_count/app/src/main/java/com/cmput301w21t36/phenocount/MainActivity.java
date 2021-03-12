@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -55,7 +57,18 @@ public class MainActivity extends AppCompatActivity {
             final DocumentReference userReference = db.collection("User").document();
             // Will assign UUID as the Auto-ID created for the document
             UUID = userReference.getId();
+            
+            // Create a new user
+            Map<String, Object> user = new HashMap<>();
+
+            sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putBoolean("firstStart", false);
+            editor.apply();
+
         }
+
+        System.out.println(UUID);
 
         profileButton = findViewById(R.id.profileButton);
 
