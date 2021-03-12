@@ -49,7 +49,7 @@ public class Binomial extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //increment successes
-                //trial.isSuccess();
+                trial.isSuccess();
                 trials.add(trial);
                 newexp.setTrials(trials);
 
