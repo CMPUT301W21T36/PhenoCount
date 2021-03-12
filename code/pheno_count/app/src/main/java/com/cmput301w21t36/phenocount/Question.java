@@ -13,6 +13,10 @@ public class Question extends Post{
     public Question(User author, String text){
         super(author, text);
     }
+    public Question(String text){
+        super(text);
+    }
+
 
     //do I have to create an attribute author, text?
     //if not, how to set up getters?

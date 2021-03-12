@@ -20,8 +20,8 @@ public abstract class Post {
         this.author = author;
         this.text = text;
     }
-    public Post(){
-
+    public Post(String text){
+        this.text = text;
     }
 
     /**
