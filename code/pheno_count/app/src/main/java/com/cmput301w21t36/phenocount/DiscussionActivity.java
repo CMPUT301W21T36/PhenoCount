@@ -9,9 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -21,6 +24,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Charffy
@@ -41,7 +45,8 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     private Experiment experiment;
     private User user; //I think we need to get who is currently viewing this forum
     private FirebaseFirestore db;
-    private String TAG = "Sample";
+    private CollectionReference collectionReference;
+    private String TAG = "Discussion";
 
 
 
@@ -50,17 +55,13 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
 
-        qListView = findViewById(R.id.question_list_view);
-
-
-        //queAdapter = new CustomList(this, queData);
+        queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
 
         //Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance();
-
         // Get a top-level reference to the collection.
-        final CollectionReference collectionReference = db.collection("Question");
+        collectionReference = db.collection("Question");
 
 
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
@@ -81,8 +82,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
                 queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
-
-
 
         /*
         When the 'ask question' button is pressed in this activity,
@@ -141,10 +140,43 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      */
     @Override
     public void onOkPressedAdd(String text) {
-        Question newQue = new Question(user, text);
+        //Use HashMap to store a key-value pair in firestore.
+        HashMap<String, String> data = new HashMap<>();
+        if (text.length() > 0) { // We do not add anything if the fields are empty.
+
+            // If there is some data in the EditText field, then we create a new key-value pair.
+            data.put("text", text);
+
+            // The set method sets a unique id for the document.
+            collectionReference
+                    .document(text) //should this be the question's text as the document reference?
+                    .set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is successful.
+                            Log.d(TAG, "Question has been added successfully!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // This method gets executed if there is any problem.
+                            Log.d(TAG, "Question could not be added!" + e.toString());
+                        }
+                    });
+
+            // Setting the fields to null so the user can add a new city.
+        }
+    }
+
+
+
+
+    Question newQue = new Question(user, text);
         queData.add(newQue);
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
-    }
+}
 
     /**
      * @param target
@@ -153,7 +185,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      * can browse all its replies and add replies
      */
     public void browseReplies(Question target){
-        String questionText = target.text;
+        String questionText = target.getText();
         Intent intent = new Intent(this, QuestionActivity.class);
         intent.putExtra("questionText", questionText);
         startActivity(intent);

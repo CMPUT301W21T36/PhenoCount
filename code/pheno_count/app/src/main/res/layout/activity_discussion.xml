@@ -17,7 +17,7 @@
         android:textSize="24sp" />
 
     <ListView
-        android:id="@+id/question_list_view"
+        android:id="@+id/question_list_view_in_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/discuss_forum_text_view">

@@ -13,8 +13,8 @@ public class Reply extends Post{
     public Reply(User author, String text) {
         super(author, text);
     }
-    public Reply(){
-
+    public Reply(String text){
+        super(text);
     }
 
 
