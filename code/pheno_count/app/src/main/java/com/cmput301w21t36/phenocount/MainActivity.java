@@ -1,11 +1,13 @@
 package com.cmput301w21t36.phenocount;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Experiment> expDataList;
     ArrayAdapter<Experiment> expAdapter;
 
-    String UUID;
+
+    static final String AutoID = "ID";
+    private String UUID;
+    private String username;
 
 
 
@@ -46,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
 
+
         Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, false);
         expDataList.add(exp);
 
@@ -53,22 +63,54 @@ public class MainActivity extends AppCompatActivity {
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
 
 
+        /**
+         *
+         */
         if (firstStart) {
             final DocumentReference userReference = db.collection("User").document();
-            // Will assign UUID as the Auto-ID created for the document
-            UUID = userReference.getId();
-            
-            // Create a new user
-            Map<String, Object> user = new HashMap<>();
+            // Auto-ID created for the document
+            String GrabbedID = userReference.getId();
 
             sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPrefs.edit();
+
+            editor.putString(AutoID, GrabbedID);
+
             editor.putBoolean("firstStart", false);
             editor.apply();
 
+            // This is the UUID for the current user using the app
+            // It will save over instances of the app and is only updated upon first open after install
+            UUID = sharedPrefs.getString(AutoID, "");
+
+            Map<String, Object> user = new HashMap<>();
+            user.put("UID", UUID);
+            user.put("Username", "Test1");
+            user.put("ContactInfo", "7801111111");
+
+            db.collection("User").document(UUID).set(user);
         }
 
-        System.out.println(UUID);
+        // This is the UUID for the current user using the app
+        // It will save over instances of the app and is only updated upon first open after install
+        UUID = sharedPrefs.getString(AutoID, "");
+
+
+        /**
+         * Will retrieve the Username for the user and set the variable username
+         * to the returned String
+         */
+        DocumentReference userRef = db.collection("User").document(UUID);
+        userRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        username = documentSnapshot.getString("Username");
+                        System.out.println(username);
+                    }
+                });
+
+
 
         profileButton = findViewById(R.id.profileButton);
 
