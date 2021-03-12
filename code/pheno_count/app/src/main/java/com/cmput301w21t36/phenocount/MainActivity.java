@@ -3,7 +3,9 @@ package com.cmput301w21t36.phenocount;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     ListView experiments;
     ArrayList<Experiment> expDataList;
     ArrayAdapter<Experiment> expAdapter;
+
+    String UUID;
 
 
 
@@ -37,12 +42,21 @@ public class MainActivity extends AppCompatActivity {
         //startActivityForResult(i, 1);
         expDataList = new ArrayList<Experiment>();
 
+        // Will get instance of the database
+        db = FirebaseFirestore.getInstance();
+
         Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, false);
         expDataList.add(exp);
 
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
 
-        db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference = db.collection("User");
+
+        if (firstStart) {
+            final DocumentReference userReference = db.collection("User").document();
+            // Will assign UUID as the Auto-ID created for the document
+            UUID = userReference.getId();
+        }
 
         profileButton = findViewById(R.id.profileButton);
 

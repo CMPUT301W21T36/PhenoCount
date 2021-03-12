@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="135dp"
-        android:textColor="#333"
+        android:layout_marginTop="187dp"
         android:text="Display Username"
+        android:textColor="#333"
         tools:layout_editor_absoluteX="176dp"
         tools:layout_editor_absoluteY="86dp" />
 
@@ -37,20 +37,12 @@
         android:text="UID" />
 
     <Button
-        android:id="@+id/editContactButton"
+        android:id="@+id/editInfoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="259dp"
-        android:text="Edit Contact" />
+        android:layout_marginTop="283dp"
+        android:text="Edit Profile" />
 
-    <Button
-        android:id="@+id/editUsernameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="158dp"
-        android:text="Edit Username" />
 </RelativeLayout>
