@@ -82,6 +82,8 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
             }
         });
 
+
+
         /*
         When the 'ask question' button is pressed in this activity,
         a fragment will display to let the user ask a new question.
