@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * it contains basic information about a question.
  */
 public class Question extends Post{
+
     public Question(User author, String text){
         super(author, text);
     }

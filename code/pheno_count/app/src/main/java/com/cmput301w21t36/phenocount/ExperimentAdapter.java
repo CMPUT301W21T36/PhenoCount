@@ -8,12 +8,17 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExperimentList extends ArrayAdapter<Experiment> {
+public class ExperimentAdapter extends ArrayAdapter<Experiment> { //tell Caleb this is renamed
     private ArrayList<Experiment> experiments;
     private Context context;
+    /*
+    ArrayAdapter<Object>
 
 
-    public ExperimentList(Context context, int resource, ArrayList<Experiment> experiments) {
+     */
+
+    //need to add the resource: content layout
+    public ExperimentAdapter(Context context, int resource, ArrayList<Experiment> experiments) {
         super(context, resource, experiments);
         this.experiments = experiments;
         this.context = context;

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Charffy
@@ -41,6 +43,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     private Experiment experiment;
     private User user; //I think we need to get who is currently viewing this forum
     private FirebaseFirestore db;
+    private CollectionReference collectionReference;
     private String TAG = "Sample";
 
 
@@ -60,7 +63,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         db = FirebaseFirestore.getInstance();
 
         // Get a top-level reference to the collection.
-        final CollectionReference collectionReference = db.collection("Question");
+        collectionReference = db.collection("Question");
 
 
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
@@ -139,6 +142,42 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      */
     @Override
     public void onOkPressedAdd(String text) {
+        //Use HashMap to store a key-value pair in firestore.
+        HashMap<String, String> data = new HashMap<>();
+        if (text.length() > 0) { // We do not add anything if the fields are empty.
+
+            // If there is some data in the EditText field, then we create a new key-value pair.
+            data.put("text", text);
+
+            // The set method sets a unique id for the document.
+            collectionReference
+                    .document(cityName)
+                    .set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is successful.
+                            Log.d(TAG, "Data has been added successfully!");
+                            Toast.makeText(DiscussionActivity.this, "City Added!", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // This method gets executed if there is any problem.
+                            Log.d(TAG, "Data could not be added!" + e.toString());
+                        }
+                    });
+
+            // Setting the fields to null so the user can add a new city.
+            CityEditText.setText("");
+            ProvinceEditText.setText("");
+        }
+    }
+
+
+
+
         Question newQue = new Question(user, text);
         queData.add(newQue);
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
@@ -151,7 +190,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      * can browse all its replies and add replies
      */
     public void browseReplies(Question target){
-        String questionText = target.text;
+        String questionText = target.getText();
         Intent intent = new Intent(this, QuestionActivity.class);
         intent.putExtra("questionText", questionText);
         startActivity(intent);
