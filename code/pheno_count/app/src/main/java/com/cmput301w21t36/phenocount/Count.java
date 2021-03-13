@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class Count extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
-    ArrayList<Trial> trials; // stores the list of trial objects in trials
+    Boolean location=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -25,45 +26,70 @@ public class Count extends AppCompatActivity {
 
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trials = newexp.getTrials(); // stores the list of trial objects in trials
         trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
 
 
         // Capture the layout's TextView and set the string as its text
 
-        TextView desc = findViewById(R.id.desc);
+        TextView desc = findViewById(R.id.desc2);
         desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
-        TextView owner = findViewById(R.id.owner);
+        TextView owner = findViewById(R.id.owner2);
         owner.setText("Owner:" + String.valueOf(newexp.getOwner()));
 
-        TextView status = findViewById(R.id.status);
+        TextView status = findViewById(R.id.status2);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
-        TextView exptype= findViewById(R.id.exptype);
+        TextView exptype= findViewById(R.id.exptype2);
         exptype.setText("Experiment Type: Count");
-
 
         TextView count = findViewById(R.id.thecount);
         count.setText("Count:"+String.valueOf(trial.getCount()));
 
+        final Button recordcountbtn = findViewById(R.id.recordcountbtn);
+        recordcountbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(location || !newexp.isRequireLocation()) {
+                    Toast.makeText(
+                            Count.this,
+                            "Count Recorded",
+                            Toast.LENGTH_SHORT).show();
 
-        final Button countbtn = findViewById((R.id.recordbtn));
+                    newexp.getTrials().add(trial);
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("experiment", newexp);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }else {
+                    Toast.makeText(
+                            Count.this,
+                            "Please add a location first",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        final Button countbtn = findViewById((R.id.addbtn));
         countbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(location || !newexp.isRequireLocation()) {
+                    //increment successes
+                    trial.isCount();
+                    count.setText("Count: " + trial.getCount());
 
-                //increment successes
-                trial.isCount();
-                trials.add(trial);
-                newexp.setTrials(trials);
-
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("newexp",newexp);
-                setResult(Activity.RESULT_OK,returnIntent);
-
+                }else {
+                    Toast.makeText(
+                            Count.this,
+                            "Please add a location first",
+                            Toast.LENGTH_LONG).show();
+                }
             }
-        });
+        }
+        );
+
+
+
 
         final Button lbtn = findViewById(R.id.locationbtn2);
         lbtn.setOnClickListener(new View.OnClickListener() {
@@ -85,9 +111,9 @@ public class Count extends AppCompatActivity {
         int LAUNCH_SECOND_ACTIVITY = 1;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
+                location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                trials.add(trial);
-                newexp.setTrials(trials);
+                newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class Binomial extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
-    ArrayList<Trial> trials; // stores the list of trial objects in trials
+    Boolean location=false;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +25,8 @@ public class Binomial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial_binomial);
 
-
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trials = newexp.getTrials(); // stores the list of trial objects in trials
         trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
-
 
         // Capture the layout's TextView and set the string as its text
 
@@ -44,21 +42,32 @@ public class Binomial extends AppCompatActivity {
         TextView exptype= findViewById(R.id.exptype1);
         exptype.setText("Experiment Type: Binomial Trial");
 
+
+
         final Button sbtn = findViewById((R.id.successbtn));
         sbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(location || !newexp.isRequireLocation()){
                 //increment successes
                 trial.isSuccess();
-                trials.add(trial);
-                newexp.setTrials(trials);
-
+                //trials.add(trial);
+                newexp.getTrials().add(trial);
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("experiment",newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
                 System.out.println("RUNNING OKAY");
-
+                Toast.makeText(
+                        Binomial.this,
+                        "Success Recorded",
+                        Toast.LENGTH_LONG).show();
                 finish(); // closes this activity
+            }else{
+                    Toast.makeText(
+                            Binomial.this,
+                            "Please add a location first",
+                            Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -67,17 +76,26 @@ public class Binomial extends AppCompatActivity {
         fbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //increments fails
-                trial.isFailure();
-                trials.add(trial);
-                newexp.setTrials(trials);
+                if(location) {
+                    //increments fails
+                    trial.isFailure();
+                    newexp.getTrials().add(trial);
 
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("experiment",newexp);
-                setResult(Activity.RESULT_OK,returnIntent);
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("experiment", newexp);
+                    setResult(Activity.RESULT_OK, returnIntent);
 
-                finish(); // closes this activity
-
+                    Toast.makeText(
+                            Binomial.this,
+                            "Failure Recorded",
+                            Toast.LENGTH_LONG).show();
+                    finish(); // closes this activity
+                }else{
+                    Toast.makeText(
+                            Binomial.this,
+                            "Please add a location first",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -88,6 +106,7 @@ public class Binomial extends AppCompatActivity {
 
                 Intent intent = new Intent (Binomial.this,LocationActivity.class);
                 intent.putExtra("trial_obj",trial);
+
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
         });
@@ -102,9 +121,10 @@ public class Binomial extends AppCompatActivity {
         int LAUNCH_SECOND_ACTIVITY = 1;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
+                location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                trials.add(trial);
-                newexp.setTrials(trials);
+                System.out.println("LAT: "+trial.getLatitude());
+                //newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

@@ -14,10 +14,10 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype" />
+        app:layout_constraintTop_toBottomOf="@+id/exptype4" />
 
     <TextView
-        android:id="@+id/desc"
+        android:id="@+id/desc4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/owner"
+        android:id="@+id/owner4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -36,10 +36,10 @@
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc" />
+        app:layout_constraintTop_toBottomOf="@+id/desc4" />
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/status4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -47,10 +47,10 @@
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/owner" />
+        app:layout_constraintTop_toBottomOf="@+id/owner4" />
 
     <TextView
-        android:id="@+id/exptype"
+        android:id="@+id/exptype4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -58,7 +58,7 @@
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status" />
+        app:layout_constraintTop_toBottomOf="@+id/status4" />
 
     <EditText
         android:id="@+id/count_editText"
@@ -67,16 +67,19 @@
         android:layout_marginTop="84dp"
         android:ems="10"
         android:hint="Enter count here"
-        android:inputType="numberSigned"
+        android:digits="0123456789."
+        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/recordcbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype"
+        app:layout_constraintTop_toBottomOf="@+id/exptype3"
         app:layout_constraintVertical_bias="0.238" /><![CDATA[
 
     //tools:layout_editor_absoluteX="-68dp"
     //tools:layout_editor_absoluteY="334dp" />
+
+
 
     ]]>
 
@@ -87,9 +90,10 @@
         android:text="Count : "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/count_editText"
-        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintHorizontal_bias="0.62"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.626" />
 
     <Button
         android:id="@+id/locationbtn4"

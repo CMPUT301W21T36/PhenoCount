@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * @author Anisha
  */
 public class Experiment implements Serializable {
+    //store the ID inside this Experiment, so we can know which document it is
+    private String ID;
     private String name;
     private String description;
     private String region;
@@ -246,4 +248,8 @@ public class Experiment implements Serializable {
     public String getExpType(){ return expType; }
 
     public void setExpType(String expType){this.expType=expType;}
+
+    public String getID() {
+        return ID;
+    }
 }

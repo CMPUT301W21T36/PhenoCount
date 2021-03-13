@@ -11,16 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ExperimentAdapter extends ArrayAdapter<Experiment> {
-    private ArrayList<Experiment> experiments;
+public class ReplyAdapter extends ArrayAdapter<Reply> {
+    private ArrayList<Reply> replies;
     private Context context;
 
 
-    public ExperimentAdapter(Context context, ArrayList<Experiment> experiments) {
-        super(context, 0, experiments);
-        this.experiments = experiments;
+    public ReplyAdapter(Context context, ArrayList<Reply> replies) {
+        super(context,0,replies);
+        this.replies= replies;
         this.context = context;
     }
 
@@ -28,16 +27,17 @@ public class ExperimentAdapter extends ArrayAdapter<Experiment> {
         View view = convertView;
 
         if (view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.content,parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.content_reply,parent,false);
         }
 
-        Experiment experiment = experiments.get(position);
+        Reply reply = replies.get(position);
 
-        TextView expName = view.findViewById(R.id.expname);
+        TextView repText = view.findViewById(R.id.reply_list_view);
 
-        expName.setText(experiment.getName());
+        repText.setText(reply.getText());
 
 
         return view;
     }
 }
+

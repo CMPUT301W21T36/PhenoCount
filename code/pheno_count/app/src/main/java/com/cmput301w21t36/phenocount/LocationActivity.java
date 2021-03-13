@@ -43,11 +43,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
 public class LocationActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, Serializable {
 
     GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
@@ -134,8 +135,10 @@ public class LocationActivity extends AppCompatActivity
                                     ChosenLocation = mCurrLocationMarker.getPosition();
 
                                     //updating the selected location in the trial object(marz)
-                                    trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the Experiment object
-                                    trial.setLocation(ChosenLocation);
+
+                                    trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the trial object
+                                    trial.setLatitude(ChosenLocation.latitude);
+                                    trial.setLongitude(ChosenLocation.latitude);
 
                                     Intent returnIntent = new Intent();
                                     returnIntent.putExtra("trial_obj",trial);

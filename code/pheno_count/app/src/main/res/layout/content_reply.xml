@@ -1,0 +1,17 @@
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical" >
+
+
+    <TextView
+        android:id="@+id/reply_text_view_in_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/reply_content"
+        android:textSize="20sp">
+    </TextView>
+
+</LinearLayout>

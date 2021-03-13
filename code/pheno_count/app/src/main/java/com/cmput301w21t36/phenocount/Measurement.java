@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 public class Measurement extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
-    ArrayList<Trial> trials; // stores the list of trial objects in trials
+    Boolean location=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -25,21 +27,20 @@ public class Measurement extends AppCompatActivity {
         setContentView(R.layout.trial_measurement);
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trials = newexp.getTrials(); // stores the list of trial objects in trials
         trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
 
         // Capture the layout's TextView and set the string as its text
 
-        TextView desc = findViewById(R.id.desc);
+        TextView desc = findViewById(R.id.desc3);
         desc.setText("Description:" + String.valueOf(newexp.getOwner()));
 
-        TextView owner = findViewById(R.id.owner);
+        TextView owner = findViewById(R.id.owner3);
         owner.setText("Owner:" + String.valueOf(newexp.getOwner()));
 
-        TextView status = findViewById(R.id.status);
+        TextView status = findViewById(R.id.status3);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
-        TextView exptype= findViewById(R.id.exptype);
+        TextView exptype= findViewById(R.id.exptype3);
         exptype.setText("Experiment Type: Measurement");
 
         EditText measurement = findViewById(R.id.measurement_editText);
@@ -49,19 +50,31 @@ public class Measurement extends AppCompatActivity {
         recordvbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(location || !newexp.isRequireLocation()) {
 
-                String temp = measurement.getText().toString();
-                float value = 0;
-                if (!"".equals(temp)){
-                    value=Float.parseFloat(temp);    //https://javawithumer.com/2019/07/get-value-edittext.html
+                    String temp = measurement.getText().toString();
+                    float value = 0;
+                    if (!"".equals(temp)) {
+                        value = Float.parseFloat(temp);    //https://javawithumer.com/2019/07/get-value-edittext.html
+                    }
+                    trial.setMeasurement(value);
+                    newexp.getTrials().add(trial);
+
+                    Toast.makeText(
+                            Measurement.this,
+                            "Measurement Recorded",
+                            Toast.LENGTH_SHORT).show();
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("experiment", newexp);
+                    setResult(Activity.RESULT_OK, returnIntent);
+
+                    finish();
+                }else{  Toast.makeText(
+                        Measurement.this,
+                        "Please add a location first",
+                        Toast.LENGTH_LONG).show();
                 }
-                trial.setMeasurement(value);
-
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("newexp",newexp);
-                setResult(Activity.RESULT_OK,returnIntent);
-
-                finish();
 
             }
         });
@@ -85,9 +98,10 @@ public class Measurement extends AppCompatActivity {
         int LAUNCH_SECOND_ACTIVITY = 1;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
+                location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                trials.add(trial);
-                newexp.setTrials(trials);
+                newexp.getTrials().add(trial);
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

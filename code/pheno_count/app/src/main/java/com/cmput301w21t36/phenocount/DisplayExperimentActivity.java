@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class DisplayExperimentActivity extends AppCompatActivity {
 
     private Experiment exp; // catch object passed from mainlist
@@ -24,7 +26,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_experiment_display);
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         //exp.setOwner("1");
-
+        System.out.println("Heloooooooooooooooooooooooooo");
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
 
@@ -67,7 +69,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override
@@ -79,32 +80,41 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+
+        System.out.println(exp.getTrials());
         switch (item.getItemId()){
             case R.id.item1:
-                System.out.println(exp.getExpType());
-                switch(exp.getExpType()){
-                    case "Binomial":
-                        Intent bintent = new Intent (DisplayExperimentActivity.this,Binomial.class);
-                        bintent.putExtra("experiment",exp);
-                        int LAUNCH_SECOND_ACTIVITY = 1;
-                        startActivityForResult(bintent,LAUNCH_SECOND_ACTIVITY);
-                    /*case "Count":
-                        Intent cintent = new Intent (DisplayExperimentActivity.this,Count.class);
-                        cintent.putExtra("experiment",exp);
-                        LAUNCH_SECOND_ACTIVITY = 1;
-                        startActivityForResult(cintent,LAUNCH_SECOND_ACTIVITY);
-                    case "Measurement":
-                        Intent mintent = new Intent (DisplayExperimentActivity.this,Measurement.class);
-                        mintent.putExtra("experiment",exp);
-                        LAUNCH_SECOND_ACTIVITY = 1;
-                        startActivityForResult(mintent,LAUNCH_SECOND_ACTIVITY);
-                    case "Non Negative Count":
-                        Intent nintent = new Intent (DisplayExperimentActivity.this,NonNegativeCount.class);
-                        nintent.putExtra("experiment",exp);
-                        LAUNCH_SECOND_ACTIVITY = 1;
-                        startActivityForResult(nintent,LAUNCH_SECOND_ACTIVITY);*/
-
+                if (exp.getExpType().equals("Binomial")) {
+                    Intent bintent = new Intent(DisplayExperimentActivity.this, Binomial.class);
+                    bintent.putExtra("experiment", exp);
+                    int LAUNCH_SECOND_ACTIVITY = 1;
+                    startActivityForResult(bintent, LAUNCH_SECOND_ACTIVITY);
                 }
+                if (exp.getExpType().equals("Count")) {
+                    Intent cintent = new Intent(DisplayExperimentActivity.this, Count.class);
+                    cintent.putExtra("experiment", exp);
+                    int LAUNCH_SECOND_ACTIVITY = 1;
+                    startActivityForResult(cintent, LAUNCH_SECOND_ACTIVITY);
+                }
+                if (exp.getExpType().equals("Measurement")) {
+                    Intent mintent = new Intent(DisplayExperimentActivity.this, Measurement.class);
+                    mintent.putExtra("experiment", exp);
+                    int LAUNCH_SECOND_ACTIVITY = 1;
+                    startActivityForResult(mintent, LAUNCH_SECOND_ACTIVITY);
+                }
+                if (exp.getExpType().equals("Non Negative Count")) {
+                    Intent nintent = new Intent(DisplayExperimentActivity.this, NonNegativeCount.class);
+                    nintent.putExtra("experiment", exp);
+                    int LAUNCH_SECOND_ACTIVITY = 1;
+                    startActivityForResult(nintent, LAUNCH_SECOND_ACTIVITY);
+                }
+            case R.id.item3:
+                Intent dintent = new Intent(DisplayExperimentActivity.this, DiscussionActivity.class);
+                dintent.putExtra("experiment", exp);
+                int LAUNCH_SECOND_ACTIVITY = 1;
+                startActivityForResult(dintent, LAUNCH_SECOND_ACTIVITY);
+
 
         }
         return super.onOptionsItemSelected(item);
@@ -119,6 +129,9 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 Experiment newexp = (Experiment) data.getSerializableExtra("experiment");
                 exp = newexp; //updating the current exp object(to show updated exp desc)
+
+                System.out.println("SIZE:"+exp.getTrials().size());
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

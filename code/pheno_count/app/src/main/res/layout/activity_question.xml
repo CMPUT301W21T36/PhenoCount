@@ -9,12 +9,11 @@
 
 
     <TextView
-        android:id="@+id/question_text_view"
+        android:id="@+id/question_text_view_in_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Q: "
-        android:textAlignment="textStart"
         android:textSize="24sp" />
 
     <ListView

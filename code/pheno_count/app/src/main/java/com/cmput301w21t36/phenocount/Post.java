@@ -12,16 +12,17 @@ import java.time.LocalDateTime;
  * it contains basic information for a post in the discussion forum.
  */
 public abstract class Post {
-    protected User author;
+    protected String ID = "";
+    protected User author; //not necessary
     protected String text;
-    protected LocalDateTime date;
+    protected LocalDateTime date; //not necessary
 
     public Post(User author, String text){
         this.author = author;
         this.text = text;
     }
-    public Post(){
-
+    public Post(String text){
+        this.text = text;
     }
 
     /**
@@ -35,5 +36,13 @@ public abstract class Post {
 
     public String getText() {
         return text;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }
