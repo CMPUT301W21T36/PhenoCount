@@ -53,7 +53,7 @@ public class DiscussionManager{
 
 
     //update the Question ListView in the discussion forum activity
-    public void updateQueList(){
+    public void updateQueData(){
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         quecollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -78,7 +78,7 @@ public class DiscussionManager{
     }
 
     //update the Reply ListView in the question activity
-    public void updateRepList(){
+    public void updateRepData(){
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         repcollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -97,7 +97,7 @@ public class DiscussionManager{
                     newRep.setID(rID);
                     repDataList.add(newRep);
                 }
-                //queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+                //repAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
     }
@@ -129,7 +129,7 @@ public class DiscussionManager{
                         }
                     });
 
-            // Setting the fields to null so the user can add a new city.
+            updateQueData();
         }
 
     }
@@ -160,7 +160,7 @@ public class DiscussionManager{
                         }
                     });
 
-            // Setting the fields to null so the user can add a new city.
+            updateRepData();
         }
 
     }

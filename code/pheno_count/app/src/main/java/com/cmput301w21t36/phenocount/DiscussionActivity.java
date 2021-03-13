@@ -42,10 +42,11 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         qListView = findViewById(R.id.question_list_view);
 
         disManager = new DiscussionManager(experiment);
-        disManager.updateQueList();
+        disManager.updateQueData();
         queData = disManager.getQueDataList();
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
+
 
 
 
@@ -78,6 +79,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     protected void onResume() {
         super.onResume();
+        queData = disManager.getQueDataList();
         queAdapter.notifyDataSetChanged();
 
     }
@@ -107,7 +109,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     public void onOkPressedAdd(String text) {
         disManager.addQueDoc(text);
-        disManager.updateQueList();
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
 }
 

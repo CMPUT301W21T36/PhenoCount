@@ -39,8 +39,8 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
 
         rListView = findViewById(R.id.reply_list_view);
 
-        disManager = new DiscussionManager(experiment);
-        disManager.updateQueCol();
+        disManager = new DiscussionManager(experiment, question);
+        disManager.updateRepData();
         repData = disManager.getRepDataList();
         repAdapter = new ReplyAdapter(this, repData);
         rListView.setAdapter(repAdapter);
@@ -60,6 +60,7 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     @Override
     protected void onResume() {
         super.onResume();
+        repData = disManager.getRepDataList();
         repAdapter.notifyDataSetChanged();
 
     }
@@ -89,7 +90,6 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     @Override
     public void onOkPressedAdd(String text) {
         disManager.addRepDoc(text);
-        disManager.updateQueCol();
-        Toast.makeText(QuestionActivity.this, "A new REPLY is posted!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(QuestionActivity.this, "A new reply is posted!", Toast.LENGTH_SHORT).show();
     }
 }
