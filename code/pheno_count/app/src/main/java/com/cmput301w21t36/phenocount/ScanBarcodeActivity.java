@@ -50,7 +50,6 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                 i.putExtra("scannedText", result.getContents());
                 setResult(RESULT_OK, i);
                 finish();
-
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
