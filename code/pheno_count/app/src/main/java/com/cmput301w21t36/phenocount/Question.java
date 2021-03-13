@@ -2,13 +2,14 @@ package com.cmput301w21t36.phenocount;
 
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * @author: Charffy
  * This Question class extends the Post class;
  * it contains basic information about a question.
  */
-public class Question extends Post{
+public class Question extends Post implements Serializable {
 
     public Question(User author, String text){
         super(author, text);

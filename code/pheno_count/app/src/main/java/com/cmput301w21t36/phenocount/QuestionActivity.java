@@ -23,16 +23,27 @@ import java.util.ArrayList;
 public class QuestionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
     //a collection of question posts of a certain experiment
     private ListView rListView;
-    ArrayAdapter<Reply> repAdapter;
+    private ArrayAdapter<Reply> repAdapter;
     private ArrayList<Reply> repData;
+    private Experiment experiment;
     private Question question;
+    private DiscussionManager disManager;
     private User user; //I think we need to get who is currently viewing this forum
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
+        experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        question = (Question) getIntent().getSerializableExtra("question");//defining the Experiment object
 
+        rListView = findViewById(R.id.reply_list_view);
+
+        disManager = new DiscussionManager(experiment);
+        disManager.updateQueCol();
+        repData = disManager.getRepDataList();
+        repAdapter = new ReplyAdapter(this, repData);
+        rListView.setAdapter(repAdapter);
         /*
         When the 'add reply' button is pressed in this activity,
         a fragment will display to let the user add a new reply.
@@ -77,9 +88,8 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
      */
     @Override
     public void onOkPressedAdd(String text) {
-        Reply newRep = new Reply(user, text);
-        repData.add(newRep);
-        Toast.makeText(QuestionActivity.this, "A new reply is posted!", Toast.LENGTH_SHORT).show();
+        disManager.addRepDoc(text);
+        disManager.updateQueCol();
+        Toast.makeText(QuestionActivity.this, "A new REPLY is posted!", Toast.LENGTH_SHORT).show();
     }
-
 }

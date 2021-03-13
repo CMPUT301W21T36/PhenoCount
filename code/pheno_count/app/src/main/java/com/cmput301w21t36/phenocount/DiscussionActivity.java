@@ -27,9 +27,9 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     //a collection of question posts of a certain experiment
     private ListView qListView;
     private ArrayAdapter<Question> queAdapter;
-    private DiscussionManager disManager;
     private ArrayList<Question> queData;
     private Experiment experiment;
+    private DiscussionManager disManager;
     private User user; //I think we need to get who is currently viewing this forum
 
 
@@ -39,10 +39,11 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        qListView = findViewById(R.id.question_list_view);
 
-
-        disManager.updateQueCol();
-        queData = disManager.getQuestions();
+        disManager = new DiscussionManager(experiment);
+        disManager.updateQueList();
+        queData = disManager.getQueDataList();
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
 
@@ -106,6 +107,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     public void onOkPressedAdd(String text) {
         disManager.addQueDoc(text);
+        disManager.updateQueList();
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
 }
 
@@ -116,10 +118,12 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
      * can browse all its replies and add replies
      */
     public void browseReplies(Question target){
-        String questionText = target.getText();
-        Intent intent = new Intent(this, QuestionActivity.class);
-        intent.putExtra("questionText", questionText);
-        startActivity(intent);
+        //String questionText = target.getText();
+        Intent intent = new Intent(DiscussionActivity.this, QuestionActivity.class);
+        intent.putExtra("experiment", experiment);
+        intent.putExtra("question", target);
+        int LAUNCH_SECOND_ACTIVITY = 1;
+        startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
 
     }
 
