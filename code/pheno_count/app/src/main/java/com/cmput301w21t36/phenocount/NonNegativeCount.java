@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class NonNegativeCount extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
-    ArrayList<Trial> trials; // stores the list of trial objects in trials
+    Boolean location=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +27,21 @@ public class NonNegativeCount extends AppCompatActivity {
         setContentView(R.layout.trial_non_negative_count);
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trials = newexp.getTrials(); // stores the list of trial objects in trials
         trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
 
 
         // Capture the layout's TextView and set the string as its text
 
-        TextView desc = findViewById(R.id.desc);
+        TextView desc = findViewById(R.id.desc4);
         desc.setText("Description:" + String.valueOf(newexp.getOwner()));
 
-        TextView owner = findViewById(R.id.owner);
+        TextView owner = findViewById(R.id.owner4);
         owner.setText("Owner:" + String.valueOf(newexp.getOwner()));
 
-        TextView status = findViewById(R.id.status);
+        TextView status = findViewById(R.id.status4);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
-        TextView exptype= findViewById(R.id.exptype);
+        TextView exptype= findViewById(R.id.exptype4);
         exptype.setText("Experiment Type: Non-Negative Count");
 
         EditText count = findViewById(R.id.count_editText);
@@ -51,21 +51,32 @@ public class NonNegativeCount extends AppCompatActivity {
         recordcbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(location || !newexp.isRequireLocation()) {
 
-                String temp = count.getText().toString();
-                int value=0;
-                if (!"".equals(temp)){
-                    value=Integer.parseInt(temp);
+                    String temp = count.getText().toString();
+                    int value = 0;
+                    if (!"".equals(temp)) {
+                        value = Integer.parseInt(temp);
+                    }
+                    trial.setValue(value);
+                    newexp.getTrials().add(trial);
+                    Toast.makeText(
+                            NonNegativeCount.this,
+                            "Count Recorded",
+                            Toast.LENGTH_SHORT).show();
+                    newexp.getTrials().add(trial);
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("experiment", newexp);
+                    setResult(Activity.RESULT_OK, returnIntent);
+
+                    finish();
+                }else{
+                    Toast.makeText(
+                            NonNegativeCount.this,
+                            "Please add a location first",
+                            Toast.LENGTH_LONG).show();
                 }
-                trial.setValue(value);
-                trials.add(trial);
-                newexp.setTrials(trials);
-
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("newexp",newexp);
-                setResult(Activity.RESULT_OK,returnIntent);
-
-                finish();
             }
         });
 
@@ -89,9 +100,10 @@ public class NonNegativeCount extends AppCompatActivity {
         int LAUNCH_SECOND_ACTIVITY = 1;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
+                location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                trials.add(trial);
-                newexp.setTrials(trials);
+                newexp.getTrials().add(trial);
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

@@ -1,8 +1,9 @@
 package com.cmput301w21t36.phenocount;
 
-import com.google.type.LatLng;
 
 import java.io.Serializable;
+import com.google.android.gms.maps.model.LatLng;
+
 
 public class Trial implements Serializable {
 
@@ -10,7 +11,8 @@ public class Trial implements Serializable {
     private String desc;
     private User owner;
     private String type;
-    com.google.android.gms.maps.model.LatLng location;
+    private double Latitude;
+    private double Longitude;
 
     private boolean result;
     private int count;
@@ -26,6 +28,8 @@ public class Trial implements Serializable {
         this.measurement=0;
         this.value =0;
         this.result = false; // do we do this
+        this.Latitude = 0;
+        this.Longitude =0;
     }
 
     void isSuccess() {this.result = true;}
@@ -35,9 +39,14 @@ public class Trial implements Serializable {
     void setMeasurement(float measurement){this.measurement = measurement;}
     void setValue(int value) {this.value = value;}
     void isCount(){this.count++;}
-    void setLocation(com.google.android.gms.maps.model.LatLng location){
-        this.location = location;
+    void setLongitude(double longitude){
+        this.Longitude = longitude;
     }
+    void setLatitude(double latitude){
+        this.Latitude = latitude;
+    }
+
+
 
 
     public float getMeasurement() {
@@ -53,5 +62,11 @@ public class Trial implements Serializable {
     }
 
 
+    public double getLatitude() {
+        return Latitude;
+    }
 
+    public double getLongitude() {
+        return Longitude;
+    }
 }
