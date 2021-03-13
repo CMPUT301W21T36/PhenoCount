@@ -130,9 +130,14 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 Experiment newexp = (Experiment) data.getSerializableExtra("experiment");
-                exp = newexp; //updating the current exp object(to show updated exp desc)
-
-                System.out.println("SIZE:"+exp.getTrials().size());
+                if (newexp != null) {
+                    exp = newexp; //updating the current exp object(to show updated exp desc)
+                    System.out.println("SIZE:"+exp.getTrials().size());
+                } else {
+                    String testt = data.getSerializableExtra("scannedText").toString();
+                    TextView test = findViewById(R.id.testText);
+                    test.setText(testt);
+                }
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
