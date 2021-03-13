@@ -109,6 +109,12 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     int LAUNCH_SECOND_ACTIVITY = 1;
                     startActivityForResult(nintent, LAUNCH_SECOND_ACTIVITY);
                 }
+            case R.id.item3:
+                Intent dintent = new Intent(DisplayExperimentActivity.this, DiscussionActivity.class);
+                dintent.putExtra("experiment", exp);
+                int LAUNCH_SECOND_ACTIVITY = 1;
+                startActivityForResult(dintent, LAUNCH_SECOND_ACTIVITY);
+
 
         }
         return super.onOptionsItemSelected(item);

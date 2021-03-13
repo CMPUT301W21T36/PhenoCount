@@ -13,12 +13,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExperimentCustomList extends ArrayAdapter<Experiment> {
+public class ExperimentAdapter extends ArrayAdapter<Experiment> {
     private ArrayList<Experiment> experiments;
     private Context context;
 
 
-    public ExperimentCustomList(Context context, ArrayList<Experiment> experiments) {
+    public ExperimentAdapter(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);
         this.experiments = experiments;
         this.context = context;
