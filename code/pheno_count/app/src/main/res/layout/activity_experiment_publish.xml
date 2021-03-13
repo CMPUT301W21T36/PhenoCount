@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,19 +37,53 @@
         android:padding="10dp"
         android:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/TypeOfTrial"
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:text="Type Of Trials"
-        android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textDirection="ltr">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/type_of_trial"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/radioBinomial"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="Binomial Trial" />
+
+        <RadioButton
+            android:id="@+id/radioCount"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="Count Based Trial " />
+
+        <RadioButton
+            android:id="@+id/radioInt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="Non-Negative Integer Count" />
+
+        <RadioButton
+            android:id="@+id/radioMeasure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="Measurement Trial" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/expNum"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Minimum number of Trials"
         android:inputType="textPersonName"
@@ -77,6 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
+            android:onClick="toCancel"
             android:text="Cancel" />
 
         <Button
@@ -85,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
+            android:onClick="toAdd"
             android:text="OK" />
     </LinearLayout>
 

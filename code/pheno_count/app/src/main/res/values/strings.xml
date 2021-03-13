@@ -1,10 +1,20 @@
 <resources>
-<string name="app_name">PhenoCount</string>
-<string name="title_activity_location">Map</string>
-<string name="ask_a_question_desc">Ask a new question</string>
-<string name="add_question">Ask Question</string>
-<string name="reply_a_question_desc">Reply to this question</string>
-<string name="add_reply">Add Reply</string>
-<string name="question_content">Question: </string>
-<string name="reply_content">Reply: </string>
+    <string name="app_name">PhenoCount</string>
+    <string name="title_activity_location">Map</string>
+    <string name="ask_a_question_desc">Ask a new question</string>
+    <string name="add_question">Ask Question</string>
+    <string name="reply_a_question_desc" translatable="false">Reply to this question</string>
+    <string name="add_reply">Add Reply</string>
+    <string name="question_content">Question: </string>
+    <string name="reply_content">Reply: </string>
+    <string name="exp_name">Name</string>
+    <string name="exp_desc">Description</string>
+    <string name="exp_region">Region</string>
+    <string name="exp_min_trial">Minimum number of Trials</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="ok_button">OK</string>
+    <string name="name_display">Name:</string>
+    <string name="desc_display">Description:</string>
+    <string name="owner_display">Owner</string>
+    <string name="type_of_trial">Type Of Trial</string>
 </resources>

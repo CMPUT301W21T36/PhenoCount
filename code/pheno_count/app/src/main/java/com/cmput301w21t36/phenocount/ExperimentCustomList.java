@@ -13,12 +13,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExperimentAdapter extends ArrayAdapter<Experiment> {
+public class ExperimentCustomList extends ArrayAdapter<Experiment> {
     private ArrayList<Experiment> experiments;
     private Context context;
 
 
-    public ExperimentAdapter(Context context, ArrayList<Experiment> experiments) {
+    public ExperimentCustomList(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);
         this.experiments = experiments;
         this.context = context;
@@ -34,8 +34,22 @@ public class ExperimentAdapter extends ArrayAdapter<Experiment> {
         Experiment experiment = experiments.get(position);
 
         TextView expName = view.findViewById(R.id.expname);
+        TextView expstatus = view.findViewById(R.id.expstatus);
 
         expName.setText(experiment.getName());
+        String mStat = "" ;
+        switch(experiment.getExpStatus()){
+            case 1:
+                mStat = "Published";
+            case 2:
+                mStat= "Ended";
+            case 3:
+                mStat = "Unpublished";
+            default:
+                mStat= "Added but not yet published";
+
+        }
+        expstatus.setText(mStat);
 
 
         return view;
