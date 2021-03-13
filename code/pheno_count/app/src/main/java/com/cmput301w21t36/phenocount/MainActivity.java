@@ -113,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
          * Will retrieve the Username for the user and set the variable username
          * to the returned String
          */
+        /*
+        This section of code is causing some errors for people and not too sure as to why
+        Will leave it commented out for now
         userReference = db.collection("User").document(UUID);
         userReference.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -121,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
                         username = documentSnapshot.getString("Username");
                     }
                 });
+
+         */
         
         profileButton = findViewById(R.id.profileButton);
 
