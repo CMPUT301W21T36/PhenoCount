@@ -10,11 +10,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class DisplayExperimentActivity extends AppCompatActivity {
 
@@ -135,7 +132,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     System.out.println("SIZE:"+exp.getTrials().size());
                 } else {
                     String testt = data.getSerializableExtra("scannedText").toString();
-                    TextView test = findViewById(R.id.testText);
+                    TextView test = findViewById(R.id.scannedTextView);
                     test.setText(testt);
                 }
 
