@@ -38,6 +38,8 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
+        experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+
 
         disManager.updateQueCol();
         queData = disManager.getQuestions();
