@@ -66,6 +66,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         camerabtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(DisplayExperimentActivity.this, ScanBarcodeActivity.class);
+                startActivityForResult(i, 1);
             }
         });
 
