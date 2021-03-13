@@ -39,8 +39,10 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
 
         rListView = findViewById(R.id.reply_list_view);
 
+
         disManager = new DiscussionManager(experiment, question);
         disManager.updateRepData();
+
         repData = disManager.getRepDataList();
         repAdapter = new ReplyAdapter(this, repData);
         rListView.setAdapter(repAdapter);
@@ -91,5 +93,6 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     public void onOkPressedAdd(String text) {
         disManager.addRepDoc(text);
         Toast.makeText(QuestionActivity.this, "A new reply is posted!", Toast.LENGTH_SHORT).show();
+
     }
 }

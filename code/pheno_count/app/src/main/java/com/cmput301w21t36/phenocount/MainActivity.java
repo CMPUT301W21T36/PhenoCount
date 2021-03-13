@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         // It will save over instances of the app and is only updated upon first open after install
         UUID = sharedPrefs.getString(AutoID, "");
 
+        System.out.println(UUID);
+
 
         /**
          * Will retrieve the Username for the user and set the variable username
@@ -115,15 +117,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         username = documentSnapshot.getString("Username");
-                        System.out.println(username);
                     }
                 });
-
-
-
+        
         profileButton = findViewById(R.id.profileButton);
 
-        expAdapter = new ExperimentAdapter(this,expDataList);
+        expAdapter = new ExperimentCustomList(this,expDataList);
         experiments.setAdapter(expAdapter);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openProfile(){
         Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("UID", UUID);
         startActivity(intent);
 
 
