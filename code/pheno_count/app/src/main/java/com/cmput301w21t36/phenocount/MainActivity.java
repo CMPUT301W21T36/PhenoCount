@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         
         profileButton = findViewById(R.id.profileButton);
 
-        expAdapter = new ExperimentAdapter(this,expDataList);
+        expAdapter = new ExperimentCustomList(this,expDataList);
         experiments.setAdapter(expAdapter);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
