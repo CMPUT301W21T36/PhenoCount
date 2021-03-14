@@ -47,10 +47,13 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         switch(exp.getExpStatus()){
             case 1:
                 mStat = "Published";
+                break;
             case 2:
                 mStat= "Ended";
+                break;
             case 3:
                 mStat = "Unpublished";
+                break;
             default:
                 mStat= "Added";
 
