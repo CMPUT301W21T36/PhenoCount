@@ -55,7 +55,7 @@ public class ExpManager {
                         String reqGeo = (String) doc.getData().get("require_geolocation");
                         String mStat = (String) doc.getData().get("status");
                         boolean reqLoc;
-                        if (reqGeo == "YES") {
+                        if (reqGeo.equals("YES")) {
                             reqLoc = true;
                         } else {
                             reqLoc = false;

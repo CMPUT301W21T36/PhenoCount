@@ -201,12 +201,9 @@ public class MainActivity extends AppCompatActivity {
                         String mStat = (String) doc.getData().get("status");
 
                         boolean reqLoc;
-                        if (reqGeo == "YES") {
-                            System.out.println("HELOOOOOOOOOOOO");
+                        if (reqGeo.equals("YES")) {
                             reqLoc = true;
                         } else {
-                            System.out.println("nOOOOOOOOOOOO");
-
                             reqLoc = false;
                         }
                         int minTrial =  1;
