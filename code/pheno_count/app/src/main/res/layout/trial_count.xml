@@ -9,14 +9,15 @@
         android:id="@+id/addbtn"
         android:layout_width="84dp"
         android:layout_height="43dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="28dp"
         android:text="Add"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/recordcountbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.563"
-        app:layout_constraintStart_toEndOf="@+id/thecount"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.572" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thecount" />
 
     <TextView
         android:id="@+id/desc2"
