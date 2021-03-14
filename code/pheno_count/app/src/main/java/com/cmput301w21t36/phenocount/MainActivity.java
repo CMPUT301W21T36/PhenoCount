@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
 
-        DocumentReference userReference;
-        //Intent intent = new Intent (this,MapsActivity.class);
-        //startActivity(intent);
+
+        //DocumentReference userReference;
+
 
 
        /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
         if (firstStart) {
-            userReference = db.collection("User").document();
+            final DocumentReference userReference = db.collection("User").document();
             // Auto-ID created for the document
             String GrabbedID = userReference.getId();
 
@@ -118,29 +118,25 @@ public class MainActivity extends AppCompatActivity {
 
         UUID = sharedPrefs.getString(AutoID, "");
 
-        System.out.println(UUID);
-
 
         /**
          * Will retrieve the Username for the user and set the variable username
          * to the returned String
          */
-        /*
-        This section of code is causing some errors for people and not too sure as to why
-        Will leave it commented out for now
-        userReference = db.collection("User").document(UUID);
-        userReference.get()
+        DocumentReference userRef = db.collection("User").document();
+            userRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         username = documentSnapshot.getString("Username");
+                        System.out.println(username);
                     }
                 });
 
-         */
+
         profileButton = findViewById(R.id.profileButton);
 
- //////////////////// h
+
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openProfile(){
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("UID", UUID);
         startActivity(intent);
     }
 
