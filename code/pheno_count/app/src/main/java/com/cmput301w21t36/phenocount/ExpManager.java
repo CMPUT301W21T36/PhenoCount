@@ -66,7 +66,7 @@ public class ExpManager {
                         int expStatus = 0;
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
-                        expList.add(new Experiment(name, description, region, type, minTrial, reqLoc,expStatus)); // Adding the cities and provinces from FireStore
+                        expList.add(new Experiment(name, description, region, type, minTrial, reqLoc,expStatus,expId)); // Adding the cities and provinces from FireStore
                     }
                 }
 //                expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetchedn from the cloud

@@ -36,6 +36,7 @@ public class DiscussionManager{
 
     public DiscussionManager(Experiment experiment){
         String expID = experiment.getID();
+        System.out.println(expID);
         quecollectionReference = db.collection("Experiment")
                                 .document(expID)
                                 .collection("Question");

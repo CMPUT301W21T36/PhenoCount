@@ -27,6 +27,9 @@
         <activity android:name=".Count" />
         <activity android:name=".Measurement" />
         <activity android:name=".NonNegativeCount" />
+        <activity android:name=".DiscussionActivity" />
+
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

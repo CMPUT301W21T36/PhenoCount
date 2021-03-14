@@ -86,8 +86,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         //exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
 
         System.out.println(exp.getTrials());
-        switch (item.getItemId()){
-            case R.id.item1:
+            if(item.getItemId() == R.id.item1) {
                 if (exp.getExpType().equals("Binomial")) {
                     Intent bintent = new Intent(DisplayExperimentActivity.this, Binomial.class);
                     bintent.putExtra("experiment", exp);
@@ -112,14 +111,16 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     int LAUNCH_SECOND_ACTIVITY = 1;
                     startActivityForResult(nintent, LAUNCH_SECOND_ACTIVITY);
                 }
-            /*case R.id.item3:
+            }
+            else if(item.getItemId() == R.id.item3) {
                 Intent dintent = new Intent(DisplayExperimentActivity.this, DiscussionActivity.class);
                 dintent.putExtra("experiment", exp);
                 int LAUNCH_SECOND_ACTIVITY = 1;
-                startActivityForResult(dintent, LAUNCH_SECOND_ACTIVITY);*/
+                startActivityForResult(dintent, LAUNCH_SECOND_ACTIVITY);
+            }
 
 
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
