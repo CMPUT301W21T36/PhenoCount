@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
         expDataList.add(exp4);
 
         */
-        expAdapter = new ExperimentAdapter(this,expDataList);
-        experiments.setAdapter(expAdapter);
-        getExpData1();
 
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
@@ -135,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         profileButton = findViewById(R.id.profileButton);
-
-
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        expAdapter = new ExperimentAdapter(this,expDataList);
+        experiments.setAdapter(expAdapter);
+        getExpData1();
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -180,9 +178,8 @@ public class MainActivity extends AppCompatActivity {
 
     ///2 need to check with expManager as not working with that
     public void getExpData1(){
-        final CollectionReference collectionReference = db.collection("Experiment");
-
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        //final CollectionReference collectionReference = db.collection("Experiment").whereEqualTo("owner",UUID).;
+        db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
@@ -199,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         String minInt = (String) doc.getData().get("minimum_trials");
                         String reqGeo = (String) doc.getData().get("require_geolocation");
                         String mStat = (String) doc.getData().get("status");
+                        String owner = (String) doc.getData().get("owner");
 
                         boolean reqLoc;
                         if (reqGeo.equals("YES")) {
@@ -213,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
                         expDataList.add(new Experiment(name, description, region, type, minTrial, reqLoc,expStatus,expID)); // Adding the cities and provinces from FireStore
+
                     }
                 }
                 expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
