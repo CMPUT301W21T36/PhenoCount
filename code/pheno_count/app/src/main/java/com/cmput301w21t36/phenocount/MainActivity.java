@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         DocumentReference userReference;
+        //Intent intent = new Intent (this,MapsActivity.class);
+        //startActivity(intent);
 
 
        /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);

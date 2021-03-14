@@ -84,7 +84,7 @@ public class Measurement extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (Measurement.this,LocationActivity.class);
+                Intent intent = new Intent (Measurement.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;

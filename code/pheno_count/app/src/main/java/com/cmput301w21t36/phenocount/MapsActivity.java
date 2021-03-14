@@ -1,38 +1,27 @@
 package com.cmput301w21t36.phenocount;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Status;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,13 +31,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 
-public class LocationActivity extends AppCompatActivity
-        implements OnMapReadyCallback, Serializable {
+public class MapsActivity extends AppCompatActivity
+        implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
@@ -57,13 +43,12 @@ public class LocationActivity extends AppCompatActivity
     Marker mCurrLocationMarker;
     FusedLocationProviderClient mFusedLocationClient;
     LatLng ChosenLocation;
-    Geocoder geocoder;
     Trial trial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_maps);
 
         getSupportActionBar().setTitle("Map Location Activity");
 
@@ -71,28 +56,7 @@ public class LocationActivity extends AppCompatActivity
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
-
-        /**
-        //PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                //getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-        //autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            //@Override
-            public void onPlaceSelected(Place place) {
-                mGoogleMap.clear();
-                mGoogleMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getName().toString()));
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 12.0f));
-            }
-
-            @Override
-            public void onError(Status status) {
-
-            }
-        });
-            */
     }
-
 
     @Override
     public void onPause() {
@@ -107,93 +71,7 @@ public class LocationActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        /**
-         LatLng sydney = new LatLng(-34, 151);
-         mGoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-         */
-        View myView = findViewById(R.id.map);
-
-
-        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
-
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if(marker.equals(mCurrLocationMarker)){
-                    Log.w("Click", "test");
-
-
-
-                    new AlertDialog.Builder(LocationActivity.this)
-                            .setIcon(android.R.drawable.ic_delete)
-                            .setTitle("Confirmation")
-                            .setMessage("Do you want to add this as your location?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ChosenLocation = mCurrLocationMarker.getPosition();
-
-                                    //updating the selected location in the trial object(marz)
-
-                                    trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the trial object
-                                    trial.setLatitude(ChosenLocation.latitude);
-                                    trial.setLongitude(ChosenLocation.latitude);
-
-                                    Intent returnIntent = new Intent();
-                                    returnIntent.putExtra("trial_obj",trial);
-                                    setResult(Activity.RESULT_OK,returnIntent);
-                                    System.out.println("RUNNING OKAY");
-
-                                    Toast.makeText(
-                                            LocationActivity.this,
-                                            "Your location is: Lat " + ChosenLocation.latitude + " " + "Long " + ChosenLocation.longitude,
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .setNegativeButton("No",null)
-                            .show();
-                    return false;
-                    //return true;
-                }
-                return false;
-
-            }
-        });
-
-        mGoogleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-            @Override
-            public void onMarkerDragStart(Marker arg0) {
-                // TODO Auto-generated method stub
-                Log.d("System out", "onMarkerDragStart..."+arg0.getPosition().latitude+"..."+arg0.getPosition().longitude);
-
-            }
-
-            @SuppressWarnings("unchecked")
-            @Override
-            public void onMarkerDragEnd(Marker arg0) {
-                // TODO Auto-generated method stub
-                Log.d("System out", "onMarkerDragEnd..."+arg0.getPosition().latitude+"..."+arg0.getPosition().longitude);
-
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(arg0.getPosition()));
-                mCurrLocationMarker.setPosition(new LatLng(arg0.getPosition().latitude,arg0.getPosition().longitude));
-                List<Address> addresses = null;
-                geocoder = new Geocoder(LocationActivity.this, Locale.getDefault());
-                try {
-                    addresses = geocoder.getFromLocation(arg0.getPosition().latitude,arg0.getPosition().longitude, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mCurrLocationMarker.setTitle(addresses.get(0).getAddressLine(0));
-                //myView.performClick();
-            }
-
-            @Override
-            public void onMarkerDrag(Marker arg0) {
-                // TODO Auto-generated method stub
-                Log.i("System out", "onMarkerDrag...");
-            }
-        });
+        //mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(120000); // two minute interval
         mLocationRequest.setFastestInterval(120000);
@@ -215,9 +93,84 @@ public class LocationActivity extends AppCompatActivity
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
             mGoogleMap.setMyLocationEnabled(true);
         }
+        /**
+
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(marker.equals(mCurrLocationMarker)){
+                    Log.w("Click", "test");
+
+
+
+                    new AlertDialog.Builder(MapsActivity.this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Confirmation")
+                            .setMessage("Do you want to add this as your location?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    /**
+                                    ChosenLocation = mCurrLocationMarker.getPosition();
+
+                                    //updating the selected location in the trial object(marz)
+
+                                    trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the trial object
+                                    trial.setLatitude(ChosenLocation.latitude);
+                                    trial.setLongitude(ChosenLocation.latitude);
+
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra("trial_obj",trial);
+                                    setResult(Activity.RESULT_OK,returnIntent);
+                                    System.out.println("RUNNING OKAY");
+
+                                    Toast.makeText(
+                                            MapsActivity.this,
+                                            "Your location is: Lat " + ChosenLocation.latitude + " " + "Long " + ChosenLocation.longitude,
+                                            Toast.LENGTH_LONG).show();
+
+                                     }
+                            })
+                            .setNegativeButton("No",null)
+                            .show();
+
+                    //return true;
+                }
+                return true;
+
+            }
+        });
+
+        **/
+        mGoogleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker arg0) {
+                // TODO Auto-generated method stub
+                Log.d("System out", "onMarkerDragStart..."+arg0.getPosition().latitude+"..."+arg0.getPosition().longitude);
+
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public void onMarkerDragEnd(Marker arg0) {
+                // TODO Auto-generated method stub
+                Log.d("System out", "onMarkerDragEnd..."+arg0.getPosition().latitude+"..."+arg0.getPosition().longitude);
+
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(arg0.getPosition()));
+                mCurrLocationMarker.setPosition(new LatLng(arg0.getPosition().latitude,arg0.getPosition().longitude));
+
+                //myView.performClick();
+            }
+
+            @Override
+            public void onMarkerDrag(Marker arg0) {
+                // TODO Auto-generated method stub
+                Log.i("System out", "onMarkerDrag...");
+            }
+        });
+
     }
-
-
 
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
@@ -232,22 +185,12 @@ public class LocationActivity extends AppCompatActivity
                     mCurrLocationMarker.remove();
                 }
 
-
                 //Place current location marker
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-
-                List<Address> addresses = null;
-                geocoder = new Geocoder(LocationActivity.this, Locale.getDefault());
-                try {
-                    addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                markerOptions.title(addresses.get(0).getAddressLine(0));
+                markerOptions.title("Current Position");
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
                 mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
                 mCurrLocationMarker.setDraggable(true);
 
@@ -256,9 +199,6 @@ public class LocationActivity extends AppCompatActivity
             }
         }
     };
-
-
-
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private void checkLocationPermission() {
@@ -279,7 +219,7 @@ public class LocationActivity extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(LocationActivity.this,
+                                ActivityCompat.requestPermissions(MapsActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION );
                             }
@@ -330,7 +270,3 @@ public class LocationActivity extends AppCompatActivity
         }
     }
 }
-
-
-
-

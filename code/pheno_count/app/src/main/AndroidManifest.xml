@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cmput301w21t36.phenocount">
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -8,7 +16,6 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -20,13 +27,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
-        <activity android:name=".PublishExperimentActivity"></activity>
-        <activity android:name=".ProfileActivity"/>
-        <activity android:name=".DisplayExperimentActivity" />
-        <activity android:name=".Binomial" />
-        <activity android:name=".Count" />
-        <activity android:name=".Measurement" />
-        <activity android:name=".NonNegativeCount" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -38,14 +38,21 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDKRmfspGJ8QiQQYMLSn8rR1eibczh1PJo" />
+            android:value="AIzaSyDghzugfjHeNMtS3nKC_s63cAHB2kk4m4o" />
 
         <activity
-            android:name=".LocationActivity"
-            android:label="@string/title_activity_location" />
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+        <activity android:name=".PublishExperimentActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".DisplayExperimentActivity" />
+        <activity android:name=".Binomial" />
+        <activity android:name=".Count" />
+        <activity android:name=".Measurement" />
+        <activity android:name=".NonNegativeCount" />
         <activity android:name=".ScanBarcodeActivity" />
         <activity android:name=".DiscussionActivity" />
-        <activity android:name=".QuestionActivity"/>
+        <activity android:name=".QuestionActivity" />
         <activity android:name=".ScanQRActivity" />
         <activity android:name=".GenerateQrActivity" />
         <activity android:name=".MainActivity">
