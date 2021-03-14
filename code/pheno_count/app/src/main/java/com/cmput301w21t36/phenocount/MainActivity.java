@@ -60,16 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
-<<<<<<< HEAD
-        DocumentReference userReference;
-
-        Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment", "North America", "Binomial", 10, true);
-=======
-
-
-        //DocumentReference userReference;
-
-
 
        /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
 >>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
@@ -81,16 +71,13 @@ public class MainActivity extends AppCompatActivity {
         Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment", "North America", "Non Negative Count", 10, true);
         expDataList.add(exp4);
 
-<<<<<<< HEAD
-        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-        boolean firstStart = sharedPrefs.getBoolean("firstStart", true);
-=======
         */
+
 
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
->>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
+
 
         /**
          *
@@ -125,37 +112,6 @@ public class MainActivity extends AppCompatActivity {
         // It will save over instances of the app and is only updated upon first open after install
 
         UUID = sharedPrefs.getString(AutoID, "");
-
-
-        /**
-         * Will retrieve the Username for the user and set the variable username
-         * to the returned String
-         */
-<<<<<<< HEAD
-
-        userReference = db.collection("User").document(UUID);
-
-        Task<DocumentSnapshot> test = userReference.get();
-
-        System.out.println(test);
-
-
-        profileButton = findViewById(R.id.profileButton);
-
-        expAdapter = new ExperimentAdapter(this, expDataList);
-        experiments.setAdapter(expAdapter);
-=======
-        DocumentReference userRef = db.collection("User").document();
-            userRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        username = documentSnapshot.getString("Username");
-                        System.out.println(username);
-                    }
-                });
-
->>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
 
         profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -200,8 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
-<<<<<<< HEAD
-=======
+
     }
 
     ///2 need to check with expManager as not working with that
@@ -245,10 +200,8 @@ public class MainActivity extends AppCompatActivity {
                 expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
             }
         });
->>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
     }
 
-    ///2
 
 
 }
