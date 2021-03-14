@@ -27,8 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
-<<<<<<< HEAD
-=======
+
+
         <activity android:name=".PublishExperimentActivity"></activity>
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".DisplayExperimentActivity" />
@@ -39,7 +39,7 @@
         <activity android:name=".DiscussionActivity" />
 
 
->>>>>>> dea9661ab1e7ca69882a52af0071a517bd9de608
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -56,15 +56,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".PublishExperimentActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".DisplayExperimentActivity" />
-        <activity android:name=".Binomial" />
-        <activity android:name=".Count" />
-        <activity android:name=".Measurement" />
-        <activity android:name=".NonNegativeCount" />
+
         <activity android:name=".ScanBarcodeActivity" />
-        <activity android:name=".DiscussionActivity" />
         <activity android:name=".QuestionActivity" />
         <activity android:name=".ScanQRActivity" />
         <activity android:name=".GenerateQrActivity" />

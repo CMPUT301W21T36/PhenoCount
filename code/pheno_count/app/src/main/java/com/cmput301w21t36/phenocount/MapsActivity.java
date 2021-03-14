@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,8 +95,73 @@ public class MapsActivity extends AppCompatActivity
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
             mGoogleMap.setMyLocationEnabled(true);
         }
-        /**
 
+        Button addLocation = findViewById(R.id.addLocationButton);
+        addLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("hello");
+                ChosenLocation = mCurrLocationMarker.getPosition();
+
+                //updating the selected location in the trial object(marz)
+                Toast.makeText(
+                        MapsActivity.this,
+                        "Location Added",
+                        Toast.LENGTH_LONG).show();
+
+                trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the trial object
+                trial.setLatitude(ChosenLocation.latitude);
+                trial.setLongitude(ChosenLocation.longitude);
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("trial_obj",trial);
+                setResult(Activity.RESULT_OK,returnIntent);
+                System.out.println("RUNNING OKAY");
+                System.out.println("HELLOOOO" + trial.getLatitude() + "  " + trial.getLongitude());
+                finish();
+            }
+
+
+
+                /**new AlertDialog.Builder(MapsActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Confirmation")
+                        .setMessage("Do you want to add this as your location?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                 //ChosenLocation = mCurrLocationMarker.getPosition();
+
+                                 //updating the selected location in the trial object(marz)
+                                Toast.makeText(
+                                        MapsActivity.this,
+                                        "Location Added",
+                                        Toast.LENGTH_LONG).show();
+
+                                 //trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the trial object
+                                 //trial.setLatitude(ChosenLocation.latitude);
+                                 //trial.setLongitude(ChosenLocation.latitude);
+
+                                 Intent returnIntent = new Intent();
+                                 //returnIntent.putExtra("trial_obj",trial);
+                                 //setResult(Activity.RESULT_OK,returnIntent);
+                                 System.out.println("RUNNING OKAY");
+                                 //System.out.println("HELLOOOO" + trial.getLatitude() + "  " + trial.getLongitude());
+                                 finishActivity(1);
+
+
+
+                                 }
+                                 })
+                                 .setNegativeButton("No",null)
+                                 .show();
+
+            } **/
+        });
+
+
+    /**
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
 
             @Override
@@ -143,6 +210,7 @@ public class MapsActivity extends AppCompatActivity
         });
 
         **/
+
         mGoogleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker arg0) {
