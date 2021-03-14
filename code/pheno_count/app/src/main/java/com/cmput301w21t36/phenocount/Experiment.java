@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Experiment implements Serializable {
     //store the ID inside this Experiment, so we can know which document it is
-    private String ID;
+    private String expID;
     private String name;
     private String description;
     private String region;
@@ -40,8 +40,9 @@ public class Experiment implements Serializable {
      * @param expStatus
      * This specifies the status of the experiment
      */
-    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation, int expStatus ) {
+    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation, int expStatus,String expID ) {
         this.name = name;
+        this.expID = expID;
         this.description = description;
         this.region = region;
         this.minimumTrials = minimumTrials;
@@ -246,6 +247,6 @@ public class Experiment implements Serializable {
     public void setExpType(String expType){this.expType=expType;}
 
     public String getID() {
-        return ID;
+        return expID;
     }
 }

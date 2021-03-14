@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     if (error ==null ) {
                         Log.d("pheno", String.valueOf(doc.getId()));
-                        String expId = doc.getId();
+                        String expID = doc.getId();
                         String name = (String) doc.getData().get("name");
                         String description = (String) doc.getData().get("description");
                         String region = (String) doc.getData().get("region");
@@ -211,10 +211,10 @@ public class MainActivity extends AppCompatActivity {
                         int expStatus = 0;
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
-                        expDataList.add(new Experiment(name, description, region, type, minTrial, reqLoc,expStatus)); // Adding the cities and provinces from FireStore
+                        expDataList.add(new Experiment(name, description, region, type, minTrial, reqLoc,expStatus,expID)); // Adding the cities and provinces from FireStore
                     }
                 }
-                expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetchedn from the cloud
+                expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
             }
         });
     }
