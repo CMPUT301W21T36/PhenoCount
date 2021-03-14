@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -25,7 +26,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ListView experiments;
     ArrayList<Experiment> expDataList;
     ArrayAdapter<Experiment> expAdapter;
+    ExpManager manager = new ExpManager();
 
 
     static final String AutoID = "ID";
@@ -50,13 +56,23 @@ public class MainActivity extends AppCompatActivity {
         //Intent i = new Intent(this, LocationActivity.class);
         //a i.putExtra("info", info);
         //startActivityForResult(i, 1);
-        expDataList = new ArrayList<Experiment>();
+        expDataList = new ArrayList<>();
 
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
+<<<<<<< HEAD
         DocumentReference userReference;
 
         Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment", "North America", "Binomial", 10, true);
+=======
+
+
+        //DocumentReference userReference;
+
+
+
+       /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
+>>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
         expDataList.add(exp);
         Experiment exp2 = new Experiment("Number of Cars", "We count the number of cars in this experiment", "North America", "Count", 10, true);
         expDataList.add(exp2);
@@ -65,14 +81,23 @@ public class MainActivity extends AppCompatActivity {
         Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment", "North America", "Non Negative Count", 10, true);
         expDataList.add(exp4);
 
+<<<<<<< HEAD
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart", true);
+=======
+        */
+
+
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
+>>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
 
         /**
          *
          */
+
         if (firstStart) {
-            userReference = db.collection("User").document();
+            final DocumentReference userReference = db.collection("User").document();
             // Auto-ID created for the document
             String GrabbedID = userReference.getId();
 
@@ -98,15 +123,15 @@ public class MainActivity extends AppCompatActivity {
 
         // This is the UUID for the current user using the app
         // It will save over instances of the app and is only updated upon first open after install
-        UUID = sharedPrefs.getString(AutoID, "");
 
-        System.out.println(UUID);
+        UUID = sharedPrefs.getString(AutoID, "");
 
 
         /**
          * Will retrieve the Username for the user and set the variable username
          * to the returned String
          */
+<<<<<<< HEAD
 
         userReference = db.collection("User").document(UUID);
 
@@ -119,7 +144,20 @@ public class MainActivity extends AppCompatActivity {
 
         expAdapter = new ExperimentAdapter(this, expDataList);
         experiments.setAdapter(expAdapter);
+=======
+        DocumentReference userRef = db.collection("User").document();
+            userRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        username = documentSnapshot.getString("Username");
+                        System.out.println(username);
+                    }
+                });
 
+>>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
+
+        profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        expAdapter = new ExperimentAdapter(this,expDataList);
+        experiments.setAdapter(expAdapter);
+        getExpData1();
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -141,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
             }
         });
+        expAdapter.notifyDataSetChanged();
     }
 
     public void displayExperiment(View view) {
@@ -150,14 +192,63 @@ public class MainActivity extends AppCompatActivity {
 
     public void addExperiment(View view) {
         Intent intent = new Intent(this, PublishExperimentActivity.class);
+        String mstr = UUID;
+        intent.putExtra("AutoId",mstr);
         startActivity(intent);
-
     }
 
     public void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("UID", UUID);
         startActivity(intent);
+<<<<<<< HEAD
+=======
     }
+
+    ///2 need to check with expManager as not working with that
+    public void getExpData1(){
+        //final CollectionReference collectionReference = db.collection("Experiment").whereEqualTo("owner",UUID).;
+        db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+                expDataList.clear();
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
+                {
+                    if (error ==null ) {
+                        Log.d("pheno", String.valueOf(doc.getId()));
+                        String expID = doc.getId();
+                        String name = (String) doc.getData().get("name");
+                        String description = (String) doc.getData().get("description");
+                        String region = (String) doc.getData().get("region");
+                        String type = (String) doc.getData().get("type");
+                        String minInt = (String) doc.getData().get("minimum_trials");
+                        String reqGeo = (String) doc.getData().get("require_geolocation");
+                        String mStat = (String) doc.getData().get("status");
+                        String owner = (String) doc.getData().get("owner");
+
+                        boolean reqLoc;
+                        if (reqGeo.equals("YES")) {
+                            reqLoc = true;
+                        } else {
+                            reqLoc = false;
+                        }
+                        int minTrial =  1;
+                        if (!minInt.isEmpty()){
+                            minTrial=Integer.parseInt(minInt);}
+                        int expStatus = 0;
+                        if (!mStat.isEmpty()){
+                            expStatus = Integer.parseInt(mStat);}
+                        expDataList.add(new Experiment(name, description, region, type, minTrial, reqLoc,expStatus,expID)); // Adding the cities and provinces from FireStore
+
+                    }
+                }
+                expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
+            }
+        });
+>>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
+    }
+
+    ///2
+
 
 }

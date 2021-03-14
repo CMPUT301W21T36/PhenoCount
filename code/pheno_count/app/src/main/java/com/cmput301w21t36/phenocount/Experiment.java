@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Experiment implements Serializable {
     //store the ID inside this Experiment, so we can know which document it is
-    private String ID;
+    private String expID;
     private String name;
     private String description;
     private String region;
@@ -37,15 +37,19 @@ public class Experiment implements Serializable {
      * This specifies if the geolocation is required for the Experiment
      * @param expType
      * This specifies the type of the experiment being conducted
+     * @param expStatus
+     * This specifies the status of the experiment
      */
-    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation) {
+    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation, int expStatus,String expID ) {
         this.name = name;
+        this.expID = expID;
         this.description = description;
         this.region = region;
         this.minimumTrials = minimumTrials;
         this.requireLocation = requireLocation;
         this.expType = expType;
         this.trials = new ArrayList<>();
+        this.expStatus = expStatus;
     }
 
     /**
@@ -98,13 +102,6 @@ public class Experiment implements Serializable {
             return true;
         }
         return false;
-    }
-
-    /**
-     * This method creates a QR code for the experiment
-     */
-    public void createQR(){
-        // to do
     }
 
     /**
@@ -250,6 +247,6 @@ public class Experiment implements Serializable {
     public void setExpType(String expType){this.expType=expType;}
 
     public String getID() {
-        return ID;
+        return expID;
     }
 }

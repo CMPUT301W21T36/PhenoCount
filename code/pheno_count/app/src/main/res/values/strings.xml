@@ -17,4 +17,5 @@
     <string name="desc_display">Description:</string>
     <string name="owner_display">Owner</string>
     <string name="type_of_trial">Type Of Trial</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

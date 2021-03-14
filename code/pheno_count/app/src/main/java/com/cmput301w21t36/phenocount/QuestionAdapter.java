@@ -33,8 +33,8 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         Question question = questions.get(position);
 
         TextView queText = view.findViewById(R.id.question_text_view_in_list);
-
-        queText.setText(question.getText());
+        String textMessage = "Q: " + question.getText();
+        queText.setText(textMessage);
 
 
         return view;

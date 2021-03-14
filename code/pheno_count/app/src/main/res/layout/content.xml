@@ -8,11 +8,15 @@
 
     <TextView
         android:id="@+id/expname"
-        android:layout_width="wrap_content"
+        android:layout_width="221dp"
         android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
         android:padding="20dp"
         android:text="Experiment"
-        android:textSize="30sp">
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textColorHint="#FFFFFF"
+        android:textSize="26sp">
 
     </TextView>
 
@@ -22,7 +26,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:hint="Status"
-        android:padding="20sp"
-        android:textSize="30sp" />
+        android:padding="15sp"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
 </LinearLayout>

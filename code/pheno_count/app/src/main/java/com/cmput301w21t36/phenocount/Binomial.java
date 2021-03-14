@@ -104,7 +104,7 @@ public class Binomial extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (Binomial.this,LocationActivity.class);
+                Intent intent = new Intent (Binomial.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;

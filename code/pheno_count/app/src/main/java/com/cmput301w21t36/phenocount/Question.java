@@ -11,9 +11,6 @@ import java.util.ArrayList;
  */
 public class Question extends Post implements Serializable {
 
-    public Question(User author, String text){
-        super(author, text);
-    }
     public Question(String text){
         super(text);
     }

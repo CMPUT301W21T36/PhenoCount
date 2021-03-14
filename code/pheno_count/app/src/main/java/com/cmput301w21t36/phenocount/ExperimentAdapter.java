@@ -41,10 +41,13 @@ public class ExperimentAdapter extends ArrayAdapter<Experiment> {
         switch(experiment.getExpStatus()){
             case 1:
                 mStat = "Published";
+                break;
             case 2:
                 mStat= "Ended";
+                break;
             case 3:
                 mStat = "Unpublished";
+                break;
             default:
                 mStat= "Added";
 

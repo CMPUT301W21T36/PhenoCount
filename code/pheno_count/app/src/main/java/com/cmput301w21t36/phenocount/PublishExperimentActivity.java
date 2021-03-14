@@ -3,9 +3,11 @@ package com.cmput301w21t36.phenocount;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -35,7 +37,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experiment_publish);
-
     }
 
     public void onRadioButtonClicked(View view) {
@@ -65,6 +66,10 @@ public class PublishExperimentActivity extends AppCompatActivity {
 
     //@Override
     public void toAdd(View view) {
+        Intent intent = getIntent();
+        Bundle bundle = getIntent().getExtras();
+        String owner = bundle.get("AutoId").toString();
+
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("Experiment");
         //manager.addExperiment(exp);
@@ -77,8 +82,8 @@ public class PublishExperimentActivity extends AppCompatActivity {
         expNum = findViewById(R.id.expNum);
         expGeoLoc = findViewById(R.id.geoCheckBox);
 
-
         //final String Type = expType;
+
         final String desc = expDesc.getText().toString();
         HashMap<String, String> data = new HashMap<>();
         if (expType.length() > 0 && desc.length() > 0) {
@@ -88,10 +93,11 @@ public class PublishExperimentActivity extends AppCompatActivity {
             data.put("type", expType);
             data.put("region", expRegion.getText().toString());
             data.put("minimum_trials", expNum.getText().toString());
-            data.put("owner","TRY TRY");
+            data.put("owner", owner);
+            data.put("status", "1");
             data.put("require_geolocation", "NO");
             if (expGeoLoc.isChecked()){
-                data.put("require_geolocation", "YES");
+                data.put("require_geolocation","YES");
             }
 
             collectionReference
