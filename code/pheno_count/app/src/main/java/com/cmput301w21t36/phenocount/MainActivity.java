@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
 
+        DocumentReference userReference;
+
 
        /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
         expDataList.add(exp);
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
         if (firstStart) {
-            final DocumentReference userReference = db.collection("User").document();
+            userReference = db.collection("User").document();
             // Auto-ID created for the document
             String GrabbedID = userReference.getId();
 
@@ -121,8 +123,11 @@ public class MainActivity extends AppCompatActivity {
          * Will retrieve the Username for the user and set the variable username
          * to the returned String
          */
-        DocumentReference userRef = db.collection("User").document(UUID);
-        userRef.get()
+        /*
+        This section of code is causing some errors for people and not too sure as to why
+        Will leave it commented out for now
+        userReference = db.collection("User").document(UUID);
+        userReference.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+         */
         profileButton = findViewById(R.id.profileButton);
 
  //////////////////// h
