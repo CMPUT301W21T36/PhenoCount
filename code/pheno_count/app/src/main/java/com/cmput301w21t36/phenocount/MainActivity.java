@@ -197,12 +197,16 @@ public class MainActivity extends AppCompatActivity {
                         String region = (String) doc.getData().get("region");
                         String type = (String) doc.getData().get("type");
                         String minInt = (String) doc.getData().get("minimum_trials");
-                        String reqGeo = "" + doc.getData().get("require_geolocation");
+                        String reqGeo = (String) doc.getData().get("require_geolocation");
                         String mStat = (String) doc.getData().get("status");
+
                         boolean reqLoc;
                         if (reqGeo == "YES") {
+                            System.out.println("HELOOOOOOOOOOOO");
                             reqLoc = true;
                         } else {
+                            System.out.println("nOOOOOOOOOOOO");
+
                             reqLoc = false;
                         }
                         int minTrial =  1;

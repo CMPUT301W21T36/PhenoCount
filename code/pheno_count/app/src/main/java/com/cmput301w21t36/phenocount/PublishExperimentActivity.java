@@ -97,7 +97,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
             data.put("status", "1");
             data.put("require_geolocation", "NO");
             if (expGeoLoc.isChecked()){
-                data.put("require_geolocation", "YES");
+                data.put("require_geolocation","YES");
             }
 
             collectionReference
