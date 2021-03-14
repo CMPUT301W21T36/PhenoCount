@@ -41,9 +41,10 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
-        //expOwner.setText(exp.getOwner().toString());
+       // expOwner.setText(exp.getOwner().toString());
         expRegion.setText(exp.getRegion());
-        //expMinTrial.setText((String) exp.getMinimumTrials());
+        //int mMinTrial=exp.getMinimumTrials();
+        expMinTrial.setText(Integer.toString(exp.getMinimumTrials()));
         expType.setText(exp.getExpType());
         String mStat = "" ;
         switch(exp.getExpStatus()){
@@ -54,7 +55,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             case 3:
                 mStat = "Unpublished";
             default:
-                mStat= "Added but not yet published";
+                mStat= "Added";
 
         }
         expStatus.setText(mStat);

@@ -37,8 +37,10 @@ public class Experiment implements Serializable {
      * This specifies if the geolocation is required for the Experiment
      * @param expType
      * This specifies the type of the experiment being conducted
+     * @param expStatus
+     * This specifies the status of the experiment
      */
-    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation) {
+    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation, int expStatus ) {
         this.name = name;
         this.description = description;
         this.region = region;
@@ -46,6 +48,7 @@ public class Experiment implements Serializable {
         this.requireLocation = requireLocation;
         this.expType = expType;
         this.trials = new ArrayList<>();
+        this.expStatus = expStatus;
     }
 
     /**
@@ -98,13 +101,6 @@ public class Experiment implements Serializable {
             return true;
         }
         return false;
-    }
-
-    /**
-     * This method creates a QR code for the experiment
-     */
-    public void createQR(){
-        // to do
     }
 
     /**
