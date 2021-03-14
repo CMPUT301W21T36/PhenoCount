@@ -54,7 +54,6 @@ public class ExperimentAdapter extends ArrayAdapter<Experiment> {
         }
         expstatus.setText(mStat);
 
-
         return view;
     }
 }

@@ -9,7 +9,7 @@ public class Trial implements Serializable {
 
     private String name;
     private String desc;
-    private User owner;
+    private String owner;
     private String type;
     private double Latitude;
     private double Longitude;
@@ -19,7 +19,7 @@ public class Trial implements Serializable {
     private float measurement;
     private int value;
 
-    public Trial(String name,String desc,User owner,String type){
+    public Trial(String name,String desc,String owner,String type){
         this.name = name;
         this.desc = desc;
         this.owner = owner;
@@ -47,7 +47,7 @@ public class Trial implements Serializable {
     }
 
 
-
+    public boolean getResult(){return result;};
 
     public float getMeasurement() {
         return measurement;
@@ -60,6 +60,11 @@ public class Trial implements Serializable {
     public int getValue() {
         return value;
     }
+
+    public String getName() {
+        return name;
+    }
+
 
 
     public double getLatitude() {
