@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <ListView
         android:id="@+id/expList"
         android:layout_width="match_parent"
         android:layout_height="507dp">
 
     </ListView>
-
-    </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/linear2"
@@ -51,8 +45,4 @@
             tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
     </LinearLayout>
 
-<<<<<<< HEAD
-</FrameLayout>
-=======
 </LinearLayout>
->>>>>>> 172094703f4acd05974572fa07319be9f5c60845
