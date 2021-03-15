@@ -47,9 +47,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         final String UUID = getIntent().getExtras().getString("UUID");
         DocumentReference docRef = db.collection("User").document(UUID);
 
-        user = new User(UUID);
-        profile = new Profile(user);
-
         UIDTextView.setText(UUID);
 
         // Retrieve username and contact info from the database and set the respective textviews
