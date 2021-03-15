@@ -28,6 +28,7 @@ import java.util.HashMap;
 public class DiscussionManager{
     private ArrayList<Question> queDataList = new ArrayList<>();
     private ArrayList<Reply> repDataList = new ArrayList<>();
+    private DatabaseManager dbManager = new DatabaseManager();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference quecollectionReference;
     private CollectionReference repcollectionReference;
@@ -36,6 +37,10 @@ public class DiscussionManager{
 
     public DiscussionManager(Experiment experiment){
         String expID = experiment.getID();
+        setUpQueCol(expID);
+    }
+
+    private void setUpQueCol(String expID) {
         quecollectionReference = db.collection("Experiment")
                                 .document(expID)
                                 .collection("Question");
