@@ -77,7 +77,7 @@
     <TextView
         android:id="@+id/ownerTextView"
         android:layout_width="228dp"
-        android:layout_height="23dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:inputType="textMultiLine"
