@@ -49,6 +49,10 @@ public class DiscussionManager{
     public DiscussionManager(Experiment experiment, Question question){
         String expID = experiment.getID();
         String qID = question.getID();
+        setUpRepCol(expID, qID);
+    }
+
+    private void setUpRepCol(String expID, String qID) {
         repcollectionReference = db.collection("Experiment")
                 .document(expID)
                 .collection("Question")
