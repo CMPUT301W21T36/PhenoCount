@@ -36,7 +36,7 @@
             android:layout_height="94dp"
             android:layout_weight="1"
             android:onClick="openProfile"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
     </LinearLayout>
 
 </LinearLayout>
