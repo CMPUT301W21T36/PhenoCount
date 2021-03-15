@@ -123,8 +123,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         Intent intent = new Intent(DiscussionActivity.this, QuestionActivity.class);
         intent.putExtra("experiment", experiment);
         intent.putExtra("question", target);
-        int LAUNCH_SECOND_ACTIVITY = 1;
-        startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+        startActivity(intent);
 
     }
 

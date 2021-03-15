@@ -9,7 +9,7 @@
     <ListView
         android:id="@+id/expList"
         android:layout_width="match_parent"
-        android:layout_height="494dp" />
+        android:layout_height="603dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.cmput301w21t36.phenocount;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -25,9 +26,10 @@ import java.util.HashMap;
 //either just created or selected to recreate.
 
 public class DiscussionManager{
+    private QuestionCollection qCol;
     private ArrayList<Question> queDataList = new ArrayList<>();
     private ArrayList<Reply> repDataList = new ArrayList<>();
-    private DatabaseManager dbManager = new DatabaseManager();
+    private DatabaseManager dbManager;
 
     private String TAG = "Discussion";
 
@@ -35,9 +37,19 @@ public class DiscussionManager{
         return dbManager.getDb();
     }
 
+    public DiscussionManager(DatabaseManager dbManager){
+        this.dbManager = dbManager;
+    }
+
     public DiscussionManager(Experiment experiment){
         String expID = experiment.getID();
         setUpQueCol(expID);
+    }
+
+    public DiscussionManager(Experiment experiment, Question question){
+        String expID = experiment.getID();
+        String qID = question.getID();
+        setUpRepCol(expID, qID);
     }
 
     private void setUpQueCol(String expID) {
@@ -46,11 +58,7 @@ public class DiscussionManager{
                                 .collection("Question"));
     }
 
-    public DiscussionManager(Experiment experiment, Question question){
-        String expID = experiment.getID();
-        String qID = question.getID();
-        setUpRepCol(expID, qID);
-    }
+
 
     private void setUpRepCol(String expID, String qID) {
         setRepcollectionReference(getDb().collection("Experiment")
