@@ -86,7 +86,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 startActivityForResult(i, 1);
             }
         });
-
     }
 
     @Override
