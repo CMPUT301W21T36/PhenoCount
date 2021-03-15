@@ -42,11 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<Experiment> expAdapter;
     ExpManager manager = new ExpManager();
 
-
     static final String AutoID = "ID";
     private String UUID;
-    String username;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
        /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
->>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
         expDataList.add(exp);
         Experiment exp2 = new Experiment("Number of Cars", "We count the number of cars in this experiment", "North America", "Count", 10, true);
         expDataList.add(exp2);
@@ -72,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         expDataList.add(exp4);
 
         */
-
 
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
@@ -110,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
         // This is the UUID for the current user using the app
         // It will save over instances of the app and is only updated upon first open after install
-
         UUID = sharedPrefs.getString(AutoID, "");
 
+        // Will open Profile when button is clicked
         profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
+        String ID= UUID;
+        intent.putExtra("UUID", ID);
         startActivity(intent);
 
     }
