@@ -34,6 +34,9 @@ public class DiscussionManager{
     private CollectionReference repcollectionReference;
     private String TAG = "Discussion";
 
+    public FirebaseFirestore getDb() {
+        return db;
+    }
 
     public DiscussionManager(Experiment experiment){
         String expID = experiment.getID();
@@ -41,7 +44,7 @@ public class DiscussionManager{
     }
 
     private void setUpQueCol(String expID) {
-        quecollectionReference = db.collection("Experiment")
+        quecollectionReference = getDb().collection("Experiment")
                                 .document(expID)
                                 .collection("Question");
     }
@@ -53,7 +56,7 @@ public class DiscussionManager{
     }
 
     private void setUpRepCol(String expID, String qID) {
-        repcollectionReference = db.collection("Experiment")
+        repcollectionReference = getDb().collection("Experiment")
                 .document(expID)
                 .collection("Question")
                 .document(qID)
