@@ -17,12 +17,12 @@ public abstract class Post {
     protected String text;
     protected LocalDateTime date; //not necessary
 
-    public Post(String author, String text){
-        this.author = author;
-        this.text = text;
-    }
+
     public Post(String text){
         this.text = text;
+    }
+    public Post(){
+
     }
 
     /**
@@ -33,7 +33,6 @@ public abstract class Post {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         date = LocalDateTime.now();
     }
-
     public String getText() {
         return text;
     }

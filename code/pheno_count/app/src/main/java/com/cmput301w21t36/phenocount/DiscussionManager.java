@@ -29,8 +29,7 @@ public class DiscussionManager{
     private QuestionCollection qCol;
     private ArrayList<Question> queDataList = new ArrayList<>();
     private ArrayList<Reply> repDataList = new ArrayList<>();
-    private DatabaseManager dbManager;
-
+    private DatabaseManager dbManager = new DatabaseManager();
     private String TAG = "Discussion";
 
     public FirebaseFirestore getDb() {

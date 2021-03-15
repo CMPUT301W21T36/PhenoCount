@@ -1,6 +1,8 @@
 package com.cmput301w21t36.phenocount;
 
-public class Statistic {
+import java.io.Serializable;
+
+public class Statistic implements Serializable {
     Float mean;
     Float median;
     Float quartile1;

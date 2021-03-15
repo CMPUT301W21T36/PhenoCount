@@ -47,6 +47,9 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
 
+        queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+
+
 
 
 
@@ -109,6 +112,9 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     public void onOkPressedAdd(String text) {
         disManager.addQueDoc(text);
+        queData = disManager.getQueDataList();
+        queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
 }
 
