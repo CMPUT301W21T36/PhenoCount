@@ -37,10 +37,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experiment_display);
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        System.out.println("WORKINGGGGGG? :"+exp.getTrials().size());
 
         //exp.setOwner("1");
-        System.out.println("Heloooooooooooooooooooooooooo");
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
 
@@ -55,7 +53,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
-       // expOwner.setText(exp.getOwner().toString());
+        //expOwner.setText(exp.getOwner().toString());
         expRegion.setText(exp.getRegion());
         //int mMinTrial=exp.getMinimumTrials();
         expMinTrial.setText(Integer.toString(exp.getMinimumTrials()));
@@ -133,7 +131,12 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 Intent dintent = new Intent(DisplayExperimentActivity.this, DiscussionActivity.class);
                 dintent.putExtra("experiment", exp);
                 int LAUNCH_SECOND_ACTIVITY = 1;
-                startActivityForResult(dintent, LAUNCH_SECOND_ACTIVITY);
+                startActivity(dintent);
+            }
+            else if (item.getItemId() == R.id.item4){
+                Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
+                tintent.putExtra("experiment", exp);
+                startActivity(tintent);
             }
 
 
@@ -210,17 +213,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                                     Log.d(TAG, "Data could not be added!" + e.toString());
                                 }
                             });
-
-
-
-
-
-
-
-
-
-
-
 
 
                 } else {

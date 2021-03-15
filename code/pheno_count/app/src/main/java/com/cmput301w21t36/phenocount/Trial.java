@@ -45,7 +45,7 @@ public class Trial implements Serializable {
     void setLatitude(double latitude){
         this.Latitude = latitude;
     }
-
+    void setResult(boolean result){this.result = result;}
 
     public boolean getResult(){return result;};
 
@@ -73,5 +73,13 @@ public class Trial implements Serializable {
 
     public double getLongitude() {
         return Longitude;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getType() {
+        return type;
     }
 }

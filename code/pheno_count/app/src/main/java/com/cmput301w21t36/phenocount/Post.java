@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
  */
 public abstract class Post {
     protected String ID = "";
-    protected User author; //not necessary
+    protected String author; //not necessary
     protected String text;
     protected LocalDateTime date; //not necessary
 
-    public Post(User author, String text){
+    public Post(String author, String text){
         this.author = author;
         this.text = text;
     }

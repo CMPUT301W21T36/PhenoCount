@@ -67,7 +67,6 @@ public class Binomial extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("experiment",newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
-                System.out.println("RUNNING OKAY");
                 Toast.makeText(
                         Binomial.this,
                         "Success Recorded",
@@ -135,7 +134,6 @@ public class Binomial extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                System.out.println("LAT: "+trial.getLatitude());
                 //newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {

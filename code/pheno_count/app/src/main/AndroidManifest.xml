@@ -37,6 +37,8 @@
         <activity android:name=".Measurement" />
         <activity android:name=".NonNegativeCount" />
         <activity android:name=".DiscussionActivity" />
+        <activity android:name=".ResultsActivity" />
+
 
 
 

@@ -11,6 +11,9 @@ import java.util.ArrayList;
  */
 public class Question extends Post implements Serializable {
 
+    private ListView rList;
+    private ArrayList<Reply> replies;
+    
     public Question(String text){
         super(text);
     }
@@ -19,8 +22,7 @@ public class Question extends Post implements Serializable {
     //do I have to create an attribute author, text?
     //if not, how to set up getters?
 
-    private ListView rList;
-    private ArrayList<Reply> replies;
+
 
     /**
      * This method allows user to reply a question of the experiment,

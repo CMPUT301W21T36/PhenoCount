@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPrefs.edit();
+            System.out.println("THE USER: "+GrabbedID);
 
             editor.putString(AutoID, GrabbedID);
 
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             // This is the UUID for the current user using the app
             // It will save over instances of the app and is only updated upon first open after install
             UUID = sharedPrefs.getString(AutoID, "");
+            System.out.println("THE USER: "+UUID);
 
             Map<String, Object> user = new HashMap<>();
             user.put("UID", UUID);
@@ -112,12 +114,14 @@ public class MainActivity extends AppCompatActivity {
             user.put("ContactInfo", "7801111111");
 
             db.collection("User").document(UUID).set(user);
+
         }
 
         // This is the UUID for the current user using the app
         // It will save over instances of the app and is only updated upon first open after install
 
         UUID = sharedPrefs.getString(AutoID, "");
+        System.out.println("THE USER: "+UUID);
 
         /**
          * Will retrieve the Username for the user and set the variable username
@@ -226,11 +230,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ////////////////////
                 int i =0;
-                System.out.println("DESCRIPTION: "+expDataList.size());
                 while(i<expDataList.size()) {
-                    System.out.println("Workinggggggggg");
                     Experiment exp = expDataList.get(i);
-
                     int finalI = i;
                     db.collection("Trials").whereEqualTo("ExpID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
@@ -244,6 +245,22 @@ public class MainActivity extends AppCompatActivity {
                                 String towner = (String) doc.getData().get("owner");
 
                                 Trial trial = new Trial(tname, tdescription, towner, ttype);
+
+                                //retriving result from firebase
+                                String result = (String) doc.getData().get("result");
+                                if(ttype.equals("Binomial")) {
+                                    trial.setResult(Boolean.parseBoolean(result));
+                                }
+                                else if (ttype.equals("Count")) {
+                                    trial.setCount(Integer.parseInt(result));
+                                }
+                                else if (ttype.equals("Measurement")){
+                                    trial.setMeasurement(Float.parseFloat(result));
+                                }
+                                else if (ttype.equals("Non Negative Count")){
+                                    trial.setValue(Integer.parseInt(result));
+                                }
+
                                 trials.add(trial);
                                 System.out.println("DESCRIPTION: " + trial.getName());
                             }
