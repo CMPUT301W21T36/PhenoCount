@@ -36,7 +36,7 @@ public class NonNegativeCount extends AppCompatActivity {
         desc.setText("Description:" + String.valueOf(newexp.getOwner()));
 
         TextView owner = findViewById(R.id.owner4);
-        owner.setText("Owner:" + String.valueOf(newexp.getOwner()));
+        owner.setText("Owner:" + newexp.getOwner().getProfile().getUsername());
 
         TextView status = findViewById(R.id.status4);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));

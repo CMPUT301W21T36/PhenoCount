@@ -35,7 +35,7 @@ public class Count extends AppCompatActivity {
         desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
         TextView owner = findViewById(R.id.owner2);
-        owner.setText("Owner:" + String.valueOf(newexp.getOwner()));
+        owner.setText("Owner:" + newexp.getOwner().getProfile().getUsername());
 
         TextView status = findViewById(R.id.status2);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));

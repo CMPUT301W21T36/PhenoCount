@@ -35,7 +35,7 @@ public class Measurement extends AppCompatActivity {
         desc.setText("Description:" + String.valueOf(newexp.getOwner()));
 
         TextView owner = findViewById(R.id.owner3);
-        owner.setText("Owner:" + String.valueOf(newexp.getOwner()));
+        owner.setText("Owner:" + newexp.getOwner().getProfile().getUsername());
 
         TextView status = findViewById(R.id.status3);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));

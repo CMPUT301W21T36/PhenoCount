@@ -33,6 +33,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
+
     ImageButton searchButton;
     ImageButton profileButton;
     FirebaseFirestore db;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     static final String AutoID = "ID";
     private String UUID;
     private String username;
-    private String userContact;
+    private String phone_number;
     Experiment newexp;
     int test1 = 0;
 
@@ -58,11 +59,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         experiments = findViewById(R.id.expList);
-
+        //Intent i = new Intent(this, LocationActivity.class);
+        //a i.putExtra("info", info);
+        //startActivityForResult(i, 1);
         expDataList = new ArrayList<>();
 
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
+
+        //DocumentReference userReference;
+
+       /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
+        expDataList.add(exp);
+        Experiment exp2 = new Experiment("Number of Cars", "We count the number of cars in this experiment","North America","Count", 10, true);
+        expDataList.add(exp2);
+        Experiment exp3 = new Experiment("Temperature In Edmonton", "We measure the Temperature in this experiment","North America","Measurement", 10, true);
+        expDataList.add(exp3);
+        Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment","North America","Non Negative Count", 10, true);
+        expDataList.add(exp4);
+        */
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
@@ -111,11 +126,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         username = documentSnapshot.getString("Username");
+                        phone_number = documentSnapshot.getString("ContactInfo");
 
                         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
                         editor.putString("Username", username);
+                        editor.putString("Number",phone_number);
                         editor.apply();
                     }
                 });
@@ -123,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         // Username for the current user
         username = sharedPrefs.getString("Username", "");
         System.out.println(username);
-        userContact = sharedPrefs.getString("ContactInfo", "");
+
 
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY);
-//                startActivity(intent);
             }
         });
         expAdapter.notifyDataSetChanged();
@@ -180,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openProfile(){
+    public void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         String ID = UUID;
         intent.putExtra("UUID",ID);
@@ -224,20 +240,28 @@ public class MainActivity extends AppCompatActivity {
                         int expStatus = 0;
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
-
-                        User user =new User(owner,username,userContact);
                         ////////////////////newnew
-                        //int finalMinTrial = minTrial;
-                        //int finalExpStatus = expStatus;
-                        //Experiment newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID);
-                        //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-                        //SharedPreferences.Editor editor = sharedPrefs.edit();
-                        //username = sharedPrefs.getString("Username", "");
-                        //newexp.setOwner(username);
-                        //expDataList.add(newexp); // Adding the cities and provinces from FireStore
-
+                        int finalMinTrial = minTrial;
+                        int finalExpStatus = expStatus;
                         ArrayList<Trial> trials = new ArrayList<>();
-                        expDataList.add(new Experiment(expID,name, description, region, type, minTrial, reqLoc,owner, expStatus)); // Adding the cities and provinces from FireStore
+                        Experiment newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID);
+                        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+                        //creating a user object
+                        username = sharedPrefs.getString("Username", "");
+                        phone_number = sharedPrefs.getString("Number","");
+                        System.out.println(username);
+                        UUID = sharedPrefs.getString(AutoID, "");
+
+                        //creating a profile object
+                        Profile newprofile = new Profile(username,phone_number);
+                        User current_user = new User(UUID,newprofile);
+
+                        newexp.setOwner(current_user);
+
+
+                        expDataList.add(newexp); // Adding the cities and provinces from FireStore
                     }
                 }
                 ////////////////////
@@ -254,9 +278,9 @@ public class MainActivity extends AppCompatActivity {
                                 String tname = (String) doc.getData().get("name");
                                 String tdescription = (String) doc.getData().get("description");
                                 String ttype = (String) doc.getData().get("type");
-                                String towner = (String) doc.getData().get("owner");
+                                User user = exp.getOwner();
 
-                                Trial trial = new Trial(tname, tdescription, towner, ttype);
+                                Trial trial = new Trial(tname, tdescription,user, ttype);
 
                                 //retriving result from firebase
                                 String result = (String) doc.getData().get("result");
@@ -296,44 +320,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void addTrialsData (){
-        int i =0;
-        System.out.println("DESCRIPTION: "+expDataList.size());
-        while(i<expDataList.size()) {
-            System.out.println("Workinggggggggg");
-            Experiment exp = expDataList.get(i);
-
-            db.collection("Trials").whereEqualTo("ExpID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                    ArrayList<Trial> trials = new ArrayList<>();
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        Log.d("pheno", String.valueOf(doc.getId()));
-                        String tname = (String) doc.getData().get("name");
-                        String tdescription = (String) doc.getData().get("description");
-                        String ttype = (String) doc.getData().get("type");
-                        String towner = (String) doc.getData().get("owner");
-
-                        Trial trial = new Trial(tname, tdescription, towner, ttype);
-                        trials.add(trial);
-                        System.out.println("DESCRIPTION: " + trial.getName());
-                    }
-                    exp.setTrials(trials);
-                    System.out.println("SIZE:" + trials.size());
-
-                    //newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID,trials)); // Adding the cities and provinces from FireStore
-
-                }
-            });
-
-            i++;
-        }
-
-    }
-
-
-
-    ///2
-
 
 }

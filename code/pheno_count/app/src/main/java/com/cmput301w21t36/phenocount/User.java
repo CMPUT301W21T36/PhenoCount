@@ -1,8 +1,9 @@
 package com.cmput301w21t36.phenocount;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
     private ArrayList<Experiment> expPublished;
     private ArrayList<Experiment> expSubscribed;
     private String UID;
