@@ -21,6 +21,7 @@ public class Experiment implements Serializable {
     private Statistic stats;
     private int expStatus = -1; // 0 for add, 1 for published, 2 for ended, 3 for unpublished
     private int subscribe = 0;
+   
 
     /**
      * This constructs a new experiment object
