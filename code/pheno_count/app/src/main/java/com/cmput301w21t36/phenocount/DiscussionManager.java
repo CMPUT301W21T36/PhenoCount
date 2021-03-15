@@ -80,7 +80,7 @@ public class DiscussionManager{
                     queDataList.add(newQue);
 
                 }
-                queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+                //queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
 

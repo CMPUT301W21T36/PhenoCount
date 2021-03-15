@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <ListView
         android:id="@+id/expList"
         android:layout_width="match_parent"
         android:layout_height="494dp" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +37,7 @@
             app:srcCompat="@android:drawable/ic_search_category_default" />
 
         <ImageButton
+            android:layout_gravity = "bottom|right"
             android:id="@+id/profileButton"
             android:layout_width="wrap_content"
             android:layout_height="94dp"
@@ -39,4 +46,4 @@
             tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

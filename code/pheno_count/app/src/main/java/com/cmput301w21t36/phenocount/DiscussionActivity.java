@@ -52,9 +52,10 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
+
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
-        ////
+
         quecollectionReference = db.collection("Experiment")
                 .document(experiment.getID())
                 .collection("Question");
@@ -63,8 +64,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         disManager.updateQueData();
         queData = disManager.getQueDataList();
 
-/////////// code below added fom disManager
-////////////////////////// code above added from Dis Manager
 
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
