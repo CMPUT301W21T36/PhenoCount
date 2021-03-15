@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 
+ *
  * @Author: Caleb Lonson
  */
 public class ProfileActivity extends AppCompatActivity implements ProfileDialog.ProfileDialogListener {
