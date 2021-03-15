@@ -87,7 +87,7 @@ public class Binomial extends AppCompatActivity {
         fbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(location) {
+                if(location || !newexp.isRequireLocation()) {
                     //increments fails
                     trial.isFailure();
                     newexp.getTrials().add(trial);

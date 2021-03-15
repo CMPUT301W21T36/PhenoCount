@@ -30,17 +30,16 @@ public class Experiment implements Serializable {
      * @param description
      * This is a description for the Experiment to be constructed
      * @param region
-     * This is a region for the Experiment to be constructed
-     * @param minimumTrials
-     * This is an Experiment's minimum number of trials
-     * @param requireLocation
-     * This specifies if the geolocation is required for the Experiment
+ * This is a region for the Experiment to be constructed
      * @param expType
-     * This specifies the type of the experiment being conducted
+* This specifies the type of the experiment being conducted
+     * @param minimumTrials
+* This is an Experiment's minimum number of trials
+     * @param requireLocation
+* This specifies if the geolocation is required for the Experiment
      * @param expStatus
-     * This specifies the status of the experiment
      */
-    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation, int expStatus,String expID,ArrayList<Trial> trials ) {
+    public Experiment(String name, String description, String region, String expType, int minimumTrials, boolean requireLocation, int expStatus, String expID) {
         this.name = name;
         this.expID = expID;
         this.description = description;

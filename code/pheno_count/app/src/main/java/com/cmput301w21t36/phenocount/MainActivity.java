@@ -15,9 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
     static final String AutoID = "ID";
     private String UUID;
-    String username;
+    private String username;
+    Experiment newexp;
+    int test1 = 0;
+
+
 
 
     @Override
@@ -61,23 +65,25 @@ public class MainActivity extends AppCompatActivity {
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
 
+
+        //DocumentReference userReference;
+
+
+
        /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
->>>>>>> eec4a3cd823f3a866d7a70af15dea4eff39f6f63
         expDataList.add(exp);
-        Experiment exp2 = new Experiment("Number of Cars", "We count the number of cars in this experiment", "North America", "Count", 10, true);
+        Experiment exp2 = new Experiment("Number of Cars", "We count the number of cars in this experiment","North America","Count", 10, true);
         expDataList.add(exp2);
-        Experiment exp3 = new Experiment("Temperature In Edmonton", "We measure the Temperature in this experiment", "North America", "Measurement", 10, true);
+        Experiment exp3 = new Experiment("Temperature In Edmonton", "We measure the Temperature in this experiment","North America","Measurement", 10, true);
         expDataList.add(exp3);
-        Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment", "North America", "Non Negative Count", 10, true);
+        Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment","North America","Non Negative Count", 10, true);
         expDataList.add(exp4);
 
         */
 
 
-
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
-
 
         /**
          *
@@ -113,6 +119,21 @@ public class MainActivity extends AppCompatActivity {
 
         UUID = sharedPrefs.getString(AutoID, "");
 
+        /**
+         * Will retrieve the Username for the user and set the variable username
+         * to the returned String
+         */
+        DocumentReference userRef = db.collection("User").document();
+        userRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        username = documentSnapshot.getString("Username");
+                        System.out.println(username);
+                    }
+                });
+
+
         profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,43 +145,45 @@ public class MainActivity extends AppCompatActivity {
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
         getExpData1();
+        //addTrialsData();
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(MainActivity.this, DisplayExperimentActivity.class);
+                Intent intent = new Intent (MainActivity.this,DisplayExperimentActivity.class);
                 Experiment exp_obj = expDataList.get(position);
-                intent.putExtra("experiment", exp_obj);
-                intent.putExtra("position", position);
+                intent.putExtra("experiment",exp_obj);
+                intent.putExtra("position",position);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
-                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+                startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY);
             }
         });
         expAdapter.notifyDataSetChanged();
     }
 
-    public void displayExperiment(View view) {
+    public void displayExperiment(View view){
         Intent intent = new Intent(this, DisplayExperimentActivity.class);
         startActivity(intent);
     }
 
-    public void addExperiment(View view) {
+    public void addExperiment(View view){
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         String mstr = UUID;
         intent.putExtra("AutoId",mstr);
         startActivity(intent);
     }
 
-    public void openProfile() {
+    public void openProfile(){
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
-
     }
 
     ///2 need to check with expManager as not working with that
+
     public void getExpData1(){
+
         //final CollectionReference collectionReference = db.collection("Experiment").whereEqualTo("owner",UUID).;
         db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -169,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 expDataList.clear();
                 for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
                 {
+
                     if (error ==null ) {
                         Log.d("pheno", String.valueOf(doc.getId()));
                         String expID = doc.getId();
@@ -193,15 +217,94 @@ public class MainActivity extends AppCompatActivity {
                         int expStatus = 0;
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
-                        expDataList.add(new Experiment(name, description, region, type, minTrial, reqLoc,expStatus,expID)); // Adding the cities and provinces from FireStore
-
+                        ////////////////////newnew
+                        int finalMinTrial = minTrial;
+                        int finalExpStatus = expStatus;
+                        ArrayList<Trial> trials = new ArrayList<>();
+                        expDataList.add(new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID)); // Adding the cities and provinces from FireStore
                     }
                 }
+                ////////////////////
+                int i =0;
+                System.out.println("DESCRIPTION: "+expDataList.size());
+                while(i<expDataList.size()) {
+                    System.out.println("Workinggggggggg");
+                    Experiment exp = expDataList.get(i);
+
+                    int finalI = i;
+                    db.collection("Trials").whereEqualTo("ExpID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                            ArrayList<Trial> trials = new ArrayList<>();
+                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                Log.d("pheno", String.valueOf(doc.getId()));
+                                String tname = (String) doc.getData().get("name");
+                                String tdescription = (String) doc.getData().get("description");
+                                String ttype = (String) doc.getData().get("type");
+                                String towner = (String) doc.getData().get("owner");
+
+                                Trial trial = new Trial(tname, tdescription, towner, ttype);
+                                trials.add(trial);
+                                System.out.println("DESCRIPTION: " + trial.getName());
+                            }
+                            exp.setTrials(trials);
+                            expDataList.set(finalI,exp);
+                            System.out.println("SIZE:" + trials.size());
+
+                            //newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID,trials)); // Adding the cities and provinces from FireStore
+
+                        }
+                    });
+
+                    i++;
+                }
+
                 expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
             }
         });
+
+        ////////////////////newnew
+
+
+    }
+    public void addTrialsData (){
+        int i =0;
+        System.out.println("DESCRIPTION: "+expDataList.size());
+        while(i<expDataList.size()) {
+            System.out.println("Workinggggggggg");
+            Experiment exp = expDataList.get(i);
+
+            db.collection("Trials").whereEqualTo("ExpID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                    ArrayList<Trial> trials = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                        Log.d("pheno", String.valueOf(doc.getId()));
+                        String tname = (String) doc.getData().get("name");
+                        String tdescription = (String) doc.getData().get("description");
+                        String ttype = (String) doc.getData().get("type");
+                        String towner = (String) doc.getData().get("owner");
+
+                        Trial trial = new Trial(tname, tdescription, towner, ttype);
+                        trials.add(trial);
+                        System.out.println("DESCRIPTION: " + trial.getName());
+                    }
+                    exp.setTrials(trials);
+                    System.out.println("SIZE:" + trials.size());
+
+                    //newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID,trials)); // Adding the cities and provinces from FireStore
+
+                }
+            });
+
+            i++;
+        }
+
     }
 
+
+
+    ///2
 
 
 }
