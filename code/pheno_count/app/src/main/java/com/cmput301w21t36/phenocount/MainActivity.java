@@ -65,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
 
-
         //DocumentReference userReference;
-
-
 
        /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
         expDataList.add(exp);
@@ -78,9 +75,7 @@ public class MainActivity extends AppCompatActivity {
         expDataList.add(exp3);
         Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment","North America","Non Negative Count", 10, true);
         expDataList.add(exp4);
-
         */
-
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
@@ -96,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
             sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPrefs.edit();
-            System.out.println("THE USER: "+GrabbedID);
 
             editor.putString(AutoID, GrabbedID);
 
@@ -124,16 +118,24 @@ public class MainActivity extends AppCompatActivity {
          * Will retrieve the Username for the user and set the variable username
          * to the returned String
          */
-        DocumentReference userRef = db.collection("User").document();
+        DocumentReference userRef = db.collection("User").document(UUID);
         userRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         username = documentSnapshot.getString("Username");
-                        System.out.println(username);
+
+                        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+                        editor.putString("Username", username);
+                        editor.apply();
                     }
                 });
 
+        // Username for the current user
+        username = sharedPrefs.getString("Username", "");
+        System.out.println(username);
 
         profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {

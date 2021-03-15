@@ -1,14 +1,14 @@
 package com.cmput301w21t36.phenocount;
 
-import android.widget.ListView;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import android.os.Bundle;
 
-public class SearchingActivity {
-    private ListView expList;
-    private ArrayList<Experiment> results;
-    private ArrayList<Experiment> allExps;
-    private int index;
+public class SearchingActivity extends AppCompatActivity {
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_searching);
+    }
 }
