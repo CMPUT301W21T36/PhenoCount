@@ -29,13 +29,12 @@ public class DiscussionManager{
     private ArrayList<Question> queDataList = new ArrayList<>();
     private ArrayList<Reply> repDataList = new ArrayList<>();
     private DatabaseManager dbManager = new DatabaseManager();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference quecollectionReference;
     private CollectionReference repcollectionReference;
     private String TAG = "Discussion";
 
     public FirebaseFirestore getDb() {
-        return db;
+        return dbManager.getDb();
     }
 
     public DiscussionManager(Experiment experiment){
