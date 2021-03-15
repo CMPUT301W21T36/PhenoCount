@@ -241,7 +241,12 @@ public class MainActivity extends AppCompatActivity {
                         int finalMinTrial = minTrial;
                         int finalExpStatus = expStatus;
                         ArrayList<Trial> trials = new ArrayList<>();
-                        expDataList.add(new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID)); // Adding the cities and provinces from FireStore
+                        Experiment newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID);
+                        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPrefs.edit();
+                        username = sharedPrefs.getString("Username", "");
+                        newexp.setOwner(username);
+                        expDataList.add(newexp); // Adding the cities and provinces from FireStore
                     }
                 }
                 ////////////////////

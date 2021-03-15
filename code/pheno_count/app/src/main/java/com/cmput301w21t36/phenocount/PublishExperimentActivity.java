@@ -48,11 +48,11 @@ public class PublishExperimentActivity extends AppCompatActivity {
             case R.id.radioBinomial:
                 if (checked)
                     expType="Binomial";
-                    break;
+                break;
             case R.id.radioCount:
                 if (checked)
                     expType="Count";
-                    break;
+                break;
             case R.id.radioInt:
                 if (checked)
                     expType="NonNegativeCount";

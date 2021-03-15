@@ -2,13 +2,24 @@ package com.cmput301w21t36.phenocount;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -23,7 +34,7 @@ import java.util.ArrayList;
  * the QuestionActivity page, where they can browse all the replies the question
  * has received.
  */
-public class DiscussionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
+public class DiscussionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener, Serializable {
     //a collection of question posts of a certain experiment
     private ListView qListView;
     private ArrayAdapter<Question> queAdapter;
@@ -31,6 +42,9 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     private Experiment experiment;
     private DiscussionManager disManager;
     private User user; //I think we need to get who is currently viewing this forum
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference quecollectionReference;
+    private String TAG = "Discussion";
 
 
 
@@ -40,15 +54,21 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         setContentView(R.layout.activity_discussion);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
+        ////
+        quecollectionReference = db.collection("Experiment")
+                .document(experiment.getID())
+                .collection("Question");
 
         disManager = new DiscussionManager(experiment);
         disManager.updateQueData();
         queData = disManager.getQueDataList();
+
+/////////// code below added fom disManager
+////////////////////////// code above added from Dis Manager
+
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
-
-
-
+        //queAdapter.notifyDataSetChanged();
 
         /*
         When the 'ask question' button is pressed in this activity,
