@@ -214,9 +214,9 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
 
                 } else {
-                    String testt = data.getSerializableExtra("scannedText").toString();
-                    TextView test = findViewById(R.id.scannedTextView);
-                    test.setText(testt);
+//                    String testt = data.getSerializableExtra("scannedText").toString();
+//                    TextView test = findViewById(R.id.scannedTextView);
+//                    test.setText(testt);
                 }
 
             }
