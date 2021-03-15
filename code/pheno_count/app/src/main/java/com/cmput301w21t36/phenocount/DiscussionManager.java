@@ -28,8 +28,7 @@ public class DiscussionManager{
     private ArrayList<Question> queDataList = new ArrayList<>();
     private ArrayList<Reply> repDataList = new ArrayList<>();
     private DatabaseManager dbManager = new DatabaseManager();
-    private CollectionReference quecollectionReference;
-    private CollectionReference repcollectionReference;
+
     private String TAG = "Discussion";
 
     public FirebaseFirestore getDb() {
@@ -184,18 +183,17 @@ public class DiscussionManager{
     }
 
     public CollectionReference getQuecollectionReference() {
-        return quecollectionReference;
+        return dbManager.getQuecollectionReference();
     }
 
     public void setQuecollectionReference(CollectionReference quecollectionReference) {
-        this.quecollectionReference = quecollectionReference;
+        dbManager.setQuecollectionReference(quecollectionReference);
     }
 
     public CollectionReference getRepcollectionReference() {
-        return repcollectionReference;
-    }
+        return dbManager.getRepcollectionReference();}
 
     public void setRepcollectionReference(CollectionReference repcollectionReference) {
-        this.repcollectionReference = repcollectionReference;
+        dbManager.setRepcollectionReference(repcollectionReference);
     }
 }
