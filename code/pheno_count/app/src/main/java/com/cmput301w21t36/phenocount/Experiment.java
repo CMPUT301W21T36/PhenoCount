@@ -16,7 +16,7 @@ public class Experiment implements Serializable {
     private String expType;
     private int minimumTrials;
     private boolean requireLocation;
-    private String owner;
+    private User owner;
     private ArrayList<Trial> trials;
     private Statistic stats;
     private int expStatus = -1; // 0 for add, 1 for published, 2 for ended, 3 for unpublished
@@ -49,6 +49,18 @@ public class Experiment implements Serializable {
         this.requireLocation = requireLocation;
         this.expType = expType;
         this.trials = trials;
+        this.expStatus = expStatus;
+    }
+
+    public Experiment(String expID, String name, String description, String region, String expType, int minimumTrials, boolean requireLocation, User owner, int expStatus) {
+        this.expID = expID;
+        this.name = name;
+        this.description = description;
+        this.region = region;
+        this.expType = expType;
+        this.minimumTrials = minimumTrials;
+        this.requireLocation = requireLocation;
+        this.owner = owner;
         this.expStatus = expStatus;
     }
 
@@ -229,7 +241,7 @@ public class Experiment implements Serializable {
      * @return
      * returns the owner of the experiment
      */
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
 
@@ -238,7 +250,7 @@ public class Experiment implements Serializable {
      * @param owner
      * The owner for the experiment that has to be saved/added
      */
-    public void setOwner(String owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 

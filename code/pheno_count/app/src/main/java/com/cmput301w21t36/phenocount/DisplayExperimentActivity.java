@@ -29,9 +29,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     private final String TAG = "PhenoCount";
     private String UUID;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +50,10 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
-        expOwner.setText(exp.getOwner().toString());
-        expRegion.setText(exp.getRegion());
+        //expOwner.setText(exp.getOwner());
+        //expOwner.setText(exp.getOwner().getDisplayName());
+        //expOwner.setText(exp.getOwner().getUID());
+        //expRegion.setText(exp.getRegion());
         //int mMinTrial=exp.getMinimumTrials();
         expMinTrial.setText(Integer.toString(exp.getMinimumTrials()));
         expType.setText(exp.getExpType());

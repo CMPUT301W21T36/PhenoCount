@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,19 +12,24 @@
     <ListView
         android:id="@+id/expList"
         android:layout_width="match_parent"
-        android:layout_height="494dp" />
+        android:layout_height="507dp">
+
+    </ListView>
 
     </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/linear2"
         android:layout_width="match_parent"
-        android:layout_height="76dp">
+        android:layout_height="75dp"
+        android:layout_gravity="bottom|end|fill">
 
         <ImageButton
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:layout_weight="1"
             android:onClick="addExperiment"
             app:srcCompat="@android:drawable/ic_input_add" />
@@ -40,10 +45,14 @@
             android:layout_gravity = "bottom|right"
             android:id="@+id/profileButton"
             android:layout_width="wrap_content"
-            android:layout_height="94dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="openProfile"
             tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
     </LinearLayout>
 
+<<<<<<< HEAD
 </FrameLayout>
+=======
+</LinearLayout>
+>>>>>>> 172094703f4acd05974572fa07319be9f5c60845

@@ -33,7 +33,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
-
     ImageButton searchButton;
     ImageButton profileButton;
     FirebaseFirestore db;
@@ -47,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     static final String AutoID = "ID";
     private String UUID;
     private String username;
+    private String userContact;
     Experiment newexp;
     int test1 = 0;
 
@@ -58,25 +58,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         experiments = findViewById(R.id.expList);
-        //Intent i = new Intent(this, LocationActivity.class);
-        //a i.putExtra("info", info);
-        //startActivityForResult(i, 1);
+
         expDataList = new ArrayList<>();
 
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
-
-        //DocumentReference userReference;
-
-       /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
-        expDataList.add(exp);
-        Experiment exp2 = new Experiment("Number of Cars", "We count the number of cars in this experiment","North America","Count", 10, true);
-        expDataList.add(exp2);
-        Experiment exp3 = new Experiment("Temperature In Edmonton", "We measure the Temperature in this experiment","North America","Measurement", 10, true);
-        expDataList.add(exp3);
-        Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment","North America","Non Negative Count", 10, true);
-        expDataList.add(exp4);
-        */
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
@@ -137,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         // Username for the current user
         username = sharedPrefs.getString("Username", "");
         System.out.println(username);
-
+        userContact = sharedPrefs.getString("ContactInfo", "");
 
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY);
+//                startActivity(intent);
             }
         });
         expAdapter.notifyDataSetChanged();
@@ -193,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openProfile() {
+    public void openProfile(){
         Intent intent = new Intent(this, ProfileActivity.class);
         String ID = UUID;
         intent.putExtra("UUID",ID);
@@ -237,16 +224,20 @@ public class MainActivity extends AppCompatActivity {
                         int expStatus = 0;
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
+
+                        User user =new User(owner,username,userContact);
                         ////////////////////newnew
-                        int finalMinTrial = minTrial;
-                        int finalExpStatus = expStatus;
+                        //int finalMinTrial = minTrial;
+                        //int finalExpStatus = expStatus;
+                        //Experiment newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID);
+                        //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                        //SharedPreferences.Editor editor = sharedPrefs.edit();
+                        //username = sharedPrefs.getString("Username", "");
+                        //newexp.setOwner(username);
+                        //expDataList.add(newexp); // Adding the cities and provinces from FireStore
+
                         ArrayList<Trial> trials = new ArrayList<>();
-                        Experiment newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID);
-                        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPrefs.edit();
-                        username = sharedPrefs.getString("Username", "");
-                        newexp.setOwner(username);
-                        expDataList.add(newexp); // Adding the cities and provinces from FireStore
+                        expDataList.add(new Experiment(expID,name, description, region, type, minTrial, reqLoc,owner, expStatus)); // Adding the cities and provinces from FireStore
                     }
                 }
                 ////////////////////
