@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,17 +15,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+
 public class DisplayExperimentActivity extends AppCompatActivity {
 
     private Experiment exp; // catch object passed from mainlist
+    FirebaseFirestore db;
+    private final String TAG = "PhenoCount";
+    private String UUID;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experiment_display);
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+
         //exp.setOwner("1");
-        System.out.println("Heloooooooooooooooooooooooooo");
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
 
@@ -38,7 +53,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
-       // expOwner.setText(exp.getOwner().toString());
+        //expOwner.setText(exp.getOwner().toString());
         expRegion.setText(exp.getRegion());
         //int mMinTrial=exp.getMinimumTrials();
         expMinTrial.setText(Integer.toString(exp.getMinimumTrials()));
@@ -116,7 +131,12 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 Intent dintent = new Intent(DisplayExperimentActivity.this, DiscussionActivity.class);
                 dintent.putExtra("experiment", exp);
                 int LAUNCH_SECOND_ACTIVITY = 1;
-                startActivityForResult(dintent, LAUNCH_SECOND_ACTIVITY);
+                startActivity(dintent);
+            }
+            else if (item.getItemId() == R.id.item4){
+                Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
+                tintent.putExtra("experiment", exp);
+                startActivity(tintent);
             }
 
 
@@ -132,9 +152,69 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 Experiment newexp = (Experiment) data.getSerializableExtra("experiment");
+                SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                UUID = sharedPrefs.getString("ID", "");
+
                 if (newexp != null) {
                     exp = newexp; //updating the current exp object(to show updated exp desc)
                     System.out.println("SIZE:"+exp.getTrials().size());
+
+
+                    Intent intent = getIntent();
+                    Bundle bundle = getIntent().getExtras();
+                    //String owner = bundle.get("AutoId").toString();
+
+                    db = FirebaseFirestore.getInstance();
+                    final CollectionReference collectionReference = db.collection("Trials");
+                    //manager.addExperiment(exp);
+                    //expAdayDataSetChanged();
+                    ////////// here
+                    // final String Type = expType;
+
+                    HashMap<String, String> fdata = new HashMap<>();
+                    String id = db.collection("Trials").document().getId();
+                    Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
+
+                    fdata.put("ExpID", exp.getID());
+                    if(exp.getExpType().equals("Binomial")) {
+                        fdata.put("result",String.valueOf(trial.getResult()));
+                    }
+                    else if (exp.getExpType().equals("Count")) {
+                        fdata.put("result",String.valueOf(trial.getCount()));
+                    }
+                    else if (exp.getExpType().equals("Measurement")){
+                        fdata.put("result",String.valueOf(trial.getMeasurement()));
+                    }
+                    else if (exp.getExpType().equals("Non Negative Count")){
+                        fdata.put("result",String.valueOf(trial.getValue()));
+                    }
+                    fdata.put("name of exp",exp.getName());
+                    fdata.put("desc",exp.getDescription());
+                    fdata.put("type", exp.getExpType());
+                    fdata.put("owner", UUID);
+
+
+                    collectionReference
+                            .document(id)
+                            .set(fdata)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+// These are a method which gets executed when the task is succeeded
+                                    Log.d(TAG, "Data has been added successfully!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+// These are a method which gets executed if there’s any problem
+                                    Log.d(TAG, "Data could not be added!" + e.toString());
+                                }
+                            });
+
+
                 } else {
                     String testt = data.getSerializableExtra("scannedText").toString();
                     TextView test = findViewById(R.id.scannedTextView);

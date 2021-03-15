@@ -38,7 +38,6 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         //question = (Question) getIntent().getSerializableExtra("question");//defining the Experiment object
         rListView = findViewById(R.id.reply_list_view);
 
-
         disManager = new DiscussionManager(experiment, question);
         disManager.updateRepData();
 

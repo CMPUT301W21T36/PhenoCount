@@ -16,7 +16,7 @@ public class Experiment implements Serializable {
     private String expType;
     private int minimumTrials;
     private boolean requireLocation;
-    private User owner;
+    private String owner;
     private ArrayList<Trial> trials;
     private Statistic stats;
     private int expStatus = -1; // 0 for add, 1 for published, 2 for ended, 3 for unpublished
@@ -30,17 +30,16 @@ public class Experiment implements Serializable {
      * @param description
      * This is a description for the Experiment to be constructed
      * @param region
-     * This is a region for the Experiment to be constructed
-     * @param minimumTrials
-     * This is an Experiment's minimum number of trials
-     * @param requireLocation
-     * This specifies if the geolocation is required for the Experiment
+ * This is a region for the Experiment to be constructed
      * @param expType
-     * This specifies the type of the experiment being conducted
+* This specifies the type of the experiment being conducted
+     * @param minimumTrials
+* This is an Experiment's minimum number of trials
+     * @param requireLocation
+* This specifies if the geolocation is required for the Experiment
      * @param expStatus
-     * This specifies the status of the experiment
      */
-    public Experiment(String name, String description, String region,String expType, int minimumTrials, boolean requireLocation, int expStatus,String expID ) {
+    public Experiment(String name, String description, String region, String expType, int minimumTrials, boolean requireLocation, int expStatus, String expID) {
         this.name = name;
         this.expID = expID;
         this.description = description;
@@ -48,7 +47,7 @@ public class Experiment implements Serializable {
         this.minimumTrials = minimumTrials;
         this.requireLocation = requireLocation;
         this.expType = expType;
-        this.trials = new ArrayList<>();
+        this.trials = trials;
         this.expStatus = expStatus;
     }
 
@@ -229,7 +228,7 @@ public class Experiment implements Serializable {
      * @return
      * returns the owner of the experiment
      */
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 
@@ -238,7 +237,7 @@ public class Experiment implements Serializable {
      * @param owner
      * The owner for the experiment that has to be saved/added
      */
-    public void setOwner(User owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 

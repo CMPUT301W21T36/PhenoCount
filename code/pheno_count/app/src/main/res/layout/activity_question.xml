@@ -20,7 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="30sp"
-        android:layout_below="@+id/question_text_view">
+        android:layout_below="@+id/question_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/question_text_view_in_title"
+    >
     </ListView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

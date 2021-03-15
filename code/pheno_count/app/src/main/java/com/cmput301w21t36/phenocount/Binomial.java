@@ -4,19 +4,30 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Binomial extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
+
+    private final String TAG = "PhenoCount";
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +67,6 @@ public class Binomial extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("experiment",newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
-                System.out.println("RUNNING OKAY");
                 Toast.makeText(
                         Binomial.this,
                         "Success Recorded",
@@ -76,7 +86,7 @@ public class Binomial extends AppCompatActivity {
         fbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(location) {
+                if(location || !newexp.isRequireLocation()) {
                     //increments fails
                     trial.isFailure();
                     newexp.getTrials().add(trial);
@@ -89,6 +99,7 @@ public class Binomial extends AppCompatActivity {
                             Binomial.this,
                             "Failure Recorded",
                             Toast.LENGTH_LONG).show();
+
                     finish(); // closes this activity
                 }else{
                     Toast.makeText(
@@ -123,7 +134,6 @@ public class Binomial extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                System.out.println("LAT: "+trial.getLatitude());
                 //newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {

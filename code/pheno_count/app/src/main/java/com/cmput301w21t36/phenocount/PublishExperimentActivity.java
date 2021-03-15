@@ -69,6 +69,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
         String owner = bundle.get("AutoId").toString();
+        System.out.println("The USER :"+owner);
 
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("Experiment");

@@ -10,7 +10,7 @@ public class Reply extends Post{
     //a question object? Then Reply doesn't have to remember its parent question.
 
     User author;
-    public Reply(User author, String text) {
+    public Reply(String author, String text) {
         super(author, text);
     }
     public Reply(String text){
