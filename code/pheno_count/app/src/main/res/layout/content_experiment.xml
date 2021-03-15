@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/exp_name_textView"
+        android:id="@+id/expNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -17,14 +17,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/exp_owner_textView"
+            android:id="@+id/expOwnerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Owner" />
 
         <TextView
-            android:id="@+id/exp_status_textView"
+            android:id="@+id/expStatusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -33,7 +33,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/exp_description_textView"
+        android:id="@+id/expDescriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="15dp"

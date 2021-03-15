@@ -27,15 +27,36 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         View view = convertView;
 
         if (view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.content,parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.content_experiment,parent,false);
         }
 
-        Experiment experiment = experiments.get(position);
+        TextView expName = view.findViewById(R.id.expNameTextView);
+        TextView expOwner = view.findViewById(R.id.expOwnerTextView);
+        TextView expStatus = view.findViewById(R.id.expStatusTextView);
+        TextView expDescription = view.findViewById(R.id.expDescriptionTextView);
 
-        TextView expName = view.findViewById(R.id.expname);
+        Experiment exp = experiments.get(position);
 
-        expName.setText(experiment.getName());
+        expName.setText(exp.getName());
+        expOwner.setText(exp.getOwner());
 
+        String expStat = "" ;
+        switch(exp.getExpStatus()){
+            case 1:
+                expStat = "Published";
+                break;
+            case 2:
+                expStat= "Ended";
+                break;
+            case 3:
+                expStat = "Unpublished";
+                break;
+            default:
+                expStat= "Added";
+
+        }
+        expStatus.setText(expStat);
+        expDescription.setText(exp.getDescription());
 
         return view;
     }
