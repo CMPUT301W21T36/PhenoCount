@@ -90,7 +90,17 @@ public class Measurement extends AppCompatActivity {
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
         });
+
+        final Button cameraButton = findViewById(R.id.cameraButton);
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Measurement.this, ScanBarcodeActivity.class);
+                startActivityForResult(i, 1);
+            }
+        });
     }
+
     @Override
     //Sends the experiment object and retrieves the updated object
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -100,7 +110,14 @@ public class Measurement extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                newexp.getTrials().add(trial);
+
+                if (trial != null) {
+                    newexp.getTrials().add(trial);
+                } else {
+                    String scannedText = data.getSerializableExtra("scannedText").toString();
+                    EditText input = findViewById(R.id.measurement_editText);
+                    input.setText(scannedText, TextView.BufferType.EDITABLE);
+                }
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {

@@ -20,7 +20,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
 
         // open the camera to start the scan
         new IntentIntegrator(ScanBarcodeActivity.this).initiateScan();
-        finish();
+//        finish();
     }
 
     // Get the results:
@@ -30,6 +30,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         if(result != null) {
             if(result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+                finish();
             } else {
                 // pass the scanned text back to the experiment
                 Intent i = new Intent();
