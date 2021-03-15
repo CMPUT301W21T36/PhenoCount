@@ -3,23 +3,30 @@ package com.cmput301w21t36.phenocount;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Profile {
-    // Will grab the current user
-    private User user;
-    FirebaseFirestore db;
 
+    private String username;
+    private String phone;
 
-    public Profile(User user) {
-        this.user = user;
+    public Profile(String username, String phone) {
+        this.username = username;
+        this.phone = phone;
     }
 
-    public void editDisplayName(String displayName){
-        this.user.setDisplayName(displayName);
+    public String getUsername() {
+        return username;
     }
 
-    public void editContactInfo(String contactInfo){
-        this.user.setContact(contactInfo);
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    // Testing code, ignore
-    // String uid = user.getUID();
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
+
+

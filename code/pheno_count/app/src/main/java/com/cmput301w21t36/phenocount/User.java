@@ -6,22 +6,26 @@ public class User {
     private ArrayList<Experiment> expPublished;
     private ArrayList<Experiment> expSubscribed;
     private String UID;
-    private String displayName;
-    private String contact;
+    private Profile profile;
 
-    public User(String UID) {
+    public User(String UID, Profile profile) {
         this.UID = UID;
+        this.profile = profile;
     }
 
     public String getUID() {
         return UID;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

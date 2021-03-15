@@ -25,6 +25,7 @@ import java.util.UUID;
 public class ProfileActivity extends AppCompatActivity implements ProfileDialog.ProfileDialogListener {
 
     private Profile profile;
+    private User user;
     TextView UIDTextView;
     TextView usernameTextView;
     TextView contactTextView;
@@ -45,6 +46,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
 
         final String UUID = getIntent().getExtras().getString("UUID");
         DocumentReference docRef = db.collection("User").document(UUID);
+
+        user = new User(UUID);
+        profile = new Profile(user);
 
         UIDTextView.setText(UUID);
 

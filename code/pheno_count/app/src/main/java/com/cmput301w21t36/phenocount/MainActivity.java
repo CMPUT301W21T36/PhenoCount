@@ -34,6 +34,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageButton searchButton;
     ImageButton profileButton;
     FirebaseFirestore db;
 
@@ -137,6 +138,15 @@ public class MainActivity extends AppCompatActivity {
         username = sharedPrefs.getString("Username", "");
         System.out.println(username);
 
+
+        searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSearch();
+            }
+        });
+
         profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +188,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openProfile(){
+    public void openSearch() {
+        Intent intent = new Intent(this, SearchingActivity.class);
+        startActivity(intent);
+    }
+
+    public void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         String ID = UUID;
         intent.putExtra("UUID",ID);
