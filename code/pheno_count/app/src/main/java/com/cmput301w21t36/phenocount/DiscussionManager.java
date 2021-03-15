@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -43,9 +42,9 @@ public class DiscussionManager{
     }
 
     private void setUpQueCol(String expID) {
-        quecollectionReference = getDb().collection("Experiment")
+        setQuecollectionReference(getDb().collection("Experiment")
                                 .document(expID)
-                                .collection("Question");
+                                .collection("Question"));
     }
 
     public DiscussionManager(Experiment experiment, Question question){
@@ -55,11 +54,11 @@ public class DiscussionManager{
     }
 
     private void setUpRepCol(String expID, String qID) {
-        repcollectionReference = getDb().collection("Experiment")
+        setRepcollectionReference(getDb().collection("Experiment")
                 .document(expID)
                 .collection("Question")
                 .document(qID)
-                .collection("Reply");
+                .collection("Reply"));
     }
 
 
@@ -67,7 +66,7 @@ public class DiscussionManager{
     public void updateQueData(){
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
-        quecollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        getQuecollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Question'
             public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
@@ -92,7 +91,7 @@ public class DiscussionManager{
     public void updateRepData(){
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
-        repcollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        getRepcollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Reply'
             public void onEvent(@Nullable QuerySnapshot replies, @Nullable FirebaseFirestoreException e) {
@@ -118,11 +117,11 @@ public class DiscussionManager{
         //Use HashMap to store a key-value pair in firestore.
         HashMap<String, String> data = new HashMap<>();
         if (text.length() > 0) { // We do not add anything if the fields are empty.
-            String id = quecollectionReference.document().getId();
+            String id = getQuecollectionReference().document().getId();
             // If there is some data in the EditText field, then we create a new key-value pair.
             data.put("text", text);
             // The set method sets a unique id for the document.
-            quecollectionReference
+            getQuecollectionReference()
                     .document(id)
                     .set(data)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -149,11 +148,11 @@ public class DiscussionManager{
         //Use HashMap to store a key-value pair in firestore.
         HashMap<String, String> data = new HashMap<>();
         if (text.length() > 0) { // We do not add anything if the fields are empty.
-            String id = repcollectionReference.document().getId();
+            String id = getRepcollectionReference().document().getId();
             // If there is some data in the EditText field, then we create a new key-value pair.
             data.put("text", text);
             // The set method sets a unique id for the document.
-            repcollectionReference
+            getRepcollectionReference()
                     .document(id)
                     .set(data)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -182,5 +181,21 @@ public class DiscussionManager{
 
     public ArrayList<Reply> getRepDataList() {
         return repDataList;
+    }
+
+    public CollectionReference getQuecollectionReference() {
+        return quecollectionReference;
+    }
+
+    public void setQuecollectionReference(CollectionReference quecollectionReference) {
+        this.quecollectionReference = quecollectionReference;
+    }
+
+    public CollectionReference getRepcollectionReference() {
+        return repcollectionReference;
+    }
+
+    public void setRepcollectionReference(CollectionReference repcollectionReference) {
+        this.repcollectionReference = repcollectionReference;
     }
 }
