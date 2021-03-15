@@ -13,8 +13,6 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class ScanBarcodeActivity extends AppCompatActivity {
 
-//    TextView scannedText = findViewById(R.id.scannedText);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,18 +20,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
 
         // open the camera to start the scan
         new IntentIntegrator(ScanBarcodeActivity.this).initiateScan();
-
-//        scannedText = findViewById(R.id.scannedText);
-
-//        cameraButton = findViewById(R.id.cameraButton);
-//
-//        cameraButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // open the camera to start the scan
-//                new IntentIntegrator(ScanBarcodeActivity.this).initiateScan();
-//            }
-//        });
+        finish();
     }
 
     // Get the results:
@@ -44,7 +31,6 @@ public class ScanBarcodeActivity extends AppCompatActivity {
             if(result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-//                scannedText.setText(result.getContents());
                 // pass the scanned text back to the experiment
                 Intent i = new Intent();
                 i.putExtra("scannedText", result.getContents());
