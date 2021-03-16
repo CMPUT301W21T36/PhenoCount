@@ -27,7 +27,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     //a collection of question posts of a certain experiment
     private ListView qListView;
     private ArrayAdapter<Question> queAdapter;
-    private ArrayList<Question> queData = new ArrayList<>();
+    private ArrayList<Question> queData;
     private Experiment experiment;
     private DiscussionManager disManager;
     private User user; //I think we need to get who is currently viewing this forum
@@ -40,22 +40,13 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         setContentView(R.layout.activity_discussion);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
-        queAdapter = new QuestionAdapter(this, queData);
-        qListView.setAdapter(queAdapter);
-        
+
         getSupportActionBar().setTitle("Discussion Forum");
         disManager = new DiscussionManager(experiment);
-
-        queData = disManager.getQueDataList();
         disManager.updateQueData();
-        //the the data list length is still 0?
         queData = disManager.getQueDataList();
-
-        System.out.println("Charffy: size of qDataList" + queData.size());
-        System.out.println("Charffy: qData");
-        System.out.println(queData);
-
-
+        queAdapter = new QuestionAdapter(this, queData);
+        qListView.setAdapter(queAdapter);
 
         queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
 
@@ -93,11 +84,8 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     protected void onResume() {
         super.onResume();
-        //queData = disManager.getQueDataList();
+        queData = disManager.getQueDataList();
         queAdapter.notifyDataSetChanged();
-        System.out.println("Charffy Resume: size of qDataList" + queData.size());
-        System.out.println("Charffy Resume: qData");
-        System.out.println(queData);
 
     }
 
@@ -128,9 +116,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         disManager.addQueDoc(text);
         queData = disManager.getQueDataList();
         queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
-        System.out.println("Charffy Ok: size of qDataList" + queData.size());
-        System.out.println("Charffy Ok: qData");
-        System.out.println(queData);
 
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
 }

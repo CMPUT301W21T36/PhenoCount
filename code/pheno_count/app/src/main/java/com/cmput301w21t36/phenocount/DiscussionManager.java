@@ -27,13 +27,19 @@ import java.util.HashMap;
 //either just created or selected to recreate.
 
 public class DiscussionManager{
+    private QuestionCollection qCol;
     private ArrayList<Question> queDataList = new ArrayList<>();
+    private ArrayAdapter<Question> queAdapter;
     private ArrayList<Reply> repDataList = new ArrayList<>();
     private DatabaseManager dbManager = new DatabaseManager();
     private String TAG = "Discussion";
 
     public FirebaseFirestore getDb() {
         return dbManager.getDb();
+    }
+
+    public DiscussionManager(DatabaseManager dbManager){
+        this.dbManager = dbManager;
     }
 
     public DiscussionManager(Experiment experiment){
@@ -69,31 +75,22 @@ public class DiscussionManager{
     public void updateQueData(){
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
-        System.out.println("Charffy: update  works?");
-
         getQuecollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Question'
             public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
-                System.out.println("Charffy: event listener works?");
-
                 // clear the old list
                 queDataList.clear();
                 //add documents in the question collection to the list view
                 for (QueryDocumentSnapshot que : questions) {
-                    System.out.println("Charffy: query doc snap shot works?");
-
                     String qID =  que.getId();
                     Log.d(TAG, qID);
                     String qText = (String) que.getData().get("text");
-                    System.out.println(qText);
-
                     //User qAuthor =  (User) que.getData().get("author");
                     Question newQue = new Question(qText);
                     newQue.setID(qID);
                     queDataList.add(newQue);
                 }
-                System.out.println("Charffy Update: size of qDataList" + queDataList.size());
                 //queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
@@ -111,7 +108,6 @@ public class DiscussionManager{
                 // clear the old list
                 repDataList.clear();
                 //add documents in the question collection to the list view
-                System.out.println("update from add Doc");
                 for (QueryDocumentSnapshot rep : replies) {
                     String rID =  rep.getId();
                     Log.d(TAG, rID);
@@ -154,6 +150,7 @@ public class DiscussionManager{
                             Log.d(TAG, "Question could not be added!" + e.toString());
                         }
                     });
+
             updateQueData();
         }
 
@@ -191,7 +188,6 @@ public class DiscussionManager{
     }
 
     public ArrayList<Question> getQueDataList() {
-        System.out.println("Charffy getData: size of qDataList" + queDataList.size());
         return queDataList;
     }
 
