@@ -28,6 +28,7 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
 
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.content_question,parent,false);
+
         }
 
         Question question = questions.get(position);

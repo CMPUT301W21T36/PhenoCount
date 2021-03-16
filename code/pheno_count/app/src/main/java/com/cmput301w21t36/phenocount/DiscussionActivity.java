@@ -40,7 +40,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         setContentView(R.layout.activity_discussion);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
-
+        getSupportActionBar().setTitle("Discussion Forum");
         disManager = new DiscussionManager(experiment);
         disManager.updateQueData();
         queData = disManager.getQueDataList();
@@ -72,6 +72,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //when you click on a question for browsing/add replies
+                System.out.println("WHAT IS THIS GIVING? " + queData.get(position).getID());
                 Question queTarget = queData.get(position);
                 browseReplies(queTarget);
             }
@@ -128,7 +129,8 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         //String questionText = target.getText();
         Intent intent = new Intent(DiscussionActivity.this, QuestionActivity.class);
         intent.putExtra("experiment", experiment);
-        intent.putExtra("question", target);
+        intent.putExtra("question123", target);
+        System.out.println("IN BROWSE REPLIES"+ target.getID());
         startActivity(intent);
 
     }

@@ -3,6 +3,8 @@ package com.cmput301w21t36.phenocount;
 
 import android.os.Build;
 import androidx.annotation.RequiresApi;
+
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
  * This Post abstract class can be specialized as class Question, and class Reply;
  * it contains basic information for a post in the discussion forum.
  */
-public abstract class Post {
+public abstract class Post implements Serializable {
     protected String ID = "";
     protected String author; //not necessary
     protected String text;

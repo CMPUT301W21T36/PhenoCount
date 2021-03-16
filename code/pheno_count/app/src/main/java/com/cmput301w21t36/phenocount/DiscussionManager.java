@@ -60,6 +60,7 @@ public class DiscussionManager{
 
 
     private void setUpRepCol(String expID, String qID) {
+
         setRepcollectionReference(getDb().collection("Experiment")
                 .document(expID)
                 .collection("Question")
@@ -97,6 +98,7 @@ public class DiscussionManager{
     public void updateRepData(){
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
+        System.out.println("HELLOOOO updateDataREP()" + repDataList.size());
         getRepcollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Reply'
@@ -112,6 +114,7 @@ public class DiscussionManager{
                     Reply newRep = new Reply(rText);
                     newRep.setID(rID);
                     repDataList.add(newRep);
+                    System.out.println("HELLOOOO updateDataREP()" + repDataList.size());
                 }
                 //repAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
@@ -124,6 +127,7 @@ public class DiscussionManager{
         HashMap<String, String> data = new HashMap<>();
         if (text.length() > 0) { // We do not add anything if the fields are empty.
             String id = getQuecollectionReference().document().getId();
+
             // If there is some data in the EditText field, then we create a new key-value pair.
             data.put("text", text);
             // The set method sets a unique id for the document.

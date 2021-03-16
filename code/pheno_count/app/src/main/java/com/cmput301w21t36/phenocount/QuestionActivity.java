@@ -35,14 +35,22 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        question = (Question) getIntent().getSerializableExtra("question");//defining the Experiment object
+        question = (Question) getIntent().getSerializableExtra("question123");//defining the Experiment object
         rListView = findViewById(R.id.reply_list_view);
-
+        System.out.println("QUESTION" + question.getID());
+        System.out.println("EXPERIMENT" + experiment.getName());
         disManager = new DiscussionManager(experiment, question);
+
+
         disManager.updateRepData();
 
+
+        System.out.println(disManager);
         repData = disManager.getRepDataList();
+        System.out.println("SIZE OF REP DATA" + repData.size());
         repAdapter = new ReplyAdapter(this, repData);
+
+
         rListView.setAdapter(repAdapter);
         /*
         When the 'add reply' button is pressed in this activity,
