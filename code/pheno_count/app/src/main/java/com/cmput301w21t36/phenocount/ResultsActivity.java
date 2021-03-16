@@ -1,6 +1,9 @@
 package com.cmput301w21t36.phenocount;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -32,7 +35,14 @@ public class ResultsActivity extends AppCompatActivity {
         trialAdapter = new TrialAdapter(this,trialList);
         trials.setAdapter(trialAdapter);
 
-
+        trials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent (ResultsActivity.this, GenerateQrActivity.class);
+                intent.putExtra("data", trialList.get(position).getResult());
+                startActivity(intent);
+            }
+        });
 
 
 
