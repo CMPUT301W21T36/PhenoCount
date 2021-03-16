@@ -20,10 +20,13 @@ public class ScanBarcodeActivity extends AppCompatActivity {
 
         // open the camera to start the scan
         new IntentIntegrator(ScanBarcodeActivity.this).initiateScan();
-//        finish();
     }
-
-    // Get the results:
+    /**
+     * Get the data from the scan
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
