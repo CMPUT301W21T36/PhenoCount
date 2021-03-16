@@ -2,6 +2,7 @@ package com.cmput301w21t36.phenocount;
 
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 public class DiscussionManager{
     private QuestionCollection qCol;
     private ArrayList<Question> queDataList = new ArrayList<>();
+    private ArrayAdapter<Question> queAdapter;
     private ArrayList<Reply> repDataList = new ArrayList<>();
     private DatabaseManager dbManager = new DatabaseManager();
     private String TAG = "Discussion";
