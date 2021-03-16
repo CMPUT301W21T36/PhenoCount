@@ -40,7 +40,7 @@ public class Experiment implements Serializable {
 * This specifies if the geolocation is required for the Experiment
      * @param expStatus
      */
-    public Experiment(String name, String description, String region, String expType, int minimumTrials, boolean requireLocation, int expStatus, String expID) {
+    public Experiment(String name, String description, String region, String expType, int minimumTrials, boolean requireLocation,int expStatus, String expID) {
         this.name = name;
         this.expID = expID;
         this.description = description;
@@ -50,19 +50,20 @@ public class Experiment implements Serializable {
         this.expType = expType;
         this.trials = trials;
         this.expStatus = expStatus;
+        this.owner = owner;
+
     }
 
-    public Experiment(String expID, String name, String description, String region, String expType, int minimumTrials, boolean requireLocation, User owner, int expStatus) {
-        this.expID = expID;
-        this.name = name;
-        this.description = description;
-        this.region = region;
-        this.expType = expType;
-        this.minimumTrials = minimumTrials;
-        this.requireLocation = requireLocation;
-        this.owner = owner;
-        this.expStatus = expStatus;
-    }
+//    public Experiment(String expID, String name, String description, String region, String expType, int minimumTrials, boolean requireLocation, User owner, int expStatus) {
+//        this.expID = expID;
+//        this.name = name;
+//        this.description = description;
+//        this.region = region;
+//        this.expType = expType;
+//        this.minimumTrials = minimumTrials;
+//        this.requireLocation = requireLocation;
+//        this.expStatus = expStatus;
+//    }
 
     /**
      * This method checks if the Experiment is published or not

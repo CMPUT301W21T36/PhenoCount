@@ -10,8 +10,6 @@
         android:id="@+id/expname"
         android:layout_width="221dp"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:inputType="textMultiLine"
         android:maxLength="20"
         android:padding="20dp"
         android:text="Experiment"

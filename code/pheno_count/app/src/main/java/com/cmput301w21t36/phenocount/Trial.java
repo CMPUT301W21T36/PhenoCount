@@ -34,11 +34,11 @@ public class Trial implements Serializable {
 
     void isSuccess() {this.result = true;}
     void isFailure() {this.result = false;}
+    void isCount(){this.count++;}
 
     void setCount(int count) {this.count = count;}
     void setMeasurement(float measurement){this.measurement = measurement;}
     void setValue(int value) {this.value = value;}
-    void isCount(){this.count++;}
     void setLongitude(double longitude){
         this.Longitude = longitude;
     }
@@ -48,38 +48,29 @@ public class Trial implements Serializable {
     void setResult(boolean result){this.result = result;}
     void setType(String type){this.type = type;};
 
-    public boolean getResult(){return result;};
 
+    public boolean getResult(){return result;};
     public float getMeasurement() {
         return measurement;
     }
-
     public int getCount() {
         return count;
     }
-
     public int getValue() {
         return value;
     }
-
     public String getName() {
         return name;
     }
-
-
-
     public double getLatitude() {
         return Latitude;
     }
-
     public double getLongitude() {
         return Longitude;
     }
-
     public User getOwner() {
         return owner;
     }
-
     public String getType() {
         return type;
     }
