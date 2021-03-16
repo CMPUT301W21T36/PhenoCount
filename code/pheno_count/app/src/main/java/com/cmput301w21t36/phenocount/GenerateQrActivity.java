@@ -20,19 +20,19 @@ import androidmads.library.qrgenearator.QRGEncoder;
 
 public class GenerateQrActivity extends AppCompatActivity {
     ImageView qrImage;
-    private String info;
+    private String data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_generate);
 
-        info = getIntent().getSerializableExtra("info").toString(); // get information to be put into QR code
+        data = getIntent().getSerializableExtra("data").toString(); // get information to be put into QR code
 
         qrImage = findViewById(R.id.imageView);
 
         // Create QR Encoder with value to be encoded
-        QRGEncoder qrgEncoder = new QRGEncoder(info, null, QRGContents.Type.TEXT, 500);
+        QRGEncoder qrgEncoder = new QRGEncoder(data, null, QRGContents.Type.TEXT, 500);
         try {
             // Getting QR as Bitmap
             Bitmap bitmap = qrgEncoder.getBitmap();

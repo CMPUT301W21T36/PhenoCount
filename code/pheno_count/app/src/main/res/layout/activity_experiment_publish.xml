@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginEnd="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbars="vertical">
 
     <EditText
         android:id="@+id/expName"
@@ -56,28 +58,28 @@
         <RadioButton
             android:id="@+id/radioBinomial"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="32dp"
             android:onClick="onRadioButtonClicked"
             android:text="Binomial Trial" />
 
         <RadioButton
             android:id="@+id/radioCount"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="32dp"
             android:onClick="onRadioButtonClicked"
             android:text="Count Based Trial " />
 
         <RadioButton
             android:id="@+id/radioInt"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="32dp"
             android:onClick="onRadioButtonClicked"
             android:text="Non-Negative Integer Count" />
 
         <RadioButton
             android:id="@+id/radioMeasure"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="32dp"
             android:onClick="onRadioButtonClicked"
             android:text="Measurement Trial" />
     </RadioGroup>
@@ -88,7 +90,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Minimum number of Trials"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:padding="10dp"
         android:textAlignment="center" />
 
@@ -106,7 +108,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="149dp">
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/button5"

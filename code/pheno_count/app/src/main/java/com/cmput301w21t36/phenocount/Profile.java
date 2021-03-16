@@ -2,7 +2,9 @@ package com.cmput301w21t36.phenocount;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Profile {
+import java.io.Serializable;
+
+public class Profile implements Serializable {
 
     private String username;
     private String phone;

@@ -27,7 +27,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
     TextView expName;
     TextView expDesc;
     TextView expRegion;
-    String expType;
+    String expType="";
     TextView expNum;
     CheckBox expGeoLoc;
 
@@ -37,6 +37,17 @@ public class PublishExperimentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experiment_publish);
+        expDesc = findViewById(R.id.expDesc);
+        expDesc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (expDesc.getText().toString().isEmpty()) {
+                    expDesc.setError("Required field Description");
+                } else {
+                    expDesc.setError(null);
+                }
+            }
+        });
     }
 
     public void onRadioButtonClicked(View view) {
@@ -48,11 +59,11 @@ public class PublishExperimentActivity extends AppCompatActivity {
             case R.id.radioBinomial:
                 if (checked)
                     expType="Binomial";
-                    break;
+                break;
             case R.id.radioCount:
                 if (checked)
                     expType="Count";
-                    break;
+                break;
             case R.id.radioInt:
                 if (checked)
                     expType="NonNegativeCount";
@@ -84,46 +95,56 @@ public class PublishExperimentActivity extends AppCompatActivity {
         expGeoLoc = findViewById(R.id.geoCheckBox);
 
         //final String Type = expType;
-
         final String desc = expDesc.getText().toString();
-        HashMap<String, String> data = new HashMap<>();
-        if (expType.length() > 0 && desc.length() > 0) {
-            String id = db.collection("Experiment").document().getId();
-            data.put("name", expName.getText().toString());
-            data.put("description", desc);
-            data.put("type", expType);
-            data.put("region", expRegion.getText().toString());
-            data.put("minimum_trials", expNum.getText().toString());
-            data.put("owner", owner);
-            data.put("status", "1");
-            data.put("require_geolocation", "NO");
-            if (expGeoLoc.isChecked()){
-                data.put("require_geolocation","YES");
-            }
-
-            collectionReference
-                    .document(id)
-                    .set(data)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-// These are a method which gets executed when the task is succeeded
-                            Log.d(TAG, "Data has been added successfully!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-// These are a method which gets executed if there’s any problem
-                            Log.d(TAG, "Data could not be added!" + e.toString());
-                        }
-                    });
-
-            ///////////// here end
+        int proceed =1;
+        if (!(desc.length()>0)){
+            proceed=0;
         }
-        finish();
-        Toast.makeText(this, "Your Experiment is published!!", Toast.LENGTH_SHORT).show();
+        if (!(expType.length()>0)){
+            proceed=0;
+        }
+        if (proceed > 0) {
+            HashMap<String, String> data = new HashMap<>();
+            if (expType.length() > 0 && desc.length() > 0) {
+                String id = db.collection("Experiment").document().getId();
+                data.put("name", expName.getText().toString());
+                data.put("description", desc);
+                data.put("type", expType);
+                data.put("region", expRegion.getText().toString());
+                data.put("minimum_trials", expNum.getText().toString());
+                data.put("owner", owner);
+                data.put("status", "1");
+                data.put("require_geolocation", "NO");
+                if (expGeoLoc.isChecked()) {
+                    data.put("require_geolocation", "YES");
+                }
 
+                collectionReference
+                        .document(id)
+                        .set(data)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+// These are a method which gets executed when the task is succeeded
+                                Log.d(TAG, "Data has been added successfully!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+// These are a method which gets executed if there’s any problem
+                                Log.d(TAG, "Data could not be added!" + e.toString());
+                            }
+                        });
+
+                ///////////// here end
+            }
+            finish();
+            Toast.makeText(this, "Your Experiment is published!!", Toast.LENGTH_SHORT).show();
+        } else {
+            AlertMsg Altmsg = new AlertMsg(this, "Error Message", "Description/Type of Experiment is Required, TRY AGAIN!!");
+
+        }
     }
     public void toCancel(View view) {
         finish();

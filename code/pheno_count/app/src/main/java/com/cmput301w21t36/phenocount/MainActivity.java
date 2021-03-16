@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     static final String AutoID = "ID";
     private String UUID;
     private String username;
+    private String phone_number;
     Experiment newexp;
     int test1 = 0;
 
@@ -126,11 +127,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         username = documentSnapshot.getString("Username");
+                        phone_number = documentSnapshot.getString("ContactInfo");
 
                         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
                         editor.putString("Username", username);
+                        editor.putString("Number",phone_number);
                         editor.apply();
                     }
                 });
@@ -242,7 +245,24 @@ public class MainActivity extends AppCompatActivity {
                         int finalMinTrial = minTrial;
                         int finalExpStatus = expStatus;
                         ArrayList<Trial> trials = new ArrayList<>();
-                        expDataList.add(new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID)); // Adding the cities and provinces from FireStore
+                        Experiment newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID);
+                        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+                        //creating a user object
+                        username = sharedPrefs.getString("Username","");
+                        phone_number = sharedPrefs.getString("Number","");
+                        System.out.println(username);
+                        UUID = sharedPrefs.getString(AutoID, "");
+
+                        //creating a profile object
+                        Profile newprofile = new Profile(username,phone_number);
+                        User current_user = new User(UUID,newprofile);
+
+                        newexp.setOwner(current_user);
+
+
+                        expDataList.add(newexp); // Adding the cities and provinces from FireStore
                     }
                 }
                 ////////////////////
@@ -256,12 +276,12 @@ public class MainActivity extends AppCompatActivity {
                             ArrayList<Trial> trials = new ArrayList<>();
                             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                                 Log.d("pheno", String.valueOf(doc.getId()));
-                                String tname = (String) doc.getData().get("name");
-                                String tdescription = (String) doc.getData().get("description");
                                 String ttype = (String) doc.getData().get("type");
-                                String towner = (String) doc.getData().get("owner");
+                                User user = exp.getOwner();
 
-                                Trial trial = new Trial(tname, tdescription, towner, ttype);
+                                Trial trial = new Trial(user);
+
+                                trial.setType(ttype);
 
                                 //retriving result from firebase
                                 String result = (String) doc.getData().get("result");
@@ -301,44 +321,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void addTrialsData (){
-        int i =0;
-        System.out.println("DESCRIPTION: "+expDataList.size());
-        while(i<expDataList.size()) {
-            System.out.println("Workinggggggggg");
-            Experiment exp = expDataList.get(i);
-
-            db.collection("Trials").whereEqualTo("ExpID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                    ArrayList<Trial> trials = new ArrayList<>();
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        Log.d("pheno", String.valueOf(doc.getId()));
-                        String tname = (String) doc.getData().get("name");
-                        String tdescription = (String) doc.getData().get("description");
-                        String ttype = (String) doc.getData().get("type");
-                        String towner = (String) doc.getData().get("owner");
-
-                        Trial trial = new Trial(tname, tdescription, towner, ttype);
-                        trials.add(trial);
-                        System.out.println("DESCRIPTION: " + trial.getName());
-                    }
-                    exp.setTrials(trials);
-                    System.out.println("SIZE:" + trials.size());
-
-                    //newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID,trials)); // Adding the cities and provinces from FireStore
-
-                }
-            });
-
-            i++;
-        }
-
-    }
-
-
-
-    ///2
-
 
 }

@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,10 @@ public class DiscussionManager{
     private CollectionReference quecollectionReference;
     private CollectionReference repcollectionReference;
     private String TAG = "Discussion";
+    private ArrayAdapter<Question> queAdapter;
+    private ArrayList<Question> queData;
+
+
 
 
     public DiscussionManager(Experiment experiment){
@@ -61,8 +66,9 @@ public class DiscussionManager{
             //tracking the changes in the collection 'Question'
             public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
                 // clear the old list
-                queDataList.clear();
+                //queDataList.clear();
                 //add documents in the question collection to the list view
+
                 for (QueryDocumentSnapshot que : questions) {
                     String qID =  que.getId();
                     Log.d(TAG, qID);
@@ -70,11 +76,14 @@ public class DiscussionManager{
                     //User qAuthor =  (User) que.getData().get("author");
                     Question newQue = new Question(qText);
                     newQue.setID(qID);
+                    System.out.println("New Question"+newQue.getText());
                     queDataList.add(newQue);
+
                 }
                 //queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
+
     }
 
     //update the Reply ListView in the question activity

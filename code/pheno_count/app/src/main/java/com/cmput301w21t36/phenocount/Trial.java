@@ -9,7 +9,7 @@ public class Trial implements Serializable {
 
     private String name;
     private String desc;
-    private String owner;
+    private User owner;
     private String type;
     private double Latitude;
     private double Longitude;
@@ -19,7 +19,7 @@ public class Trial implements Serializable {
     private float measurement;
     private int value;
 
-    public Trial(String name,String desc,String owner,String type){
+    public Trial(User owner){
         this.name = name;
         this.desc = desc;
         this.owner = owner;
@@ -34,11 +34,11 @@ public class Trial implements Serializable {
 
     void isSuccess() {this.result = true;}
     void isFailure() {this.result = false;}
+    void isCount(){this.count++;}
 
     void setCount(int count) {this.count = count;}
     void setMeasurement(float measurement){this.measurement = measurement;}
     void setValue(int value) {this.value = value;}
-    void isCount(){this.count++;}
     void setLongitude(double longitude){
         this.Longitude = longitude;
     }
@@ -46,39 +46,31 @@ public class Trial implements Serializable {
         this.Latitude = latitude;
     }
     void setResult(boolean result){this.result = result;}
+    void setType(String type){this.type = type;};
+
 
     public boolean getResult(){return result;};
-
     public float getMeasurement() {
         return measurement;
     }
-
     public int getCount() {
         return count;
     }
-
     public int getValue() {
         return value;
     }
-
     public String getName() {
         return name;
     }
-
-
-
     public double getLatitude() {
         return Latitude;
     }
-
     public double getLongitude() {
         return Longitude;
     }
-
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
-
     public String getType() {
         return type;
     }

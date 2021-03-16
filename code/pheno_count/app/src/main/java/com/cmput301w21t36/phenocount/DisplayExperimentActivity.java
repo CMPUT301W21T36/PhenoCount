@@ -29,9 +29,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     private final String TAG = "PhenoCount";
     private String UUID;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +51,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
-        //expOwner.setText(exp.getOwner().toString());
+        expOwner.setText(exp.getOwner().getProfile().getUsername());
         expRegion.setText(exp.getRegion());
         //int mMinTrial=exp.getMinimumTrials();
         expMinTrial.setText(Integer.toString(exp.getMinimumTrials()));
@@ -87,7 +84,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 startActivityForResult(i, 1);
             }
         });
-
     }
 
     @Override
@@ -191,10 +187,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     else if (exp.getExpType().equals("Non Negative Count")){
                         fdata.put("result",String.valueOf(trial.getValue()));
                     }
-                    fdata.put("name of exp",exp.getName());
-                    fdata.put("desc",exp.getDescription());
                     fdata.put("type", exp.getExpType());
-                    fdata.put("owner", UUID);
+                    fdata.put("owner", exp.getOwner().getProfile().getUsername());
 
 
                     collectionReference
@@ -217,9 +211,9 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
 
                 } else {
-                    String testt = data.getSerializableExtra("scannedText").toString();
-                    TextView test = findViewById(R.id.scannedTextView);
-                    test.setText(testt);
+//                    String testt = data.getSerializableExtra("scannedText").toString();
+//                    TextView test = findViewById(R.id.scannedTextView);
+//                    test.setText(testt);
                 }
 
             }
