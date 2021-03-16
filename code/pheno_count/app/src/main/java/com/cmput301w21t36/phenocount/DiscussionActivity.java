@@ -40,6 +40,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         setContentView(R.layout.activity_discussion);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
+
         getSupportActionBar().setTitle("Discussion Forum");
         disManager = new DiscussionManager(experiment);
         disManager.updateQueData();

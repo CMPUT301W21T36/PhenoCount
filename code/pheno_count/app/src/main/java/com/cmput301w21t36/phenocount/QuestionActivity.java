@@ -33,13 +33,15 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discussion);
+        setContentView(R.layout.activity_question);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         question = (Question) getIntent().getSerializableExtra("question123");//defining the Experiment object
 
         rListView = findViewById(R.id.reply_list_view);
+        //System.out.println("TYPE OF LIST VIEW " + rListView.getClass());
         System.out.println("QUESTION" + question.getID());
         System.out.println("EXPERIMENT" + experiment.getName());
+
         disManager = new DiscussionManager(experiment, question);
 
 
@@ -56,7 +58,8 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         /*
         When the 'add reply' button is pressed in this activity,
         a fragment will display to let the user add a new reply.
-         */
+        */
+
         final ExtendedFloatingActionButton addQueButton = findViewById(R.id.add_reply_btn);
         addQueButton.setOnClickListener(new View.OnClickListener() {
             @Override
