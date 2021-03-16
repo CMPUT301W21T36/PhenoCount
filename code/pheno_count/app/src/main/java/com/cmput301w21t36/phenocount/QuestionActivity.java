@@ -36,6 +36,7 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         setContentView(R.layout.activity_discussion);
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         question = (Question) getIntent().getSerializableExtra("question123");//defining the Experiment object
+
         rListView = findViewById(R.id.reply_list_view);
         System.out.println("QUESTION" + question.getID());
         System.out.println("EXPERIMENT" + experiment.getName());
