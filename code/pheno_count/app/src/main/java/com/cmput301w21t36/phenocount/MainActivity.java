@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
                         //creating a user object
-                        username = sharedPrefs.getString("Username", "");
+                        username = sharedPrefs.getString("Username","");
                         phone_number = sharedPrefs.getString("Number","");
                         System.out.println(username);
                         UUID = sharedPrefs.getString(AutoID, "");
@@ -275,12 +275,12 @@ public class MainActivity extends AppCompatActivity {
                             ArrayList<Trial> trials = new ArrayList<>();
                             for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                                 Log.d("pheno", String.valueOf(doc.getId()));
-                                String tname = (String) doc.getData().get("name");
-                                String tdescription = (String) doc.getData().get("description");
                                 String ttype = (String) doc.getData().get("type");
                                 User user = exp.getOwner();
 
-                                Trial trial = new Trial(tname, tdescription,user, ttype);
+                                Trial trial = new Trial(user);
+
+                                trial.setType(ttype);
 
                                 //retriving result from firebase
                                 String result = (String) doc.getData().get("result");

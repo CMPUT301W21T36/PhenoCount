@@ -51,7 +51,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
         expOwner.setText(exp.getOwner().getProfile().getUsername());
-        //expRegion.setText(exp.getRegion());
+        expRegion.setText(exp.getRegion());
         //int mMinTrial=exp.getMinimumTrials();
         expMinTrial.setText(Integer.toString(exp.getMinimumTrials()));
         expType.setText(exp.getExpType());
@@ -186,10 +186,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     else if (exp.getExpType().equals("Non Negative Count")){
                         fdata.put("result",String.valueOf(trial.getValue()));
                     }
-                    fdata.put("name of exp",exp.getName());
-                    fdata.put("desc",exp.getDescription());
                     fdata.put("type", exp.getExpType());
-                    fdata.put("owner", UUID);
+                    fdata.put("owner", exp.getOwner().getProfile().getUsername());
 
 
                     collectionReference

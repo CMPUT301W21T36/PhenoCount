@@ -27,7 +27,7 @@ public class Measurement extends AppCompatActivity {
         setContentView(R.layout.trial_measurement);
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trial = new Trial(newexp.getName(),newexp.getDescription(),newexp.getOwner(),newexp.getExpType());
+        trial = new Trial(newexp.getOwner());
 
         // Capture the layout's TextView and set the string as its text
 
