@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.health.SystemHealthManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -136,8 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Username for the current user
         username = sharedPrefs.getString("Username", "");
-        System.out.println(username);
-
 
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent (MainActivity.this,DisplayExperimentActivity.class);
                 Experiment exp_obj = expDataList.get(position);
+                //System.out.println("Main " + exp_obj);
                 intent.putExtra("experiment",exp_obj);
                 intent.putExtra("position",position);
 
@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
     public void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         String ID = UUID;
+        String name = username;
         intent.putExtra("UUID",ID);
         startActivity(intent);
     }

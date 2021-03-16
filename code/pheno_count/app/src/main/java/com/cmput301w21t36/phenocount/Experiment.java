@@ -52,6 +52,8 @@ public class Experiment implements Serializable {
         this.expStatus = expStatus;
     }
 
+    public Experiment() {}
+
     /**
      * This method checks if the Experiment is published or not
      * @return

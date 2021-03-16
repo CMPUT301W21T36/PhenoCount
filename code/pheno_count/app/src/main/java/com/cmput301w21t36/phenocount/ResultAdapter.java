@@ -16,10 +16,8 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
     private ArrayList<Experiment> experiments;
     private Context context;
 
-
     public ResultAdapter(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);
-        this.experiments = experiments;
         this.context = context;
     }
 
@@ -35,7 +33,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         TextView expStatus = view.findViewById(R.id.expStatusTextView);
         TextView expDescription = view.findViewById(R.id.expDescriptionTextView);
 
-        Experiment exp = experiments.get(position);
+        Experiment exp = getItem(position);
 
         expName.setText(exp.getName());
         expOwner.setText(exp.getOwner());

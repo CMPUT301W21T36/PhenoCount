@@ -25,11 +25,13 @@ import java.util.UUID;
 public class ProfileActivity extends AppCompatActivity implements ProfileDialog.ProfileDialogListener {
 
     private Profile profile;
-    private User user;
     TextView UIDTextView;
     TextView usernameTextView;
     TextView contactTextView;
     Button editButton;
+
+    String defaultUsername = "Username";
+    String defaultContact = "Contact info";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -48,6 +50,11 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         DocumentReference docRef = db.collection("User").document(UUID);
 
         UIDTextView.setText(UUID);
+
+        profile = new Profile(defaultUsername, defaultContact);
+
+        usernameTextView.setText(profile.getUsername());
+        contactTextView.setText(profile.getPhone());
 
         // Retrieve username and contact info from the database and set the respective textviews
         docRef.get()

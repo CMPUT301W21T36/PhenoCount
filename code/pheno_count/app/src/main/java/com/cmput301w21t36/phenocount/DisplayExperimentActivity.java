@@ -37,6 +37,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experiment_display);
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        //System.out.println("Display " + exp);
 
         //exp.setOwner("1");
         // Get the Intent that started this activity and extract the string
@@ -100,7 +101,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
 
-        System.out.println(exp.getTrials());
+        //System.out.println(exp.getTrials());
             if(item.getItemId() == R.id.item1) {
                 if (exp.getExpType().equals("Binomial")) {
                     Intent bintent = new Intent(DisplayExperimentActivity.this, Binomial.class);
