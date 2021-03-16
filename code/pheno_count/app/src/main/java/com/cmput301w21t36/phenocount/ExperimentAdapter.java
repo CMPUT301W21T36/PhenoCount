@@ -37,6 +37,10 @@ public class ExperimentAdapter extends ArrayAdapter<Experiment> {
         TextView expstatus = view.findViewById(R.id.expstatus);
 
         expName.setText(experiment.getName());
+        if (experiment.getName().length()==0){
+                expName.setText(experiment.getDescription());
+        }
+
         String mStat = "" ;
         switch(experiment.getExpStatus()){
             case 1:
