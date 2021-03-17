@@ -45,16 +45,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<Experiment> expAdapter;
     ExpManager manager = new ExpManager();
 
-
     static final String AutoID = "ID";
     private String UUID;
     private String username;
     private String phone_number;
     Experiment newexp;
     int test1 = 0;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         // Username for the current user
-        username = sharedPrefs.getString("Username", "");
+        // username = sharedPrefs.getString("Username", "");
 
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -188,6 +184,10 @@ public class MainActivity extends AppCompatActivity {
     public void addExperiment(View view){
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         String mstr = UUID;
+
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        username = sharedPrefs.getString("Username", "");
+
         intent.putExtra("AutoId",mstr);
         intent.putExtra("username",username);
         startActivity(intent);
