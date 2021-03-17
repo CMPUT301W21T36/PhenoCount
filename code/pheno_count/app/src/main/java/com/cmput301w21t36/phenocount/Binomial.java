@@ -55,6 +55,11 @@ public class Binomial extends AppCompatActivity {
         TextView exptype= findViewById(R.id.exptype1);
         exptype.setText("Experiment Type: Binomial Trial");
 
+        TextView coordinates= findViewById(R.id.coordinates);
+        coordinates.setText("Lat:"+trial.getLatitude()+"Long:"+trial.getLongitude());
+
+
+
 
 
         final Button sbtn = findViewById((R.id.successbtn));
@@ -135,7 +140,11 @@ public class Binomial extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
-                Trial trial = (Trial) data.getSerializableExtra("trial_obj");
+                Trial newtrial = (Trial) data.getSerializableExtra("trial_obj");
+                trial = newtrial;
+                TextView coordinates= findViewById(R.id.coordinates);
+                coordinates.setText("Lat:"+trial.getLatitude()+"Long:"+trial.getLongitude());
+
                 //newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {

@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Description"
+        android:hint="@string/desc_hint"
         android:inputType="textMultiLine|textPersonName"
         android:padding="10dp"
         android:scrollHorizontally="true"
@@ -53,9 +53,8 @@
             android:layout_width="126dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="@string/type_of_trial"
-            android:textColor="@color/black"
-             />
+            android:text="@string/radio_text"
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/radioBinomial"
@@ -84,6 +83,7 @@
             android:layout_height="32dp"
             android:onClick="onRadioButtonClicked"
             android:text="Measurement Trial" />
+
     </RadioGroup>
 
     <EditText
@@ -107,7 +107,6 @@
         android:text="Require Geolocation"
         android:textAlignment="center"
         android:textColor="@android:color/black" />
-
     <android.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -126,23 +125,23 @@
             android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right|center_horizontal"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
             android:onClick="toAdd"
-            android:layout_gravity="bottom|right"
-            android:text="OK" />
+            android:text="OK"
+            android:textAlignment="center" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal|left"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
             android:onClick="toCancel"
-            android:layout_gravity="bottom|left"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textAlignment="center" />
     </FrameLayout>
 
-
 </LinearLayout>
-
