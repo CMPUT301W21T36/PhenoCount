@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     public void onRadioButtonClicked(View view) {
@@ -79,9 +81,9 @@ public class PublishExperimentActivity extends AppCompatActivity {
     public void toAdd(View view) {
         Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
-        String owner = bundle.get("username").toString();
-        String expId = bundle.get("AutoId").toString();
-        System.out.println("The USER :"+owner);
+        String ownerName = bundle.get("username").toString();
+        String owner = bundle.get("AutoId").toString();
+        //System.out.println("The USER :"+owner);
 
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("Experiment");
@@ -108,7 +110,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
             HashMap<String, String> data = new HashMap<>();
             if (expType.length() > 0 && desc.length() > 0) {
                 String id = db.collection("Experiment").document().getId();
-                data.put("expID",expId);
                 data.put("name", expName.getText().toString());
                 data.put("description", desc);
                 data.put("type", expType);
@@ -116,6 +117,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
                 data.put("minimum_trials", expNum.getText().toString());
                 data.put("owner", owner);
                 data.put("status", "1");
+                data.put("owner_name",ownerName);
                 data.put("require_geolocation", "NO");
                 if (expGeoLoc.isChecked()) {
                     data.put("require_geolocation", "YES");

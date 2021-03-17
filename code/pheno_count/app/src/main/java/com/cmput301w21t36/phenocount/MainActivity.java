@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.lang.reflect.Array;
@@ -35,12 +34,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
-
+     FirebaseFirestore db;
+    ListView experiments;
     Button searchButton;
     Button profileButton;
-    FirebaseFirestore db;
-
-    ListView experiments;
     ArrayList<Experiment> expDataList;
     ArrayAdapter<Experiment> expAdapter;
     ExpManager manager = new ExpManager();
@@ -49,33 +46,21 @@ public class MainActivity extends AppCompatActivity {
     private String UUID;
     private String username;
     private String phone_number;
+
     Experiment newexp;
     int test1 = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         experiments = findViewById(R.id.expList);
-        //Intent i = new Intent(this, LocationActivity.class);
-        //a i.putExtra("info", info);
-        //startActivityForResult(i, 1);
         expDataList = new ArrayList<>();
 
         // Will get instance of the database
         db = FirebaseFirestore.getInstance();
-
-        //DocumentReference userReference;
-
-       /* Experiment exp = new Experiment("Coin Flip", "We flip a coin in this experiment","North America","Binomial", 10, true);
-        expDataList.add(exp);
-        Experiment exp2 = new Experiment("Number of Cars", "We count the number of cars in this experiment","North America","Count", 10, true);
-        expDataList.add(exp2);
-        Experiment exp3 = new Experiment("Temperature In Edmonton", "We measure the Temperature in this experiment","North America","Measurement", 10, true);
-        expDataList.add(exp3);
-        Experiment exp4 = new Experiment("Number of Eggs that cracked", "We count the number of eggs that cracked in this experiment","North America","Non Negative Count", 10, true);
-        expDataList.add(exp4);
-        */
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
@@ -156,7 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
-        getExpData1();
+        manager.getExpData(db, expDataList, expAdapter, UUID);
+        //getExpData1();
         //addTrialsData();
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -211,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
     public void getExpData1(){
 
         //final CollectionReference collectionReference = db.collection("Experiment").whereEqualTo("owner",UUID).;
-        db.collection("Experiment").whereEqualTo("expID",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
@@ -230,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                         String reqGeo = (String) doc.getData().get("require_geolocation");
                         String mStat = (String) doc.getData().get("status");
                         String owner = (String) doc.getData().get("owner");
+                        String userName = (String) doc.getData().get("owner_name");
 
                         boolean reqLoc;
                         if (reqGeo.equals("YES")) {
@@ -243,27 +230,25 @@ public class MainActivity extends AppCompatActivity {
                         int expStatus = 0;
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
-                        ////////////////////newnew
-                        int finalMinTrial = minTrial;
-                        int finalExpStatus = expStatus;
                         ArrayList<Trial> trials = new ArrayList<>();
-                        Experiment newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID);
+                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus);
                         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
                         //creating a user object
-                        username = sharedPrefs.getString("Username","");
+                        //username = sharedPrefs.getString("Username","");
                         phone_number = sharedPrefs.getString("Number","");
-                        System.out.println(username);
-                        UUID = sharedPrefs.getString(AutoID, "");
+                        //System.out.println(username);
+                        //UUID = sharedPrefs.getString(AutoID, "");
 
                         //creating a profile object
-                        Profile newprofile = new Profile(username,phone_number);
-                        User current_user = new User(UUID,newprofile);
+                        Profile newprofile = new Profile(userName,phone_number);
+                        User current_user = new User(owner,newprofile);
 
-                        newexp.setOwner(current_user);
+                        newExp.setOwner(current_user);
+                        newExp.setExpID(expID);
 
-                        expDataList.add(newexp);
+                        expDataList.add(newExp);
                     }
                 }
                 int i =0;

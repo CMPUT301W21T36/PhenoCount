@@ -8,13 +8,10 @@
     <!--  heading for basic settings -->
 
 
-
-
     <ListView
         android:id="@+id/expList"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="622dp" />
 
     <!-- Save & Cancel button -->
 
@@ -31,7 +28,7 @@
         <Button
             android:id="@+id/addButton"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="left"
             android:layout_weight="1"
             android:backgroundTint="#B1B1B1"
@@ -46,7 +43,7 @@
         <Button
             android:id="@+id/searchButton"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="right"
             android:layout_weight="1"
             android:backgroundTint="#CCCCCC"
@@ -59,7 +56,7 @@
         <Button
             android:id="@+id/profileButton"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="right"
             android:layout_weight="1"
             android:onClick="openProfile"
