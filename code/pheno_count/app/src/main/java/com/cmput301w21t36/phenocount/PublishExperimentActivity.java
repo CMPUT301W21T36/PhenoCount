@@ -79,7 +79,8 @@ public class PublishExperimentActivity extends AppCompatActivity {
     public void toAdd(View view) {
         Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
-        String owner = bundle.get("AutoId").toString();
+        String owner = bundle.get("username").toString();
+        String expId = bundle.get("AutoId").toString();
         System.out.println("The USER :"+owner);
 
         db = FirebaseFirestore.getInstance();
@@ -107,6 +108,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
             HashMap<String, String> data = new HashMap<>();
             if (expType.length() > 0 && desc.length() > 0) {
                 String id = db.collection("Experiment").document().getId();
+                data.put("expID",expId);
                 data.put("name", expName.getText().toString());
                 data.put("description", desc);
                 data.put("type", expType);

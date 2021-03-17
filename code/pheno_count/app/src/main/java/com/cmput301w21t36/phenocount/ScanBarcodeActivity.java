@@ -30,10 +30,10 @@ public class ScanBarcodeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
+        if(result != null) { // check that something got returned
+            if(result.getContents() == null) { // check that data was scanned successfully
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-                finish();
+                finish(); // go back to previous activity if nothing is scanned
             } else {
                 // pass the scanned text back to the experiment
                 Intent i = new Intent();
