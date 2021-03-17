@@ -1,52 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"    >
+    >
+
+    <!--  heading for basic settings -->
+
+
+
 
     <ListView
         android:id="@+id/expList"
-        android:layout_width="match_parent"
-        android:layout_height="580dp"
-        android:layout_weight="1"
-        android:layout_gravity="bottom">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
 
-    </ListView>
+    <!-- Save & Cancel button -->
 
     <LinearLayout
         android:id="@+id/linear2"
         android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:layout_weight="1"
-        android:layout_gravity="bottom">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
 
-        <ImageButton
+        <Button
             android:id="@+id/addButton"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="left"
             android:layout_weight="1"
+            android:backgroundTint="#B1B1B1"
+            android:drawableLeft="@drawable/ic_baseline_add_24"
             android:onClick="addExperiment"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            android:paddingLeft="53dp"
+            android:paddingRight="53dp"
 
-        <ImageButton
+
+            />
+
+        <Button
             android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
             android:layout_weight="1"
-            app:srcCompat="@android:drawable/ic_search_category_default" />
+            android:backgroundTint="#CCCCCC"
+            android:drawableLeft="@drawable/ic_magnify"
+            android:paddingLeft="53dp"
+            android:paddingRight="53dp"
 
-        <ImageButton
+            />
+
+        <Button
             android:id="@+id/profileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
             android:layout_weight="1"
             android:onClick="openProfile"
-            tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
+            android:backgroundTint="#B1B1B1"
+            android:drawableLeft="@drawable/ic_user"
+            android:paddingLeft="53dp"
+            android:paddingRight="53dp"
+
+
+            />
     </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
