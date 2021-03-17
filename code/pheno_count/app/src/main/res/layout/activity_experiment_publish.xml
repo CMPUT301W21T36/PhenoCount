@@ -42,6 +42,7 @@
         android:textAlignment="center" />
 
     <RadioGroup
+        android:id="@+id/radio1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
@@ -49,11 +50,12 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="126dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="@string/type_of_trial"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            app:drawableLeftCompat="@drawable/ic_red_asterisk" />
 
         <RadioButton
             android:id="@+id/radioBinomial"
