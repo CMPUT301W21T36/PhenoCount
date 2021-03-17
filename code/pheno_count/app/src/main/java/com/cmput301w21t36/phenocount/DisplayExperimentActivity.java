@@ -73,8 +73,11 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         }
         expStatus.setText(mStat);
         //expType.setText(exp.getTrials().get(1).getType());
-        if(exp.isRequireLocation()== true) { expReqLoc.setText("YES"); }
-        else {expReqLoc.setText("NO");}
+        if(exp.isRequireLocation()== true) {
+            expReqLoc.setText(" REQUIRED");
+            expReqLoc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0);
+        }
+        else {expReqLoc.setText("NOT REQUIRED");}
 
         final Button camerabtn = findViewById((R.id.camerabtn));
         camerabtn.setOnClickListener(new View.OnClickListener() {

@@ -42,6 +42,7 @@ public class SearchingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searching);
         //setUpRecyclerView();
@@ -137,7 +138,7 @@ public class SearchingActivity extends AppCompatActivity {
             }
         });
 
-         */
+
 
 
         });
@@ -166,8 +167,8 @@ public class SearchingActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterRecycle);
 
         System.out.println("Broken here 3");
+        */
 
-         */
 
     }
 
