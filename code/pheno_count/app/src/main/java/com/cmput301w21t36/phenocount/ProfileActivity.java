@@ -66,6 +66,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
 
                         usernameTextView.setText(username);
                         contactTextView.setText(contact);
+
+                        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+                        editor.putString("Username", username);
+                        editor.putString("Number", contact);
+                        editor.apply();
                     }
                 });
 
@@ -98,6 +105,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         map.put("Username", username);
 
         db.collection("User").document(UID).set(map);
+
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        editor.putString("Username", username);
+        editor.putString("Number",contact);
+        editor.apply();
 
     }
 }

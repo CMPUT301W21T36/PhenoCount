@@ -34,7 +34,10 @@ public class SearchingActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference experimentRef = db.collection("Experiment");
 
-    private ResultAdapterTest adapter;
+    ArrayList<Experiment> expDataList;
+    ResultAdapter adapter;
+
+    ResultAdapterTest adapterRecycle;
     ListView experimentListView;
 
     @Override
@@ -43,10 +46,61 @@ public class SearchingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_searching);
         //setUpRecyclerView();
 
+        experimentListView = findViewById(R.id.listView);
 
+        expDataList = new ArrayList<>();
+        adapter = new ResultAdapter(this, expDataList);
+        experimentListView.setAdapter(adapter);
 
+        db.collection("Experiment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                    FirebaseFirestoreException error) {
+                expDataList.clear();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
+                    if (error == null) {
+                        Log.d("pheno", String.valueOf(doc.getId()));
+                        String expID = doc.getId();
+                        String name = (String) doc.getData().get("name");
+                        String description = (String) doc.getData().get("description");
+                        String region = (String) doc.getData().get("region");
+                        String type = (String) doc.getData().get("type");
+                        String minInt = (String) doc.getData().get("minimum_trials");
+                        String reqGeo = (String) doc.getData().get("require_geolocation");
+                        String mStat = (String) doc.getData().get("status");
+                        String owner = (String) doc.getData().get("owner");
+                        String userName = (String) doc.getData().get("owner_name");
 
+                        boolean reqLoc;
+                        if (reqGeo.equals("YES")) {
+                            reqLoc = true;
+                        } else {
+                            reqLoc = false;
+                        }
+                        int minTrial = 1;
+                        if (!minInt.isEmpty()) {
+                            minTrial = Integer.parseInt(minInt);
+                        }
+                        int expStatus = 0;
+                        if (!mStat.isEmpty()) {
+                            expStatus = Integer.parseInt(mStat);
+                        }
+                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus);
+
+                        Profile newprofile = new Profile(userName);
+                        User current_user = new User(owner, newprofile);
+
+                        newExp.setOwner(current_user);
+                        newExp.setExpID(expID);
+
+                        expDataList.add(newExp);
+
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+            }
 
 
         /*
@@ -72,9 +126,6 @@ public class SearchingActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent (SearchingActivity.this, DisplayExperimentActivity.class);
                             Experiment exp_obj = experimentList.get(position);
-                            System.out.println("Searching activity " + exp_obj);
-                            System.out.println("EXP ID " + exp_obj.getID());
-                            System.out.println("Experiment Type " + exp_obj.getExpType());
                             intent.putExtra("experiment",exp_obj);
                             intent.putExtra("position",position);
 
@@ -89,11 +140,14 @@ public class SearchingActivity extends AppCompatActivity {
          */
 
 
-
-
+        });
     }
 
+
+
     private void setUpRecyclerView() {
+
+        /*
         Query query = experimentRef;
 
         System.out.println("Broken here 1");
@@ -104,25 +158,28 @@ public class SearchingActivity extends AppCompatActivity {
 
         System.out.println("Broken here 2");
 
-        adapter = new ResultAdapterTest(options);
+        adapterRecycle = new ResultAdapterTest(options);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapterRecycle);
 
         System.out.println("Broken here 3");
+
+         */
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.startListening();
+        //adapterRecycle.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        adapter.stopListening();
+        //adapterRecycle.stopListening();
     }
 }
