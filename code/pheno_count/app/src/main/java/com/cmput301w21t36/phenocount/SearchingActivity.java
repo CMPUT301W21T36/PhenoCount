@@ -36,15 +36,12 @@ public class SearchingActivity extends AppCompatActivity {
 
     ArrayList<Experiment> expDataList;
     ResultAdapter adapter;
-
-    ResultAdapterTest adapterRecycle;
     ListView experimentListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searching);
-        //setUpRecyclerView();
 
         experimentListView = findViewById(R.id.listView);
 
@@ -52,7 +49,8 @@ public class SearchingActivity extends AppCompatActivity {
         adapter = new ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
 
-        db.collection("Experiment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+        experimentRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
@@ -95,91 +93,71 @@ public class SearchingActivity extends AppCompatActivity {
                         newExp.setExpID(expID);
 
                         expDataList.add(newExp);
-
                     }
                 }
-
-                adapter.notifyDataSetChanged();
-            }
-
-
-        /*
-        db.collection("Experiment").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                // Make an empty arrayList
-                ArrayList<Experiment> experimentList = new ArrayList<>();
-
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot document : task.getResult()) {
-                        // BROKEN LINE BECAUSE CAST STRING TO USER WHICH IS NOT POSSIBLE
-                        //experimentList.add(document.toObject(Experiment.class));
-                    }
-
-                    ResultAdapter resultAdapter = new ResultAdapter(SearchingActivity.this, experimentList);
-
-                    resultAdapter.notifyDataSetChanged();
-                    experimentListView.setAdapter(resultAdapter);
-
-                    experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                int i =0;
+                while(i<expDataList.size()) {
+                    Experiment exp = expDataList.get(i);
+                    int finalI = i;
+                    db.collection("Trials").whereEqualTo("ExpID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent (SearchingActivity.this, DisplayExperimentActivity.class);
-                            Experiment exp_obj = experimentList.get(position);
-                            intent.putExtra("experiment",exp_obj);
-                            intent.putExtra("position",position);
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                            ArrayList<Trial> trials = new ArrayList<>();
+                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                Log.d("pheno", String.valueOf(doc.getId()));
+                                String ttype = (String) doc.getData().get("type");
+                                User user = exp.getOwner();
 
-                            int LAUNCH_SECOND_ACTIVITY = 1;
-                            startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY);
+                                Trial trial = new Trial(user);
+
+                                trial.setType(ttype);
+
+                                //retriving result from firebase
+                                String result = (String) doc.getData().get("result");
+                                if(ttype.equals("Binomial")) {
+                                    trial.setResult(Boolean.parseBoolean(result));
+                                }
+                                else if (ttype.equals("Count")) {
+                                    trial.setCount(Integer.parseInt(result));
+                                }
+                                else if (ttype.equals("Measurement")){
+                                    trial.setMeasurement(Float.parseFloat(result));
+                                }
+                                else if (ttype.equals("Non Negative Count")){
+                                    trial.setValue(Integer.parseInt(result));
+                                }
+
+                                trials.add(trial);
+                                System.out.println("DESCRIPTION: " + trial.getName());
+                            }
+                            exp.setTrials(trials);
+                            expDataList.set(finalI,exp);
+                            System.out.println("SIZE:" + trials.size());
+
+                            //newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID,trials)); // Adding the cities and provinces from FireStore
+
                         }
                     });
+
+                    i++;
                 }
+                adapter.notifyDataSetChanged();
             }
         });
 
-         */
+        experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent (SearchingActivity.this,DisplayExperimentActivity.class);
+                Experiment exp_obj = expDataList.get(position);
+                intent.putExtra("experiment",exp_obj);
+                intent.putExtra("position",position);
 
-
+                int second_activity = 1;
+                startActivityForResult(intent,second_activity);
+            }
         });
     }
-
-
-
-    private void setUpRecyclerView() {
-
-        /*
-        Query query = experimentRef;
-
-        System.out.println("Broken here 1");
-
-        FirestoreRecyclerOptions<Experiment> options = new FirestoreRecyclerOptions.Builder<Experiment>()
-                .setQuery(query, Experiment.class)
-                .build();
-
-        System.out.println("Broken here 2");
-
-        adapterRecycle = new ResultAdapterTest(options);
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapterRecycle);
-
-        System.out.println("Broken here 3");
-
-         */
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //adapterRecycle.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //adapterRecycle.stopListening();
-    }
 }
+
+

@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent (MainActivity.this,DisplayExperimentActivity.class);
                 Experiment exp_obj = expDataList.get(position);
-                //System.out.println("Main " + exp_obj);
                 intent.putExtra("experiment",exp_obj);
                 intent.putExtra("position",position);
 
