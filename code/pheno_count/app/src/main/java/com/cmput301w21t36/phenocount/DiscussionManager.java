@@ -28,18 +28,9 @@ import java.util.HashMap;
 
 public class DiscussionManager{
     private ArrayList<Question> queDataList = new ArrayList<>();
-    private ArrayAdapter<Question> queAdapter;
     private ArrayList<Reply> repDataList = new ArrayList<>();
     private DatabaseManager dbManager = new DatabaseManager();
     private String TAG = "Discussion";
-
-    public FirebaseFirestore getDb() {
-        return dbManager.getDb();
-    }
-
-    public DiscussionManager(DatabaseManager dbManager){
-        this.dbManager = dbManager;
-    }
 
     public DiscussionManager(Experiment experiment){
         String expID = experiment.getID();
@@ -51,6 +42,9 @@ public class DiscussionManager{
         String qID = question.getID();
         setUpRepCol(expID, qID);
     }
+    public FirebaseFirestore getDb() {
+        return dbManager.getDb();
+    }
 
     private void setUpQueCol(String expID) {
         setQuecollectionReference(getDb().collection("Experiment")
@@ -58,10 +52,7 @@ public class DiscussionManager{
                                 .collection("Question"));
     }
 
-
-
     private void setUpRepCol(String expID, String qID) {
-
         setRepcollectionReference(getDb().collection("Experiment")
                 .document(expID)
                 .collection("Question")
@@ -69,63 +60,52 @@ public class DiscussionManager{
                 .collection("Reply"));
     }
 
-
     //update the Question ListView in the discussion forum activity
     public void updateQueData(ArrayList<Question> qDataList, QuestionAdapter qAdapter){
         this.queDataList = qDataList;
-        System.out.println("Charffy: update  works?");
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         getQuecollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Question'
             public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
-                System.out.println("Charffy: event listener works?");
-
                 // clear the old list
                 queDataList.clear();
                 //add documents in the question collection to the list view
                 for (QueryDocumentSnapshot que : questions) {
-                    System.out.println("Charffy: query doc snap shot works?");
                     String qID =  que.getId();
                     Log.d(TAG, qID);
                     String qText = (String) que.getData().get("text");
-                    //User qAuthor =  (User) que.getData().get("author");
                     Question newQue = new Question(qText);
                     newQue.setID(qID);
                     queDataList.add(newQue);
-                    System.out.println(qText);
                 }
-                System.out.println("Charffy Update: size of qDataList" + queDataList.size());
                 qAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
     }
 
     //update the Reply ListView in the question activity
-    public void updateRepData(){
+    public void updateRepData(ArrayList<Reply> rDataList, ReplyAdapter rAdapter){
+        this.repDataList = rDataList;
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         getRepcollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Reply'
             public void onEvent(@Nullable QuerySnapshot replies, @Nullable FirebaseFirestoreException e) {
-
                 // clear the old list
                 repDataList.clear();
                 //add documents in the question collection to the list view
                 for (QueryDocumentSnapshot rep : replies) {
-
                     String rID =  rep.getId();
                     Log.d(TAG, rID);
                     String rText = (String) rep.getData().get("text");
-                    //User qAuthor =  (User) que.getData().get("author");
                     Reply newRep = new Reply(rText);
                     newRep.setID(rID);
                     repDataList.add(newRep);
-                    System.out.println("HELLOOOO updateDataREP()" + repDataList.size());
                 }
-                //repAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+                rAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
     }
@@ -136,7 +116,6 @@ public class DiscussionManager{
         HashMap<String, String> data = new HashMap<>();
         if (text.length() > 0) { // We do not add anything if the fields are empty.
             String id = getQuecollectionReference().document().getId();
-
             // If there is some data in the EditText field, then we create a new key-value pair.
             data.put("text", text);
             // The set method sets a unique id for the document.
@@ -157,10 +136,7 @@ public class DiscussionManager{
                             Log.d(TAG, "Question could not be added!" + e.toString());
                         }
                     });
-
-            //updateQueData();
         }
-
     }
 
     public void addRepDoc(String text){
@@ -188,14 +164,11 @@ public class DiscussionManager{
                             Log.d(TAG, "Reply could not be added!" + e.toString());
                         }
                     });
-
-            //updateRepData();
         }
 
     }
 
     public ArrayList<Question> getQueDataList() {
-        System.out.println("Charffy getData: size of qDataList" + queDataList.size());
         return queDataList;
     }
 

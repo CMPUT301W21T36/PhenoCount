@@ -23,43 +23,35 @@ import java.util.ArrayList;
 public class QuestionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
     //a collection of question posts of a certain experiment
     private ListView rListView;
-    private ArrayAdapter<Reply> repAdapter;
-    private ArrayList<Reply> repData;
+    private ReplyAdapter repAdapter;
+    private ArrayList<Reply> repData = new ArrayList<>();
     private Experiment experiment;
     private Question question;
     private DiscussionManager disManager;
-    private User user; //I think we need to get who is currently viewing this forum
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+        getSupportActionBar().setTitle("Replies");
+
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        question = (Question) getIntent().getSerializableExtra("question123");//defining the Experiment object
+        question = (Question) getIntent().getSerializableExtra("question");//defining the Experiment object
 
         rListView = findViewById(R.id.reply_list_view);
-        //System.out.println("TYPE OF LIST VIEW " + rListView.getClass());
-        System.out.println("QUESTION" + question.getID());
-        System.out.println("EXPERIMENT" + experiment.getName());
+        repAdapter = new ReplyAdapter(this, repData);
+        rListView.setAdapter(repAdapter);
 
         disManager = new DiscussionManager(experiment, question);
-
-
-        disManager.updateRepData();
-
-
-        System.out.println(disManager);
+        disManager.updateRepData(repData, repAdapter);
         repData = disManager.getRepDataList();
-        System.out.println("SIZE OF REP DATA" + repData.size());
-        repAdapter = new ReplyAdapter(this, repData);
+        repAdapter.notifyDataSetChanged();
 
 
-        rListView.setAdapter(repAdapter);
         /*
         When the 'add reply' button is pressed in this activity,
         a fragment will display to let the user add a new reply.
         */
-
         final ExtendedFloatingActionButton addQueButton = findViewById(R.id.add_reply_btn);
         addQueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,9 +64,6 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     @Override
     protected void onResume() {
         super.onResume();
-        repData = disManager.getRepDataList();
-        repAdapter.notifyDataSetChanged();
-
     }
 
     /**

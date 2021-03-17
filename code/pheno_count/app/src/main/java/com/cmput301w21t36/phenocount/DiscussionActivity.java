@@ -30,7 +30,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     private ArrayList<Question> queData = new ArrayList<>();
     private Experiment experiment;
     private DiscussionManager disManager;
-    private User user; //I think we need to get who is currently viewing this forum
 
 
 
@@ -38,23 +37,17 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion);
+        getSupportActionBar().setTitle("Discussion Forum");
+
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
 
-        getSupportActionBar().setTitle("Discussion Forum");
-
         disManager = new DiscussionManager(experiment);
         disManager.updateQueData(queData, queAdapter);
         queData = disManager.getQueDataList();
-
-
         queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
-        System.out.println("Charffy onCreate: size of qDataList" + queData.size());
-
-
-
 
         /*
         When the 'ask question' button is pressed in this activity,
@@ -80,17 +73,11 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
                 browseReplies(queTarget);
             }
         });
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        queData = disManager.getQueDataList();
-        queAdapter.notifyDataSetChanged();
-
-        System.out.println("Charffy Resume: size of qDataList" + queData.size());
-
     }
 
     /**
@@ -118,13 +105,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     @Override
     public void onOkPressedAdd(String text) {
         disManager.addQueDoc(text);
-        queData = disManager.getQueDataList();
-        queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
-
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
-
-        System.out.println("Charffy Ok: size of qDataList" + queData.size());
-
     }
 
     /**
@@ -137,13 +118,9 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         //String questionText = target.getText();
         Intent intent = new Intent(DiscussionActivity.this, QuestionActivity.class);
         intent.putExtra("experiment", experiment);
-        intent.putExtra("question123", target);
-        System.out.println("IN BROWSE REPLIES"+ target.getID());
+        intent.putExtra("question", target);
         startActivity(intent);
 
     }
-
-
-
 
 }
