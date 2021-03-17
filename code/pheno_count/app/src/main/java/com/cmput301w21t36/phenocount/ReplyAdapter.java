@@ -32,7 +32,7 @@ public class ReplyAdapter extends ArrayAdapter<Reply> {
 
         Reply reply = replies.get(position);
 
-        TextView repText = view.findViewById(R.id.reply_list_view);
+        TextView repText = view.findViewById(R.id.reply_text_view_in_list);
 
         repText.setText(reply.getText());
 
@@ -40,4 +40,3 @@ public class ReplyAdapter extends ArrayAdapter<Reply> {
         return view;
     }
 }
-

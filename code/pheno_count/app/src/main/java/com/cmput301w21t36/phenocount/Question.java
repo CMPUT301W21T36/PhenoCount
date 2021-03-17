@@ -13,9 +13,12 @@ public class Question extends Post implements Serializable {
 
     private ListView rList;
     private ArrayList<Reply> replies;
-    
+
     public Question(String text){
         super(text);
+    }
+    public Question(){
+
     }
 
 
@@ -31,11 +34,6 @@ public class Question extends Post implements Serializable {
      * the top one is a title, says 'New Reply',
      * the bottom one is the an edit text, let the user type in the reply body.
      */
-    public void addReply(){
-        String replyText = "";
-        Reply reply = new Reply(author, replyText);
-        replies.add(reply);
-    }
 
 
 }
