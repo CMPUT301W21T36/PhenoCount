@@ -43,8 +43,7 @@ public class SearchingActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     for(QueryDocumentSnapshot document : task.getResult()) {
-                        Experiment experiment = document.toObject(Experiment.class);
-                        experimentList.add(experiment);
+                        experimentList.add(document.toObject(Experiment.class));
                     }
 
                     ResultAdapter resultAdapter = new ResultAdapter(SearchingActivity.this, experimentList);
