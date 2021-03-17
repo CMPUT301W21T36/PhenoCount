@@ -34,7 +34,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
-     FirebaseFirestore db;
+    FirebaseFirestore db;
     ListView experiments;
     Button searchButton;
     Button profileButton;
