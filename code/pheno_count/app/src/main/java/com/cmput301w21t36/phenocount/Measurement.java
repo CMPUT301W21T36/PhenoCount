@@ -28,6 +28,8 @@ public class Measurement extends AppCompatActivity {
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Trial(newexp.getOwner());
+        trial.setType("Measurement");
+
 
         // Capture the layout's TextView and set the string as its text
 

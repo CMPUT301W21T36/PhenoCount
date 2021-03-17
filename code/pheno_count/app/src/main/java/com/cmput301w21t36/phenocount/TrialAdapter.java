@@ -39,7 +39,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
 
         trial_no.setText("Trial "+position);
         trial_owner.setText("Owner : "+trial.getOwner().getProfile().getUsername());
-
+        System.out.println(trial.getType());
         if (trial.getType().equals("Binomial")) {
             trial_outcome.setText("Result: "+trial.getResult());
         }
@@ -49,7 +49,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         if (trial.getType().equals("Measurement")) {
             trial_outcome.setText("Result: "+trial.getMeasurement());
         }
-        if (trial.getType().equals("Non Negative Count")) {
+        if (trial.getType().equals("NonNegativeCount")) {
             trial_outcome.setText("Result: "+trial.getValue());
         }
 
