@@ -20,7 +20,7 @@ public class ResultAdapterTest extends FirestoreRecyclerAdapter<Experiment, Resu
     @Override
     protected void onBindViewHolder(@NonNull ExperimentHolder holder, int position, @NonNull Experiment model) {
         holder.expName.setText(model.getName());
-        holder.expOwner.setText((CharSequence) model.getOwner());
+        holder.expOwner.setText(model.getOwner());
         holder.expStatus.setText(model.getExpStatus());
         holder.expDescription.setText((model.getDescription()));
 
