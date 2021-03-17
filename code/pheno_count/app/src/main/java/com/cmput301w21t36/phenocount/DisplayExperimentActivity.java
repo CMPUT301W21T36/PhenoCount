@@ -97,7 +97,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
 
-        //System.out.println(exp.getTrials());
             if(item.getItemId() == R.id.item1) {
                 if (exp.getExpType().equals("Binomial")) {
                     Intent bintent = new Intent(DisplayExperimentActivity.this, Binomial.class);
@@ -117,7 +116,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     int LAUNCH_SECOND_ACTIVITY = 1;
                     startActivityForResult(mintent, LAUNCH_SECOND_ACTIVITY);
                 }
-                if (exp.getExpType().equals("Non Negative Count")) {
+                if (exp.getExpType().equals("NonNegativeCount")) {
                     Intent nintent = new Intent(DisplayExperimentActivity.this, NonNegativeCount.class);
                     nintent.putExtra("experiment", exp);
                     int LAUNCH_SECOND_ACTIVITY = 1;
@@ -184,7 +183,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     else if (exp.getExpType().equals("Measurement")){
                         fdata.put("result",String.valueOf(trial.getMeasurement()));
                     }
-                    else if (exp.getExpType().equals("Non Negative Count")){
+                    else if (exp.getExpType().equals("NonNegativeCount")){
                         fdata.put("result",String.valueOf(trial.getValue()));
                     }
                     fdata.put("type", exp.getExpType());

@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         String mstr = UUID;
         intent.putExtra("AutoId",mstr);
+        intent.putExtra("username",username);
         startActivity(intent);
     }
 
@@ -209,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
     public void getExpData1(){
 
         //final CollectionReference collectionReference = db.collection("Experiment").whereEqualTo("owner",UUID).;
-        db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Experiment").whereEqualTo("expID",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
