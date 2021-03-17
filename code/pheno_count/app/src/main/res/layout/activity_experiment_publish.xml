@@ -12,7 +12,7 @@
     <EditText
         android:id="@+id/expName"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Name"
         android:inputType="textMultiLine|textPersonName"
@@ -23,7 +23,7 @@
     <EditText
         android:id="@+id/expDesc"
         android:layout_width="match_parent"
-        android:layout_height="99dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Description"
         android:inputType="textMultiLine|textPersonName"
@@ -34,7 +34,7 @@
     <EditText
         android:id="@+id/expRegion"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Region"
         android:inputType="textPersonName"
@@ -114,35 +114,34 @@
         android:layout_weight="1"
         android:minHeight="1dp"/>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="123dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:padding="20dp"
+        android:padding="20dp">
 
-
-        >
-
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
             android:onClick="toAdd"
+            android:layout_gravity="bottom|right"
             android:text="OK" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
             android:onClick="toCancel"
+            android:layout_gravity="bottom|left"
             android:text="Cancel" />
-    </LinearLayout>
+    </FrameLayout>
 
 
 </LinearLayout>
