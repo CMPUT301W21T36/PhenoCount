@@ -7,22 +7,10 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/question_text_view_in_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Q: "
-        android:textSize="24sp" />
-
     <ListView
         android:id="@+id/reply_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30sp"
-        android:layout_below="@+id/question_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/question_text_view_in_title"
-    >
+        android:layout_height="match_parent">
     </ListView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

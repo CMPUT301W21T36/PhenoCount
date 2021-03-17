@@ -14,6 +14,10 @@ public class Profile implements Serializable {
         this.phone = phone;
     }
 
+    public Profile(String username) {
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -8,8 +8,7 @@ import java.util.ArrayList;
  * @author Anisha
  */
 public class Experiment implements Serializable {
-    //store the ID inside this Experiment, so we can know which document it is
-    private String expID;
+    private String expID; //store the ID inside this Experiment, so we can know which document it is
     private String name;
     private String description;
     private String region;
@@ -53,6 +52,18 @@ public class Experiment implements Serializable {
         this.owner = owner;
 
     }
+
+    public Experiment(String name, String description, String region, String expType, int minimumTrials, boolean requireLocation,int expStatus) {
+        this.name = name;
+        this.description = description;
+        this.region = region;
+        this.minimumTrials = minimumTrials;
+        this.requireLocation = requireLocation;
+        this.expType = expType;
+        this.expStatus = expStatus;
+
+    }
+
 
 
     public Experiment() {}
@@ -265,5 +276,13 @@ public class Experiment implements Serializable {
 
     public String getID() {
         return expID;
+    }
+
+    public void setExpID(String expID) {
+        this.expID = expID;
+    }
+
+    public void setSubscribe(int subscribe) {
+        this.subscribe = subscribe;
     }
 }
