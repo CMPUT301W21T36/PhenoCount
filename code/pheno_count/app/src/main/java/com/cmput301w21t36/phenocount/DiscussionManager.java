@@ -27,7 +27,6 @@ import java.util.HashMap;
 //either just created or selected to recreate.
 
 public class DiscussionManager{
-    private QuestionCollection qCol;
     private ArrayList<Question> queDataList = new ArrayList<>();
     private ArrayAdapter<Question> queAdapter;
     private ArrayList<Reply> repDataList = new ArrayList<>();
@@ -72,17 +71,22 @@ public class DiscussionManager{
 
 
     //update the Question ListView in the discussion forum activity
-    public void updateQueData(){
+    public void updateQueData(ArrayList<Question> qDataList, QuestionAdapter qAdapter){
+        this.queDataList = qDataList;
+        System.out.println("Charffy: update  works?");
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         getQuecollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Question'
             public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
+                System.out.println("Charffy: event listener works?");
+
                 // clear the old list
                 queDataList.clear();
                 //add documents in the question collection to the list view
                 for (QueryDocumentSnapshot que : questions) {
+                    System.out.println("Charffy: query doc snap shot works?");
                     String qID =  que.getId();
                     Log.d(TAG, qID);
                     String qText = (String) que.getData().get("text");
@@ -90,8 +94,10 @@ public class DiscussionManager{
                     Question newQue = new Question(qText);
                     newQue.setID(qID);
                     queDataList.add(newQue);
+                    System.out.println(qText);
                 }
-                //queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+                System.out.println("Charffy Update: size of qDataList" + queDataList.size());
+                qAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
     }
@@ -100,15 +106,16 @@ public class DiscussionManager{
     public void updateRepData(){
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
-        System.out.println("HELLOOOO updateDataREP()" + repDataList.size());
         getRepcollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Reply'
             public void onEvent(@Nullable QuerySnapshot replies, @Nullable FirebaseFirestoreException e) {
+
                 // clear the old list
                 repDataList.clear();
                 //add documents in the question collection to the list view
                 for (QueryDocumentSnapshot rep : replies) {
+
                     String rID =  rep.getId();
                     Log.d(TAG, rID);
                     String rText = (String) rep.getData().get("text");
@@ -151,7 +158,7 @@ public class DiscussionManager{
                         }
                     });
 
-            updateQueData();
+            //updateQueData();
         }
 
     }
@@ -182,12 +189,13 @@ public class DiscussionManager{
                         }
                     });
 
-            updateRepData();
+            //updateRepData();
         }
 
     }
 
     public ArrayList<Question> getQueDataList() {
+        System.out.println("Charffy getData: size of qDataList" + queDataList.size());
         return queDataList;
     }
 
