@@ -18,6 +18,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
 
     public ResultAdapter(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);
+        this.experiments = experiments;
         this.context = context;
     }
 
@@ -36,7 +37,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         Experiment exp = getItem(position);
 
         expName.setText(exp.getName());
-        expOwner.setText((CharSequence) exp.getOwner()); ////////////////
+        //expOwner.setText((CharSequence) exp.getOwner());
 
         String expStat = "" ;
         switch(exp.getExpStatus()){

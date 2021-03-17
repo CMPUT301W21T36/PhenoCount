@@ -262,11 +262,9 @@ public class MainActivity extends AppCompatActivity {
 
                         newexp.setOwner(current_user);
 
-
-                        expDataList.add(newexp); // Adding the cities and provinces from FireStore
+                        expDataList.add(newexp);
                     }
                 }
-                ////////////////////
                 int i =0;
                 while(i<expDataList.size()) {
                     Experiment exp = expDataList.get(i);
@@ -313,14 +311,9 @@ public class MainActivity extends AppCompatActivity {
 
                     i++;
                 }
-
                 expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
             }
         });
-
-        ////////////////////newnew
-
-
     }
 
 }
