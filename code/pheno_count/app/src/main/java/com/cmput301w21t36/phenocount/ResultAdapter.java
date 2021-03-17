@@ -36,7 +36,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         Experiment exp = getItem(position);
 
         expName.setText(exp.getName());
-        expOwner.setText((CharSequence) exp.getOwner()); ////////////////
+        expOwner.setText(exp.getOwner().getProfile().getUsername()); ////////////////
 
         String expStat = "" ;
         switch(exp.getExpStatus()){
