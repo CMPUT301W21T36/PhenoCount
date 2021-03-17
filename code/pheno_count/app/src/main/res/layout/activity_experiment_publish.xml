@@ -55,7 +55,7 @@
             android:padding="5dp"
             android:text="@string/type_of_trial"
             android:textColor="@color/black"
-            android:drawableLeftCompat="@drawable/ic_red_asterisk" />
+             />
 
         <RadioButton
             android:id="@+id/radioBinomial"
