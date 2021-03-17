@@ -176,7 +176,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     String id = db.collection("Trials").document().getId();
                     Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
 
-                    fdata.put("ExpID", exp.getID());
+                    fdata.put("userID", exp.getID());
                     if(exp.getExpType().equals("Binomial")) {
                         fdata.put("result",String.valueOf(trial.getResult()));
                     }

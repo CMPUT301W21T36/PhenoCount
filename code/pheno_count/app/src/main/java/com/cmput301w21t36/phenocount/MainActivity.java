@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSearch() {
         Intent intent = new Intent(this, SearchingActivity.class);
+        intent.putExtra("expID",UUID);
         startActivity(intent);
     }
 
