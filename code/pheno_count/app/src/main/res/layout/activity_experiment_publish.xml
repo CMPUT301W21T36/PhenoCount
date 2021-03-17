@@ -108,28 +108,22 @@
         android:textAlignment="center"
         android:textColor="@android:color/black" />
 
-
+    <android.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:minHeight="1dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="123dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:layout_marginTop="120dp"
+
 
         >
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:lgravity="left"
-            android:layout_weight="1"
-            android:onClick="toCancel"
-            android:text="Cancel" />
 
         <Button
             android:id="@+id/button6"
@@ -139,8 +133,16 @@
             android:layout_weight="1"
             android:onClick="toAdd"
             android:text="OK" />
-    </LinearLayout>
 
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:onClick="toCancel"
+            android:text="Cancel" />
+    </LinearLayout>
 
 
 </LinearLayout>
