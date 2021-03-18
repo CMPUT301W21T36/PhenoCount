@@ -30,6 +30,7 @@ public class ResultsActivity extends AppCompatActivity {
         //getting intent
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trialList = exp.getTrials();
+        System.out.println("LIST"+trialList.isEmpty());
 
         //initializing adapter
         trialAdapter = new TrialAdapter(this,trialList);

@@ -177,7 +177,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     String id = db.collection("Trials").document().getId();
                     Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
 
-                    fdata.put("userID", exp.getID());
+                    fdata.put("expID", exp.getID()); // to retrive data from firebase
                     if(exp.getExpType().equals("Binomial")) {
                         fdata.put("result",String.valueOf(trial.getResult()));
                     }
