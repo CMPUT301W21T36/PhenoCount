@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +23,8 @@ public class Measurement extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
+    TextView coordinates;
+    DecimalFormat numberFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class Measurement extends AppCompatActivity {
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Trial(newexp.getOwner());
         trial.setType("Measurement");
+        numberFormat = new DecimalFormat("#.0000");
 
 
         // Capture the layout's TextView and set the string as its text
@@ -48,6 +52,11 @@ public class Measurement extends AppCompatActivity {
 
         TextView exptype= findViewById(R.id.exptype3);
         exptype.setText("Experiment Type: Measurement");
+
+        coordinates = findViewById(R.id.coordinates);
+
+        coordinates.setText("Location : NOT ADDED");
+
 
         EditText measurement = findViewById(R.id.measurement_editText);
 
@@ -116,6 +125,10 @@ public class Measurement extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
+                if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
+                    coordinates.setText("Location : NOT ADDED");
+                else
+                    coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
 
                 if (trial != null) {
                     newexp.getTrials().add(trial);
