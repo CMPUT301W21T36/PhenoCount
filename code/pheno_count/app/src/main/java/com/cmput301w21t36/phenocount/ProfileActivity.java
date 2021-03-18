@@ -98,6 +98,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String UID = sharedPreferences.getString("ID","");
+        String oldUsername = sharedPreferences.getString("Username","");
 
         Map<String, Object> map = new HashMap<>();
         map.put("ContactInfo", contact);
@@ -105,6 +106,13 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         map.put("Username", username);
 
         db.collection("User").document(UID).set(map);
+
+        /*
+        Map<String, Object> expMap = new HashMap<>();
+        map.put("owner_name", username);
+        db.collection("Experiment").whereEqualTo("owner_name", oldUsername).update(expMap);
+
+         */
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();

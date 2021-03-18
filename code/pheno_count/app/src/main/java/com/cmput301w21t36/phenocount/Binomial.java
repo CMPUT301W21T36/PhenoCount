@@ -27,7 +27,7 @@ public class Binomial extends AppCompatActivity {
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
-    TrialManager trialManager;
+    //TrialManager trialManager;
 
     private final String TAG = "PhenoCount";
 
