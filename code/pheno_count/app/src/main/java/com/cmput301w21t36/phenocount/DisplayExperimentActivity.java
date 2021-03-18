@@ -27,7 +27,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     private Experiment exp; // catch object passed from mainlist
     FirebaseFirestore db;
     private final String TAG = "PhenoCount";
-    private String UUID;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,15 +154,16 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPrefs.edit();
-                UUID = sharedPrefs.getString("ID", "");
+                username = sharedPrefs.getString("Username", "");
+
 
                 if (newexp != null) {
                     exp = newexp; //updating the current exp object(to show updated exp desc)
                     System.out.println("SIZE:"+exp.getTrials().size());
 
 
-                    Intent intent = getIntent();
-                    Bundle bundle = getIntent().getExtras();
+                    //Intent intent = getIntent();
+                    //Bundle bundle = getIntent().getExtras();
                     //String owner = bundle.get("AutoId").toString();
 
                     db = FirebaseFirestore.getInstance();
@@ -190,7 +191,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                         fdata.put("result",String.valueOf(trial.getValue()));
                     }
                     fdata.put("type", exp.getExpType());
-                    fdata.put("owner", exp.getOwner().getProfile().getUsername());
+
+                    fdata.put("owner", username);
 
 
                     collectionReference
