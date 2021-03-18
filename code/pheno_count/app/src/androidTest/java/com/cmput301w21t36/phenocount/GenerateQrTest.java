@@ -51,7 +51,7 @@ public class GenerateQrTest {
      */
     @Test
     public void testGenerateQr(){
-        //Asserts that the current activity is the MainActivity
+        // asserts that the current activity is the MainActivity
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
         // create a new experiment
@@ -72,7 +72,7 @@ public class GenerateQrTest {
         solo.clickOnMenuItem("See Results");
         solo.clickInList(0);
 
-        //Asserts that the current activity is the GenerateQrActivity
+        // asserts that the current activity is the GenerateQrActivity
         solo.assertCurrentActivity("Wrong Activity", GenerateQrActivity.class);
     }
 }
