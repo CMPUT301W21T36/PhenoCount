@@ -15,10 +15,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- *Test class for PublishActivity. All the UI tests are written here. Robotium test framework is
+ *Test class for PublishExperimentActivity. All the UI tests are written here. Robotium test framework is
  *  used
  * @author  Anisha
  */
@@ -54,15 +55,14 @@ public class PublishExperimentTest {
     @Test
     public void checkAddingExp(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView((Button) solo.getView(R.id.addButton));
+        solo.clickOnView(solo.getView(R.id.addButton));
         solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
         solo.enterText((EditText) solo.getView(R.id.expName), "Red Cars");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "To note the number of red cars observed");
         solo.enterText((EditText) solo.getView(R.id.expRegion), "Edmonton");
-        solo.clickOnView((Button) solo.getView(R.id.radioCount));
+        solo.clickOnView(solo.getView(R.id.radioCount));
         solo.enterText((EditText) solo.getView(R.id.expNum), "20");
-        //solo.clickOnView((CheckBox) solo.getView(R.id.geoCheckBox));
-        solo.clickOnView((Button) solo.getView(R.id.okButton));
+        solo.clickOnView( solo.getView(R.id.okButton));
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
     }
 
@@ -73,6 +73,30 @@ public class PublishExperimentTest {
     public void checkExpListItem(){
         solo .assertCurrentActivity( "Wrong Activity" , MainActivity. class ) ;
         assertTrue(solo.searchText("Red Cars"));
+    }
+
+    /**
+     * To check the cancelButton doesn't publish an experiment
+     * Check with just pressing cancelButton on opening of PublishExperimentActivity
+     * and then with adding data to the fields and pressing cancelButton
+     */
+    @Test
+    public void testCancelButton(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.addButton));
+        solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
+        solo.clickOnView(solo.getView(R.id.cancelButton));
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.addButton));
+        solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.expName), "Pink Ballons");
+        solo.enterText((EditText) solo.getView(R.id.expDesc), "To note the number of pink ballons observed");
+        solo.enterText((EditText) solo.getView(R.id.expRegion), "Edmonton");
+        solo.clickOnView(solo.getView(R.id.radioCount));
+        solo.enterText((EditText) solo.getView(R.id.expNum), "20");
+        solo.clickOnView(solo.getView(R.id.cancelButton));
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        assertFalse(solo.searchText("Pink Ballons"));
     }
 
     /**
