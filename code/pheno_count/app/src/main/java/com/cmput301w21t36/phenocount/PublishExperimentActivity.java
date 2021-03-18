@@ -74,11 +74,11 @@ public class PublishExperimentActivity extends AppCompatActivity {
                 break;
             case R.id.radioInt:
                 if (checked)
-                    expType="NonNegativeCount";
+                    expType="NonNegativeCountActivity";
                 break;
             case R.id.radioMeasure:
                 if (checked)
-                    expType="Measurement";
+                    expType="MeasurementActivity";
                 break;
         }
     }

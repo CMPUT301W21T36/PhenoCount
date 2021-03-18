@@ -1,149 +1,124 @@
 package com.cmput301w21t36.phenocount;
 
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- * This class represents binomial trials
+ * This class represents Count trials
  * @author Marzookh
  */
-public class Binomial extends AppCompatActivity {
+public class CountActivity extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
     TextView coordinates;
-    //TrialManager trialManager;
-
-    private final String TAG = "PhenoCount";
-
-    @SuppressLint("SetTextI18n")
+    //TrialManager trialManager = new TrialManager(); //??
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         // recieving intent object
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.trial_binomial);
+        setContentView(R.layout.trial_count);
         numberFormat = new DecimalFormat("#.0000");
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Trial(newexp.getOwner());
-        trial.setType("Binomial");
+        trial.setType("Count");
+
 
 
         // Capture the layout's TextView and set the string as its text
 
-        TextView desc = findViewById(R.id.desc1);
+        TextView desc = findViewById(R.id.desc2);
         desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
-        TextView owner = findViewById(R.id.owner1);
+        TextView owner = findViewById(R.id.owner2);
         owner.setText("Owner:" + newexp.getOwner().getProfile().getUsername());
 
-        TextView status = findViewById(R.id.status1);
+        TextView status = findViewById(R.id.status2);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
-        TextView exptype= findViewById(R.id.exptype1);
-        exptype.setText("Experiment Type: Binomial Trial");
+        TextView exptype= findViewById(R.id.exptype2);
+        exptype.setText("Experiment Type: Count");
 
-        coordinates= findViewById(R.id.coordinates);
+        TextView count = findViewById(R.id.thecount);
+        count.setText("Count:"+String.valueOf(trial.getCount()));
+
+        coordinates = findViewById(R.id.coordinates);
         coordinates.setText("Location : NOT ADDED");
 
-
-
-        final Button sbtn = findViewById((R.id.successbtn));
-        sbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(location || !newexp.isRequireLocation()){
-                //increment successes
-                trial.isSuccess();
-                //trials.add(trial);
-                newexp.getTrials().add(trial);
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("experiment",newexp);
-                setResult(Activity.RESULT_OK,returnIntent);
-                Toast.makeText(
-                        Binomial.this,
-                        "Success Recorded",
-                        Toast.LENGTH_LONG).show();
-                finish(); // closes this activity
-            }else{
-                    Toast.makeText(
-                            Binomial.this,
-                            "Please add a location first",
-                            Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
-        final Button fbtn = findViewById((R.id.failbtn));
-        fbtn.setOnClickListener(new View.OnClickListener() {
+        final Button recordcountbtn = findViewById(R.id.recordcountbtn);
+        recordcountbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(location || !newexp.isRequireLocation()) {
-                    //increments fails
-                    trial.isFailure();
-                    newexp.getTrials().add(trial);
+                    Toast.makeText(
+                            CountActivity.this,
+                            "Count Recorded",
+                            Toast.LENGTH_SHORT).show();
 
+                    newexp.getTrials().add(trial);
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("experiment", newexp);
                     setResult(Activity.RESULT_OK, returnIntent);
-
+                    finish();
+                }else {
                     Toast.makeText(
-                            Binomial.this,
-                            "Failure Recorded",
-                            Toast.LENGTH_LONG).show();
-
-                    finish(); // closes this activity
-                }else{
-                    Toast.makeText(
-                            Binomial.this,
+                            CountActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
             }
         });
+        final Button countbtn = findViewById((R.id.addbtn));
+        countbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(location || !newexp.isRequireLocation()) {
+                    //increment successes
+                    trial.isCount();
+                    count.setText("Count: " + trial.getCount());
 
-        final Button lbtn = findViewById(R.id.locationbtn);
+                }else {
+                    Toast.makeText(
+                            CountActivity.this,
+                            "Please add a location first",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+        );
+
+
+
+
+        final Button lbtn = findViewById(R.id.locationbtn2);
         lbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (Binomial.this,MapsActivity.class);
+                Intent intent = new Intent (CountActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
+
         });
 
-
     }
-
-
-
-
     @Override
-    //Sends the experiment object and retrieves the updated
+    //Sends the experiment object and retrieves the updated object
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         int LAUNCH_SECOND_ACTIVITY = 1;
@@ -157,13 +132,12 @@ public class Binomial extends AppCompatActivity {
                     coordinates.setText("Location : NOT ADDED");
                 else
                     coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
-
-                //newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");
             }
         }
     }
+
 }
 

@@ -29,10 +29,10 @@
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DisplayExperimentActivity" />
-        <activity android:name=".Binomial" />
-        <activity android:name=".Count" />
-        <activity android:name=".Measurement" />
-        <activity android:name=".NonNegativeCount" />
+        <activity android:name=".BinomialAtivity" />
+        <activity android:name=".CountActivity" />
+        <activity android:name=".MeasurementActivity" />
+        <activity android:name=".NonNegativeCountActivity" />
         <activity android:name=".DiscussionActivity" />
         <activity android:name=".ResultsActivity" />
         <!--
