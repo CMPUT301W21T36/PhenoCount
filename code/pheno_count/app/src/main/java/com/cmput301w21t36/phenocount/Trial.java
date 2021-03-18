@@ -28,8 +28,8 @@ public class Trial implements Serializable {
         this.measurement=0;
         this.value =0;
         this.result = false; // do we do this
-        this.Latitude = 0;
-        this.Longitude =0;
+        this.Latitude = 200; //@rao: these values are outside the range of latitude and longitude.
+        this.Longitude = 200; //If these values are encountered, that means location has not been added yet.
     }
 
     void isSuccess() {this.result = true;}

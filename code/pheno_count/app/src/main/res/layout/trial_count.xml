@@ -99,4 +99,16 @@
         app:layout_constraintTop_toBottomOf="@+id/exptype2"
         app:layout_constraintVertical_bias="0.674" />
 
+    <TextView
+        android:id="@+id/coordinates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exptype2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
