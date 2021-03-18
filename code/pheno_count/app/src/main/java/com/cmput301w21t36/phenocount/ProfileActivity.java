@@ -1,5 +1,6 @@
 package com.cmput301w21t36.phenocount;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
@@ -12,7 +13,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -107,15 +112,23 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
 
         db.collection("User").document(UID).set(map);
 
-        /*
-        Map<String, Object> expMap = new HashMap<>();
-        map.put("owner_name", username);
-        db.collection("Experiment").whereEqualTo("owner_name", oldUsername).update(expMap);
-
-         */
-
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        //String old_username =sharedPrefs.getString("Username", "");
+
+        db.collection("Experiment").whereEqualTo("owner",UID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (QueryDocumentSnapshot doc : value) {
+
+                    if (error == null) {
+                        String expID = doc.getId();
+                        db.collection("Experiment").document(expID).update("owner_name",username);
+                    }
+                }
+            }
+        });
 
         editor.putString("Username", username);
         editor.putString("Number",contact);
