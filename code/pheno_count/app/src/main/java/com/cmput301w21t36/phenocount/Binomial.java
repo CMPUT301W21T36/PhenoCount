@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,6 +26,7 @@ public class Binomial extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
+    DecimalFormat numberFormat;
 
     private final String TAG = "PhenoCount";
 
@@ -35,6 +37,7 @@ public class Binomial extends AppCompatActivity {
         // recieving intent object
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial_binomial);
+        numberFormat = new DecimalFormat("#.0000");
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Trial(newexp.getOwner());
@@ -56,7 +59,10 @@ public class Binomial extends AppCompatActivity {
         exptype.setText("Experiment Type: Binomial Trial");
 
         TextView coordinates= findViewById(R.id.coordinates);
-        coordinates.setText("Lat:"+trial.getLatitude()+"Long:"+trial.getLongitude());
+        if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
+            coordinates.setText("Location : NOT ADDED");
+        else
+            coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
 
 
 
@@ -143,7 +149,10 @@ public class Binomial extends AppCompatActivity {
                 Trial newtrial = (Trial) data.getSerializableExtra("trial_obj");
                 trial = newtrial;
                 TextView coordinates= findViewById(R.id.coordinates);
-                coordinates.setText("Lat:"+trial.getLatitude()+"Long:"+trial.getLongitude());
+                if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
+                    coordinates.setText("Location : NOT ADDED");
+                else
+                    coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
 
                 //newexp.getTrials().add(trial);
             }
