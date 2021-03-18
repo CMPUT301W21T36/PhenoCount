@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -103,7 +104,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String UID = sharedPreferences.getString("ID","");
-        String oldUsername = sharedPreferences.getString("Username","");
 
         Map<String, Object> map = new HashMap<>();
         map.put("ContactInfo", contact);
