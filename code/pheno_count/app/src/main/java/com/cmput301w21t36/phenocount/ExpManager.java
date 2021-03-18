@@ -16,10 +16,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExpManager {
     //FirebaseFirestore db;
-    Experiment exp ;
 //    private ArrayList<Experiment> expDataList= new ArrayList<>();
     ArrayList<Experiment> expList = new ArrayList<>();
     private final String TAG = "PhenoCount";
@@ -137,19 +137,24 @@ public class ExpManager {
 
                         expDataList.add(newExp);
 
+
+
+
                     }
+
                 }
+
                 int i =0;
                 while(i<expDataList.size()) {
                     Experiment exp = expDataList.get(i);
                     int finalI = i;
-                    db.collection("Trials").whereEqualTo("expID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    db.collection("Experiment").document(exp.getID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                             ArrayList<Trial> trials = new ArrayList<>();
-                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                                Log.d("pheno", String.valueOf(doc.getId()));
-                                String ttype = (String) doc.getData().get("type");
+                                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                    Log.d("pheno", String.valueOf(doc.getId()));
+                                    String ttype = (String) doc.getData().get("type");
                                 User user = exp.getOwner();
 
                                 Trial trial = new Trial(user);

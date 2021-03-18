@@ -47,7 +47,7 @@ public class Experiment implements Serializable {
         this.minimumTrials = minimumTrials;
         this.requireLocation = requireLocation;
         this.expType = expType;
-        this.trials = trials;
+        this.trials = new ArrayList<>();
         this.expStatus = expStatus;
         this.owner = owner;
 

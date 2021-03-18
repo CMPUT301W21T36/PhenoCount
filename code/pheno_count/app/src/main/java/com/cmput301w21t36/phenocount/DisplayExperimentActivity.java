@@ -18,9 +18,11 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class DisplayExperimentActivity extends AppCompatActivity {
 
@@ -195,14 +197,17 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     fdata.put("owner", username);
 
 
-                    collectionReference
+
+/*                    collectionReference
                             .document(id)
-                            .set(fdata)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            .set(fdata)*/
+                    db.collection("Experiment")
+                            .document(exp.getID()).collection("Trials")
+                            .add(fdata)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
-// These are a method which gets executed when the task is succeeded
-                                    Log.d(TAG, "Data has been added successfully!");
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "Data added successfully!");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
