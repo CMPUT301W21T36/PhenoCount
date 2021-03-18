@@ -74,13 +74,13 @@ public class SearchingManager {
                         if (!mStat.isEmpty()) {
                             expStatus = Integer.parseInt(mStat);
                         }
-                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus);
+                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
 
                         Profile newprofile = new Profile(userName);
                         User current_user = new User(owner, newprofile);
 
                         newExp.setOwner(current_user);
-                        newExp.setExpID(expID);
+                        //newExp.setExpID(expID);
 
                         expDataList.add(newExp);
                     }

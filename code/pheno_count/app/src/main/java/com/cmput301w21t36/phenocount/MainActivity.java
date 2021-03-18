@@ -34,6 +34,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
+
     FirebaseFirestore db;
     ListView experiments;
     Button searchButton;
@@ -122,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Username for the current user
         // username = sharedPrefs.getString("Username", "");
-
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 openProfile();
             }
         });
+
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
     public void displayExperiment(View view){
         Intent intent = new Intent(this, DisplayExperimentActivity.class);
         startActivity(intent);
+
     }
 
     public void addExperiment(View view){
@@ -231,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!mStat.isEmpty()){
                             expStatus = Integer.parseInt(mStat);}
                         ArrayList<Trial> trials = new ArrayList<>();
-                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus);
+                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
                         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
@@ -246,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                         User current_user = new User(owner,newprofile);
 
                         newExp.setOwner(current_user);
-                        newExp.setExpID(expID);
+                        //newExp.setExpID(expID);
 
                         expDataList.add(newExp);
                     }

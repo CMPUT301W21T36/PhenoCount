@@ -6,8 +6,10 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -25,6 +27,7 @@ public class ExpManager {
     private final String TAG = "PhenoCount";
     ArrayAdapter<Experiment> expAdapter;
     //db = FirebaseFirestore.getInstance();
+    private String ownerName;
 
     // adds experiment to the data list
     public void  addExperiment(Experiment newExp,ArrayList<Experiment> expDataList ){
@@ -118,7 +121,7 @@ public class ExpManager {
                             expStatus = Integer.parseInt(mStat);
                         }
                         ArrayList<Trial> trials = new ArrayList<>();
-                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus);
+                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
                         //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", 0);
                         //SharedPreferences.Editor editor = sharedPrefs.edit();
 
@@ -133,7 +136,7 @@ public class ExpManager {
                         User current_user = new User(owner, newprofile);
 
                         newExp.setOwner(current_user);
-                        newExp.setExpID(expID);
+                        //newExp.setExpID(expID);
 
                         expDataList.add(newExp);
 
