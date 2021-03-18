@@ -28,6 +28,7 @@ public class ProfileDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.profile_dialog, null);
 
+        // Idea of the builder 
         builder.setView(view)
                 .setTitle("Edit information")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

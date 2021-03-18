@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
             Map<String, Object> user = new HashMap<>();
             user.put("UID", UUID);
-            user.put("Username", "Test1");
-            user.put("ContactInfo", "7801111111");
+            user.put("Username", "New User");
+            user.put("ContactInfo", "No contact info");
 
             db.collection("User").document(UUID).set(user);
 
