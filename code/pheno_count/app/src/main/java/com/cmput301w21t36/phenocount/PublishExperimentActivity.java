@@ -1,3 +1,7 @@
+// References:
+// For displaying red astrisk next to must fields(in string.xml): Gabriele Mariotti, 2020-05-05, CC BY-SA 4.0,https://stackoverflow.com/a/61622809
+//Android Developers, 2020-11-18, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
+
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
@@ -29,8 +33,6 @@ import java.util.HashMap;
  */
 public class PublishExperimentActivity extends AppCompatActivity {
     FirebaseFirestore db;
-    ExpManager manager;
-    Experiment exp;
     TextView expName;
     TextView expDesc;
     TextView expRegion;
@@ -57,7 +59,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
         });
     }
 
-    //Android Developers, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
+    //Android Developers, 2020-11-18, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();

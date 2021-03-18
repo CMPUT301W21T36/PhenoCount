@@ -24,24 +24,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This Class acts as an controller class for Experiments
+ */
 public class ExpManager {
-
-    ArrayList<Experiment> expList = new ArrayList<>();
     private final String TAG = "PhenoCount";
     ArrayAdapter<Experiment> expAdapter;
-    private String ownerName;
-    FirebaseFirestore db;
 
-    // adds experiment to the data list
-
-    public void  addExperiment(Experiment newExp,ArrayList<Experiment> expDataList ){
-        expDataList.add(newExp);
-        expAdapter.notifyDataSetChanged();
-
-    }
-
+    /**
+     * This method populates the list of current user's experiments in the MainActivity
+     * @param db
+     * @param expDataList
+     * @param expAdapter
+     * @param UUID
+     * @see MainActivity
+     */
     public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
-        //final CollectionReference collectionReference = db.collection("Experiment").whereEqualTo("owner",UUID).;
+        //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
         db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
@@ -51,7 +50,7 @@ public class ExpManager {
         });
     }
 
-    public void updateTrialData(Experiment exp,String username,String UUID){
+    public void updateTrialData(FirebaseFirestore db, Experiment exp,String username,String UUID){
 
         if (exp != null) {
             //exp = newexp; //updating the current exp object(to show updated exp desc)
@@ -117,7 +116,14 @@ public class ExpManager {
         }
     }
 
-
+    /**
+     * General method for querying the Experiment collectio in fireStore
+     * @param db
+     * @param expDataList
+     * @param expAdapter
+     * @param queryDocumentSnapshots
+     * @param error
+     */
     public void getdata(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter,QuerySnapshot queryDocumentSnapshots,FirebaseFirestoreException error){
         expDataList.clear();
         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -149,26 +155,16 @@ public class ExpManager {
                 if (!mStat.isEmpty()) {
                     expStatus = Integer.parseInt(mStat);
                 }
-                ArrayList<Trial> trials = new ArrayList<>();
-                Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
-                //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", 0);
-                //SharedPreferences.Editor editor = sharedPrefs.edit();
 
-                //creating a user object
-                //username = sharedPrefs.getString("Username","");
-                //phone_number = sharedPrefs.getString("Number","");
-                //System.out.println(username);
-                //UUID = sharedPrefs.getString(AutoID, "");
+                Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
 
                 //creating a profile object
                 Profile newprofile = new Profile(userName);
                 User current_user = new User(owner, newprofile);
 
                 newExp.setOwner(current_user);
-                //newExp.setExpID(expID);
                 expDataList.add(newExp);
             }
-
         }
 
         int i =0;

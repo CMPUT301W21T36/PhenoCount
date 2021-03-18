@@ -46,11 +46,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experiment_display);
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        //System.out.println("Display " + exp);
-
-        //exp.setOwner("1");
-        // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
 
         TextView expName = findViewById(R.id.nameTextView);
         TextView expDesc = findViewById(R.id.descTextView);
@@ -65,7 +60,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         expDesc.setText(exp.getDescription());
         expOwner.setText(exp.getOwner().getProfile().getUsername());
         expRegion.setText(exp.getRegion());
-        //int mMinTrial=exp.getMinimumTrials();
         expMinTrial.setText(Integer.toString(exp.getMinimumTrials()));
         expType.setText(exp.getExpType());
         String mStat = "" ;
@@ -149,8 +143,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 tintent.putExtra("experiment", exp);
                 startActivity(tintent);
             }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -168,7 +160,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 username = sharedPrefs.getString("Username", "");
                 UUID = sharedPrefs.getString("ID", "");
                 expManager = new ExpManager();
-                expManager.updateTrialData(exp,username,UUID);
+                expManager.updateTrialData(db,exp,username,UUID);
 
                 /*if (exp != null) {
                    // exp = newexp; //updating the current exp object(to show updated exp desc)
