@@ -1,3 +1,7 @@
+/* This MapsActivity class deals with the location functionality.
+ * It deals with adding a location to a trial
+ * Context: Comes from add trial page.
+ */
 package com.cmput301w21t36.phenocount;
 
 import android.Manifest;
@@ -34,6 +38,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
+
+/** REFERENCES
+    Daniel Nugent, "How to get current Location in GoogleMap using FusedLocationProviderClient", 24-04-18, stackoverflow, https://stackoverflow.com/a/44993694 */
 
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback {
@@ -73,12 +80,11 @@ public class MapsActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        //mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(120000); // two minute interval
         mLocationRequest.setFastestInterval(120000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
+        //checking permissions
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
@@ -96,16 +102,14 @@ public class MapsActivity extends AppCompatActivity
             mGoogleMap.setMyLocationEnabled(true);
         }
 
+        // user clicks on add button to confirm location
         Button addLocation = findViewById(R.id.addLocationButton);
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
                 ChosenLocation = mCurrLocationMarker.getPosition();
-                //int m = 8/0;
-
-                //updating the selected location in the trial object(marz)
-
+                //updating the selected location in the trial object
                 trial = (Trial) getIntent().getSerializableExtra("trial_obj");//defining the trial object
                 trial.setLatitude(ChosenLocation.latitude);
                 trial.setLongitude(ChosenLocation.longitude);
@@ -119,6 +123,7 @@ public class MapsActivity extends AppCompatActivity
                             "Location Added",
                             Toast.LENGTH_LONG).show();
                 finish();
+                //in case location was not recorded properly
             } catch(Exception e){
                     Toast.makeText(
                             MapsActivity.this,
@@ -130,13 +135,14 @@ public class MapsActivity extends AppCompatActivity
             }
         });
 
-
+        /** REFERENCES
+        // Urmi, "How does one implement drag and drop for Android marker?", 11-10-2013, stackoverflow, https://stackoverflow.com/a/19903520 */
+        // handling dragging of the map
         mGoogleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker arg0) {
                 // TODO Auto-generated method stub
                 Log.d("System out", "onMarkerDragStart..."+arg0.getPosition().latitude+"..."+arg0.getPosition().longitude);
-
             }
 
             @SuppressWarnings("unchecked")
@@ -147,8 +153,6 @@ public class MapsActivity extends AppCompatActivity
 
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(arg0.getPosition()));
                 mCurrLocationMarker.setPosition(new LatLng(arg0.getPosition().latitude,arg0.getPosition().longitude));
-
-                //myView.performClick();
             }
 
             @Override
@@ -193,7 +197,6 @@ public class MapsActivity extends AppCompatActivity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
@@ -214,9 +217,8 @@ public class MapsActivity extends AppCompatActivity
                         })
                         .create()
                         .show();
-
-
-            } else {
+            }
+            else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -246,15 +248,12 @@ public class MapsActivity extends AppCompatActivity
 
                 } else {
 
-                    // permission denied, boo! Disable the
+                    // permission denied, Disable the
                     // functionality that depends on this permission.
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 }
