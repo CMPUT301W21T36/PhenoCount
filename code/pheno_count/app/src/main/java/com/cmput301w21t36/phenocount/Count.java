@@ -19,6 +19,7 @@ public class Count extends AppCompatActivity {
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
+    TrialManager trialManager = new TrialManager(); //??
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -111,6 +112,7 @@ public class Count extends AppCompatActivity {
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
+
         });
 
     }
@@ -135,5 +137,6 @@ public class Count extends AppCompatActivity {
             }
         }
     }
+
 }
 

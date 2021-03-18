@@ -36,6 +36,8 @@ public class SearchingActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference experimentRef = db.collection("Experiment");
+    private ExpManager expManager;
+
 
     SearchingManager expArray;
     ResultAdapter adapter;
@@ -54,7 +56,9 @@ public class SearchingActivity extends AppCompatActivity {
         adapter = new ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
 
-        expArray.getAllExp(db, expDataList, adapter);
+        //expArray.getAllExp(db, expDataList, adapter);
+        expManager = new ExpManager();
+        expManager.getExpData(db,expDataList,adapter,"null");
 
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

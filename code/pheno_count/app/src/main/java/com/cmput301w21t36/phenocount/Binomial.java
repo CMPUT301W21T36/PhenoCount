@@ -27,6 +27,7 @@ public class Binomial extends AppCompatActivity {
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
+    TrialManager trialManager;
 
     private final String TAG = "PhenoCount";
 
@@ -138,8 +139,11 @@ public class Binomial extends AppCompatActivity {
 
     }
 
+
+
+
     @Override
-    //Sends the experiment object and retrieves the updated object
+    //Sends the experiment object and retrieves the updated
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         int LAUNCH_SECOND_ACTIVITY = 1;

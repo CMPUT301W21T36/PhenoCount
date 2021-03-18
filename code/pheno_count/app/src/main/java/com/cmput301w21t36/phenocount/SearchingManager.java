@@ -17,6 +17,8 @@ public class SearchingManager {
 
     private ArrayList<Experiment> allExperimentArray;
     private ArrayList<Experiment> resultExperimentArray;
+    private ExpManager expManager;
+
 
     public SearchingManager() {
         allExperimentArray = new ArrayList<Experiment>();
@@ -39,12 +41,17 @@ public class SearchingManager {
     }
 
 
+
     public void getAllExp(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter){
+
         db.collection("Experiment").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
-                expDataList.clear();
+                expManager = new ExpManager();
+                expManager.getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+
+                /*expDataList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
                     if (error == null) {
@@ -131,7 +138,7 @@ public class SearchingManager {
 
                     i++;
                 }
-                expAdapter.notifyDataSetChanged();
+                expAdapter.notifyDataSetChanged();*/
             }
         });
     }

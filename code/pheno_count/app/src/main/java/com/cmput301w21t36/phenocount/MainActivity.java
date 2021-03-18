@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Experiment> expDataList;
     ArrayAdapter<Experiment> expAdapter;
     ExpManager manager = new ExpManager();
+    DatabaseManager dbmanager = new DatabaseManager();
+
 
     static final String AutoID = "ID";
     private String UUID;
@@ -61,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
         expDataList = new ArrayList<>();
 
         // Will get instance of the database
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
+        db = dbmanager.getDb();
+
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
