@@ -14,7 +14,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 /**
- * This class is used to display results for trials
+ * This Controller/View class accepts parameters from ResultsActivity and displays the results
+ * of the trials
  * @author Marzookh
  */
 public class TrialAdapter extends ArrayAdapter<Trial> {
@@ -50,10 +51,10 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         if (trial.getType().equals("Count")) {
             trial_outcome.setText("Result: "+trial.getCount());
         }
-        if (trial.getType().equals("Measurement")) {
+        if (trial.getType().equals("MeasurementActivity")) {
             trial_outcome.setText("Result: "+trial.getMeasurement());
         }
-        if (trial.getType().equals("NonNegativeCount")) {
+        if (trial.getType().equals("NonNegativeCountActivity")) {
             trial_outcome.setText("Result: "+trial.getValue());
         }
 

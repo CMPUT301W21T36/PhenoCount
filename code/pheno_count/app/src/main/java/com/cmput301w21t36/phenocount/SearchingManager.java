@@ -117,7 +117,7 @@ public class SearchingManager {
                                 else if (ttype.equals("Count")) {
                                     trial.setCount(Integer.parseInt(result));
                                 }
-                                else if (ttype.equals("Measurement")){
+                                else if (ttype.equals("MeasurementActivity")){
                                     trial.setMeasurement(Float.parseFloat(result));
                                 }
                                 else if (ttype.equals("Non Negative Count")){

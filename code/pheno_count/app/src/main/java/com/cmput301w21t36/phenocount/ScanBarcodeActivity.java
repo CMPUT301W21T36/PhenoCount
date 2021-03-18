@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+/** REFERENCES
+Ralf Kistner, 27-09-19,  Apache-2.0 License, https://github.com/journeyapps/zxing-android-embedded */
+
 public class ScanBarcodeActivity extends AppCompatActivity {
 
     @Override

@@ -16,10 +16,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * This class represents Measurement trials
- * @author Marzookh
+ * This class represents NonNegativeCountActivity trials
  */
-public class Measurement extends AppCompatActivity {
+public class NonNegativeCountActivity extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
@@ -31,91 +30,81 @@ public class Measurement extends AppCompatActivity {
 
         // receiving intent object
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.trial_measurement);
+        setContentView(R.layout.trial_non_negative_count);
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Trial(newexp.getOwner());
-        trial.setType("Measurement");
+        trial.setType("NonNegativeCountActivity");
+
         numberFormat = new DecimalFormat("#.0000");
 
 
         // Capture the layout's TextView and set the string as its text
 
-        TextView desc = findViewById(R.id.desc3);
+        TextView desc = findViewById(R.id.desc4);
         desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
-        TextView owner = findViewById(R.id.owner3);
+        TextView owner = findViewById(R.id.owner4);
         owner.setText("Owner:" + newexp.getOwner().getProfile().getUsername());
 
-        TextView status = findViewById(R.id.status3);
+        TextView status = findViewById(R.id.status4);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
-        TextView exptype= findViewById(R.id.exptype3);
-        exptype.setText("Experiment Type: Measurement");
+        TextView exptype= findViewById(R.id.exptype4);
+        exptype.setText("Experiment Type: Non-Negative Count");
 
-        coordinates = findViewById(R.id.coordinates);
+        EditText count = findViewById(R.id.count_editText);
 
+        coordinates= findViewById(R.id.coordinates);
         coordinates.setText("Location : NOT ADDED");
 
 
-        EditText measurement = findViewById(R.id.measurement_editText);
-
-
-        final Button recordvbtn = findViewById((R.id.recordvbtn));
-        recordvbtn.setOnClickListener(new View.OnClickListener() {
+        final Button recordcbtn = findViewById((R.id.recordcbtn));
+        recordcbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(location || !newexp.isRequireLocation()) {
 
-                    String temp = measurement.getText().toString();
-                    float value = 0;
+                    String temp = count.getText().toString();
+                    int value = 0;
                     if (!"".equals(temp)) {
-                        value = Float.parseFloat(temp);    //https://javawithumer.com/2019/07/get-value-edittext.html
+                        value = Integer.parseInt(temp);
                     }
-                    trial.setMeasurement(value);
+                    trial.setValue(value);
                     newexp.getTrials().add(trial);
-
                     Toast.makeText(
-                            Measurement.this,
-                            "Measurement Recorded",
+                            NonNegativeCountActivity.this,
+                            "Count Recorded",
                             Toast.LENGTH_SHORT).show();
+                    newexp.getTrials().add(trial);
 
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("experiment", newexp);
                     setResult(Activity.RESULT_OK, returnIntent);
 
                     finish();
-                }else{  Toast.makeText(
-                        Measurement.this,
-                        "Please add a location first",
-                        Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(
+                            NonNegativeCountActivity.this,
+                            "Please add a location first",
+                            Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 
-        final Button lbtn = findViewById(R.id.locationbtn3);
+        final Button lbtn = findViewById(R.id.locationbtn4);
         lbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (Measurement.this,MapsActivity.class);
+                Intent intent = new Intent (NonNegativeCountActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
         });
 
-        final Button cameraButton = findViewById(R.id.cameraButton);
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Measurement.this, ScanBarcodeActivity.class);
-                startActivityForResult(i, 1);
-            }
-        });
     }
-
     @Override
     //Sends the experiment object and retrieves the updated object
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -125,18 +114,14 @@ public class Measurement extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
+                newexp.getTrials().add(trial);
+
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
                 else
                     coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
 
-                if (trial != null) {
-                    newexp.getTrials().add(trial);
-                } else {
-                    String scannedText = data.getSerializableExtra("scannedText").toString();
-                    EditText input = findViewById(R.id.measurement_editText);
-                    input.setText(scannedText, TextView.BufferType.EDITABLE);
-                }
+                //newexp.getTrials().add(trial);
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {

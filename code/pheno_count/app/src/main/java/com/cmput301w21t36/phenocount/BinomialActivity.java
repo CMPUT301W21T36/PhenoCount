@@ -4,29 +4,19 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * This class represents binomial trials
- * @author Marzookh
  */
-public class Binomial extends AppCompatActivity {
+public class BinomialActivity extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
@@ -82,13 +72,13 @@ public class Binomial extends AppCompatActivity {
                 returnIntent.putExtra("experiment",newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
                 Toast.makeText(
-                        Binomial.this,
+                        BinomialActivity.this,
                         "Success Recorded",
                         Toast.LENGTH_LONG).show();
                 finish(); // closes this activity
             }else{
                     Toast.makeText(
-                            Binomial.this,
+                            BinomialActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
@@ -110,14 +100,14 @@ public class Binomial extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, returnIntent);
 
                     Toast.makeText(
-                            Binomial.this,
+                            BinomialActivity.this,
                             "Failure Recorded",
                             Toast.LENGTH_LONG).show();
 
                     finish(); // closes this activity
                 }else{
                     Toast.makeText(
-                            Binomial.this,
+                            BinomialActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
@@ -129,7 +119,7 @@ public class Binomial extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (Binomial.this,MapsActivity.class);
+                Intent intent = new Intent (BinomialActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
