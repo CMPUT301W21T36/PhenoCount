@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
+/** REFERENCES
+ Mushtaq M A, 26-07-20, Apache-2.0 License, https://github.com/androidmads/QRGenerator */
+
 public class GenerateQrActivity extends AppCompatActivity {
     ImageView qrImage;
     private String data;
