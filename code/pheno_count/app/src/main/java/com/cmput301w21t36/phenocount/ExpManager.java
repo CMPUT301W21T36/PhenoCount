@@ -4,9 +4,12 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -18,15 +21,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ExpManager {
+
     ArrayList<Experiment> expList = new ArrayList<>();
     private final String TAG = "PhenoCount";
     ArrayAdapter<Experiment> expAdapter;
     private String ownerName;
+    FirebaseFirestore db;
 
     // adds experiment to the data list
+
     public void  addExperiment(Experiment newExp,ArrayList<Experiment> expDataList ){
         expDataList.add(newExp);
         expAdapter.notifyDataSetChanged();
@@ -42,6 +49,72 @@ public class ExpManager {
                 getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
             }
         });
+    }
+
+    public void updateTrialData(Experiment exp,String username,String UUID){
+
+        if (exp != null) {
+            //exp = newexp; //updating the current exp object(to show updated exp desc)
+            System.out.println("SIZE:"+exp.getTrials().size());
+
+            //Intent intent = getIntent();
+            //Bundle bundle = getIntent().getExtras();
+            //String owner = bundle.get("AutoId").toString();
+
+            db = FirebaseFirestore.getInstance();
+            final CollectionReference collectionReference = db.collection("Trials");
+            //manager.addExperiment(exp);
+            //expAdayDataSetChanged();
+            ////////// here
+            // final String Type = expType;
+
+            HashMap<String, String> fdata = new HashMap<>();
+            String id = db.collection("Trials").document().getId();
+            Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
+
+            //fdata.put("expID", exp.getID()); // dont need it anymore
+            if(exp.getExpType().equals("Binomial")) {
+                fdata.put("result",String.valueOf(trial.getResult()));
+            }
+            else if (exp.getExpType().equals("Count")) {
+                fdata.put("result",String.valueOf(trial.getCount()));
+            }
+            else if (exp.getExpType().equals("Measurement")){
+                fdata.put("result",String.valueOf(trial.getMeasurement()));
+            }
+            else if (exp.getExpType().equals("NonNegativeCount")){
+                fdata.put("result",String.valueOf(trial.getValue()));
+            }
+            fdata.put("type", exp.getExpType());
+            fdata.put("owner", username);
+            fdata.put("userID",UUID);
+
+            //location
+            fdata.put("Latitude",""+trial.getLatitude());
+            fdata.put("Longitude",""+trial.getLongitude());
+
+
+            db.collection("Experiment")
+                    .document(exp.getExpID()).collection("Trials")
+                    .add(fdata)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "Data added successfully!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // These are a method which gets executed if there’s any problem
+                            Log.d(TAG, "Data could not be added!" + e.toString());
+                        }
+                    });
+        } else {
+//                    String testt = data.getSerializableExtra("scannedText").toString();
+//                    TextView test = findViewById(R.id.scannedTextView);
+//                    test.setText(testt);
+        }
     }
 
 
@@ -108,10 +181,23 @@ public class ExpManager {
                     ArrayList<Trial> trials = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                         Log.d("pheno", String.valueOf(doc.getId()));
+                        //query to get user data of trial owner
+                        String username = (String) doc.getData().get("owner");
+                        String userID = (String) doc.getData().get("userID");
+                        String latitude = (String) doc.getData().get("Latitude");
+                        String longitude = (String) doc.getData().get("Longitude");
                         String ttype = (String) doc.getData().get("type");
-                        User user = exp.getOwner();
 
+                        Profile profile = new Profile(username);//if phone number needed, do query
+                        User user = new User(userID,profile);
                         Trial trial = new Trial(user);
+
+                        System.out.println("Latitude"+latitude);
+
+                        if(latitude !=null && longitude != null){
+                            trial.setLatitude(Float.parseFloat(latitude));
+                            trial.setLongitude(Float.parseFloat(longitude));
+                        }
 
                         trial.setType(ttype);
 
@@ -131,7 +217,6 @@ public class ExpManager {
                         }
 
                         trials.add(trial);
-                        System.out.println("DESCRIPTION: " + trial.getName());
                     }
                     exp.setTrials(trials);
                     expDataList.set(finalI,exp);

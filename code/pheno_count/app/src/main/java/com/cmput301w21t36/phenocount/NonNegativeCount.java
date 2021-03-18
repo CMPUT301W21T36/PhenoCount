@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents NonNegativeCount trials
+ * @author Marzookh
+ */
 public class NonNegativeCount extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object

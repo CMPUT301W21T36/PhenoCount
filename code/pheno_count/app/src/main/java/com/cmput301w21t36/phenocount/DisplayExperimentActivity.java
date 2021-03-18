@@ -30,6 +30,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     FirebaseFirestore db;
     private final String TAG = "PhenoCount";
     private String username;
+    private String UUID;
+    private ExpManager expManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         //exp.setOwner("1");
         // Get the Intent that started this activity and extract the string
-
+        Intent intent = getIntent();
 
         TextView expName = findViewById(R.id.nameTextView);
         TextView expDesc = findViewById(R.id.descTextView);
@@ -142,7 +144,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             }
 
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -153,17 +154,18 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         int LAUNCH_SECOND_ACTIVITY = 1;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
-                Experiment newexp = (Experiment) data.getSerializableExtra("experiment");
+                exp = (Experiment) data.getSerializableExtra("experiment");
+
                 SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPrefs.edit();
                 username = sharedPrefs.getString("Username", "");
+                UUID = sharedPrefs.getString("ID", "");
+                expManager = new ExpManager();
+                expManager.updateTrialData(exp,username,UUID);
 
-
-                if (newexp != null) {
-                    exp = newexp; //updating the current exp object(to show updated exp desc)
+                /*if (exp != null) {
+                   // exp = newexp; //updating the current exp object(to show updated exp desc)
                     System.out.println("SIZE:"+exp.getTrials().size());
-
 
                     //Intent intent = getIntent();
                     //Bundle bundle = getIntent().getExtras();
@@ -180,7 +182,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     String id = db.collection("Trials").document().getId();
                     Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
 
-                    fdata.put("expID", exp.getExpID()); // to retrive data from firebase
+                    //fdata.put("expID", exp.getID()); // dont need it anymore
                     if(exp.getExpType().equals("Binomial")) {
                         fdata.put("result",String.valueOf(trial.getResult()));
                     }
@@ -194,16 +196,16 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                         fdata.put("result",String.valueOf(trial.getValue()));
                     }
                     fdata.put("type", exp.getExpType());
-
                     fdata.put("owner", username);
+                    fdata.put("userID",UUID);
+
+                    //location
+                    fdata.put("Latitude",""+trial.getLatitude());
+                    fdata.put("Longitude",""+trial.getLongitude());
 
 
-
-/*                    collectionReference
-                            .document(id)
-                            .set(fdata)*/
                     db.collection("Experiment")
-                            .document(exp.getExpID()).collection("Trials")
+                            .document(exp.getID()).collection("Trials")
                             .add(fdata)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
@@ -214,22 +216,19 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-// These are a method which gets executed if there’s any problem
+                                // These are a method which gets executed if there’s any problem
                                     Log.d(TAG, "Data could not be added!" + e.toString());
                                 }
-                            });
-
-
-                } else {
+                            });*/
+                }
+            else {
 //                    String testt = data.getSerializableExtra("scannedText").toString();
 //                    TextView test = findViewById(R.id.scannedTextView);
 //                    test.setText(testt);
                 }
-
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");
             }
         }
     }
-}

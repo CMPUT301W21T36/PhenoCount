@@ -13,6 +13,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to display results for trials
+ * @author Marzookh
+ */
 public class TrialAdapter extends ArrayAdapter<Trial> {
     private ArrayList<Trial> trialList;
     private Context context;

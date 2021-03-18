@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * This class represents Count trials
+ * @author Marzookh
+ */
 public class Count extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
