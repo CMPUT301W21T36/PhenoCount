@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 /**
  * This class represents MeasurementActivity trials
- * @author Marzookh
  */
 public class MeasurementActivity extends AppCompatActivity {
     Trial trial;
@@ -77,7 +76,7 @@ public class MeasurementActivity extends AppCompatActivity {
 
                     Toast.makeText(
                             MeasurementActivity.this,
-                            "MeasurementActivity Recorded",
+                            "Measurement Recorded",
                             Toast.LENGTH_SHORT).show();
 
                     Intent returnIntent = new Intent();

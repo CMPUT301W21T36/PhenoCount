@@ -15,9 +15,8 @@ import java.text.DecimalFormat;
 
 /**
  * This class represents binomial trials
- * @author Marzookh
  */
-public class BinomialAtivity extends AppCompatActivity {
+public class BinomialActivity extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
@@ -73,13 +72,13 @@ public class BinomialAtivity extends AppCompatActivity {
                 returnIntent.putExtra("experiment",newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
                 Toast.makeText(
-                        BinomialAtivity.this,
+                        BinomialActivity.this,
                         "Success Recorded",
                         Toast.LENGTH_LONG).show();
                 finish(); // closes this activity
             }else{
                     Toast.makeText(
-                            BinomialAtivity.this,
+                            BinomialActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
@@ -101,14 +100,14 @@ public class BinomialAtivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, returnIntent);
 
                     Toast.makeText(
-                            BinomialAtivity.this,
+                            BinomialActivity.this,
                             "Failure Recorded",
                             Toast.LENGTH_LONG).show();
 
                     finish(); // closes this activity
                 }else{
                     Toast.makeText(
-                            BinomialAtivity.this,
+                            BinomialActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
@@ -120,7 +119,7 @@ public class BinomialAtivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (BinomialAtivity.this,MapsActivity.class);
+                Intent intent = new Intent (BinomialActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;

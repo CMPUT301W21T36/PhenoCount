@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 /**
  * This class represents NonNegativeCountActivity trials
- * @author Marzookh
  */
 public class NonNegativeCountActivity extends AppCompatActivity {
     Trial trial;

@@ -15,7 +15,6 @@ import java.text.DecimalFormat;
 
 /**
  * This class represents Count trials
- * @author Marzookh
  */
 public class CountActivity extends AppCompatActivity {
     Trial trial;

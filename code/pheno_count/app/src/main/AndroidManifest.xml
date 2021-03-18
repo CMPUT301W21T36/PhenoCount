@@ -29,7 +29,7 @@
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DisplayExperimentActivity" />
-        <activity android:name=".BinomialAtivity" />
+        <activity android:name=".BinomialActivity" />
         <activity android:name=".CountActivity" />
         <activity android:name=".MeasurementActivity" />
         <activity android:name=".NonNegativeCountActivity" />
