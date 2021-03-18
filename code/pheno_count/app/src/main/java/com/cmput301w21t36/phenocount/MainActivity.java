@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("AutoId",mstr);
         intent.putExtra("username",username);
         startActivity(intent);
+
     }
 
     public void openSearch() {
@@ -290,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 trials.add(trial);
-                                System.out.println("DESCRIPTION: " + trial.getName());
                             }
                             exp.setTrials(trials);
                             expDataList.set(finalI,exp);

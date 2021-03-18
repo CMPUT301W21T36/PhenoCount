@@ -4,11 +4,12 @@ package com.cmput301w21t36.phenocount;
 import java.io.Serializable;
 import com.google.android.gms.maps.model.LatLng;
 
-
+/**
+ * This class represents the Trial objects
+ * @author Marzookh
+ */
 public class Trial implements Serializable {
 
-    private String name;
-    private String desc;
     private User owner;
     private String type;
     private double Latitude;
@@ -19,21 +20,38 @@ public class Trial implements Serializable {
     private float measurement;
     private int value;
 
+    /**
+     * constructor for new Trial object
+     * @param owner
+     * This is an object of type User that stores the owner of the trial
+     */
     public Trial(User owner){
-        this.name = name;
-        this.desc = desc;
         this.owner = owner;
-        this.type = type;
+        this.type = "";
+
         this.count = 0;
         this.measurement=0;
         this.value =0;
-        this.result = false; // do we do this
+        this.result = false;
+
         this.Latitude = 200; //@rao: these values are outside the range of latitude and longitude.
         this.Longitude = 200; //If these values are encountered, that means location has not been added yet.
     }
 
+
+    /**
+     * This method sets the result attribute to true
+     */
     void isSuccess() {this.result = true;}
+
+    /**
+     * This method sets the result attribute to false
+     */
     void isFailure() {this.result = false;}
+
+    /**
+     * This method increments the count attribute by 1
+     */
     void isCount(){this.count++;}
 
     void setCount(int count) {this.count = count;}
@@ -46,8 +64,8 @@ public class Trial implements Serializable {
         this.Latitude = latitude;
     }
     void setResult(boolean result){this.result = result;}
-    void setType(String type){this.type = type;};
-
+    void setType(String type){this.type = type;}
+    void setOwner(User owner){this.owner = owner;}
 
     public boolean getResult(){return result;};
     public float getMeasurement() {
@@ -58,9 +76,6 @@ public class Trial implements Serializable {
     }
     public int getValue() {
         return value;
-    }
-    public String getName() {
-        return name;
     }
     public double getLatitude() {
         return Latitude;
