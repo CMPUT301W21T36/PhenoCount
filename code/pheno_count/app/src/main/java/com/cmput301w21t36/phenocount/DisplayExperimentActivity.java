@@ -1,3 +1,4 @@
+// references: BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
@@ -24,8 +25,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This activity deals with displaying the contents of an experiment
+ * To access this activity: Open the app -> click on the listView
+ * or the experiment
+ * @see MainActivity
+ * @author Anisha
+ * @author Marzook
+ */
 public class DisplayExperimentActivity extends AppCompatActivity {
-
     private Experiment exp; // catch object passed from mainlist
     FirebaseFirestore db;
     private final String TAG = "PhenoCount";
@@ -76,8 +84,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         }
         expStatus.setText(mStat);
-        //expType.setText(exp.getTrials().get(1).getType());
-        /** Adding icon programmatically : https://stackoverflow.com/questions/6931900/programmatically-set-left-drawable-in-a-textview*/
+        // Adding icon programmatically : BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
         if(exp.isRequireLocation()== true) {
             expReqLoc.setText(" REQUIRED");
             expReqLoc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0);

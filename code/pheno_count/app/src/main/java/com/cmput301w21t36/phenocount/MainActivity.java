@@ -34,7 +34,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
-
     FirebaseFirestore db;
     ListView experiments;
     Button searchButton;
@@ -43,16 +42,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<Experiment> expAdapter;
     ExpManager manager = new ExpManager();
     DatabaseManager dbmanager = new DatabaseManager();
-
-
     static final String AutoID = "ID";
     private String UUID;
     private String username;
     private String phone_number;
-
-    Experiment newexp;
-    int test1 = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         experiments = findViewById(R.id.expList);
         expDataList = new ArrayList<>();
 
-        // Will get instance of the database
-        //db = FirebaseFirestore.getInstance();
+        // To get instance of the database
         db = dbmanager.getDb();
 
 
@@ -146,9 +138,8 @@ public class MainActivity extends AppCompatActivity {
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
+        // To populate our experiment list
         manager.getExpData(db, expDataList, expAdapter, UUID);
-        //getExpData1();
-        //addTrialsData();
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -166,13 +157,11 @@ public class MainActivity extends AppCompatActivity {
         expAdapter.notifyDataSetChanged();
     }
 
-    public void displayExperiment(View view){
-        Intent intent = new Intent(this, DisplayExperimentActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void addExperiment(View view){
+    /**
+     * This method is called when the addButton is clicked and Switches MainActivity to
+     * PublishExperimentActivity
+     */
+     public void addExperiment(View view){
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         String mstr = UUID;
 
@@ -198,114 +187,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("UUID",ID);
         startActivity(intent);
     }
-
-    ///2 need to check with expManager as not working with that
-
-    public void getExpData1(){
-
-        //final CollectionReference collectionReference = db.collection("Experiment").whereEqualTo("owner",UUID).;
-        db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                    FirebaseFirestoreException error) {
-                expDataList.clear();
-                for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
-                {
-
-                    if (error ==null ) {
-                        Log.d("pheno", String.valueOf(doc.getId()));
-                        String expID = doc.getId();
-                        String name = (String) doc.getData().get("name");
-                        String description = (String) doc.getData().get("description");
-                        String region = (String) doc.getData().get("region");
-                        String type = (String) doc.getData().get("type");
-                        String minInt = (String) doc.getData().get("minimum_trials");
-                        String reqGeo = (String) doc.getData().get("require_geolocation");
-                        String mStat = (String) doc.getData().get("status");
-                        String owner = (String) doc.getData().get("owner");
-                        String userName = (String) doc.getData().get("owner_name");
-
-                        boolean reqLoc;
-                        if (reqGeo.equals("YES")) {
-                            reqLoc = true;
-                        } else {
-                            reqLoc = false;
-                        }
-                        int minTrial =  1;
-                        if (!minInt.isEmpty()){
-                            minTrial=Integer.parseInt(minInt);}
-                        int expStatus = 0;
-                        if (!mStat.isEmpty()){
-                            expStatus = Integer.parseInt(mStat);}
-                        ArrayList<Trial> trials = new ArrayList<>();
-                        Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
-                        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPrefs.edit();
-
-                        //creating a user object
-                        //username = sharedPrefs.getString("Username","");
-                        phone_number = sharedPrefs.getString("Number","");
-                        //System.out.println(username);
-                        //UUID = sharedPrefs.getString(AutoID, "");
-
-                        //creating a profile object
-                        Profile newprofile = new Profile(userName,phone_number);
-                        User current_user = new User(owner,newprofile);
-
-                        newExp.setOwner(current_user);
-                        //newExp.setExpID(expID);
-
-                        expDataList.add(newExp);
-                    }
-                }
-                int i =0;
-                while(i<expDataList.size()) {
-                    Experiment exp = expDataList.get(i);
-                    int finalI = i;
-                    db.collection("Trials").whereEqualTo("ExpID", exp.getExpID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                            ArrayList<Trial> trials = new ArrayList<>();
-                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                                Log.d("pheno", String.valueOf(doc.getId()));
-                                String ttype = (String) doc.getData().get("type");
-                                User user = exp.getOwner();
-
-                                Trial trial = new Trial(user);
-
-                                trial.setType(ttype);
-
-                                //retriving result from firebase
-                                String result = (String) doc.getData().get("result");
-                                if(ttype.equals("Binomial")) {
-                                    trial.setResult(Boolean.parseBoolean(result));
-                                }
-                                else if (ttype.equals("Count")) {
-                                    trial.setCount(Integer.parseInt(result));
-                                }
-                                else if (ttype.equals("Measurement")){
-                                    trial.setMeasurement(Float.parseFloat(result));
-                                }
-                                else if (ttype.equals("Non Negative Count")){
-                                    trial.setValue(Integer.parseInt(result));
-                                }
-
-                                trials.add(trial);
-                            }
-                            exp.setTrials(trials);
-                            expDataList.set(finalI,exp);
-                            System.out.println("SIZE:" + trials.size());
-
-                            //newexp = new Experiment(name, description, region, type, finalMinTrial, reqLoc, finalExpStatus, expID,trials)); // Adding the cities and provinces from FireStore
-
-                        }
-                    });
-
-                    i++;
-                }
-                expAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud
-            }
-        });
-    }
-
 }

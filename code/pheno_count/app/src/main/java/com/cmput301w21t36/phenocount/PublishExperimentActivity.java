@@ -20,6 +20,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+/**
+ * This activity deals with publishing an experiment
+ * To access this activity: Open the app -> click on the addBotton
+ * in the bottom of the main screen/activity
+ * @see MainActivity
+ * @author Anisha
+ */
 public class PublishExperimentActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ExpManager manager;
@@ -48,9 +55,9 @@ public class PublishExperimentActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
+    //Android Developers, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -76,19 +83,19 @@ public class PublishExperimentActivity extends AppCompatActivity {
         }
     }
 
-    //@Override
+    /**
+     * This method adds the experiments to the database (firestore)
+     * in other words its publishes an experiment when the ok button is pressed
+     * @param view
+     */
     public void toAdd(View view) {
-        Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
         String ownerName = bundle.get("username").toString();
         String owner = bundle.get("AutoId").toString();
-        //System.out.println("The USER :"+owner);
 
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference = db.collection("Experiment");
-        //manager.addExperiment(exp);
-        //expAdapter.notifyDataSetChanged();
-        ////////// here
+
         expName = findViewById(R.id.expName);
         expDesc = findViewById(R.id.expDesc);
         //expType = findViewById(R.id.typeOfTrial);
@@ -96,7 +103,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
         expNum = findViewById(R.id.expNum);
         expGeoLoc = findViewById(R.id.geoCheckBox);
 
-        //final String Type = expType;
         final String desc = expDesc.getText().toString();
         int proceed =1;
         if (!(desc.length()>0)){
@@ -128,27 +134,31 @@ public class PublishExperimentActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-// These are a method which gets executed when the task is succeeded
+                                // These are a method which gets executed when the task is succeeded
                                 Log.d(TAG, "Data has been added successfully!");
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-// These are a method which gets executed if there’s any problem
+                                // These are a method which gets executed if there’s any problem
                                 Log.d(TAG, "Data could not be added!" + e.toString());
                             }
                         });
-
-                ///////////// here end
             }
             finish();
             Toast.makeText(this, "Your Experiment is published!!", Toast.LENGTH_SHORT).show();
         } else {
-            AlertMsg Altmsg = new AlertMsg(this, "Error Message", "Description/Type of Experiment is Required, TRY AGAIN!!");
+            AlertMsg Altmsg = new AlertMsg(this, "Error Message",
+                    "Description/Type of Experiment is Required, TRY AGAIN!!");
 
         }
     }
+
+    /**
+     * To abort the PublishExperimentActivity on cancel button press
+     * @param view
+     */
     public void toCancel(View view) {
         finish();
     }
