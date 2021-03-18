@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+/**
+ * This model class is used to display results of trials
+ * @author Marzookh
+ */
 public class ResultsActivity extends AppCompatActivity {
     ListView trials;
     ArrayAdapter<Trial> trialAdapter;
@@ -30,7 +34,6 @@ public class ResultsActivity extends AppCompatActivity {
         //getting intent
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trialList = exp.getTrials();
-        System.out.println("LIST"+trialList.isEmpty());
 
         //initializing adapter
         trialAdapter = new TrialAdapter(this,trialList);
@@ -44,12 +47,5 @@ public class ResultsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-
     }
-
 }

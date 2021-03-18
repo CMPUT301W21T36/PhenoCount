@@ -22,6 +22,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This class represents binomial trials
+ * @author Marzookh
+ */
 public class Binomial extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
@@ -64,9 +68,6 @@ public class Binomial extends AppCompatActivity {
             coordinates.setText("Location : NOT ADDED");
         else
             coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
-
-
-
 
 
         final Button sbtn = findViewById((R.id.successbtn));
