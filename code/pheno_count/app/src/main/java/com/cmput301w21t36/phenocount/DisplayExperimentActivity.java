@@ -40,7 +40,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         //exp.setOwner("1");
         // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
+
 
         TextView expName = findViewById(R.id.nameTextView);
         TextView expDesc = findViewById(R.id.descTextView);
@@ -180,7 +180,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                     String id = db.collection("Trials").document().getId();
                     Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
 
-                    fdata.put("expID", exp.getID()); // to retrive data from firebase
+                    fdata.put("expID", exp.getExpID()); // to retrive data from firebase
                     if(exp.getExpType().equals("Binomial")) {
                         fdata.put("result",String.valueOf(trial.getResult()));
                     }
@@ -203,7 +203,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                             .document(id)
                             .set(fdata)*/
                     db.collection("Experiment")
-                            .document(exp.getID()).collection("Trials")
+                            .document(exp.getExpID()).collection("Trials")
                             .add(fdata)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override

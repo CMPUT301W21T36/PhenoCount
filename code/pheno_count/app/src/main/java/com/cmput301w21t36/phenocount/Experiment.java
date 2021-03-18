@@ -68,6 +68,7 @@ public class Experiment implements Serializable {
 
      */
 
+
     /**
      * This method checks if the Experiment is published or not
      * @return
@@ -205,6 +206,13 @@ public class Experiment implements Serializable {
     public Statistic getStats() {return stats;}
 
     /**
+     * This method saves/adds the the statistics for the experiment
+     * @param stats
+     * the statistics for the experiment
+     */
+    public void setStats(Statistic stats) { this.stats = stats; }
+
+    /**
      * This method returns the status of the experiment
      * @return
      * returns the status of the experiment
@@ -267,7 +275,7 @@ public class Experiment implements Serializable {
      * @return
      * returns the ID for the experiment
      */
-    public String getID() { return expID; }
+    public String getExpID() { return expID; }
 
     /**
      * This method saves/adds the ID to the experiment

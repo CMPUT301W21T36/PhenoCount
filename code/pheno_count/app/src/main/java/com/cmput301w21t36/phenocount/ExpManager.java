@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpManager {
-
     ArrayList<Experiment> expList = new ArrayList<>();
     private final String TAG = "PhenoCount";
     ArrayAdapter<Experiment> expAdapter;
     private String ownerName;
+
     // adds experiment to the data list
     public void  addExperiment(Experiment newExp,ArrayList<Experiment> expDataList ){
         expDataList.add(newExp);
@@ -102,7 +102,7 @@ public class ExpManager {
         while(i<expDataList.size()) {
             Experiment exp = expDataList.get(i);
             int finalI = i;
-            db.collection("Experiment").document(exp.getID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            db.collection("Experiment").document(exp.getExpID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                     ArrayList<Trial> trials = new ArrayList<>();

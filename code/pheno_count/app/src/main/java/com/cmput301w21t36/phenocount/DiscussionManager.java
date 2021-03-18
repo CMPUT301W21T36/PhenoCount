@@ -33,12 +33,12 @@ public class DiscussionManager{
     private String TAG = "Discussion";
 
     public DiscussionManager(Experiment experiment){
-        String expID = experiment.getID();
+        String expID = experiment.getExpID();
         setUpQueCol(expID);
     }
 
     public DiscussionManager(Experiment experiment, Question question){
-        String expID = experiment.getID();
+        String expID = experiment.getExpID();
         String qID = question.getID();
         setUpRepCol(expID, qID);
     }

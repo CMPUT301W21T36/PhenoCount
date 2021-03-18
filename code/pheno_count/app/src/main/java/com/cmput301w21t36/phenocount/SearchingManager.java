@@ -96,7 +96,7 @@ public class SearchingManager {
                 while(i<expDataList.size()) {
                     Experiment exp = expDataList.get(i);
                     int finalI = i;
-                    db.collection("Trials").whereEqualTo("ExpID", exp.getID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    db.collection("Trials").whereEqualTo("ExpID", exp.getExpID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                             ArrayList<Trial> trials = new ArrayList<>();
