@@ -56,9 +56,9 @@ public class GenerateQrTest {
 
         // create a new experiment
         solo.clickOnView((Button) solo.getView(R.id.addButton));
-        solo.enterText((EditText) solo.getView(R.id.expName), "Test Name");
-        solo.enterText((EditText) solo.getView(R.id.expDesc), "Test Description");
-        solo.enterText((EditText) solo.getView(R.id.expRegion), "Test Region");
+        solo.enterText((EditText) solo.getView(R.id.expName), "Coin Flip");
+        solo.enterText((EditText) solo.getView(R.id.expDesc), "Flipping a coin");
+        solo.enterText((EditText) solo.getView(R.id.expRegion), "Canada");
         solo.clickOnView((Button) solo.getView(R.id.radioBinomial));
         solo.enterText((EditText) solo.getView(R.id.expNum), "2");
         solo.clickOnView((Button) solo.getView(R.id.okButton));
