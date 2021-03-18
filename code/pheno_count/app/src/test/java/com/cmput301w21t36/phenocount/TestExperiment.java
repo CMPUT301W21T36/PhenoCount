@@ -1,7 +1,8 @@
 // Alexander Filbert, LAB5, 2021-02-25, https://eclass.srv.ualberta.ca/pluginfile.php/6714046/mod_resource/content/0/Lab%205%20Firestore%20Integration%20Instructions.pdf
 package com.cmput301w21t36.phenocount;
 
-import org.junit.jupiter.api. Test ;
+import org.junit.Test;
+
 
 import java.util.ArrayList;
 

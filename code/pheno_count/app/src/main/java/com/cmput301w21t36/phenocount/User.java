@@ -3,6 +3,11 @@ package com.cmput301w21t36.phenocount;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class that represents a User object
+ * @author Caleb Lonson
+ * @see Profile
+ */
 public class User implements Serializable {
     private ArrayList<Experiment> expPublished;
     private ArrayList<Experiment> expSubscribed;

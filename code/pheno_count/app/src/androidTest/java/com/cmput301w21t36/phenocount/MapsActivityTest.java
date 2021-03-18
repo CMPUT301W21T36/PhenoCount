@@ -34,15 +34,15 @@ public class MapsActivityTest {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         
         solo.clickOnView((Button) solo.getView(R.id.addButton));
-        solo.enterText((EditText) solo.getView(R.id.expName), "Maps Test Name");
-        solo.enterText((EditText) solo.getView(R.id.expDesc), "Maps Test Description");
-        solo.enterText((EditText) solo.getView(R.id.expRegion), "Maps Test Region");
+        solo.enterText((EditText) solo.getView(R.id.expName), "Cupcake count");
+        solo.enterText((EditText) solo.getView(R.id.expDesc), "How many cupcakes did you have today? ");
+        solo.enterText((EditText) solo.getView(R.id.expRegion), "Middle East");
         solo.clickOnView((Button) solo.getView(R.id.radioCount));
         solo.enterText((EditText) solo.getView(R.id.expNum), "20");
         solo.clickOnView((CheckBox) solo.getView(R.id.geoCheckBox));
         solo.clickOnView((Button) solo.getView(R.id.okButton));
 
-        solo.clickOnText("Maps Test Name");
+        solo.clickOnText("Cupcake count");
         solo.clickOnMenuItem("Add Trial");
 
         solo.clickOnView((Button) solo.getView(R.id.locationbtn2));
