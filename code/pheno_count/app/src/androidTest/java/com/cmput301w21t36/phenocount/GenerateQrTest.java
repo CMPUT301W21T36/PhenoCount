@@ -43,7 +43,7 @@ public class GenerateQrTest {
         solo.enterText((EditText) solo.getView(R.id.expRegion), "Test Region");
         solo.clickOnView((Button) solo.getView(R.id.radioBinomial));
         solo.enterText((EditText) solo.getView(R.id.expNum), "2");
-        solo.clickOnView((Button) solo.getView(R.id.button6));
+        solo.clickOnView((Button) solo.getView(R.id.okButton));
     }
     /**
      * Gets the Activity

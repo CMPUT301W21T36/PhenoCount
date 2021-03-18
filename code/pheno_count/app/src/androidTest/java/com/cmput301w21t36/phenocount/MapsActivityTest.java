@@ -40,7 +40,7 @@ public class MapsActivityTest {
         solo.clickOnView((Button) solo.getView(R.id.radioCount));
         solo.enterText((EditText) solo.getView(R.id.expNum), "20");
         solo.clickOnView((CheckBox) solo.getView(R.id.geoCheckBox));
-        solo.clickOnView((Button) solo.getView(R.id.button6));
+        solo.clickOnView((Button) solo.getView(R.id.okButton));
 
         solo.clickOnText("Maps Test Name");
         solo.clickOnMenuItem("Add Trial");

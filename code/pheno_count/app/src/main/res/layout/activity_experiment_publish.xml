@@ -107,11 +107,12 @@
         android:text="Require Geolocation"
         android:textAlignment="center"
         android:textColor="@android:color/black" />
+
     <android.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:minHeight="1dp"/>
+        android:minHeight="1dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -122,7 +123,7 @@
         android:padding="20dp">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/button6"
+            android:id="@+id/okButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right|center_horizontal"
@@ -133,7 +134,7 @@
             android:textAlignment="center" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/button5"
+            android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal|left"
