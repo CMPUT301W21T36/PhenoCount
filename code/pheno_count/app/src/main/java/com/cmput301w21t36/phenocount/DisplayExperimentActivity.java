@@ -75,6 +75,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         }
         expStatus.setText(mStat);
         //expType.setText(exp.getTrials().get(1).getType());
+        /** Adding icon programmatically : https://stackoverflow.com/questions/6931900/programmatically-set-left-drawable-in-a-textview*/
         if(exp.isRequireLocation()== true) {
             expReqLoc.setText(" REQUIRED");
             expReqLoc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0);
