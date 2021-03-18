@@ -36,14 +36,6 @@ public class GenerateQrTest {
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
-
-        solo.clickOnView((Button) solo.getView(R.id.addButton));
-        solo.enterText((EditText) solo.getView(R.id.expName), "Test Name");
-        solo.enterText((EditText) solo.getView(R.id.expDesc), "Test Description");
-        solo.enterText((EditText) solo.getView(R.id.expRegion), "Test Region");
-        solo.clickOnView((Button) solo.getView(R.id.radioBinomial));
-        solo.enterText((EditText) solo.getView(R.id.expNum), "2");
-        solo.clickOnView((Button) solo.getView(R.id.okButton));
     }
     /**
      * Gets the Activity
@@ -59,26 +51,28 @@ public class GenerateQrTest {
      */
     @Test
     public void testGenerateQr(){
-        //Asserts that the current activity is the MainActivity. Otherwise, show “Wrong Activity”
+        //Asserts that the current activity is the MainActivity
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        // click the first experiment
+
+        // create a new experiment
+        solo.clickOnView((Button) solo.getView(R.id.addButton));
+        solo.enterText((EditText) solo.getView(R.id.expName), "Test Name");
+        solo.enterText((EditText) solo.getView(R.id.expDesc), "Test Description");
+        solo.enterText((EditText) solo.getView(R.id.expRegion), "Test Region");
+        solo.clickOnView((Button) solo.getView(R.id.radioBinomial));
+        solo.enterText((EditText) solo.getView(R.id.expNum), "2");
+        solo.clickOnView((Button) solo.getView(R.id.okButton));
+
+        // add a trial
         solo.clickInList(0);
-        solo.clickOnView((Button) solo.getView(R.id.item4));
+        solo.clickOnMenuItem("Add Trial");
+        solo.clickOnButton("Success");
+
+        // generate qr
+        solo.clickOnMenuItem("See Results");
         solo.clickInList(0);
 
-
-
-//        //Click add Button
-//        solo.clickOnButton(R.id.addButton);
-//        //Get view for EditText and enter a city name
-//        solo.enterText((EditText) solo.getView(R.id.editText_name), "Edmonton");
-//        solo.clickOnButton("CONFIRM"); //Select CONFIRM Button
-//        solo.clearEditText((EditText) solo.getView(R.id.editText_name)); //Clear the EditText
-//        /* True if there is a text: Edmonton on the screen, wait at least 2 seconds and
-//        find minimum one match. */
-//        assertTrue(solo.waitForText("Edmonton", 1, 2000));
-//        solo.clickOnButton("ClEAR ALL"); //Select ClEAR ALL
-//        //True if there is no text: Edmonton on the screen
-//        assertFalse(solo.searchText("Edmonton"));
+        //Asserts that the current activity is the GenerateQrActivity
+        solo.assertCurrentActivity("Wrong Activity", GenerateQrActivity.class);
     }
 }
