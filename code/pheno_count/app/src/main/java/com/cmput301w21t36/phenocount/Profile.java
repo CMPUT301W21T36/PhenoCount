@@ -4,6 +4,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
 
+/**
+ * This class represents the Profile object which is had by a User
+ * @author Caleb Lonson
+ */
+
 public class Profile implements Serializable {
 
     private String username;
