@@ -31,6 +31,7 @@ public class Binomial extends AppCompatActivity {
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
+    TextView coordinates;
     //TrialManager trialManager;
 
     private final String TAG = "PhenoCount";
@@ -63,11 +64,9 @@ public class Binomial extends AppCompatActivity {
         TextView exptype= findViewById(R.id.exptype1);
         exptype.setText("Experiment Type: Binomial Trial");
 
-        TextView coordinates= findViewById(R.id.coordinates);
-        if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
-            coordinates.setText("Location : NOT ADDED");
-        else
-            coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
+        coordinates= findViewById(R.id.coordinates);
+        coordinates.setText("Location : NOT ADDED");
+
 
 
         final Button sbtn = findViewById((R.id.successbtn));
@@ -153,7 +152,7 @@ public class Binomial extends AppCompatActivity {
                 location = true;
                 Trial newtrial = (Trial) data.getSerializableExtra("trial_obj");
                 trial = newtrial;
-                TextView coordinates= findViewById(R.id.coordinates);
+
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
                 else

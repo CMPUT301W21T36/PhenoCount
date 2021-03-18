@@ -23,6 +23,7 @@ public class Count extends AppCompatActivity {
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
+    TextView coordinates;
     //TrialManager trialManager = new TrialManager(); //??
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,8 @@ public class Count extends AppCompatActivity {
         TextView count = findViewById(R.id.thecount);
         count.setText("Count:"+String.valueOf(trial.getCount()));
 
-        TextView coordinates = findViewById(R.id.coordinates);
-        if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
-            coordinates.setText("Location : NOT ADDED");
-        else
-            coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
+        coordinates = findViewById(R.id.coordinates);
+        coordinates.setText("Location : NOT ADDED");
 
         final Button recordcountbtn = findViewById(R.id.recordcountbtn);
         recordcountbtn.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +128,7 @@ public class Count extends AppCompatActivity {
                 location = true;
                 Trial newtrial = (Trial) data.getSerializableExtra("trial_obj");
                 trial = newtrial;
-                TextView coordinates= findViewById(R.id.coordinates);
+
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
                 else
