@@ -1,5 +1,4 @@
 // references: BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
-//             Andrii Omelchenko,2016-11-09,CC BY-SA 3.0, https://stackoverflow.com/questions/40503195/implement-3-dot-menu-to-a-fragment
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
@@ -23,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * To access this activity: Open the app -> click on the listView
  * or the experiment
  * @see MainActivity
+ * @author Anisha
+ * @author Marzook
  */
 public class DisplayExperimentActivity extends AppCompatActivity {
     private Experiment exp; // catch object passed from mainlist
@@ -69,7 +70,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
         }
         expStatus.setText(mStat);
-
         // Adding icon programmatically : BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
         if(exp.isRequireLocation()== true) {
             expReqLoc.setText(" REQUIRED");
@@ -96,9 +96,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
 
-            //checking what item is selected from the three dot menu
-            //https://stackoverflow.com/questions/40503195/implement-3-dot-menu-to-a-fragment
             if(item.getItemId() == R.id.item1) {
                 if (exp.getExpType().equals("Binomial")) {
                     Intent bintent = new Intent(DisplayExperimentActivity.this, BinomialActivity.class);
@@ -134,7 +133,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.item4){
                 Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
                 tintent.putExtra("experiment", exp);
-
                 startActivity(tintent);
             }
         return super.onOptionsItemSelected(item);
@@ -147,18 +145,17 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         int LAUNCH_SECOND_ACTIVITY = 1;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
-                //updating exp object
                 exp = (Experiment) data.getSerializableExtra("experiment");
 
                 SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 username = sharedPrefs.getString("Username", "");
                 UUID = sharedPrefs.getString("ID", "");
-
-                //calls method updateTrialData to update the trial object which was received
                 expManager = new ExpManager();
                 expManager.updateTrialData(db,exp,username,UUID);
+
                 }
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

@@ -165,8 +165,8 @@ public class ExpManager {
 
                 //creating a profile object
                 Profile newProfile = new Profile(userName);
-                User current_user = new User(owner, newProfile);
-                newExp.setOwner(current_user);
+                User currentUser = new User(owner, newProfile);
+                newExp.setOwner(currentUser);
                 expDataList.add(newExp);
             }
         }
@@ -238,6 +238,7 @@ public class ExpManager {
                     }
                     exp.setTrials(trials);
                     expDataList.set(finalI,exp); //adding updated trial object to original list
+
                 }
             });
         }
