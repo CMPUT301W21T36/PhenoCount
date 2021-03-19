@@ -33,6 +33,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+/**
+ * This is the MainActivity and the every first screen of the app
+ * It has an add button to publish an experiment,
+ * a search button to search the databse for experiments,
+ * a profile button to view and/or edit the profile of the current user
+ */
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ListView experiments;
