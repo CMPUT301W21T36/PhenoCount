@@ -3,6 +3,7 @@ package com.cmput301w21t36.phenocount;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class MeasurementActivity extends AppCompatActivity {
     Boolean location=false;
     TextView coordinates;
     DecimalFormat numberFormat;
+    SharedPreferences sharedPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,16 @@ public class MeasurementActivity extends AppCompatActivity {
 
         // receiving intent object
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trial = new Measurement(newexp.getOwner());
-        trial.setType("Measurement");
+        //setting user to owner of trial
+        sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String username = sharedPrefs.getString("Username", "");
+        String UUID = sharedPrefs.getString("ID", "");
+        Profile profile = new Profile(username);
+        User user = new User(UUID,profile);
+        trial = new Measurement(user);
 
+        //setting type of trial
+        trial.setType("Measurement");
 
         // Capture the layout's TextView and set the string as its text
         TextView desc = findViewById(R.id.desc3);

@@ -3,6 +3,7 @@ package com.cmput301w21t36.phenocount;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class BinomialActivity extends AppCompatActivity {
     Boolean location=false;
     DecimalFormat numberFormat;
     TextView coordinates;
+    SharedPreferences sharedPrefs;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -32,8 +34,17 @@ public class BinomialActivity extends AppCompatActivity {
         numberFormat = new DecimalFormat("#.0000");
 
         // receiving intent object
-        newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trial = new Binomial(newexp.getOwner());
+        newexp = (Experiment) getIntent().getSerializableExtra("experiment");
+
+        //setting user to owner of trial
+        sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String username = sharedPrefs.getString("Username", "");
+        String UUID = sharedPrefs.getString("ID", "");
+        Profile profile = new Profile(username);
+        User user = new User(UUID,profile);
+        trial = new Binomial(user);
+
+        //setting type of trial
         trial.setType("Binomial");
 
         // Capture the layout's TextView and set the string as its text
