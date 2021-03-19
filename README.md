@@ -1,6 +1,11 @@
-# CMPUT301_Project
+# PhenoCount
 
-References:
+### Note -: 
+* If testing on an AVD, to get your current location, you will have to set it manually by clicking on the menu button (...) and then clicking on "Location" from the left side bar. 
+* Please grant necessary location permissions to be able to use location functionalities.
+* No need to provide your own API key in the local.properties file.
+
+### References:
 
 Android Developers, 2020-11-18, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
 
