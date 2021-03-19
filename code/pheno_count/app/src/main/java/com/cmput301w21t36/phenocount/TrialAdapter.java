@@ -1,5 +1,6 @@
 package com.cmput301w21t36.phenocount;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 /**
  * This Controller/View class accepts parameters from ResultsActivity and displays the results
  * of the trials
- * @author Marzookh
  */
 public class TrialAdapter extends ArrayAdapter<Trial> {
     private ArrayList<Trial> trialList;
@@ -29,6 +29,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         this.context = context;
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
 
@@ -36,7 +37,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
             view = LayoutInflater.from(context).inflate(R.layout.content_trials,parent,false);
         }
 
-        //getting the trial object
+        //getting the trial object from results activity
         Trial trial = getItem(position);
 
 
@@ -65,7 +66,6 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         if (trial.getType().equals("NonNegativeCount")) {
             NonNegativeCount ntrial = (NonNegativeCount) trial ;
             trial_outcome.setText("Result: "+ntrial.getValue());
-            //trial_owner.setText("Owner : "+ntrial.getOwner().getProfile().getUsername());
 
         }
         return view;

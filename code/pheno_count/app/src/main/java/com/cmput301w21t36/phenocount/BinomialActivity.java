@@ -22,26 +22,21 @@ public class BinomialActivity extends AppCompatActivity {
     Boolean location=false;
     DecimalFormat numberFormat;
     TextView coordinates;
-    //TrialManager trialManager;
-
-    private final String TAG = "PhenoCount";
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // recieving intent object
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial_binomial);
         numberFormat = new DecimalFormat("#.0000");
 
+        // receiving intent object
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Binomial(newexp.getOwner());
         trial.setType("Binomial");
 
-
         // Capture the layout's TextView and set the string as its text
-
         TextView desc = findViewById(R.id.desc1);
         desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
@@ -54,20 +49,21 @@ public class BinomialActivity extends AppCompatActivity {
         TextView exptype= findViewById(R.id.exptype1);
         exptype.setText("Experiment Type: Binomial Trial");
 
+        //setting location coordinates
         coordinates= findViewById(R.id.coordinates);
         coordinates.setText("Location : NOT ADDED");
-
-
 
         final Button sbtn = findViewById((R.id.successbtn));
         sbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //checks if location is provided
                 if(location || !newexp.isRequireLocation()){
                 //increment successes
                 trial.isSuccess();
-                //trials.add(trial);
                 newexp.getTrials().add(trial);
+
+                //passing the experiment object back to DisplayExperimentActivity
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("experiment",newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
@@ -95,6 +91,7 @@ public class BinomialActivity extends AppCompatActivity {
                     trial.isFailure();
                     newexp.getTrials().add(trial);
 
+                    //passing the experiment object back to DisplayExperimentActivity
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("experiment", newexp);
                     setResult(Activity.RESULT_OK, returnIntent);
@@ -119,18 +116,14 @@ public class BinomialActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //passing trial object to get location updated
                 Intent intent = new Intent (BinomialActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
         });
-
-
     }
-
-
-
 
     @Override
     //Sends the experiment object and retrieves the updated
@@ -140,15 +133,13 @@ public class BinomialActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
+                //catching the trial object back
                 trial = (Binomial) data.getSerializableExtra("trial_obj");
-
 
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
                 else
                     coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
-
-                //newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

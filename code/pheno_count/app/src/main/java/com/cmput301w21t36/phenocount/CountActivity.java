@@ -22,15 +22,15 @@ public class CountActivity extends AppCompatActivity {
     Boolean location=false;
     DecimalFormat numberFormat;
     TextView coordinates;
-    //TrialManager trialManager = new TrialManager(); //??
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // recieving intent object
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial_count);
         numberFormat = new DecimalFormat("#.0000");
 
+        // receiving intent object
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Count(newexp.getOwner());
         trial.setType("Count");
@@ -38,7 +38,6 @@ public class CountActivity extends AppCompatActivity {
 
 
         // Capture the layout's TextView and set the string as its text
-
         TextView desc = findViewById(R.id.desc2);
         desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
@@ -61,6 +60,7 @@ public class CountActivity extends AppCompatActivity {
         recordcountbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //checks if location is provided
                 if(location || !newexp.isRequireLocation()) {
                     Toast.makeText(
                             CountActivity.this,
@@ -68,6 +68,8 @@ public class CountActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
 
                     newexp.getTrials().add(trial);
+
+                    //passing the experiment object back to DisplayExperimentActivity
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("experiment", newexp);
                     setResult(Activity.RESULT_OK, returnIntent);
@@ -80,6 +82,7 @@ public class CountActivity extends AppCompatActivity {
                 }
             }
         });
+
         final Button countbtn = findViewById((R.id.addbtn));
         countbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +110,7 @@ public class CountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //passing trial object to get location updated
                 Intent intent = new Intent (CountActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
@@ -124,6 +128,7 @@ public class CountActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
+                //catching the trial object back
                 trial = (Count) data.getSerializableExtra("trial_obj");
 
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
@@ -136,6 +141,5 @@ public class CountActivity extends AppCompatActivity {
             }
         }
     }
-
 }
 

@@ -58,14 +58,10 @@ public class MainActivity extends AppCompatActivity {
         // To get instance of the database
         db = dbmanager.getDb();
 
-
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
 
-        /**
-         *
-         */
-
+        //checks if this is the first time the user is using the application
         if (firstStart) {
             final DocumentReference userReference = db.collection("User").document();
             // Auto-ID created for the document

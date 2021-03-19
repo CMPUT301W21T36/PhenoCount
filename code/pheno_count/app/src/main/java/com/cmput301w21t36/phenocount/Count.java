@@ -16,6 +16,10 @@ public class Count extends Trial implements Serializable {
         count = 0;
     }
 
+
+    /**
+     * This method increments count by 1
+     */
     void isCount(){this.count++;}
 
 

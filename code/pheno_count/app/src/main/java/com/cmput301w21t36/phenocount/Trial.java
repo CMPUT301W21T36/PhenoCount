@@ -5,8 +5,9 @@ import java.io.Serializable;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * This class represents the Trial objects
- * @author Marzookh
+ * This class represents the abstract trial
+ * it is extended by the different types of trials : Binomial, Count
+ * , NonNegativeCount, Measurement
  */
 public abstract class Trial implements Serializable {
 
@@ -14,11 +15,6 @@ public abstract class Trial implements Serializable {
     private String type;
     private double Latitude;
     private double Longitude;
-
-/*    private boolean result;
-    private int count;
-    private float measurement;
-    private int value;*/
 
     /**
      * constructor for new Trial object

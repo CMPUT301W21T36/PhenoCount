@@ -50,51 +50,57 @@ public class ExpManager {
         });
     }
 
+
+    /**
+     * This method is called to update trial data received from the respective trial classes
+     * to firebase
+     * it creates a hash map object and adds the data to the collection
+     * @param db
+     * the Firestore Database
+     * @param exp
+     * the updated experiment object
+     * @param username
+     * the username of the owner of the trial
+     * @param UUID
+     * the unique ID of the owner of the trial
+     */
     public void updateTrialData(FirebaseFirestore db, Experiment exp,String username,String UUID){
 
         if (exp != null) {
-            System.out.println("SIZE:"+exp.getTrials().size());
 
             db = FirebaseFirestore.getInstance();
             final CollectionReference collectionReference = db.collection("Trials");
 
-
             HashMap<String, String> fdata = new HashMap<>();
             String id = collectionReference.document().getId();
 
-            //fdata.put("expID", exp.getID()); // dont need it anymore
-            if(exp.getExpType().equals("Binomial")) {
-                Binomial trial = (Binomial) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(trial.getResult()));
-                fdata.put("Latitude",""+trial.getLatitude());
-                fdata.put("Longitude",""+trial.getLongitude());
-            }
-            else if (exp.getExpType().equals("Count")) {
-                Count trial = (Count) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(trial.getCount()));
-                fdata.put("Latitude",""+trial.getLatitude());
-                fdata.put("Longitude",""+trial.getLongitude());
-            }
-            else if (exp.getExpType().equals("Measurement")){
-                Measurement trial = (Measurement) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(trial.getMeasurement()));
-                fdata.put("Latitude",""+trial.getLatitude());
-                fdata.put("Longitude",""+trial.getLongitude());
-                }
-            else if (exp.getExpType().equals("NonNegativeCount")){
-                NonNegativeCount trial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(trial.getValue()));
-                fdata.put("Latitude",""+trial.getLatitude());
-                fdata.put("Longitude",""+trial.getLongitude());
-            }
+            //common attributes
+            Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
+            fdata.put("Latitude",""+trial.getLatitude());
+            fdata.put("Longitude",""+trial.getLongitude());
             fdata.put("type", exp.getExpType());
             fdata.put("owner", username);
             fdata.put("userID",UUID);
 
-            //location
+            if(exp.getExpType().equals("Binomial")) {
+                Binomial btrial = (Binomial) exp.getTrials().get(exp.getTrials().size()-1);
+                fdata.put("result",String.valueOf(btrial.getResult()));
+            }
+            else if (exp.getExpType().equals("Count")) {
+                Count ctrial = (Count) exp.getTrials().get(exp.getTrials().size()-1);
+                fdata.put("result",String.valueOf(ctrial.getCount()));
+            }
+            else if (exp.getExpType().equals("Measurement")){
+                Measurement mtrial = (Measurement) exp.getTrials().get(exp.getTrials().size()-1);
+                fdata.put("result",String.valueOf(mtrial.getMeasurement()));
+                }
+            else if (exp.getExpType().equals("NonNegativeCount")){
+                NonNegativeCount ntrial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size()-1);
+                fdata.put("result",String.valueOf(ntrial.getValue()));
+            }
 
 
-
+            //adding data to firebase
             db.collection("Experiment")
                     .document(exp.getExpID()).collection("Trials")
                     .add(fdata)
@@ -111,10 +117,6 @@ public class ExpManager {
                             Log.d(TAG, "Data could not be added!" + e.toString());
                         }
                     });
-        } else {
-//                    String testt = data.getSerializableExtra("scannedText").toString();
-//                    TextView test = findViewById(R.id.scannedTextView);
-//                    test.setText(testt);
         }
     }
 
@@ -161,17 +163,17 @@ public class ExpManager {
                 Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
 
                 //creating a profile object
-                Profile newprofile = new Profile(userName);
-                User current_user = new User(owner, newprofile);
+                Profile newProfile = new Profile(userName);
+                User current_user = new User(owner, newProfile);
                 newExp.setOwner(current_user);
                 expDataList.add(newExp);
             }
         }
 
+        //loops through the exp objects and adds trials to it from firebase
         for(int i = 0;i<expDataList.size();i++) {
 
             Experiment exp = expDataList.get(i);
-            System.out.println("expID"+exp.getExpID());
             int finalI = i;
             db.collection("Experiment").document(exp.getExpID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
@@ -179,7 +181,7 @@ public class ExpManager {
                     ArrayList<Trial> trials = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                         Log.d("pheno", String.valueOf(doc.getId()));
-                        //query to get user data of trial owner
+
                         String username = (String) doc.getData().get("owner");
                         String userID = (String) doc.getData().get("userID");
                         String latitude = (String) doc.getData().get("Latitude");
@@ -188,8 +190,6 @@ public class ExpManager {
 
                         Profile profile = new Profile(username);//if phone number needed, do query
                         User user = new User(userID,profile);
-                        //Trial trial;
-                        System.out.println("Latitude"+latitude);
 
 /*                      if(latitude !=null && longitude != null){
                             trial.setLatitude(Float.parseFloat(latitude));
@@ -197,9 +197,8 @@ public class ExpManager {
                         }*/
 
 
-                        //retriving result from firebase
+                        //retrieving result from firebase
                         String result = (String) doc.getData().get("result");
-                        System.out.println("RESULT"+result);
                         if (result != null) {
                             if (ttype.equals("Binomial")) {
                                 Binomial trial = new Binomial(user);
@@ -238,10 +237,8 @@ public class ExpManager {
                     }
                     exp.setTrials(trials);
                     expDataList.set(finalI,exp); //adding updated trial object to original list
-                    System.out.println("SIZE:" + trials.size());
                 }
             });
-
         }
         expAdapter.notifyDataSetChanged();
     }

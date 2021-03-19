@@ -14,7 +14,6 @@ import java.util.ArrayList;
 /**
  * This model class passes a trials list to TrialAdapter to display results of the trials conducted
  * It also starts an intent to the QR activity
- * @author Marzookh
  */
 public class ResultsActivity extends AppCompatActivity {
     ListView trials;

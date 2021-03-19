@@ -117,8 +117,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        //String old_username =sharedPrefs.getString("Username", "");
 
+        // this query updates the old username in the users old experiments
         db.collection("Experiment").whereEqualTo("owner",UID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -132,6 +132,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
             }
         });
 
+        // this query updates the old username in the users old trials
         db.collection("Experiment").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -156,13 +157,10 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
                                 });
                     }
                 }
-
             }
         });
-
         editor.putString("Username", username);
         editor.putString("Number",contact);
         editor.apply();
-
     }
 }
