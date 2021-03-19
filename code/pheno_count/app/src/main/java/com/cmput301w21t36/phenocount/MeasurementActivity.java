@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * This class represents MeasurementActivity trials
  */
 public class MeasurementActivity extends AppCompatActivity {
-    Trial trial;
+    Measurement trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     TextView coordinates;
@@ -33,7 +33,7 @@ public class MeasurementActivity extends AppCompatActivity {
         setContentView(R.layout.trial_measurement);
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trial = new Trial(newexp.getOwner());
+        trial = new Measurement(newexp.getOwner());
         trial.setType("MeasurementActivity");
         numberFormat = new DecimalFormat("#.0000");
 
@@ -123,7 +123,7 @@ public class MeasurementActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
-                Trial trial = (Trial) data.getSerializableExtra("trial_obj");
+                trial = (Measurement) data.getSerializableExtra("trial_obj");
                 if (trial != null) {
                     if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                         coordinates.setText("Location : NOT ADDED");

@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
  * This class represents binomial trials
  */
 public class BinomialActivity extends AppCompatActivity {
-    Trial trial;
+    Binomial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
@@ -36,8 +36,9 @@ public class BinomialActivity extends AppCompatActivity {
         numberFormat = new DecimalFormat("#.0000");
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trial = new Trial(newexp.getOwner());
+        trial = new Binomial(newexp.getOwner());
         trial.setType("Binomial");
+
 
 
         // Capture the layout's TextView and set the string as its text
@@ -140,8 +141,8 @@ public class BinomialActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
-                Trial newtrial = (Trial) data.getSerializableExtra("trial_obj");
-                trial = newtrial;
+                trial = (Binomial) data.getSerializableExtra("trial_obj");
+
 
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");

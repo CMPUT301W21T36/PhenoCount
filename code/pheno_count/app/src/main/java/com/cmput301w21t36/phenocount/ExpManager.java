@@ -69,28 +69,38 @@ public class ExpManager {
 
             HashMap<String, String> fdata = new HashMap<>();
             String id = db.collection("Trials").document().getId();
-            Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
 
             //fdata.put("expID", exp.getID()); // dont need it anymore
             if(exp.getExpType().equals("Binomial")) {
+                Binomial trial = (Binomial) exp.getTrials().get(exp.getTrials().size()-1);
                 fdata.put("result",String.valueOf(trial.getResult()));
+                fdata.put("Latitude",""+trial.getLatitude());
+                fdata.put("Longitude",""+trial.getLongitude());
             }
             else if (exp.getExpType().equals("Count")) {
+                Count trial = (Count) exp.getTrials().get(exp.getTrials().size()-1);
                 fdata.put("result",String.valueOf(trial.getCount()));
+                fdata.put("Latitude",""+trial.getLatitude());
+                fdata.put("Longitude",""+trial.getLongitude());
             }
             else if (exp.getExpType().equals("MeasurementActivity")){
+                Measurement trial = (Measurement) exp.getTrials().get(exp.getTrials().size()-1);
                 fdata.put("result",String.valueOf(trial.getMeasurement()));
+                fdata.put("Latitude",""+trial.getLatitude());
+                fdata.put("Longitude",""+trial.getLongitude());
             }
             else if (exp.getExpType().equals("NonNegativeCountActivity")){
+                NonNegativeCount trial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size()-1);
                 fdata.put("result",String.valueOf(trial.getValue()));
+                fdata.put("Latitude",""+trial.getLatitude());
+                fdata.put("Longitude",""+trial.getLongitude());
             }
             fdata.put("type", exp.getExpType());
             fdata.put("owner", username);
             fdata.put("userID",UUID);
 
             //location
-            fdata.put("Latitude",""+trial.getLatitude());
-            fdata.put("Longitude",""+trial.getLongitude());
+
 
 
             db.collection("Experiment")
@@ -161,7 +171,6 @@ public class ExpManager {
                 //creating a profile object
                 Profile newprofile = new Profile(userName);
                 User current_user = new User(owner, newprofile);
-
                 newExp.setOwner(current_user);
                 expDataList.add(newExp);
             }
@@ -171,6 +180,7 @@ public class ExpManager {
         while(i<expDataList.size()) {
             Experiment exp = expDataList.get(i);
             int finalI = i;
+            System.out.println("expID"+exp.getExpID());
             db.collection("Experiment").document(exp.getExpID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
@@ -182,37 +192,45 @@ public class ExpManager {
                         String userID = (String) doc.getData().get("userID");
                         String latitude = (String) doc.getData().get("Latitude");
                         String longitude = (String) doc.getData().get("Longitude");
-                        String ttype = (String) doc.getData().get("type");
+                        String ttype = exp.getExpType();
 
                         Profile profile = new Profile(username);//if phone number needed, do query
                         User user = new User(userID,profile);
-                        Trial trial = new Trial(user);
+                        //Trial trial = new Trial(user);
+
+
 
                         System.out.println("Latitude"+latitude);
 
-                        if(latitude !=null && longitude != null){
+/*                        if(latitude !=null && longitude != null){
                             trial.setLatitude(Float.parseFloat(latitude));
-                            trial.setLongitude(Float.parseFloat(longitude));
-                        }
+                            trial.setLongitude(Float.parseFloat(longitude));///////////////
+                        }*/
 
-                        trial.setType(ttype);
+                        //trial.setType(ttype);
 
                         //retriving result from firebase
                         String result = (String) doc.getData().get("result");
-                        if(ttype.equals("Binomial")) {
-                            trial.setResult(Boolean.parseBoolean(result));
+                        System.out.println("RESULT"+result);
+                        if (result != null) {
+                            if (ttype.equals("Binomial")) {
+                                Binomial trial = new Binomial(user);
+                                trial.setResult(Boolean.parseBoolean(result));
+                                trials.add(trial);
+                            } else if (ttype.equals("Count")) {
+                                Count trial = new Count(user);
+                                trial.setCount(Integer.parseInt(result));
+                                trials.add(trial);
+                            } else if (ttype.equals("Measurement")) {
+                                Measurement trial = new Measurement(user);
+                                trial.setMeasurement(Float.parseFloat(result));
+                                trials.add(trial);
+                            } else if (ttype.equals("NonNegativeCount")) {
+                                NonNegativeCount trial = new NonNegativeCount(user);
+                                trial.setValue(Integer.parseInt(result));
+                                trials.add(trial);
+                            }
                         }
-                        else if (ttype.equals("Count")) {
-                            trial.setCount(Integer.parseInt(result));
-                        }
-                        else if (ttype.equals("MeasurementActivity")){
-                            trial.setMeasurement(Float.parseFloat(result));
-                        }
-                        else if (ttype.equals("Non Negative Count")){
-                            trial.setValue(Integer.parseInt(result));
-                        }
-
-                        trials.add(trial);
                     }
                     exp.setTrials(trials);
                     expDataList.set(finalI,exp);

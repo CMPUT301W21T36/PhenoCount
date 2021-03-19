@@ -44,7 +44,7 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent (ResultsActivity.this, GenerateQrActivity.class);
-                intent.putExtra("data", trialList.get(position).getResult());
+                intent.putExtra("data", 1); //change this
                 startActivity(intent);
             }
         });

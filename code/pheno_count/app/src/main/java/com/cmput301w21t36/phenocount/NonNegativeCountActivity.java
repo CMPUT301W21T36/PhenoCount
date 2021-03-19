@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * This class represents NonNegativeCountActivity trials
  */
 public class NonNegativeCountActivity extends AppCompatActivity {
-    Trial trial;
+    NonNegativeCount trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     TextView coordinates;
@@ -33,7 +33,7 @@ public class NonNegativeCountActivity extends AppCompatActivity {
         setContentView(R.layout.trial_non_negative_count);
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trial = new Trial(newexp.getOwner());
+        trial = new NonNegativeCount(newexp.getOwner());
         trial.setType("NonNegativeCountActivity");
 
         numberFormat = new DecimalFormat("#.0000");
@@ -113,16 +113,14 @@ public class NonNegativeCountActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
-                Trial trial = (Trial) data.getSerializableExtra("trial_obj");
+                trial = (NonNegativeCount) data.getSerializableExtra("trial_obj");
                 newexp.getTrials().add(trial);
 
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
                 else
                     coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
-
                 //newexp.getTrials().add(trial);
-
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

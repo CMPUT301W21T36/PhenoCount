@@ -46,16 +46,20 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         trial_owner.setText("Owner : "+trial.getOwner().getProfile().getUsername());
         System.out.println(trial.getType());
         if (trial.getType().equals("Binomial")) {
-            trial_outcome.setText("Result: "+trial.getResult());
+            Binomial btrial = (Binomial) trialList.get(position);
+            trial_outcome.setText("Result: "+btrial.getResult());
         }
         if (trial.getType().equals("Count")) {
-            trial_outcome.setText("Result: "+trial.getCount());
+            Count ctrial = (Count) trialList.get(position);
+            trial_outcome.setText("Result: "+ctrial.getCount());
         }
-        if (trial.getType().equals("MeasurementActivity")) {
-            trial_outcome.setText("Result: "+trial.getMeasurement());
+        if (trial.getType().equals("Measurement")) {
+            Measurement mtrial = (Measurement) trialList.get(position);
+            trial_outcome.setText("Result: "+mtrial.getMeasurement());
         }
-        if (trial.getType().equals("NonNegativeCountActivity")) {
-            trial_outcome.setText("Result: "+trial.getValue());
+        if (trial.getType().equals("NonNegativeCount")) {
+            NonNegativeCount ntrial = (NonNegativeCount) trialList.get(position);
+            trial_outcome.setText("Result: "+ntrial.getValue());
         }
 
         return view;
