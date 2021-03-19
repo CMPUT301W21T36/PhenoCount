@@ -42,8 +42,4 @@ public class Binomial extends Trial implements Serializable {
         return this.result;
     }
 
-
-
-
-
 }

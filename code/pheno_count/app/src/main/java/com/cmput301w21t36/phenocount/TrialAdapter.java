@@ -42,9 +42,9 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         TextView trial_owner = view.findViewById(R.id.trial_owner);
         TextView trial_outcome = view.findViewById(R.id.trial_outcome);
 
-        trial_no.setText("Trial "+position);
+        trial_no.setText("Trial "+(position+1));
         trial_owner.setText("Owner : "+trial.getOwner().getProfile().getUsername());
-        System.out.println(trial.getType());
+        System.out.println("TYPE"+trial.getType());
         if (trial.getType().equals("Binomial")) {
             Binomial btrial = (Binomial) trialList.get(position);
             trial_outcome.setText("Result: "+btrial.getResult());

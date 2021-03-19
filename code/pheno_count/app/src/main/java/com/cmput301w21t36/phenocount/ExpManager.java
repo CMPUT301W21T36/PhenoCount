@@ -196,7 +196,7 @@ public class ExpManager {
 
                         Profile profile = new Profile(username);//if phone number needed, do query
                         User user = new User(userID,profile);
-                        //Trial trial = new Trial(user);
+                        //Trial trial;
 
 
 
@@ -207,7 +207,6 @@ public class ExpManager {
                             trial.setLongitude(Float.parseFloat(longitude));///////////////
                         }*/
 
-                        //trial.setType(ttype);
 
                         //retriving result from firebase
                         String result = (String) doc.getData().get("result");
@@ -216,18 +215,26 @@ public class ExpManager {
                             if (ttype.equals("Binomial")) {
                                 Binomial trial = new Binomial(user);
                                 trial.setResult(Boolean.parseBoolean(result));
+                                trial.setOwner(user);
+                                trial.setType(ttype);
                                 trials.add(trial);
                             } else if (ttype.equals("Count")) {
                                 Count trial = new Count(user);
                                 trial.setCount(Integer.parseInt(result));
+                                trial.setOwner(user);
+                                trial.setType(ttype);
                                 trials.add(trial);
                             } else if (ttype.equals("Measurement")) {
                                 Measurement trial = new Measurement(user);
                                 trial.setMeasurement(Float.parseFloat(result));
+                                trial.setOwner(user);
+                                trial.setType(ttype);
                                 trials.add(trial);
                             } else if (ttype.equals("NonNegativeCount")) {
                                 NonNegativeCount trial = new NonNegativeCount(user);
                                 trial.setValue(Integer.parseInt(result));
+                                trial.setOwner(user);
+                                trial.setType(ttype);
                                 trials.add(trial);
                             }
                         }
