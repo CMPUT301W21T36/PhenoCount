@@ -14,6 +14,11 @@ import com.google.zxing.integration.android.IntentResult;
 /** REFERENCES
 Ralf Kistner, 27-09-19,  Apache-2.0 License, https://github.com/journeyapps/zxing-android-embedded */
 
+/*
+ * Opens the camera in order to scan a barcode and then returns
+ * the scanned data to be entered into the input field
+ */
+
 public class ScanBarcodeActivity extends AppCompatActivity {
 
     @Override
