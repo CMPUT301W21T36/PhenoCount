@@ -27,7 +27,6 @@ import java.util.UUID;
 /**
  * Activity which deals with displaying a profile for the current user
  * which will include contact information, their display name, and a unique randomly generated ID.
- * @Author: Caleb Lonson
  * @see MainActivity
  */
 public class ProfileActivity extends AppCompatActivity implements ProfileDialog.ProfileDialogListener {

@@ -78,10 +78,10 @@ public class ExpManager {
             else if (exp.getExpType().equals("Count")) {
                 fdata.put("result",String.valueOf(trial.getCount()));
             }
-            else if (exp.getExpType().equals("MeasurementActivity")){
+            else if (exp.getExpType().equals("Measurement")){
                 fdata.put("result",String.valueOf(trial.getMeasurement()));
             }
-            else if (exp.getExpType().equals("NonNegativeCountActivity")){
+            else if (exp.getExpType().equals("NonNegative")){
                 fdata.put("result",String.valueOf(trial.getValue()));
             }
             fdata.put("type", exp.getExpType());

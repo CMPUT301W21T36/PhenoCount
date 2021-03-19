@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 /**
  * Class that represents a User object
- * @author Caleb Lonson
  * @see Profile
  */
 public class User implements Serializable {
@@ -14,24 +13,38 @@ public class User implements Serializable {
     private String UID;
     private Profile profile;
 
+    /**
+     * Constructor for a User object
+     * @param UID is a String 
+     * @param profile
+     */
     public User(String UID, Profile profile) {
         this.UID = UID;
         this.profile = profile;
     }
 
+    /**
+     * Getter for a user UID
+     * @return UID as a String
+     */
     public String getUID() {
         return UID;
     }
 
+    /**
+     * Setter for a user UID
+     * @param UID
+     */
     public void setUID(String UID) {
         this.UID = UID;
     }
 
+    /**
+     * Getter for a User's related profile
+     * @return object of type Profile
+     */
     public Profile getProfile() {
         return profile;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
 }

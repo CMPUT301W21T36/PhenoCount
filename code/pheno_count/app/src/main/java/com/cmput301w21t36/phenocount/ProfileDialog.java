@@ -14,6 +14,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+// Custom dialog box which takes two editText fields to update a profiles display name and contact information
 public class ProfileDialog extends AppCompatDialogFragment {
 
     private EditText editTextUsername;
@@ -28,7 +29,10 @@ public class ProfileDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.profile_dialog, null);
 
-        // Idea of the builder 
+        // Idea of the builder comes from:
+        // Jeeva, https://stackoverflow.com/users/6352712/serg-burlaka
+        // Related answer, https://stackoverflow.com/a/55685054
+        // License: CC BY-SA 4.0
         builder.setView(view)
                 .setTitle("Edit information")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
