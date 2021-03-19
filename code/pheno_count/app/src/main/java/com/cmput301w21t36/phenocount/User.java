@@ -15,8 +15,8 @@ public class User implements Serializable {
 
     /**
      * Constructor for a User object
-     * @param UID is a String 
-     * @param profile
+     * @param UID is a String representing a unique identifier
+     * @param profile is an object of type Profile that will be related to one user
      */
     public User(String UID, Profile profile) {
         this.UID = UID;
