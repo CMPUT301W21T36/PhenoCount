@@ -10,27 +10,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DatabaseManager {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference quecollectionReference;
-    private CollectionReference repcollectionReference;
+    private CollectionReference queCollectionReference;
+    private CollectionReference repCollectionReference;
 
 
 
     public FirebaseFirestore getDb() {
         return db;
     }
-    public CollectionReference getQuecollectionReference() {
-        return quecollectionReference;
+    public CollectionReference getQueCollectionReference() {
+        return queCollectionReference;
     }
 
-    public void setQuecollectionReference(CollectionReference quecollectionReference) {
-        this.quecollectionReference = quecollectionReference;
+    public void setQueCollectionReference(CollectionReference queCollectionReference) {
+        this.queCollectionReference = queCollectionReference;
     }
 
-    public CollectionReference getRepcollectionReference() {
-        return repcollectionReference;
+    public CollectionReference getRepCollectionReference() {
+        return repCollectionReference;
     }
 
-    public void setRepcollectionReference(CollectionReference repcollectionReference) {
-        this.repcollectionReference = repcollectionReference;
+    public void setRepCollectionReference(CollectionReference repCollectionReference) {
+        this.repCollectionReference = repCollectionReference;
     }
 }

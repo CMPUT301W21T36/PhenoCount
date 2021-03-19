@@ -180,17 +180,17 @@ public class DiscussionManager{
     }
 
     public CollectionReference getQuecollectionReference() {
-        return dbManager.getQuecollectionReference();
+        return dbManager.getQueCollectionReference();
     }
 
-    public void setQuecollectionReference(CollectionReference quecollectionReference) {
-        dbManager.setQuecollectionReference(quecollectionReference);
+    public void setQuecollectionReference(CollectionReference queCollectionReference) {
+        dbManager.setQueCollectionReference(queCollectionReference);
     }
 
     public CollectionReference getRepcollectionReference() {
-        return dbManager.getRepcollectionReference();}
+        return dbManager.getRepCollectionReference();}
 
-    public void setRepcollectionReference(CollectionReference repcollectionReference) {
-        dbManager.setRepcollectionReference(repcollectionReference);
+    public void setRepcollectionReference(CollectionReference repCollectionReference) {
+        dbManager.setRepCollectionReference(repCollectionReference);
     }
 }
