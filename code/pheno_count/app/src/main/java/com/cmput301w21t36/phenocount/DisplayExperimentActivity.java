@@ -22,8 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * To access this activity: Open the app -> click on the listView
  * or the experiment
  * @see MainActivity
- * @author Anisha
- * @author Marzook
  */
 public class DisplayExperimentActivity extends AppCompatActivity {
     private Experiment exp; // catch object passed from mainlist
@@ -96,8 +94,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-
             if(item.getItemId() == R.id.item1) {
                 if (exp.getExpType().equals("Binomial")) {
                     Intent bintent = new Intent(DisplayExperimentActivity.this, BinomialActivity.class);
