@@ -28,10 +28,6 @@ public class Binomial extends Trial implements Serializable {
      */
     void isFailure() {this.result = false;}
 
-    public boolean isResult() {
-        return result;
-    }
-
 
     public void setResult(boolean result) {
         this.result = result;

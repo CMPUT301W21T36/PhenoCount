@@ -67,7 +67,7 @@
         android:layout_marginTop="96dp"
         android:ems="10"
         android:hint="Enter measurement here"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintBottom_toTopOf="@+id/recordvbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -77,9 +77,7 @@ public class ExpManager {
             }
             else if (exp.getExpType().equals("Measurement")){
                 Measurement trial = (Measurement) exp.getTrials().get(exp.getTrials().size()-1);
-                float value = trial.getMeasurement();
-                System.out.println("VALUE: "+value);
-                fdata.put("result",String.valueOf(value));
+                fdata.put("result",String.valueOf(trial.getMeasurement()));
                 fdata.put("Latitude",""+trial.getLatitude());
                 fdata.put("Longitude",""+trial.getLongitude());
             }

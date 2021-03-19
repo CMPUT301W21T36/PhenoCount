@@ -16,7 +16,7 @@ public class NonNegativeCount extends Trial implements Serializable {
     }
 
 
-    public float getValue() {
+    public int getValue() {
         return value;
     }
 

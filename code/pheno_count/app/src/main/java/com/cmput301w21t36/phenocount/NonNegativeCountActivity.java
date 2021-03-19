@@ -76,7 +76,6 @@ public class NonNegativeCountActivity extends AppCompatActivity {
                             NonNegativeCountActivity.this,
                             "Count Recorded",
                             Toast.LENGTH_SHORT).show();
-                    newexp.getTrials().add(trial);
 
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("experiment", newexp);

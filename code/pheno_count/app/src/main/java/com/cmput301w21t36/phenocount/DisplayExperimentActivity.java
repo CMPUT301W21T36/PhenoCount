@@ -153,9 +153,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 UUID = sharedPrefs.getString("ID", "");
                 expManager = new ExpManager();
                 expManager.updateTrialData(db,exp,username,UUID);
-
                 }
-
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");
