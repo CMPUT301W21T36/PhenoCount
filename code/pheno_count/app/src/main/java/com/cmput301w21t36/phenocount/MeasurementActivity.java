@@ -34,7 +34,7 @@ public class MeasurementActivity extends AppCompatActivity {
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Measurement(newexp.getOwner());
-        trial.setType("MeasurementActivity");
+        trial.setType("Measurement");
         numberFormat = new DecimalFormat("#.0000");
 
 

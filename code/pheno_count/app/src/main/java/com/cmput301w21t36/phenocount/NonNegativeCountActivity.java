@@ -34,7 +34,7 @@ public class NonNegativeCountActivity extends AppCompatActivity {
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new NonNegativeCount(newexp.getOwner());
-        trial.setType("NonNegativeCountActivity");
+        trial.setType("NonNegativeCount");
 
         numberFormat = new DecimalFormat("#.0000");
 
