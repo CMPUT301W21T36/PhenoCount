@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class ExpManager {
     private final String TAG = "PhenoCount";
-    ArrayAdapter<Experiment> expAdapter;
 
     /**
      * This method populates the list of current user's experiments in the MainActivity
@@ -99,7 +98,6 @@ public class ExpManager {
                 fdata.put("result",String.valueOf(ntrial.getValue()));
             }
 
-
             //adding data to firebase
             db.collection("Experiment")
                     .document(exp.getExpID()).collection("Trials")
@@ -121,14 +119,16 @@ public class ExpManager {
     }
 
     /**
-     * General method for querying the Experiment collectio in fireStore
+     * General method for querying the Experiment collection in fireStore
      * @param db
      * @param expDataList
      * @param expAdapter
      * @param queryDocumentSnapshots
      * @param error
      */
-    public void getdata(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter,QuerySnapshot queryDocumentSnapshots,FirebaseFirestoreException error){
+    public void getdata(FirebaseFirestore db, ArrayList<Experiment> expDataList,
+                        ArrayAdapter<Experiment> expAdapter,QuerySnapshot queryDocumentSnapshots,
+                        FirebaseFirestoreException error){
         expDataList.clear();
         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
@@ -160,7 +160,8 @@ public class ExpManager {
                     expStatus = Integer.parseInt(mStat);
                 }
 
-                Experiment newExp = new Experiment(name, description, region, type, minTrial, reqLoc, expStatus, expID);
+                Experiment newExp = new Experiment(name, description, region, type, minTrial,
+                        reqLoc, expStatus, expID);
 
                 //creating a profile object
                 Profile newProfile = new Profile(userName);
@@ -188,7 +189,7 @@ public class ExpManager {
                         String longitude = (String) doc.getData().get("Longitude");
                         String ttype = exp.getExpType();
 
-                        Profile profile = new Profile(username);//if phone number needed, do query
+                        Profile profile = new Profile(username);
                         User user = new User(userID,profile);
 
 /*                      if(latitude !=null && longitude != null){

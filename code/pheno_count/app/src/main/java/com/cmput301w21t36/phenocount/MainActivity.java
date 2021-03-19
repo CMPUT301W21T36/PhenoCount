@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // Username for the current user
-        // username = sharedPrefs.getString("Username", "");
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override

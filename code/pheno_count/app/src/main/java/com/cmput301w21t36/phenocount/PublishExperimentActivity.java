@@ -1,5 +1,7 @@
 // References:
-// For displaying red astrisk next to must fields(in string.xml): Gabriele Mariotti, 2020-05-05, CC BY-SA 4.0,https://stackoverflow.com/a/61622809
+// For displaying red astrisk next to must fields(in string.xml):
+// Gabriele Mariotti, 2020-05-05, CC BY-SA 4.0,https://stackoverflow.com/a/61622809
+//
 //Android Developers, 2020-11-18, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
 
 package com.cmput301w21t36.phenocount;
@@ -29,7 +31,6 @@ import java.util.HashMap;
  * To access this activity: Open the app -> click on the addBotton
  * in the bottom of the main screen/activity
  * @see MainActivity
- * @author Anisha
  */
 public class PublishExperimentActivity extends AppCompatActivity {
     FirebaseFirestore db;
@@ -100,12 +101,13 @@ public class PublishExperimentActivity extends AppCompatActivity {
 
         expName = findViewById(R.id.expName);
         expDesc = findViewById(R.id.expDesc);
-        //expType = findViewById(R.id.typeOfTrial);
         expRegion = findViewById(R.id.expRegion);
         expNum = findViewById(R.id.expNum);
         expGeoLoc = findViewById(R.id.geoCheckBox);
 
         final String desc = expDesc.getText().toString();
+
+        // To make sure that the required fields are not left empty
         int proceed =1;
         if (!(desc.length()>0)){
             proceed=0;
