@@ -4,8 +4,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /*
-Role: controller
-Goal: grant permission of using the database for other manager classes
+ * Role: controller
+ * Goal: grant permission of using the database for other manager classes
  */
 
 public class DatabaseManager {

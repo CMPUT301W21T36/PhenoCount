@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
 /**
+ * Role: model
  * This Reply class extends an abstract class Post,
  * it contains basic information of a reply
  */

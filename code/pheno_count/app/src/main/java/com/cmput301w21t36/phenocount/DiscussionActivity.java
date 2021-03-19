@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 /*
  * Role: view
- * How to use:
- * This DiscussionActivity class stores all the questions asked by
+ * This DiscussionActivity class display all the questions asked by
  * users related to a certain experiment.
- * Context: DisplayExperimentActivity ->'Discuss' button -> this;
+ * Context: DisplayExperimentActivity ->'Discuss' button -> this.
+ * How to use:
  * Click 'Discuss' button in the menu can transfer user to the this activity,
  * When a question in the list view is clicked, the user is transferred to
  * the QuestionActivity page, where they can browse all the replies the question

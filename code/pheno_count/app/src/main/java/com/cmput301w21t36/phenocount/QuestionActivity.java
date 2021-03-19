@@ -12,13 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
-
-/**
- * @author: Charffy
- * This QuestionActivity class display basic information about a question.
- * When one question on the list view
- * in the discussion forum is clicked, you are transferred to the question's own
- * activity page, where you can browse all its replied and give replies.
+/*
+ * Role: view
+ * This QuestionActivity class display all the replies given by
+ * users related to a certain question.
+ * Context: DisplayExperimentActivity ->'Discuss' button -> DiscussionActivity -> this;
+ * How to use:
+ * In DiscussionActivity, when a question in the list view is clicked,
+ * the user is transferred to the QuestionActivity page, where they can
+ * browse all the replies the question has received.
  */
 public class QuestionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
     //a collection of question posts of a certain experiment
@@ -66,10 +68,10 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         super.onResume();
     }
 
-    /**
+    /*
      * This method allows user to add a reply to the question,
      * the newly added question will be stored in the discussion forum.
-     * how: click '+' button in UI, a fragment shows, has two text boxes,
+     * how: click 'Add Reply' button in UI, a fragment shows, has two text boxes,
      * the top one is a title, says 'Add a Reply',
      * the bottom one is the an edit text, let the user type in the reply body.
      */
@@ -82,7 +84,7 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
 
     }
 
-    /**
+    /*
      * @param text
      * Inside this 'add reply' fragment, if 'OK' is pressed, then
      * this reply is saved to the question's reply list.
