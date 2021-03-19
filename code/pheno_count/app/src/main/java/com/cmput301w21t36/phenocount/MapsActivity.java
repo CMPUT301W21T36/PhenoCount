@@ -39,8 +39,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-/** REFERENCES
-    Daniel Nugent, "How to get current Location in GoogleMap using FusedLocationProviderClient", 24-04-18, stackoverflow, https://stackoverflow.com/a/44993694 */
+// REFERENCES
+    //Daniel Nugent, "How to get current Location in GoogleMap using FusedLocationProviderClient", 24-04-18, stackoverflow, https://stackoverflow.com/a/44993694 */
 
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback {
@@ -135,8 +135,8 @@ public class MapsActivity extends AppCompatActivity
             }
         });
 
-        /** REFERENCES
-        // Urmi, "How does one implement drag and drop for Android marker?", 11-10-2013, stackoverflow, https://stackoverflow.com/a/19903520 */
+        // REFERENCES
+        // Urmi, "How does one implement drag and drop for Android marker?", 11-10-2013, stackoverflow, https://stackoverflow.com/a/19903520
         // handling dragging of the map
         mGoogleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
@@ -236,8 +236,7 @@ public class MapsActivity extends AppCompatActivity
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
+                    // permission was granted
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
@@ -251,6 +250,8 @@ public class MapsActivity extends AppCompatActivity
                     // permission denied, Disable the
                     // functionality that depends on this permission.
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    setResult(Activity.RESULT_CANCELED);
+                    finish();
                 }
                 return;
             }
