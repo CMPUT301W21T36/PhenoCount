@@ -2,6 +2,9 @@ package com.cmput301w21t36.phenocount;
 
 import java.io.Serializable;
 
+/**
+ * This class represents objects used in NonNegativeCount trials
+ */
 public class NonNegativeCount extends Trial implements Serializable {
 
     private int value;

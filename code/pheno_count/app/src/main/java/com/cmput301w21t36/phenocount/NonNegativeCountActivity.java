@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * This class represents NonNegativeCountActivity trials
+ * This class represents NonNegativeCountActivity trials and is part of the GUI
  * Sets count to 0 if field is left blank
  */
 public class NonNegativeCountActivity extends AppCompatActivity {

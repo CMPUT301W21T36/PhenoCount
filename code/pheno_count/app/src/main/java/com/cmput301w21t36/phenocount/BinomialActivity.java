@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 
 /**
- * This class represents binomial trials
+ * This class represents binomial trials and is part of the GUI
  */
 
 public class BinomialActivity extends AppCompatActivity {

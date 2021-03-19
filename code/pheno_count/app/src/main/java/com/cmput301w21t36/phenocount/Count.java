@@ -1,7 +1,9 @@
 package com.cmput301w21t36.phenocount;
 
 import java.io.Serializable;
-
+/**
+ * This class represents objects used in Count trials
+ */
 public class Count extends Trial implements Serializable {
 
     private int count;

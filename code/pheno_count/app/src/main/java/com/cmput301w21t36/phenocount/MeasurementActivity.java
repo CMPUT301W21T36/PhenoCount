@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * This class represents MeasurementActivity trials
+ * This class represents MeasurementActivity trials and is part of the GUI
  * sets measurement to 0.0 if field is left blank
  */
 public class MeasurementActivity extends AppCompatActivity {

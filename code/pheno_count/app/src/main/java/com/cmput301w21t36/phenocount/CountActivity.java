@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 
 /**
- * This class represents Count trials
+ * This class represents Count trials and is part of the GUI
  */
 public class CountActivity extends AppCompatActivity {
     Count trial;
