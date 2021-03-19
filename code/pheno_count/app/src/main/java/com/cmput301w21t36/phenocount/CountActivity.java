@@ -12,13 +12,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 /**
  * This class represents Count trials
- * @author Marzookh
  */
-public class Count extends AppCompatActivity {
+public class CountActivity extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
@@ -65,7 +63,7 @@ public class Count extends AppCompatActivity {
             public void onClick(View v) {
                 if(location || !newexp.isRequireLocation()) {
                     Toast.makeText(
-                            Count.this,
+                            CountActivity.this,
                             "Count Recorded",
                             Toast.LENGTH_SHORT).show();
 
@@ -76,7 +74,7 @@ public class Count extends AppCompatActivity {
                     finish();
                 }else {
                     Toast.makeText(
-                            Count.this,
+                            CountActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
@@ -93,7 +91,7 @@ public class Count extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(
-                            Count.this,
+                            CountActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
@@ -109,7 +107,7 @@ public class Count extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (Count.this,MapsActivity.class);
+                Intent intent = new Intent (CountActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;

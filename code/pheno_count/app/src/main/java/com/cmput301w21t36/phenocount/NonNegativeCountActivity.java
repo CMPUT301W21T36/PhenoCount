@@ -16,10 +16,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * This class represents NonNegativeCount trials
- * @author Marzookh
+ * This class represents NonNegativeCountActivity trials
  */
-public class NonNegativeCount extends AppCompatActivity {
+public class NonNegativeCountActivity extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
@@ -35,7 +34,7 @@ public class NonNegativeCount extends AppCompatActivity {
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Trial(newexp.getOwner());
-        trial.setType("NonNegativeCount");
+        trial.setType("NonNegativeCountActivity");
 
         numberFormat = new DecimalFormat("#.0000");
 
@@ -74,7 +73,7 @@ public class NonNegativeCount extends AppCompatActivity {
                     trial.setValue(value);
                     newexp.getTrials().add(trial);
                     Toast.makeText(
-                            NonNegativeCount.this,
+                            NonNegativeCountActivity.this,
                             "Count Recorded",
                             Toast.LENGTH_SHORT).show();
                     newexp.getTrials().add(trial);
@@ -86,7 +85,7 @@ public class NonNegativeCount extends AppCompatActivity {
                     finish();
                 }else{
                     Toast.makeText(
-                            NonNegativeCount.this,
+                            NonNegativeCountActivity.this,
                             "Please add a location first",
                             Toast.LENGTH_LONG).show();
                 }
@@ -98,7 +97,7 @@ public class NonNegativeCount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (NonNegativeCount.this,MapsActivity.class);
+                Intent intent = new Intent (NonNegativeCountActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;

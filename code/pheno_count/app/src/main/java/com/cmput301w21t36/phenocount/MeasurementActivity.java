@@ -16,10 +16,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * This class represents Measurement trials
- * @author Marzookh
+ * This class represents MeasurementActivity trials
  */
-public class Measurement extends AppCompatActivity {
+public class MeasurementActivity extends AppCompatActivity {
     Trial trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
@@ -35,7 +34,7 @@ public class Measurement extends AppCompatActivity {
 
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trial = new Trial(newexp.getOwner());
-        trial.setType("Measurement");
+        trial.setType("MeasurementActivity");
         numberFormat = new DecimalFormat("#.0000");
 
 
@@ -51,7 +50,7 @@ public class Measurement extends AppCompatActivity {
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
         TextView exptype= findViewById(R.id.exptype3);
-        exptype.setText("Experiment Type: Measurement");
+        exptype.setText("Experiment Type: MeasurementActivity");
 
         coordinates = findViewById(R.id.coordinates);
 
@@ -76,7 +75,7 @@ public class Measurement extends AppCompatActivity {
                     newexp.getTrials().add(trial);
 
                     Toast.makeText(
-                            Measurement.this,
+                            MeasurementActivity.this,
                             "Measurement Recorded",
                             Toast.LENGTH_SHORT).show();
 
@@ -86,7 +85,7 @@ public class Measurement extends AppCompatActivity {
 
                     finish();
                 }else{  Toast.makeText(
-                        Measurement.this,
+                        MeasurementActivity.this,
                         "Please add a location first",
                         Toast.LENGTH_LONG).show();
                 }
@@ -99,7 +98,7 @@ public class Measurement extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (Measurement.this,MapsActivity.class);
+                Intent intent = new Intent (MeasurementActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
@@ -110,7 +109,7 @@ public class Measurement extends AppCompatActivity {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Measurement.this, ScanBarcodeActivity.class);
+                Intent i = new Intent(MeasurementActivity.this, ScanBarcodeActivity.class);
                 startActivityForResult(i, 1);
             }
         });

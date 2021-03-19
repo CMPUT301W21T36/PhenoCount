@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,14 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This activity deals with displaying the contents of an experiment
@@ -108,25 +100,25 @@ public class DisplayExperimentActivity extends AppCompatActivity {
 
             if(item.getItemId() == R.id.item1) {
                 if (exp.getExpType().equals("Binomial")) {
-                    Intent bintent = new Intent(DisplayExperimentActivity.this, Binomial.class);
+                    Intent bintent = new Intent(DisplayExperimentActivity.this, BinomialActivity.class);
                     bintent.putExtra("experiment", exp);
                     int LAUNCH_SECOND_ACTIVITY = 1;
                     startActivityForResult(bintent, LAUNCH_SECOND_ACTIVITY);
                 }
                 if (exp.getExpType().equals("Count")) {
-                    Intent cintent = new Intent(DisplayExperimentActivity.this, Count.class);
+                    Intent cintent = new Intent(DisplayExperimentActivity.this, CountActivity.class);
                     cintent.putExtra("experiment", exp);
                     int LAUNCH_SECOND_ACTIVITY = 1;
                     startActivityForResult(cintent, LAUNCH_SECOND_ACTIVITY);
                 }
                 if (exp.getExpType().equals("Measurement")) {
-                    Intent mintent = new Intent(DisplayExperimentActivity.this, Measurement.class);
+                    Intent mintent = new Intent(DisplayExperimentActivity.this, MeasurementActivity.class);
                     mintent.putExtra("experiment", exp);
                     int LAUNCH_SECOND_ACTIVITY = 1;
                     startActivityForResult(mintent, LAUNCH_SECOND_ACTIVITY);
                 }
                 if (exp.getExpType().equals("NonNegativeCount")) {
-                    Intent nintent = new Intent(DisplayExperimentActivity.this, NonNegativeCount.class);
+                    Intent nintent = new Intent(DisplayExperimentActivity.this, NonNegativeCountActivity.class);
                     nintent.putExtra("experiment", exp);
                     int LAUNCH_SECOND_ACTIVITY = 1;
                     startActivityForResult(nintent, LAUNCH_SECOND_ACTIVITY);
@@ -162,69 +154,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 expManager = new ExpManager();
                 expManager.updateTrialData(db,exp,username,UUID);
 
-                /*if (exp != null) {
-                   // exp = newexp; //updating the current exp object(to show updated exp desc)
-                    System.out.println("SIZE:"+exp.getTrials().size());
-
-                    //Intent intent = getIntent();
-                    //Bundle bundle = getIntent().getExtras();
-                    //String owner = bundle.get("AutoId").toString();
-
-                    db = FirebaseFirestore.getInstance();
-                    final CollectionReference collectionReference = db.collection("Trials");
-                    //manager.addExperiment(exp);
-                    //expAdayDataSetChanged();
-                    ////////// here
-                    // final String Type = expType;
-
-                    HashMap<String, String> fdata = new HashMap<>();
-                    String id = db.collection("Trials").document().getId();
-                    Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
-
-                    //fdata.put("expID", exp.getID()); // dont need it anymore
-                    if(exp.getExpType().equals("Binomial")) {
-                        fdata.put("result",String.valueOf(trial.getResult()));
-                    }
-                    else if (exp.getExpType().equals("Count")) {
-                        fdata.put("result",String.valueOf(trial.getCount()));
-                    }
-                    else if (exp.getExpType().equals("Measurement")){
-                        fdata.put("result",String.valueOf(trial.getMeasurement()));
-                    }
-                    else if (exp.getExpType().equals("NonNegativeCount")){
-                        fdata.put("result",String.valueOf(trial.getValue()));
-                    }
-                    fdata.put("type", exp.getExpType());
-                    fdata.put("owner", username);
-                    fdata.put("userID",UUID);
-
-                    //location
-                    fdata.put("Latitude",""+trial.getLatitude());
-                    fdata.put("Longitude",""+trial.getLongitude());
-
-
-                    db.collection("Experiment")
-                            .document(exp.getID()).collection("Trials")
-                            .add(fdata)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "Data added successfully!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                // These are a method which gets executed if there’s any problem
-                                    Log.d(TAG, "Data could not be added!" + e.toString());
-                                }
-                            });*/
                 }
-            else {
-//                    String testt = data.getSerializableExtra("scannedText").toString();
-//                    TextView test = findViewById(R.id.scannedTextView);
-//                    test.setText(testt);
-                }
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");
