@@ -16,6 +16,7 @@ public class Reply extends Post{
     }
     public Reply(){
 
+
     }
 
 
