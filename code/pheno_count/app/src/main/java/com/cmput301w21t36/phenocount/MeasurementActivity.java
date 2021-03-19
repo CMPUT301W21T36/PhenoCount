@@ -124,12 +124,12 @@ public class MeasurementActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 Trial trial = (Trial) data.getSerializableExtra("trial_obj");
-                if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
-                    coordinates.setText("Location : NOT ADDED");
-                else
-                    coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
-
                 if (trial != null) {
+                    if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
+                        coordinates.setText("Location : NOT ADDED");
+                    else
+                        coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
+
                     newexp.getTrials().add(trial);
                 } else {
                     String scannedText = data.getSerializableExtra("scannedText").toString();

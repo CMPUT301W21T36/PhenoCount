@@ -12,14 +12,14 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import java.util.ArrayList;
 
 
-/**
- * @author Charffy
- * This DiscussionActivity class stores all the questions asked by
+/*
+ * Role: view
+ * This DiscussionActivity class display all the questions asked by
  * users related to a certain experiment.
- * Context: ExperimentActivity -> MenuActivity-> 'Discuss' button -> this;
- * Click 'Discuss' button in the MenuActivity can transfer user to the this activity,
- * so the DiscussionActivity class has its own UI.
- * When a question in the lsit view is clicked, the user is transferred to
+ * Context: DisplayExperimentActivity ->'Discuss' button -> this.
+ * How to use:
+ * Click 'Discuss' button in the menu can transfer user to the this activity,
+ * When a question in the list view is clicked, the user is transferred to
  * the QuestionActivity page, where they can browse all the replies the question
  * has received.
  */
@@ -80,11 +80,11 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         super.onResume();
     }
 
-    /**
+    /*
      * This method allows user to ask a question of the experiment,
      * the newly added question will be stored in the discussion forum.
-     * how: click '+' button in UI, a fragment shows, has two text boxes,
-     * the top one is a title, says 'Add a Question',
+     * how: click 'Ask Question' button in UI, a fragment shows, has two text boxes,
+     * the top one is a title, says 'Ask a Question',
      * the bottom one is the an edit text, let the user type in the question body.
      */
     public void addQuestion(){
@@ -96,7 +96,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
 
     }
 
-    /**
+    /*
      * @param text
      * Inside this 'ask question' fragment, if 'OK' is pressed, then
      * this question is saved to the discussion forum's question list.
@@ -108,7 +108,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         Toast.makeText(DiscussionActivity.this, "A new question is posted!", Toast.LENGTH_SHORT).show();
     }
 
-    /**
+    /*
      * @param target
      * When you click on a question in the list view, you will be
      * transferred to this question's activity page, where you

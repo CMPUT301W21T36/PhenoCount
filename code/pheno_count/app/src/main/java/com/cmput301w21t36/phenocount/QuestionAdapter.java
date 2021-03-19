@@ -12,6 +12,12 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/*
+ * Role: view
+ * This QuestionAdapter class helps to display contents of a question
+ * in the listview in DiscussionActivity.
+ */
+
 public class QuestionAdapter extends ArrayAdapter<Question> {
     private ArrayList<Question> questions;
     private Context context;

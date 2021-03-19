@@ -11,7 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-
+/*
+ * Role: view
+ * This ReplyAdapter class helps to display contents of a reply
+ * in the listview in QuestionActivity.
+ */
 public class ReplyAdapter extends ArrayAdapter<Reply> {
     private ArrayList<Reply> replies;
     private Context context;
@@ -35,7 +39,6 @@ public class ReplyAdapter extends ArrayAdapter<Reply> {
         TextView repText = view.findViewById(R.id.reply_text_view_in_list);
 
         repText.setText(reply.getText());
-
 
         return view;
     }

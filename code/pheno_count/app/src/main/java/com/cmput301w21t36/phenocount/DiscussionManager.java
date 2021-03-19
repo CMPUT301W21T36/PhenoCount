@@ -18,13 +18,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
-//This class is used to manage the question list, it is used to store all available experiments
-//created by the user.
-//It is used in the class MainActivity for retrieving the experiment list.
-//It is used in the class RecordActivity for retrieve the current experiment for recording,
-//either just created or selected to recreate.
+/*
+ * Role: controller
+ * Goal: This class is used to manage the question list in the DiscussionActivity,
+ * and reply list in the QuestionActivity
+ * How to use:
+ * create an DatabaseManager object, which grants the access of collections Question and Reply
+ * in the database.
+ * It can be used to add documents to the collections,
+ * and update the listview in DiscussionActivity and QuestionActivity
+ */
 
 public class DiscussionManager{
     private ArrayList<Question> queDataList = new ArrayList<>();

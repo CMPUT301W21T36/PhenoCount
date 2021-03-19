@@ -3,6 +3,11 @@ package com.cmput301w21t36.phenocount;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/*
+ * Role: controller
+ * Goal: grant permission of using the database for other manager classes
+ */
+
 public class DatabaseManager {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference quecollectionReference;
