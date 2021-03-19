@@ -19,7 +19,7 @@ import androidmads.library.qrgenearator.QRGEncoder;
 
 /**
  * This model class passes a trials list to TrialAdapter to display results of the trials conducted
- * It also starts an intent to the QR activity
+ * It also generates and displays a Qr code when a trial is clicked in the list
  */
 public class ResultsActivity extends AppCompatActivity {
     ListView trials;
