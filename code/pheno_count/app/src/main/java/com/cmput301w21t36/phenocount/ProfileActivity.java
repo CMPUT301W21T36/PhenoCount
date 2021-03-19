@@ -116,8 +116,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        //String old_username =sharedPrefs.getString("Username", "");
 
+        // this query updates the old username in the users old experiments
         db.collection("Experiment").whereEqualTo("owner",UID).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -131,9 +131,35 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
             }
         });
 
+        // this query updates the old username in the users old trials
+        db.collection("Experiment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (QueryDocumentSnapshot doc : value) {
+                    if(error == null){
+                        String docID = doc.getId();
+                        db.collection("Experiment")
+                                .document(docID).collection("Trials")
+                                .whereEqualTo("userID",UID)
+                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value2, @Nullable FirebaseFirestoreException error) {
+                                        for (QueryDocumentSnapshot document : value2) {
+                                            if(error ==null){
+                                                db.collection("Experiment")
+                                                        .document(docID).collection("Trials")
+                                                        .document(document.getId())
+                                                        .update("owner",username);
+                                            }
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
+        });
         editor.putString("Username", username);
         editor.putString("Number",contact);
         editor.apply();
-
     }
 }

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 /**
  * This model class passes a trials list to TrialAdapter to display results of the trials conducted
  * It also starts an intent to the QR activity
- * @author Marzookh
  */
 public class ResultsActivity extends AppCompatActivity {
     ListView trials;
@@ -44,7 +43,7 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent (ResultsActivity.this, GenerateQrActivity.class);
-                intent.putExtra("data", trialList.get(position).getResult());
+                intent.putExtra("data", 1); //change this
                 startActivity(intent);
             }
         });

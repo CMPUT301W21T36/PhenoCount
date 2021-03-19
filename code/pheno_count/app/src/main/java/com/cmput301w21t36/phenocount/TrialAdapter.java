@@ -1,5 +1,6 @@
 package com.cmput301w21t36.phenocount;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 /**
  * This Controller/View class accepts parameters from ResultsActivity and displays the results
  * of the trials
- * @author Marzookh
  */
 public class TrialAdapter extends ArrayAdapter<Trial> {
     private ArrayList<Trial> trialList;
@@ -29,6 +29,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         this.context = context;
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
 
@@ -36,28 +37,37 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
             view = LayoutInflater.from(context).inflate(R.layout.content_trials,parent,false);
         }
 
-        Trial trial = trialList.get(position);
+        //getting the trial object from results activity
+        Trial trial = getItem(position);
 
+
+        //initializing textviews
         TextView trial_no = view.findViewById(R.id.trial_no);
         TextView trial_owner = view.findViewById(R.id.trial_owner);
         TextView trial_outcome = view.findViewById(R.id.trial_outcome);
 
-        trial_no.setText("Trial "+position);
-        trial_owner.setText("Owner : "+trial.getOwner().getProfile().getUsername());
-        System.out.println(trial.getType());
+        //setting common trial attributes
+        trial_owner.setText(trial.getOwner().getProfile().getUsername());
+        trial_no.setText("Trial "+(position+1));
+
+        //checking type of trial and setting result
         if (trial.getType().equals("Binomial")) {
-            trial_outcome.setText("Result: "+trial.getResult());
+            Binomial btrial = (Binomial) trial;
+            trial_outcome.setText("Result: "+btrial.getResult());
         }
         if (trial.getType().equals("Count")) {
-            trial_outcome.setText("Result: "+trial.getCount());
+            Count ctrial = (Count) trial;
+            trial_outcome.setText("Result: "+ctrial.getCount());
         }
-        if (trial.getType().equals("MeasurementActivity")) {
-            trial_outcome.setText("Result: "+trial.getMeasurement());
+        if (trial.getType().equals("Measurement")) {
+            Measurement mtrial = (Measurement) trial;
+            trial_outcome.setText("Result: "+mtrial.getMeasurement());
         }
-        if (trial.getType().equals("NonNegativeCountActivity")) {
-            trial_outcome.setText("Result: "+trial.getValue());
-        }
+        if (trial.getType().equals("NonNegativeCount")) {
+            NonNegativeCount ntrial = (NonNegativeCount) trial ;
+            trial_outcome.setText("Result: "+ntrial.getValue());
 
+        }
         return view;
     }
 

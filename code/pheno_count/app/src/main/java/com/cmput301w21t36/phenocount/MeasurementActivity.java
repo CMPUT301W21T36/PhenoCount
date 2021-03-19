@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * sets measurement to 0.0 if field is left blank
  */
 public class MeasurementActivity extends AppCompatActivity {
-    Trial trial;
+    Measurement trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
     TextView coordinates;
@@ -32,15 +32,15 @@ public class MeasurementActivity extends AppCompatActivity {
         // receiving intent object
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trial_measurement);
-
-        newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
-        trial = new Trial(newexp.getOwner());
-        trial.setType("MeasurementActivity");
         numberFormat = new DecimalFormat("#.0000");
+
+        // receiving intent object
+        newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        trial = new Measurement(newexp.getOwner());
+        trial.setType("Measurement");
 
 
         // Capture the layout's TextView and set the string as its text
-
         TextView desc = findViewById(R.id.desc3);
         desc.setText("Description:" + String.valueOf(newexp.getDescription()));
 
@@ -53,20 +53,18 @@ public class MeasurementActivity extends AppCompatActivity {
         TextView exptype= findViewById(R.id.exptype3);
         exptype.setText("Experiment Type: MeasurementActivity");
 
-        coordinates = findViewById(R.id.coordinates);
-
-        coordinates.setText("Location : NOT ADDED");
-
-
         EditText measurement = findViewById(R.id.measurement_editText);
 
+        //setting location coordinates
+        coordinates = findViewById(R.id.coordinates);
+        coordinates.setText("Location : NOT ADDED");
 
         final Button recordvbtn = findViewById((R.id.recordvbtn));
         recordvbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //checks if location is provided
                 if(location || !newexp.isRequireLocation()) {
-
                     String temp = measurement.getText().toString();
                     float value = 0;
                     if (!"".equals(temp)) {
@@ -80,6 +78,7 @@ public class MeasurementActivity extends AppCompatActivity {
                             "Measurement Recorded",
                             Toast.LENGTH_SHORT).show();
 
+                    //passing the experiment object back to DisplayExperimentActivity
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("experiment", newexp);
                     setResult(Activity.RESULT_OK, returnIntent);
@@ -99,6 +98,7 @@ public class MeasurementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //passing trial object to get location updated
                 Intent intent = new Intent (MeasurementActivity.this,MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
@@ -124,14 +124,14 @@ public class MeasurementActivity extends AppCompatActivity {
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
-                Trial trial = (Trial) data.getSerializableExtra("trial_obj");
+                //catching the trial object back
+                trial = (Measurement) data.getSerializableExtra("trial_obj");
                 if (trial != null) {
                     if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                         coordinates.setText("Location : NOT ADDED");
                     else
                         coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
 
-                    newexp.getTrials().add(trial);
                 } else {
                     String scannedText = data.getSerializableExtra("scannedText").toString();
                     EditText input = findViewById(R.id.measurement_editText);
