@@ -4,6 +4,7 @@
 * To get your current location when running the app on an AVD, set it manually by clicking on the menu button (...) and then clicking on "Location" from the left side bar. 
 * Please grant necessary location permissions to be able to use location functionalities.
 * No need to provide your own API key in the local.properties file.
+* If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
 
 ### References:
 
