@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Experiment> expDataList;
     ArrayAdapter<Experiment> expAdapter;
     ExpManager manager = new ExpManager();
-    DatabaseManager dbmanager = new DatabaseManager();
+    DatabaseManager dbManager = new DatabaseManager();
     static final String AutoID = "ID";
     private String UUID;
     private String username;
-    private String phone_number;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         expDataList = new ArrayList<>();
 
         // To get instance of the database
-        db = dbmanager.getDb();
+        db = dbManager.getDb();
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         boolean firstStart = sharedPrefs.getBoolean("firstStart",true );
@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         username = documentSnapshot.getString("Username");
-                        phone_number = documentSnapshot.getString("ContactInfo");
+                        phoneNumber = documentSnapshot.getString("ContactInfo");
 
                         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
                         editor.putString("Username", username);
-                        editor.putString("Number",phone_number);
+                        editor.putString("Number",phoneNumber);
                         editor.apply();
                     }
                 });
@@ -132,8 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
-        // To populate our experiment list
-        manager.getExpData(db, expDataList, expAdapter, UUID);
+        manager.getExpData(db, expDataList, expAdapter, UUID); // To populate our experiment list
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -168,12 +167,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is called when the searchButton is clicked and Switches MainActivity to
+     * SearchingActivity
+     */
     public void openSearch() {
         Intent intent = new Intent(this, SearchingActivity.class);
         intent.putExtra("expID",UUID);
         startActivity(intent);
     }
 
+    /**
+     * This method is called when the profileButton is clicked and Switches MainActivity to
+     * ProfileActivity
+     */
     public void openProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         String ID = UUID;
