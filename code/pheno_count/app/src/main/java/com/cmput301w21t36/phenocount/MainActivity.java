@@ -69,29 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         //checks if this is the first time the user is using the application
         if (firstStart) {
-            final DocumentReference userReference = db.collection("User").document();
-            // Auto-ID created for the document
-            String GrabbedID = userReference.getId();
-
-            sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPrefs.edit();
-
-            editor.putString(AutoID, GrabbedID);
-
-            editor.putBoolean("firstStart", false);
-            editor.apply();
-
-            // This is the UUID for the current user using the app
-            // It will save over instances of the app and is only updated upon first open after install
-            UUID = sharedPrefs.getString(AutoID, "");
-
-            Map<String, Object> user = new HashMap<>();
-            user.put("UID", UUID);
-            user.put("Username", "New User");
-            user.put("ContactInfo", "No contact info");
-
-            db.collection("User").document(UUID).set(user);
-
+            makeUser(sharedPrefs, db);
         }
 
         // This is the UUID for the current user using the app
@@ -193,5 +171,29 @@ public class MainActivity extends AppCompatActivity {
         String name = username;
         intent.putExtra("UUID",ID);
         startActivity(intent);
+    }
+
+    public void makeUser(SharedPreferences sharedPrefs, FirebaseFirestore db) {
+        final DocumentReference userReference = db.collection("User").document();
+        // Auto-ID created for the document
+        String GrabbedID = userReference.getId();
+
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        editor.putString(AutoID, GrabbedID);
+
+        editor.putBoolean("firstStart", false);
+        editor.apply();
+
+        // This is the UUID for the current user using the app
+        // It will save over instances of the app and is only updated upon first open after install
+        UUID = sharedPrefs.getString(AutoID, "");
+
+        Map<String, Object> user = new HashMap<>();
+        user.put("UID", UUID);
+        user.put("Username", "New User");
+        user.put("ContactInfo", "No contact info");
+
+        db.collection("User").document(UUID).set(user);
     }
 }

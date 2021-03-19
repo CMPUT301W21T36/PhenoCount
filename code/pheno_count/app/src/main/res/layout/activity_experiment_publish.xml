@@ -131,7 +131,8 @@
             android:layout_weight="1"
             android:onClick="toAdd"
             android:text="OK"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            app:backgroundTint="@color/design_default_color_primary" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/cancelButton"
@@ -142,7 +143,8 @@
             android:layout_weight="1"
             android:onClick="toCancel"
             android:text="Cancel"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            app:backgroundTint="@color/design_default_color_primary" />
     </FrameLayout>
 
 </LinearLayout>
