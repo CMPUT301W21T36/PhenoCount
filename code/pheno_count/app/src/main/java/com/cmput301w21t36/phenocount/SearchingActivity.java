@@ -30,7 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Caleb Lonson
+ * Will grab all experiments from SearchManager and will display all in a listview for a graphical interface
+ * Any experiments clicked will open DisplayExperimentActivity
+ * @see SearchingManager
+ * @see DisplayExperimentActivity
  */
 public class SearchingActivity extends AppCompatActivity {
 
