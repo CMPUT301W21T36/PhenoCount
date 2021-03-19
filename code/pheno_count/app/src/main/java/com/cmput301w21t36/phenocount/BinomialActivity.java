@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 /**
  * This class represents binomial trials
  */
+
 public class BinomialActivity extends AppCompatActivity {
     Binomial trial;
     Experiment newexp;//defining the Experiment object
