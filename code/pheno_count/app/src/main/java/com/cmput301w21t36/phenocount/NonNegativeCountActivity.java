@@ -113,13 +113,11 @@ public class NonNegativeCountActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 trial = (NonNegativeCount) data.getSerializableExtra("trial_obj");
-                newexp.getTrials().add(trial);
 
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
                 else
                     coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
-                //newexp.getTrials().add(trial);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 System.out.println("No Data");

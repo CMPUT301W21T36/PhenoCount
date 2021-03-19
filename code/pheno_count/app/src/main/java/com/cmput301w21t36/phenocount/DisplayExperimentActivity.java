@@ -133,6 +133,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.item4){
                 Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
                 tintent.putExtra("experiment", exp);
+
                 startActivity(tintent);
             }
         return super.onOptionsItemSelected(item);

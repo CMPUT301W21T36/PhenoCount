@@ -126,7 +126,6 @@ public class CountActivity extends AppCompatActivity {
                 location = true;
                 trial = (Count) data.getSerializableExtra("trial_obj");
 
-
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
                 else

@@ -130,7 +130,6 @@ public class MeasurementActivity extends AppCompatActivity {
                     else
                         coordinates.setText("Location : ("+numberFormat.format(trial.getLatitude())+","+numberFormat.format(trial.getLongitude())+")");
 
-                    newexp.getTrials().add(trial);
                 } else {
                     String scannedText = data.getSerializableExtra("scannedText").toString();
                     EditText input = findViewById(R.id.measurement_editText);

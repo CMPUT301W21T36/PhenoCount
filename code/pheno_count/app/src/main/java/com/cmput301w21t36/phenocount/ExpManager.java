@@ -80,7 +80,7 @@ public class ExpManager {
                 fdata.put("result",String.valueOf(trial.getMeasurement()));
                 fdata.put("Latitude",""+trial.getLatitude());
                 fdata.put("Longitude",""+trial.getLongitude());
-            }
+                }
             else if (exp.getExpType().equals("NonNegativeCount")){
                 NonNegativeCount trial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size()-1);
                 fdata.put("result",String.valueOf(trial.getValue()));
