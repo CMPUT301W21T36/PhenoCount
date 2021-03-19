@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 /**
  * This class represents the Experiment objects
- * @author Anisha
  */
 public class Experiment implements Serializable {
     private String expID; //store the ID inside this Experiment, so we can know which document it is
@@ -20,7 +19,6 @@ public class Experiment implements Serializable {
     private Statistic stats;
     private int expStatus = -1; // 0 for add, 1 for published, 2 for ended, 3 for unpublished
     private int subscribe = 0;
-   
 
     /**
      * This constructs a new experiment object
@@ -51,23 +49,7 @@ public class Experiment implements Serializable {
         this.requireLocation = requireLocation;
         this.expType = expType;
         this.expStatus = expStatus;
-
     }
-
-    /*public Experiment(String name, String description, String region, String expType, int minimumTrials, boolean requireLocation,int expStatus) {
-        this.name = name;
-        this.description = description;
-        this.region = region;
-        this.minimumTrials = minimumTrials;
-        this.requireLocation = requireLocation;
-        this.expType = expType;
-        this.expStatus = expStatus;
-
-    }
-
-
-     */
-
 
     /**
      * This method checks if the Experiment is published or not
