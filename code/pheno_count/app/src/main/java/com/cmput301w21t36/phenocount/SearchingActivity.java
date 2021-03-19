@@ -59,6 +59,7 @@ public class SearchingActivity extends AppCompatActivity {
 
         expArray.getAllExp(db, expDataList, adapter);
 
+        // When experiment in listview is clicked, we open it and call new activity
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
