@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * This class represents MeasurementActivity trials
+ * sets measurement to 0.0 if field is left blank
  */
 public class MeasurementActivity extends AppCompatActivity {
     Trial trial;

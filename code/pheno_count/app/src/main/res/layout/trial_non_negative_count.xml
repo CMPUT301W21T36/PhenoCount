@@ -9,12 +9,14 @@
         android:id="@+id/recordcbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
+        android:layout_marginTop="264dp"
         android:text="Record"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype4" />
+        app:layout_constraintTop_toBottomOf="@+id/exptype4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/desc4"
@@ -59,30 +61,35 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status4" />
+        app:layout_constraintTop_toBottomOf="@+id/status4" /><![CDATA[
 
-    <EditText
-        android:id="@+id/count_editText"
-        android:layout_width="142dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="84dp"
-        android:ems="10"
-        android:hint="Enter count here"
-        android:digits="0123456789"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/recordcbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype3"
-        app:layout_constraintVertical_bias="0.238" /><![CDATA[
+
 
     //tools:layout_editor_absoluteX="-68dp"
     //tools:layout_editor_absoluteY="334dp" />
 
 
 
+
+
+
+
     ]]>
+
+    <EditText
+        android:id="@+id/count_editText"
+        android:layout_width="142dp"
+        android:layout_height="42dp"
+        android:digits="0123456789"
+        android:ems="10"
+        android:hint="Enter count here"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/recordcbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exptype4"
+        app:layout_constraintVertical_bias="0.761" />
 
     <TextView
         android:id="@+id/textView2"
@@ -94,7 +101,7 @@
         app:layout_constraintHorizontal_bias="0.62"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
+        app:layout_constraintVertical_bias="0.599" />
 
     <Button
         android:id="@+id/locationbtn4"
@@ -104,10 +111,10 @@
         app:icon="@drawable/ic_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/count"
-        app:layout_constraintVertical_bias="0.784" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
     <TextView
         android:id="@+id/coordinates"

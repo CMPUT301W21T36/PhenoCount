@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * This class represents NonNegativeCountActivity trials
+ * Sets count to 0 if field is left blank
  */
 public class NonNegativeCountActivity extends AppCompatActivity {
     Trial trial;
