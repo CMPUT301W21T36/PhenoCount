@@ -36,9 +36,6 @@ public class ResultsActivity extends AppCompatActivity {
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trialList = exp.getTrials();
 
-        Measurement mtrial = (Measurement) trialList.get(trialList.size()-1);
-        System.out.println("Measurement:"+mtrial.getMeasurement());
-
         //initializing adapter
         trialAdapter = new TrialAdapter(this,trialList);
         trials.setAdapter(trialAdapter);

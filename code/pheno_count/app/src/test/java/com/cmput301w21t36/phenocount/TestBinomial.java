@@ -4,16 +4,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-
-public class TestTrial {
-
-    private Trial mockTrial(){return new Trial(mockUser());}
+public class TestBinomial {
+    private Binomial mockTrial(){return new Binomial(mockUser());}
     private User mockUser(){return new User("123456789",mockProfile());}
     private Profile mockProfile(){return new Profile("Marzookh","7806601902");}
 
     @Test
     public void testisSuccess() {
-        Trial trial = mockTrial();
+        Binomial trial = mockTrial();
         assertEquals(false, trial.getResult());
         trial.isSuccess();
         assertEquals(true, trial.getResult());
@@ -21,21 +19,10 @@ public class TestTrial {
 
     @Test
     public void testisFailure() {
-        Trial trial = mockTrial();
+        Binomial trial = mockTrial();
         trial.isSuccess();
         assertEquals(true, trial.getResult());
         trial.isFailure();
         assertEquals(false, trial.getResult());
     }
-
-    @Test
-    public void testisCount() {
-        Trial trial = mockTrial();
-        assertEquals(0, trial.getCount());
-        trial.isCount();
-        assertEquals(1, trial.getCount());
-    }
-
-
-
 }

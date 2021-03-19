@@ -44,7 +44,7 @@ public class TestExperiment {
      * @return
      * returns a trial
      */
-    private Trial mockTrial(){return new Trial(mockUser());}
+    private Trial mockTrial(){return new Binomial(mockUser());}
 
     /**
      * This method returns a mock User for testing

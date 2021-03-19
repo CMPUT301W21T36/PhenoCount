@@ -40,7 +40,6 @@ public class BinomialActivity extends AppCompatActivity {
         trial.setType("Binomial");
 
 
-
         // Capture the layout's TextView and set the string as its text
 
         TextView desc = findViewById(R.id.desc1);
