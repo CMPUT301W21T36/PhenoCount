@@ -53,7 +53,13 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         //checking type of trial and setting result
         if (trial.getType().equals("Binomial")) {
             Binomial btrial = (Binomial) trial;
-            trial_outcome.setText("Result: "+btrial.getResult());
+            if (btrial.getResult()){
+                trial_outcome.setText("Result: Success");
+            }
+            else{
+                trial_outcome.setText("Result: Failure");
+            }
+
         }
         if (trial.getType().equals("Count")) {
             Count ctrial = (Count) trial;
