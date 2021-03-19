@@ -50,35 +50,39 @@ public class ResultsActivity extends AppCompatActivity {
         trials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                qr.setVisibility(View.VISIBLE);
-                trials.setVisibility(View.GONE);
-                // Create QR Encoder with value to be encoded
-                String type = exp.getExpType();
-                String trial = "null";
-                switch (type){
-                    case "Binomial":
-                        trial = String.valueOf(((Binomial) trialList.get(position)).getResult());
-                        break;
-                    case "Count":
-                        trial = String.valueOf(((Count) trialList.get(position)).getCount());
-                        break;
-                    case "Measurement":
-                        trial = String.valueOf(((Measurement) trialList.get(position)).getMeasurement());
-                        break;
-                    case "NonNegativeCount":
-                        trial = String.valueOf(((NonNegativeCount) trialList.get(position)).getValue());
-                        break;
-                }
-                QRGEncoder qrgEncoder = new QRGEncoder(trial, null, QRGContents.Type.TEXT, 500);
-                try {
-                    // Getting QR as Bitmap
-                    Bitmap bitmap = qrgEncoder.getBitmap();
-                    // Set QR to ImageView
-                    qr.setImageBitmap(bitmap);
-                } catch (Exception e) {
-                    Log.v("Exception", e.toString());
-                }
+                generateQr(position);
             }
         });
+    }
+
+    private void generateQr(int position) {
+        qr.setVisibility(View.VISIBLE);
+        trials.setVisibility(View.GONE);
+        // Create QR Encoder with value to be encoded
+        String type = exp.getExpType();
+        String trial = "null";
+        switch (type){
+            case "Binomial":
+                trial = String.valueOf(((Binomial) trialList.get(position)).getResult());
+                break;
+            case "Count":
+                trial = String.valueOf(((Count) trialList.get(position)).getCount());
+                break;
+            case "Measurement":
+                trial = String.valueOf(((Measurement) trialList.get(position)).getMeasurement());
+                break;
+            case "NonNegativeCount":
+                trial = String.valueOf(((NonNegativeCount) trialList.get(position)).getValue());
+                break;
+        }
+        QRGEncoder qrgEncoder = new QRGEncoder(trial, null, QRGContents.Type.TEXT, 500);
+        try {
+            // Getting QR as Bitmap
+            Bitmap bitmap = qrgEncoder.getBitmap();
+            // Set QR to ImageView
+            qr.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            Log.v("Exception", e.toString());
+        }
     }
 }
