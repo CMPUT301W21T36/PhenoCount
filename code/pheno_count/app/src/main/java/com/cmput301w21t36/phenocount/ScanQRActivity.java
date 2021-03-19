@@ -8,6 +8,12 @@ import android.widget.Button;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
+
+
+// NOT USED FOR PART 3
+
+
+
 public class ScanQRActivity extends AppCompatActivity {
 
     @Override
