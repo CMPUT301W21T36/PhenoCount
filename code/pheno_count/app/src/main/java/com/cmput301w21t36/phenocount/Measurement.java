@@ -6,9 +6,6 @@ public class Measurement extends Trial implements Serializable {
 
     private float measurement;
 
-
-
-
     /**
      * constructor for new Trial object
      *
@@ -24,7 +21,6 @@ public class Measurement extends Trial implements Serializable {
     public float getMeasurement() {
         return measurement;
     }
-
 
     public void setMeasurement(float measurement) {
         this.measurement = measurement;

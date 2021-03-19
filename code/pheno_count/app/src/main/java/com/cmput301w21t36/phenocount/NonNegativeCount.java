@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class NonNegativeCount extends Trial implements Serializable {
 
-    private float value;
+    private int value;
     /**
      * constructor for new Trial object
      *
@@ -20,7 +20,7 @@ public class NonNegativeCount extends Trial implements Serializable {
         return value;
     }
 
-    public void setValue(float value) {
+    public void setValue(int value) {
         this.value = value;
     }
 }

@@ -53,22 +53,14 @@ public class ExpManager {
     public void updateTrialData(FirebaseFirestore db, Experiment exp,String username,String UUID){
 
         if (exp != null) {
-            //exp = newexp; //updating the current exp object(to show updated exp desc)
             System.out.println("SIZE:"+exp.getTrials().size());
-
-            //Intent intent = getIntent();
-            //Bundle bundle = getIntent().getExtras();
-            //String owner = bundle.get("AutoId").toString();
 
             db = FirebaseFirestore.getInstance();
             final CollectionReference collectionReference = db.collection("Trials");
-            //manager.addExperiment(exp);
-            //expAdayDataSetChanged();
-            ////////// here
-            // final String Type = expType;
+
 
             HashMap<String, String> fdata = new HashMap<>();
-            String id = db.collection("Trials").document().getId();
+            String id = collectionReference.document().getId();
 
             //fdata.put("expID", exp.getID()); // dont need it anymore
             if(exp.getExpType().equals("Binomial")) {
@@ -83,13 +75,15 @@ public class ExpManager {
                 fdata.put("Latitude",""+trial.getLatitude());
                 fdata.put("Longitude",""+trial.getLongitude());
             }
-            else if (exp.getExpType().equals("MeasurementActivity")){
+            else if (exp.getExpType().equals("Measurement")){
                 Measurement trial = (Measurement) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(trial.getMeasurement()));
+                float value = trial.getMeasurement();
+                System.out.println("VALUE: "+value);
+                fdata.put("result",String.valueOf(value));
                 fdata.put("Latitude",""+trial.getLatitude());
                 fdata.put("Longitude",""+trial.getLongitude());
             }
-            else if (exp.getExpType().equals("NonNegativeCountActivity")){
+            else if (exp.getExpType().equals("NonNegativeCount")){
                 NonNegativeCount trial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size()-1);
                 fdata.put("result",String.valueOf(trial.getValue()));
                 fdata.put("Latitude",""+trial.getLatitude());
@@ -176,11 +170,11 @@ public class ExpManager {
             }
         }
 
-        int i =0;
-        while(i<expDataList.size()) {
+        for(int i = 0;i<expDataList.size();i++) {
+
             Experiment exp = expDataList.get(i);
-            int finalI = i;
             System.out.println("expID"+exp.getExpID());
+            int finalI = i;
             db.collection("Experiment").document(exp.getExpID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
@@ -197,12 +191,9 @@ public class ExpManager {
                         Profile profile = new Profile(username);//if phone number needed, do query
                         User user = new User(userID,profile);
                         //Trial trial;
-
-
-
                         System.out.println("Latitude"+latitude);
 
-/*                        if(latitude !=null && longitude != null){
+/*                      if(latitude !=null && longitude != null){
                             trial.setLatitude(Float.parseFloat(latitude));
                             trial.setLongitude(Float.parseFloat(longitude));///////////////
                         }*/
@@ -217,34 +208,42 @@ public class ExpManager {
                                 trial.setResult(Boolean.parseBoolean(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setLatitude(Float.parseFloat(latitude));
+                                trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
                             } else if (ttype.equals("Count")) {
                                 Count trial = new Count(user);
                                 trial.setCount(Integer.parseInt(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setLatitude(Float.parseFloat(latitude));
+                                trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
                             } else if (ttype.equals("Measurement")) {
                                 Measurement trial = new Measurement(user);
                                 trial.setMeasurement(Float.parseFloat(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setLatitude(Float.parseFloat(latitude));
+                                trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
                             } else if (ttype.equals("NonNegativeCount")) {
                                 NonNegativeCount trial = new NonNegativeCount(user);
                                 trial.setValue(Integer.parseInt(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setLatitude(Float.parseFloat(latitude));
+                                trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
                             }
                         }
                     }
                     exp.setTrials(trials);
-                    expDataList.set(finalI,exp);
+                    expDataList.set(finalI,exp); //adding updated trial object to original list
                     System.out.println("SIZE:" + trials.size());
                 }
             });
-            i++;
+
         }
         expAdapter.notifyDataSetChanged();
     }
