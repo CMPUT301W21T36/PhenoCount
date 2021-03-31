@@ -2,12 +2,14 @@
 package com.cmput301w21t36.phenocount;
 
 import android.app.Activity;
+import android.widget.Button;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.robotium.solo.Solo;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +38,34 @@ public class UpdateProfileTest {
         Activity activity = rule.getActivity();
     }
 
+    @Test
+    public void openProfile() {
+        // asserts that the current activity is the MainActivity
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
+        // click on profile button
+        solo.clickOnView((Button) solo.getView(R.id.profileButton));
+        solo.assertCurrentActivity("Wrong Activity", ProfileActivity.class);
+    }
+
+    @Test
+    public void editProfile() {
+        // Work in progress
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView((Button) solo.getView(R.id.profileButton));
+        solo.assertCurrentActivity("Wrong Activity", ProfileActivity.class);
+
+        solo.clickOnView((Button) solo.getView(R.id.profileButton));
+
+    }
+
+    /**
+     * Close activity after each test
+     * @throws Exception
+     */
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
+    }
 
 }
