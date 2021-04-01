@@ -25,7 +25,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
-        <activity android:name=".SearchingActivity"></activity>
+        <activity android:name=".TrialMapsActivity"></activity>
+        <activity android:name=".SearchingActivity" />
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DisplayExperimentActivity" />

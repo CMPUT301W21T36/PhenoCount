@@ -92,6 +92,15 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 startActivityForResult(i, 1);
             }
         });
+
+        final Button mapsBtn = findViewById((R.id.mapsBtn));
+        mapsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DisplayExperimentActivity.this, TrialMapsActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
