@@ -98,6 +98,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DisplayExperimentActivity.this, TrialMapsActivity.class);
+                i.putExtra("trials",exp.getTrials());
                 startActivity(i);
             }
         });
