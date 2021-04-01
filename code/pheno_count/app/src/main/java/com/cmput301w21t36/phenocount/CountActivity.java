@@ -24,6 +24,7 @@ public class CountActivity extends AppCompatActivity {
     DecimalFormat numberFormat;
     TextView coordinates;
     SharedPreferences sharedPrefs;
+    int qrCount = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,12 @@ public class CountActivity extends AppCompatActivity {
 
         // receiving intent object
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+
+        // get the intent object from the Qr activity
+        if (newexp == null) {
+            newexp = (Experiment) getIntent().getSerializableExtra("QrExperiment");
+            qrCount = (Integer) getIntent().getSerializableExtra("count");
+        }
 
         //setting user to owner of trial
         sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
@@ -91,6 +98,11 @@ public class CountActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (qrCount != -1) {
+            trial.setCount(qrCount);
+            recordcountbtn.performClick();
+        }
 
         final Button countbtn = findViewById((R.id.addbtn));
         countbtn.setOnClickListener(new View.OnClickListener() {
