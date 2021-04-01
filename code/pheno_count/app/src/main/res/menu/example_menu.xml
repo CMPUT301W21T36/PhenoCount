@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/item1"
+    <item android:id="@+id/addTrialButon"
         android:title="Add Trial"
         app:showAsAction="never"/>
-    <item android:id="@+id/item2"
+    <item android:id="@+id/subscribeButton"
         android:title="Subscribe"
         app:showAsAction="never"/>
     <item android:id="@+id/item3"
@@ -13,17 +13,17 @@
     <item android:id="@+id/item4"
         android:title="See Results"
         app:showAsAction="never"/>
-    <item android:id="@+id/item5"
+    <item android:id="@+id/ownerAction"
         android:title="Owner Actions"
         app:showAsAction="never">
         <menu>
-            <item android:id="@+id/item6"
+            <item android:id="@+id/unpublishButton"
                 android:title="Unpublish"
                 app:showAsAction="never"/>
-            <item android:id="@+id/item7"
+            <item android:id="@+id/endButton"
                 android:title="End"
                 app:showAsAction="never"/>
-            <item android:id="@+id/item8"
+            <item android:id="@+id/editButton"
                 android:title="Edit"
                 app:showAsAction="never"/>
         </menu>
