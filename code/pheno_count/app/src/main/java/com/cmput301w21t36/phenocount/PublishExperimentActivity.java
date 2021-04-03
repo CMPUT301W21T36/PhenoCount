@@ -49,6 +49,10 @@ public class PublishExperimentActivity extends AppCompatActivity {
     int mode;
     Experiment exp;
     RadioGroup radioGroup;
+    RadioButton binomial;
+    RadioButton count;
+    RadioButton nonNegative;
+    RadioButton measure;
     private final String TAG = "PhenoCount";
 
     @Override
@@ -63,6 +67,10 @@ public class PublishExperimentActivity extends AppCompatActivity {
         expRegion = findViewById(R.id.expRegion);
         expNum = findViewById(R.id.expNum);
         expGeoLoc = findViewById(R.id.geoCheckBox);
+        binomial = findViewById(R.id.radioBinomial);
+        count = findViewById(R.id.radioCount);
+        nonNegative = findViewById(R.id.radioInt);
+        measure = findViewById(R.id.radioMeasure);
 
         Bundle bundle = getIntent().getExtras();
         mode = bundle.getInt("mode");
@@ -126,6 +134,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
         if (exp.isRequireLocation()) {
             expGeoLoc.setChecked(true);
         }
+
         expType=exp.getExpType();
         if (exp.getExpType().equals("Binomial")){
             radioGroup.check(R.id.radioBinomial);
@@ -135,6 +144,17 @@ public class PublishExperimentActivity extends AppCompatActivity {
             radioGroup.check(R.id.radioInt);
         }else if (exp.getExpType().equals("Measurement")){
             radioGroup.check(R.id.radioMeasure);
+        }
+
+        binomial.setEnabled(true);
+        count.setEnabled(true);
+        nonNegative.setEnabled(true);
+        measure.setEnabled(true);
+        if (exp.getTrials().size()>0){
+            binomial.setEnabled(false);
+            count.setEnabled(false);
+            nonNegative.setEnabled(false);
+            measure.setEnabled(false);
         }
 
     }
