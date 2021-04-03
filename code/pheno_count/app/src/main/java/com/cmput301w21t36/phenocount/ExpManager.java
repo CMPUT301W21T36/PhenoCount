@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.common.primitives.Booleans;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -18,8 +19,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.v1.Target;
+
 import android.content.SharedPreferences;
 
 import java.lang.reflect.Array;
@@ -56,7 +60,9 @@ public class ExpManager {
      */
     public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
-        db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Experiment")
+            .whereEqualTo("owner",UUID)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
@@ -65,6 +71,17 @@ public class ExpManager {
         });
     }
 
+    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
+        db.collection("Experiment")
+                .whereArrayContains("sub_list",UUID)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                            FirebaseFirestoreException error) {
+                        getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                    }
+                });
+    }
 
     /**
      * This method is called to update trial data received from the respective trial classes
@@ -160,6 +177,7 @@ public class ExpManager {
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
                 String userName = (String) doc.getData().get("owner_name");
+                ArrayList sList = (ArrayList) doc.getData().get("sub_list");
 
                 boolean reqLoc;
                 if (reqGeo.equals("YES")) {
@@ -183,6 +201,8 @@ public class ExpManager {
                 Profile newProfile = new Profile(userName);
                 User currentUser = new User(owner, newProfile);
                 newExp.setOwner(currentUser);
+                newExp.setSubscribers(sList);
+
                 expDataList.add(newExp);
             }
         }

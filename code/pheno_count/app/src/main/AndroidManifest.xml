@@ -41,6 +41,7 @@
         <activity android:name=".DiscussionActivity" />
         <activity android:name=".ResultsActivity" />
         <activity android:name=".StatsActivity" />
+        <activity android:name=".ShowSubscribedListActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

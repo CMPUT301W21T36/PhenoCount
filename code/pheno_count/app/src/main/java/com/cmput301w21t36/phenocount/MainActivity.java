@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("My Experiments");
+
 
         experiments = findViewById(R.id.expList);
         expDataList = new ArrayList<>();
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the addButton is clicked and Switches MainActivity to
      * PublishExperimentActivity
      */
-     public void addExperiment(View view){
+    public void addExperiment(View view){
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         String mstr = UUID;
 
@@ -147,8 +149,15 @@ public class MainActivity extends AppCompatActivity {
 
         intent.putExtra("AutoId",mstr);
         intent.putExtra("username",username);
+        intent.putExtra("mode",0);
         startActivity(intent);
 
+    }
+
+    public void showSubList(View view){
+        Intent intent = new Intent(this, ShowSubscribedListActivity.class);
+        intent.putExtra("owner",UUID);
+        startActivity(intent);
     }
 
     /**
