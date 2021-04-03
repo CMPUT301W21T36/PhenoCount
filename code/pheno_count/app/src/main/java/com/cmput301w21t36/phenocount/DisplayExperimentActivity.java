@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,9 +16,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This activity deals with displaying the contents of an experiment
@@ -34,6 +40,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     private ExpManager expManager;
     Menu expMenu;
     TextView expStatus;
+    CollectionReference collectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_experiment_display);
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("Experiment");
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         username = sharedPrefs.getString("Username", "");
@@ -108,6 +116,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         expMenu.findItem(R.id.unpublishButton).setEnabled(true);
         expMenu.findItem(R.id.endButton).setEnabled(true);
         expMenu.findItem(R.id.addTrialButon).setEnabled(true);
+        expMenu.findItem(R.id.subscribeButton).setEnabled(true);
 
         if(!(UUID.equals(exp.getOwner().getUID()))){
             expMenu.findItem(R.id.ownerAction).setVisible(false);
@@ -118,6 +127,9 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         if (exp.getExpStatus()==2){
             expMenu.findItem(R.id.endButton).setEnabled(false);
             expMenu.findItem(R.id.addTrialButon).setEnabled(false);
+        }
+        if (exp.getSubscribers().contains(UUID)){
+            expMenu.findItem(R.id.subscribeButton).setEnabled(false);
         }
     }
     @Override
@@ -156,18 +168,36 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
             tintent.putExtra("experiment", exp);
             startActivity(tintent);
-        /*} else if (item.getItemId() == R.id.subscribeButton) {
-            Profile currentUserProfile = new Profile(username);
-            User currentUser = new User(UUID, currentUserProfile);
-            //ArrayList<Experiment> subList = new ArrayList<>();
-            //subList = currentUser.getExpSubscribed();
-            ArrayList<Experiment> subList = currentUser.getExpSubscribed();
-            subList.add(exp);
-            */
+        } else if (item.getItemId() == R.id.subscribeButton) {
+            ArrayList expSubList = exp.getSubscribers();
+            expSubList.add(UUID);
+            HashMap<String, Object> data = new HashMap<>();
+            String id = exp.getExpID();
+            data.put("sub_list", expSubList);
+
+            collectionReference
+                    .document(id)
+                    .update(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is succeeded
+                            Log.d(TAG, "Data has been updated successfully!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // These are a method which gets executed if there’s any problem
+                            Log.d(TAG, "Data could not be updated!" + e.toString());
+                        }
+                    });
+            menuOpt();
+
         } else if (item.getItemId() == R.id.unpublishButton) {
-                // this query updates the unpublish status
+            // this query updates the unpublish status
             db.collection("Experiment").document(exp.getExpID())
-                        .update("status", "3");
+                    .update("status", "3");
             exp.setExpStatus(3);
             menuOpt();
             expStatus.setText("Unpublished");
@@ -177,8 +207,13 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             exp.setExpStatus(2);
             menuOpt();
             expStatus.setText("Ended");
+        }else if (item.getItemId() == R.id.editButton){
+            Intent eIntent = new Intent(DisplayExperimentActivity.this, PublishExperimentActivity.class);
+            eIntent.putExtra("experiment", exp);
+            eIntent.putExtra("mode", 1);
+            startActivityForResult(eIntent,1);
         }
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -197,13 +232,13 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 expManager = new ExpManager();
                 expManager.updateTrialData(db,exp,username,UUID);
 
-                }
+            }
 
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                System.out.println("No Data");
-            }
         }
-
-
+        if (resultCode == Activity.RESULT_CANCELED) {
+            System.out.println("No Data");
+        }
     }
+
+
+}
