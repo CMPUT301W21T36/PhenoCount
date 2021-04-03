@@ -46,6 +46,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experiment_display);
+        getSupportActionBar().setTitle("Experiment Info");
+
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("Experiment");

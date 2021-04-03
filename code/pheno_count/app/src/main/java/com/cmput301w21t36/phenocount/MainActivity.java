@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("My Experiments");
+
 
         experiments = findViewById(R.id.expList);
         expDataList = new ArrayList<>();
@@ -153,7 +155,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showSubList(View view){
-
+        Intent intent = new Intent(this, ShowSubscribedListActivity.class);
+        intent.putExtra("owner",UUID);
+        startActivity(intent);
     }
 
     /**

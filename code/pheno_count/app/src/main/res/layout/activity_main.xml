@@ -74,6 +74,7 @@
             android:layout_weight="1"
             android:backgroundTint="#CCCCCC"
             android:drawableLeft="@android:drawable/sym_contact_card"
+            android:onClick="showSubList"
             android:paddingLeft="43dp"
             android:paddingRight="43dp" />
     </LinearLayout>

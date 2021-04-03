@@ -71,6 +71,17 @@ public class ExpManager {
         });
     }
 
+    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
+        db.collection("Experiment")
+                .whereArrayContains("sub_list",UUID)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                            FirebaseFirestoreException error) {
+                        getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                    }
+                });
+    }
 
     /**
      * This method is called to update trial data received from the respective trial classes
