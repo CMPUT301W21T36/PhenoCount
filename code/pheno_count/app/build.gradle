@@ -64,10 +64,13 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
+    implementation 'com.google.zxing:core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
 
 }
 

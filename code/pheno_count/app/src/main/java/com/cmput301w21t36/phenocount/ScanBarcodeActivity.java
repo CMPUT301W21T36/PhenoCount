@@ -31,11 +31,11 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(ScanBarcodeActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(ScanBarcodeActivity.this, new String[] {Manifest.permission.CAMERA}, 123);
         } else {
-            startScanning();
+            //startScanning();
         }
     }
 
-    private void startScanning() {
+/*    private void startScanning() {
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(ScanBarcodeActivity.this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -52,7 +52,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                 });
             }
         });
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -60,7 +60,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         if (requestCode == 123) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Camera permission granted", Toast.LENGTH_LONG).show();
-                startScanning();
+                //startScanning();
             } else {
                 Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show();
             }
