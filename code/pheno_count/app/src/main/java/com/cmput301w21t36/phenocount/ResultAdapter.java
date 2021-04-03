@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,15 +44,32 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         switch(exp.getExpStatus()){
             case 1:
                 expStat = "Published";
+                expName.setTextColor(Color.parseColor("#FF018786"));
+                expStatus.setTextColor(Color.parseColor("#FF018786"));
+                expOwner.setTextColor(Color.parseColor("#FF018786"));
+                expDescription.setTextColor(Color.parseColor("#FF018786"));
                 break;
             case 2:
                 expStat= "Ended";
+                expName.setTextColor(Color.parseColor("#B00200"));
+                expStatus.setTextColor(Color.parseColor("#B00200"));
+                expOwner.setTextColor(Color.parseColor("#B00200"));
+                expDescription.setTextColor(Color.parseColor("#B00200"));
                 break;
             case 3:
                 expStat = "Unpublished";
+                expName.setTextColor(Color.parseColor("#FF8800"));
+                expStatus.setTextColor(Color.parseColor("#FF8800"));
+                expOwner.setTextColor(Color.parseColor("#FF8800"));
+                expDescription.setTextColor(Color.parseColor("#FF8800"));
                 break;
             default:
                 expStat= "Added";
+                expName.setTextColor(Color.parseColor("#7189FF"));
+                expStatus.setTextColor(Color.parseColor("#7189FF"));
+                expOwner.setTextColor(Color.parseColor("#7189FF"));
+                expDescription.setTextColor(Color.parseColor("#7189FF"));
+
 
         }
         expStatus.setText(expStat);
