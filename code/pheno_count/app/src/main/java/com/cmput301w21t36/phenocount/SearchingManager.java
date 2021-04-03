@@ -19,17 +19,14 @@ import java.util.ArrayList;
  * @see ExpManager
  */
 public class SearchingManager {
-
-    private ExpManager expManager;
+    private ExpManager expManager = new ExpManager();
 
     public void getAllExp(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter){
-        db.collection("Experiment").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Experiment").whereNotEqualTo("status", "3").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
-                expManager = new ExpManager();
                 expManager.getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
-
             }
         });
     }

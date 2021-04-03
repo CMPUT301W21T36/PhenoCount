@@ -40,7 +40,7 @@ public class SearchingActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference experimentRef = db.collection("Experiment");
 
-    private SearchingManager expArray;
+    private SearchingManager searchManag;
     ResultAdapter adapter;
     ListView experimentListView;
 
@@ -51,13 +51,13 @@ public class SearchingActivity extends AppCompatActivity {
 
         experimentListView = findViewById(R.id.listView);
 
-        expArray = new SearchingManager();
+        searchManag = new SearchingManager();
         ArrayList<Experiment> expDataList = new ArrayList<Experiment>();
 
         adapter = new ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
 
-        expArray.getAllExp(db, expDataList, adapter);
+        searchManag.getAllExp(db, expDataList, adapter);
 
         // When experiment in listview is clicked, we open it and call new activity
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
