@@ -25,6 +25,7 @@ public class BinomialActivity extends AppCompatActivity {
     DecimalFormat numberFormat;
     TextView coordinates;
     SharedPreferences sharedPrefs;
+    int qr = -1;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -36,6 +37,16 @@ public class BinomialActivity extends AppCompatActivity {
 
         // receiving intent object
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");
+
+        // get the intent object from the Qr activity
+        if (newexp == null) {
+            newexp = (Experiment) getIntent().getSerializableExtra("QrSuccess");
+            qr = 1;
+            if (newexp == null) {
+                newexp = (Experiment) getIntent().getSerializableExtra("QrFail");
+                qr = 0;
+            }
+        }
 
         //setting user to owner of trial
         sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
@@ -77,7 +88,7 @@ public class BinomialActivity extends AppCompatActivity {
 
                 //passing the experiment object back to DisplayExperimentActivity
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("experiment",newexp);
+                returnIntent.putExtra("experiment", newexp);
                 setResult(Activity.RESULT_OK,returnIntent);
                 Toast.makeText(
                         BinomialActivity.this,
@@ -135,6 +146,12 @@ public class BinomialActivity extends AppCompatActivity {
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(intent,LAUNCH_SECOND_ACTIVITY); }
         });
+
+        if(qr == 1) {
+            sbtn.performClick();
+        } else if (qr == 0) {
+            fbtn.performClick();
+        }
     }
 
     @Override

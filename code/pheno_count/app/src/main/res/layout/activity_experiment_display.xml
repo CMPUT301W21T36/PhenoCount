@@ -240,4 +240,19 @@
         app:layout_constraintTop_toBottomOf="@+id/reqLoc"
         app:layout_constraintVertical_bias="0.957" />
 
+    <Button
+        android:id="@+id/mapsBtn"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="216dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundTint="@android:color/holo_red_dark"
+        app:icon="@drawable/ic_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toEndOf="@+id/camerabtn"
+        app:layout_constraintTop_toBottomOf="@+id/reqLocText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

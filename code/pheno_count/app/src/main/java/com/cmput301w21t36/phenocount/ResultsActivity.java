@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -27,6 +28,7 @@ public class ResultsActivity extends AppCompatActivity {
     ArrayList<Trial> trialList;
     Experiment exp;//defining the Experiment object
     ImageView qr;
+    Button statsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,14 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 generateQr(position);
+            }
+        });
+
+        statsButton = findViewById(R.id.statsButton);
+        statsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openStats();
             }
         });
     }
@@ -85,4 +95,15 @@ public class ResultsActivity extends AppCompatActivity {
             Log.v("Exception", e.toString());
         }
     }
+
+    /**
+     * This method is called when the statsButton is clicked and Switches ResultsActivity to
+     * StatsActivity
+     */
+    public void openStats() {
+        Intent intent = new Intent(this, StatsActivity.class);
+        intent.putExtra("experiment",exp);
+        startActivity(intent);
+    }
+
 }

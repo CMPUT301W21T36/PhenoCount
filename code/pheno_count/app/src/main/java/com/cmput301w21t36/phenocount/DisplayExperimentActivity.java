@@ -96,8 +96,19 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         camerabtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DisplayExperimentActivity.this, ScanBarcodeActivity.class);
+                Intent i = new Intent(DisplayExperimentActivity.this, ScanQRActivity.class);
+                i.putExtra("experiment", exp);
                 startActivityForResult(i, 1);
+            }
+        });
+
+        final Button mapsBtn = findViewById((R.id.mapsBtn));
+        mapsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DisplayExperimentActivity.this, TrialMapsActivity.class);
+                i.putExtra("trials",exp.getTrials());
+                startActivity(i);
             }
         });
     }

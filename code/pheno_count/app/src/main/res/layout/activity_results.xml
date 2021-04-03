@@ -11,7 +11,53 @@
     <ListView
         android:id="@+id/trial_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="639dp"></ListView>
+
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <Button
+            android:id="@+id/plotButton"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:backgroundTint="#B1B1B1"
+            android:paddingLeft="53dp"
+            android:paddingRight="53dp"
+            />
+
+        <Button
+            android:id="@+id/statsButton"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:backgroundTint="#CCCCCC"
+            android:paddingLeft="53dp"
+            android:paddingRight="53dp"
+
+            />
+
+        <Button
+            android:id="@+id/trialLocationButton"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:backgroundTint="#B1B1B1"
+            android:paddingLeft="53dp"
+            android:paddingRight="53dp"
+
+            />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/qrView"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cmput301w21t36.phenocount">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -16,6 +17,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+<!--    <uses-sdk android:minSdkVersion="19" tools:overrideLibrary="com.budiyev.android.codescanner"/>-->
+
     <application
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -25,7 +29,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
-        <activity android:name=".SearchingActivity"></activity>
+        <activity android:name=".TrialMapsActivity"></activity>
+        <activity android:name=".SearchingActivity" />
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DisplayExperimentActivity" />
@@ -35,6 +40,8 @@
         <activity android:name=".NonNegativeCountActivity" />
         <activity android:name=".DiscussionActivity" />
         <activity android:name=".ResultsActivity" />
+        <activity android:name=".StatsActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -53,7 +60,6 @@
         <activity android:name=".ScanBarcodeActivity" />
         <activity android:name=".QuestionActivity" />
         <activity android:name=".ScanQRActivity" />
-        <activity android:name=".GenerateQrActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
