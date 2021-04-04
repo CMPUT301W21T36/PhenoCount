@@ -52,7 +52,7 @@ public class NonNegativeCountActivity extends AppCompatActivity {
         User user = new User(UUID,profile);
         trial = new NonNegativeCount(user);
 
-        newexp.getDates().add(trial.getDate());
+       // newexp.getDates().add(trial.getDate());
 
         //setting type of trial
         trial.setType("NonNegativeCount");

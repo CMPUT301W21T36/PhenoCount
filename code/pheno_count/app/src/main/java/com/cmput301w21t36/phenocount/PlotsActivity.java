@@ -28,14 +28,10 @@ public class PlotsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plots);
-
-        exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        dates = new ArrayList<>();
+        exp = (Experiment) getIntent().getSerializableExtra("exp");//defining the Experiment object
+        System.out.println(exp.getName());
         trials = exp.getTrials();
-        dates = exp.getDates();
-
-        String pattern = "dd/MM";
-        DateFormat df = new SimpleDateFormat(pattern);
-
         if(trials.isEmpty()){
             Toast.makeText(
                     PlotsActivity.this,
@@ -43,6 +39,19 @@ public class PlotsActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             finish();
         }
+
+        for(Trial trial: trials){
+            if(! dates.contains(trial.getDate()))
+                dates.add(trial.getDate());
+        }
+
+        System.out.println("DATESS" + dates);
+        Collections.sort(dates);
+
+        String pattern = "dd/MM";
+        DateFormat df = new SimpleDateFormat(pattern);
+
+
 
         try {
                 pointSeries = new PointsGraphSeries<>(getDataPoint());
@@ -93,17 +102,21 @@ public class PlotsActivity extends AppCompatActivity {
 
             ArrayList<DataPoint> dpList = new ArrayList<>();
 
-            Collections.sort(dates);
+            //Collections.sort(dates);
             int success_count = 0;
             for(Long date: dates){
                 for(Trial trial: trials){
-                    if(trial.getType() == "Binomial" && trial.getDate() == date){
+                    Binomial bTrial = (Binomial)trial;
+                    if(bTrial.getDate() == date && bTrial.getResult() == true ){
                         success_count++;
                     }
                 }
+                System.out.println("Success "+success_count);
                 dpList.add(new DataPoint(date,success_count));
 
             }
+
+            dpList.add(new DataPoint(1617648045000L, 5));
             DataPoint[] dp = new DataPoint[dpList.size()];
             dp = dpList.toArray(dp);
             //DataPoint[] dp = new DataPoint[]{new DataPoint(date_1.getTime(), 30),
