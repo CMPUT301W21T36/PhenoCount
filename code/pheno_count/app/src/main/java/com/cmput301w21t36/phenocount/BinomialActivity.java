@@ -60,7 +60,7 @@ public class BinomialActivity extends AppCompatActivity {
         Profile profile = new Profile(username);
         User user = new User(UUID,profile);
         trial = new Binomial(user);
-        newexp.getDates().add(trial.getDate()); //rao
+        //newexp.getDates().add(trial.getDate()); //rao
 
         //setting type of trial
         trial.setType("Binomial");

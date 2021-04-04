@@ -101,7 +101,7 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ResultsActivity.this, PlotsActivity.class );
-                intent.putExtra("experiment", exp);
+                intent.putExtra("exp", exp);
                 startActivity(intent);
             }
         });
