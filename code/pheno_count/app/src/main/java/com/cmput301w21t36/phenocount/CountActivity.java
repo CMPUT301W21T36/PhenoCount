@@ -53,7 +53,7 @@ public class CountActivity extends AppCompatActivity {
         Profile profile = new Profile(username);
         User user = new User(UUID,profile);
         trial = new Count(user);
-        newexp.getDates().add(trial.getDate().getTime());
+        newexp.getDates().add(trial.getDate());
         //setting type of trial
         trial.setType("Count");
 

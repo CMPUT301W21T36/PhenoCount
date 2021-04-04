@@ -106,6 +106,7 @@ public class ExpManager {
                 fdata.put("owner", username);
                 fdata.put("userID", UUID);
                 fdata.put("status",Boolean.toString(trial.getStatus()));
+                fdata.put("date",Long.toString(trial.getDate()));
 
                 if (exp.getExpType().equals("Binomial")) {
                     Binomial btrial = (Binomial) exp.getTrials().get(exp.getTrials().size() - 1);
@@ -242,6 +243,8 @@ public class ExpManager {
                         String latitude = (String) doc.getData().get("Latitude");
                         String longitude = (String) doc.getData().get("Longitude");
                         String status = (String) doc.getData().get("status");
+                        //String date = (String) doc.getData().get("date"); ///////////////////////
+                        String date = "1617561645000";
                         String ttype = exp.getExpType();
 
                         Profile profile = new Profile(username);
@@ -263,6 +266,7 @@ public class ExpManager {
                                 trial.setResult(Boolean.parseBoolean(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
                                 trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));
@@ -272,6 +276,7 @@ public class ExpManager {
                                 trial.setCount(Integer.parseInt(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
                                 trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));
@@ -281,6 +286,7 @@ public class ExpManager {
                                 trial.setMeasurement(Float.parseFloat(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
                                 trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));
@@ -290,6 +296,7 @@ public class ExpManager {
                                 trial.setValue(Integer.parseInt(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
                                 trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));

@@ -97,7 +97,7 @@ public class PlotsActivity extends AppCompatActivity {
             int success_count = 0;
             for(Long date: dates){
                 for(Trial trial: trials){
-                    if(trial.getType() == "Binomial" && trial.getDate().getTime() == date){
+                    if(trial.getType() == "Binomial" && trial.getDate() == date){
                         success_count++;
                     }
                 }

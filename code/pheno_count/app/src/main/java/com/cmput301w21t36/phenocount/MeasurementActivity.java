@@ -50,7 +50,7 @@ public class MeasurementActivity extends AppCompatActivity {
         User user = new User(UUID,profile);
         trial = new Measurement(user);
 
-        newexp.getDates().add(trial.getDate().getTime());
+        newexp.getDates().add(trial.getDate());
         //setting type of trial
         trial.setType("Measurement");
 

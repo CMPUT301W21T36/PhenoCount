@@ -18,7 +18,7 @@ public abstract class Trial implements Serializable {
     private double Latitude;
     private double Longitude;
     private boolean status;
-    private Date date;
+    private long date;
 
     /**
      * constructor for new Trial object
@@ -29,12 +29,7 @@ public abstract class Trial implements Serializable {
         this.owner = owner;
         this.type = "";
         this.status = true;
-        this.date = new Date(); //stores date and time at which trial was recorded
-/*        this.count = 0;
-        this.measurement=0;
-        this.value =0;
-        this.result = false;*/
-
+        this.date = 0; //stores date and time at which trial was recorded
         this.Latitude = 200; //@rao: these values are outside the range of latitude and longitude.
         this.Longitude = 200; //If these values are encountered, that means location has not been added yet.
     }
@@ -49,7 +44,7 @@ public abstract class Trial implements Serializable {
     void setType(String type){this.type = type;}
     void setOwner(User owner){this.owner = owner;}
     void setStatus(Boolean status){this.status = status;}
-    public void setDate(Date date) { this.date = date; }
+    public void setDate(long date) { this.date = date; }
 
     public double getLatitude() {
         return Latitude;
@@ -64,7 +59,7 @@ public abstract class Trial implements Serializable {
         return type;
     }
     public boolean getStatus(){return status;}
-    public Date getDate() { return date; }
+    public long getDate() { return date; }
 
 
 }
