@@ -1,9 +1,14 @@
 package com.cmput301w21t36.phenocount;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.Serializable;
@@ -19,9 +24,7 @@ public class StatsActivity extends AppCompatActivity implements Serializable {
     double q1 = 0.0;
     double q3 = 0.0;
     double iqr = 0.0;
-    int count = 0;
-    int value = 0;
-    float measurement=0;
+    Menu expMenu;
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,5 +71,26 @@ public class StatsActivity extends AppCompatActivity implements Serializable {
         stdev.setText(String.format("Standard Deviation: %.2f", sd));
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.general_menu, menu);
+        expMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.myList) {
+            Intent intent = new Intent(StatsActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.search) {
+            Intent intent = new Intent(StatsActivity.this, SearchingActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

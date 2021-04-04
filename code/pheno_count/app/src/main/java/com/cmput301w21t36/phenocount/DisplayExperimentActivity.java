@@ -86,7 +86,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 break;
             default:
                 mStat= "Added";
-
         }
         expStatus.setText(mStat);
         // Adding icon programmatically : BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
@@ -262,7 +261,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     //Sends the experiment object and retrieves the updated object
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

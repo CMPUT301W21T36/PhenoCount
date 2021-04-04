@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -32,7 +36,7 @@ public class ResultsActivity extends AppCompatActivity {
     Experiment exp;//defining the Experiment object
     ImageView qr;
     Button statsButton;
-
+    Menu expMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -133,5 +137,29 @@ public class ResultsActivity extends AppCompatActivity {
         intent.putExtra("experiment",exp);
         startActivity(intent);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.general_menu, menu);
+        expMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.myList) {
+            Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("experiment", exp);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.search) {
+            Intent intent = new Intent(ResultsActivity.this, SearchingActivity.class);
+            intent.putExtra("experiment", exp);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

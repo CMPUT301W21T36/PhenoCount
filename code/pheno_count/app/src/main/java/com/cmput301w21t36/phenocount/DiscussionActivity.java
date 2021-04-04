@@ -2,11 +2,16 @@ package com.cmput301w21t36.phenocount;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import java.util.ArrayList;
@@ -30,6 +35,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     private ArrayList<Question> queData = new ArrayList<>();
     private Experiment experiment;
     private DiscussionManager disManager;
+    private Menu expMenu;
 
 
 
@@ -122,5 +128,27 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         startActivity(intent);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.general_menu, menu);
+        expMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.myList) {
+            Intent intent = new Intent(DiscussionActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.search) {
+            Intent intent = new Intent(DiscussionActivity.this, SearchingActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }
