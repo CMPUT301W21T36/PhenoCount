@@ -40,40 +40,51 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         expName.setText(exp.getName());
         expOwner.setText(exp.getOwner().getProfile().getUsername());
 
+        expName.setTextColor(Color.parseColor("#C71585"));
+        expStatus.setTextColor(Color.parseColor("#C71585"));
+        expOwner.setTextColor(Color.parseColor("#C71585"));
+        expDescription.setTextColor(Color.parseColor("#C71585"));
+        if (exp.getExpType().equals("Binomial")){
+            expName.setTextColor(Color.parseColor("#00CED1"));
+            expStatus.setTextColor(Color.parseColor("#00CED1"));
+            expOwner.setTextColor(Color.parseColor("#00CED1"));
+            expDescription.setTextColor(Color.parseColor("#00CED1"));
+        } else if (exp.getExpType().equals("Count")){
+            expName.setTextColor(Color.parseColor("#8B4513"));
+            expStatus.setTextColor(Color.parseColor("#8B4513"));
+            expOwner.setTextColor(Color.parseColor("#8B4513"));
+            expDescription.setTextColor(Color.parseColor("#8B4513"));
+        } else if (exp.getExpType().equals("NonNegativeCount")){
+            expName.setTextColor(Color.parseColor("#191970"));
+            expStatus.setTextColor(Color.parseColor("#191970"));
+            expOwner.setTextColor(Color.parseColor("#191970"));
+            expDescription.setTextColor(Color.parseColor("#191970"));
+
+        }
+
         String expStat = "" ;
         switch(exp.getExpStatus()){
             case 1:
                 expStat = "Published";
-                expName.setTextColor(Color.parseColor("#FF018786"));
-                expStatus.setTextColor(Color.parseColor("#FF018786"));
-                expOwner.setTextColor(Color.parseColor("#FF018786"));
-                expDescription.setTextColor(Color.parseColor("#FF018786"));
+
                 break;
             case 2:
                 expStat= "Ended";
-                expName.setTextColor(Color.parseColor("#B00200"));
-                expStatus.setTextColor(Color.parseColor("#B00200"));
-                expOwner.setTextColor(Color.parseColor("#B00200"));
-                expDescription.setTextColor(Color.parseColor("#B00200"));
+
                 break;
             case 3:
                 expStat = "Unpublished";
-                expName.setTextColor(Color.parseColor("#FF8800"));
-                expStatus.setTextColor(Color.parseColor("#FF8800"));
-                expOwner.setTextColor(Color.parseColor("#FF8800"));
-                expDescription.setTextColor(Color.parseColor("#FF8800"));
+
                 break;
             default:
                 expStat= "Added";
-                expName.setTextColor(Color.parseColor("#7189FF"));
-                expStatus.setTextColor(Color.parseColor("#7189FF"));
-                expOwner.setTextColor(Color.parseColor("#7189FF"));
-                expDescription.setTextColor(Color.parseColor("#7189FF"));
 
 
         }
         expStatus.setText(expStat);
         expDescription.setText(exp.getDescription());
+
+
 
         return view;
     }
