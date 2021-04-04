@@ -116,7 +116,7 @@ public class PlotsActivity extends AppCompatActivity {
 
             }
 
-            dpList.add(new DataPoint(1617648045000L, 5));
+            //dpList.add(new DataPoint(1617648045000L, 5));
             DataPoint[] dp = new DataPoint[dpList.size()];
             dp = dpList.toArray(dp);
             //DataPoint[] dp = new DataPoint[]{new DataPoint(date_1.getTime(), 30),

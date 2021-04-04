@@ -26,12 +26,16 @@ public abstract class Trial implements Serializable {
      * This is an object of type User that stores the owner of the trial
      */
     public Trial(User owner){
+
         this.owner = owner;
         this.type = "";
         this.status = true;
         this.date = 0; //stores date and time at which trial was recorded
         this.Latitude = 200; //@rao: these values are outside the range of latitude and longitude.
         this.Longitude = 200; //If these values are encountered, that means location has not been added yet.
+
+        Date dateObj = new Date();
+        this.date = dateObj.getTime();
     }
 
 
