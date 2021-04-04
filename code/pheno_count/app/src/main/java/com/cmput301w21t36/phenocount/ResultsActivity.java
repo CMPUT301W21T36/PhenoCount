@@ -1,6 +1,8 @@
 package com.cmput301w21t36.phenocount;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ public class ResultsActivity extends AppCompatActivity {
     ListView trials;
     ArrayAdapter<Trial> trialAdapter;
     ArrayList<Trial> trialList;
+    ArrayList<String> blacklist;
     Experiment exp;//defining the Experiment object
     ImageView qr;
     Button statsButton;
@@ -39,14 +42,36 @@ public class ResultsActivity extends AppCompatActivity {
         //initializing attributes
         trials =findViewById(R.id.trial_list);
         trialList = new ArrayList<>();
+        blacklist = new ArrayList<>();
         qr = findViewById(R.id.qrView);
 
         //getting intent
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         trialList = exp.getTrials();
 
+        //ignoring trials of the user
+        for (Trial trial:trialList){
+            if(!trial.getStatus()) {
+                String UUID = trial.getOwner().getUID();
+                blacklist.add(UUID);
+            }
+        }
+        for (Trial trial : trialList){
+            if(blacklist.contains(trial.getOwner().getUID())){
+                trial.setStatus(false);
+            }
+        }
+        for (Trial trial:trialList){
+            System.out.println("Status: "+trial.getStatus());
+        }
+
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String UUID = sharedPrefs.getString("ID", "");
+
+
         //initializing adapter
-        trialAdapter = new TrialAdapter(this,trialList);
+        trialAdapter = new TrialAdapter(this,trialList,UUID,exp.getOwner().getUID());
         trials.setAdapter(trialAdapter);
 
         trials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,6 +88,9 @@ public class ResultsActivity extends AppCompatActivity {
                 openStats();
             }
         });
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("experiment", exp);
+        setResult(Activity.RESULT_OK,returnIntent);
     }
 
     private void generateQr(int position) {

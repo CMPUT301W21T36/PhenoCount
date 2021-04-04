@@ -182,7 +182,8 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.item4) {
             Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
             tintent.putExtra("experiment", exp);
-            startActivity(tintent);
+            int LAUNCH_THIRD_ACTIVITY = 3;
+            startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
         } else if (item.getItemId() == R.id.subscribeButton) {
             ArrayList expSubList = exp.getSubscribers();
             expSubList.add(UUID);
@@ -267,18 +268,26 @@ public class DisplayExperimentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         int LAUNCH_SECOND_ACTIVITY = 1;
+        int LAUNCH_THIRD_ACTIVITY = 3;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 exp = (Experiment) data.getSerializableExtra("experiment");
-
                 SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 username = sharedPrefs.getString("Username", "");
                 UUID = sharedPrefs.getString("ID", "");
                 expManager = new ExpManager();
                 expManager.updateTrialData(db,exp,username,UUID);
-
             }
+        }
+        if(requestCode == LAUNCH_THIRD_ACTIVITY){
+                System.out.println("Ignoring");
+                exp = (Experiment) data.getSerializableExtra("experiment");
+                expManager = new ExpManager();
+                for(Trial trial:exp.getTrials()){
+                    System.out.println("Status: "+trial.getStatus());
+                }
+                expManager.ignoreTrial(exp);
 
         }
         if (resultCode == Activity.RESULT_CANCELED) {
