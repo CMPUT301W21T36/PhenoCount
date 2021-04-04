@@ -82,6 +82,8 @@ public class CountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //checks if location is provided
                 if(location || !newexp.isRequireLocation()) {
+                    trial.isCount();
+                    count.setText("Count: " + trial.getCount());
                     Toast.makeText(
                             CountActivity.this,
                             "Count Recorded",
@@ -108,7 +110,7 @@ public class CountActivity extends AppCompatActivity {
             recordcountbtn.performClick();
         }
 
-        final Button countbtn = findViewById((R.id.addbtn));
+/*        final Button countbtn = findViewById((R.id.addbtn));
         countbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +127,7 @@ public class CountActivity extends AppCompatActivity {
                 }
             }
         }
-        );
+        );*/
 
         final Button lbtn = findViewById(R.id.locationbtn2);
         lbtn.setOnClickListener(new View.OnClickListener() {
