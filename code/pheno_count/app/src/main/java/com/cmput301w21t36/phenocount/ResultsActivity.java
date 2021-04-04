@@ -91,6 +91,17 @@ public class ResultsActivity extends AppCompatActivity {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("experiment", exp);
         setResult(Activity.RESULT_OK,returnIntent);
+
+        Button plotsButton = findViewById(R.id.plotButton);
+        plotsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultsActivity.this, PlotsActivity.class );
+                intent.putExtra("experiment", exp);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void generateQr(int position) {

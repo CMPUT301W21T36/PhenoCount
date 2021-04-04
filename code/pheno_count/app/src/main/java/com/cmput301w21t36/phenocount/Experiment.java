@@ -20,6 +20,11 @@ public class Experiment implements Serializable {
     private int expStatus = -1; // 0 for add, 1 for published, 2 for ended, 3 for unpublished
     private int subscribe = 0;
     private ArrayList subscribers = new ArrayList();
+    private ArrayList<Long> dates = new ArrayList<>(); //list with unique date for
+
+
+
+
 
     /**
      * This constructs a new experiment object
@@ -298,4 +303,7 @@ public class Experiment implements Serializable {
     public void setSubscribers(ArrayList subscribers) {
         this.subscribers = subscribers;
     }
+
+    public ArrayList<Long> getDates() {return dates; }
+    public void setDates(ArrayList<Long> dates) { this.dates = dates; }
 }

@@ -29,7 +29,7 @@ public abstract class Trial implements Serializable {
         this.owner = owner;
         this.type = "";
         this.status = true;
-        this.date = new Date();
+        this.date = new Date(); //stores date and time at which trial was recorded
 /*        this.count = 0;
         this.measurement=0;
         this.value =0;
@@ -49,6 +49,7 @@ public abstract class Trial implements Serializable {
     void setType(String type){this.type = type;}
     void setOwner(User owner){this.owner = owner;}
     void setStatus(Boolean status){this.status = status;}
+    public void setDate(Date date) { this.date = date; }
 
     public double getLatitude() {
         return Latitude;
@@ -63,4 +64,7 @@ public abstract class Trial implements Serializable {
         return type;
     }
     public boolean getStatus(){return status;}
+    public Date getDate() { return date; }
+
+
 }

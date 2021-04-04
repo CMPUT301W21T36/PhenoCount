@@ -16,9 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.CAMERA"/>
-<!--    <uses-sdk android:minSdkVersion="19" tools:overrideLibrary="com.budiyev.android.codescanner"/>-->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -29,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhenoCount">
-        <activity android:name=".TrialMapsActivity"></activity>
+        <activity android:name=".PlotsActivity"></activity>
+        <activity android:name=".TrialMapsActivity" />
         <activity android:name=".SearchingActivity" />
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />
@@ -42,7 +41,6 @@
         <activity android:name=".ResultsActivity" />
         <activity android:name=".StatsActivity" />
         <activity android:name=".ShowSubscribedListActivity" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
