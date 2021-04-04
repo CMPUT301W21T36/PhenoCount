@@ -11,18 +11,39 @@ import android.os.Message;
 public class AlertMsg {
     AlertDialog alertDialog ;
     private final Message NO_HANDLER = null;
-    public AlertMsg(Activity parent, String aTitle, String mes)
-    {
+    public AlertMsg(Activity parent, String aTitle, String msg, int where) {
         alertDialog = new AlertDialog.Builder(parent).create();
         alertDialog.setTitle(aTitle);
-        alertDialog.setMessage(mes) ;
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+        alertDialog.setMessage(msg) ;
+        if (where == 0) {
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+        }else if (where == 1){
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Proceed",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+        }
         alertDialog.show();
+    }
+
+
+
+    public void cancelDialog(){
+        alertDialog.cancel();
     }
 }
 

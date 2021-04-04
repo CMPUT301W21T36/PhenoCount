@@ -2,9 +2,11 @@
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -208,23 +210,54 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             menuOpt();
 
         } else if (item.getItemId() == R.id.unpublishButton) {
-            // this query updates the unpublish status
-            db.collection("Experiment").document(exp.getExpID())
-                    .update("status", "3");
-            exp.setExpStatus(3);
-            menuOpt();
-            expStatus.setText("Unpublished");
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "Please confirm if you want to unpublish this experiment",1);
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // this query updates the unpublish status
+                    db.collection("Experiment").document(exp.getExpID())
+                            .update("status", "3");
+                    exp.setExpStatus(3);
+                    menuOpt();
+                    expStatus.setText("Unpublished");
+                    confirmMsg.cancelDialog();
+                }
+            });
         } else if (item.getItemId() == R.id.endButton){
-            db.collection("Experiment").document(exp.getExpID())
-                    .update("status", "2");
-            exp.setExpStatus(2);
-            menuOpt();
-            expStatus.setText("Ended");
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "Please confirm if you want to end this experiment",1);
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    db.collection("Experiment").document(exp.getExpID())
+                            .update("status", "2");
+                    exp.setExpStatus(2);
+                    menuOpt();
+                    expStatus.setText("Ended");
+                    //confirmMsg.alertDialog.cancel();
+                    confirmMsg.cancelDialog();
+                }
+            });
         }else if (item.getItemId() == R.id.editButton){
-            Intent eIntent = new Intent(DisplayExperimentActivity.this, PublishExperimentActivity.class);
-            eIntent.putExtra("experiment", exp);
-            eIntent.putExtra("mode", 1);
-            startActivityForResult(eIntent,1);
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "Please confirm if you want to edit this experiment",1);
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent eIntent = new Intent(DisplayExperimentActivity.this, PublishExperimentActivity.class);
+                    eIntent.putExtra("experiment", exp);
+                    eIntent.putExtra("mode", 1);
+                    startActivityForResult(eIntent, 1);
+                    confirmMsg.cancelDialog();
+                }
+            });
         }
         return super.onOptionsItemSelected(item);
     }

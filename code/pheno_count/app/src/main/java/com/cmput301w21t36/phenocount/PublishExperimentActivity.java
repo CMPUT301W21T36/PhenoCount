@@ -276,7 +276,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
             }
         } else {
             AlertMsg Altmsg = new AlertMsg(this, "Error Message",
-                    "Description/Type of Experiment is Required, TRY AGAIN!!");
+                    "Description/Type of Experiment is Required, TRY AGAIN!!",0);
 
         }
     }
