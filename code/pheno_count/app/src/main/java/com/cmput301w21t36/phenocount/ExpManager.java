@@ -244,7 +244,7 @@ public class ExpManager {
                         String longitude = (String) doc.getData().get("Longitude");
                         String status = (String) doc.getData().get("status");
                         //String date = (String) doc.getData().get("date"); ///////////////////////
-                        String date = "1617561645000";
+                        String date = (String) doc.getData().get("date");
                         String ttype = exp.getExpType();
 
                         Profile profile = new Profile(username);
