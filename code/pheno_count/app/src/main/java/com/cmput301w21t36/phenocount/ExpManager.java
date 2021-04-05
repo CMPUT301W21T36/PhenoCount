@@ -78,7 +78,7 @@ public class ExpManager {
                            ArrayAdapter<Experiment> expAdapter, String UUID){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
         db.collection("Experiment")
-            .whereEqualTo("owner",UUID)
+            .whereEqualTo("owner",UUID).orderBy("status")
             .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
@@ -220,7 +220,7 @@ public class ExpManager {
                 String type = (String) doc.getData().get("type");
                 String minInt = (String) doc.getData().get("minimum_trials");
                 String reqGeo = (String) doc.getData().get("require_geolocation");
-                String mStat = String.valueOf(doc.getData().get("status"));
+                String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
                 //String userName = (String) doc.getData().get("owner_name");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
@@ -239,7 +239,7 @@ public class ExpManager {
                 int expStatus = 0;
                 if (!mStat.isEmpty()) {
                     expStatus = Integer.parseInt(mStat);
-                }
+               }
 
                 Experiment newExp = new Experiment(name, description, region, type, minTrial,
                         reqLoc, expStatus, expID);

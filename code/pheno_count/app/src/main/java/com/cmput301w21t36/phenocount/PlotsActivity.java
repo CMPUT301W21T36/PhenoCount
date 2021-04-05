@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
@@ -24,8 +25,8 @@ public class PlotsActivity extends AppCompatActivity {
     Experiment exp;
     ArrayList<Trial> trials;
     ArrayList<String> dates;
-    ArrayList<Long> dates_ms;
-    SimpleDateFormat formatter;
+    //ArrayList<Long> dates_ms;
+    //SimpleDateFormat formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class PlotsActivity extends AppCompatActivity {
         exp = (Experiment) getIntent().getSerializableExtra("exp");//defining the Experiment object
         trials = exp.getTrials();
 
+        PlotsManager plotsManager = new PlotsManager(exp);
+
         if (trials.isEmpty()) { //empty plot
             Toast.makeText(
                     PlotsActivity.this,
@@ -50,6 +53,7 @@ public class PlotsActivity extends AppCompatActivity {
             finish();
         }
 
+        /**
         dates = new ArrayList<>(); //for unique date?
         for (Trial trial : trials) {
             if (!dates.contains(trial.getDate()))
@@ -69,7 +73,7 @@ public class PlotsActivity extends AppCompatActivity {
             for (Trial trial : trials) {
 
                 Binomial bTrial = (Binomial) trial;
-
+                System.out.println(date + "===" + bTrial.getDate());
                 if (bTrial.getDate().equals(date) && bTrial.getResult() == true && bTrial.getStatus()) {
                     success_count++;
                     //ms = bTrial.getDate();
@@ -90,23 +94,28 @@ public class PlotsActivity extends AppCompatActivity {
         for (int j = 0; j < dp.length; j++) {
             System.out.println("DATA POINT " + (j + 1) + "x : " + dp[j].getX() + ", y =" + dp[j].getY());
         }
-
+        */
+        DataPoint[] dp = plotsManager.compute();
+        dates = plotsManager.getDates();
+        //System.out.println("DATES IN PLOTS ACTIVITY "+ dates);
         final int dp_length = dp.length;
         graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 //System.out.println("VALUE inside "+ (long)value);
-                if(isValueX && value < dp_length){
-                    System.out.println("VALUE = "+ value);
-                    return dates.get((int)value);
-                    //return "lol";
+                if (value == (int)value){
+                    if (isValueX) {
+                        System.out.println("VALUE = " + value);
+                        return dates.get((int) value);
+                        //return "lol";
+                    }
+                    return super.formatLabel(value, isValueX);
                 }
-                return super.formatLabel(value, isValueX);
+                return "";
             }
 
         });
 
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(dp_length);
 
 
         pointSeries = new PointsGraphSeries<>(dp);
@@ -114,10 +123,30 @@ public class PlotsActivity extends AppCompatActivity {
         graphView.addSeries(series);
         graphView.addSeries(pointSeries);
 
+        series.setColor(R.color.purple_200);
+
+        TextView xAxisLabel = findViewById(R.id.xAxisLabel);
+        xAxisLabel.setText("TIME (Days)");
+        TextView yAxisLabel = findViewById(R.id.yAxisLabel);
+        yAxisLabel.setText("SUCCESSES");
+        TextView expName = findViewById(R.id.expName);
+        expName.setText(exp.getName());
+        TextView expDet = findViewById(R.id.expDetails);
+        expDet.setText(exp.getDescription());
+
+        //graphView.getGridLabelRenderer().setVerticalAxisTitle("SUCCESSES");
+        //graphView.getGridLabelRenderer().setHorizontalLabelsAngle(10);
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(dp_length);
+
+        graphView.getGridLabelRenderer().setNumVerticalLabels(dp_length+2);
         graphView.getViewport().setScrollable(true);
         graphView.getViewport().setScalable(true);
         graphView.getViewport().setScalableY(true);
         graphView.getViewport().setScrollableY(true);
+        graphView.getGridLabelRenderer().setHumanRounding(false,true);
+        graphView.getViewport().setMinX(0);
+        graphView.getViewport().setMaxX(dp_length-1);
+        graphView.getViewport().setXAxisBoundsManual(true);
 
         //graphView.getGridLabelRenderer().setHorizontalLabels
     }
@@ -126,7 +155,7 @@ public class PlotsActivity extends AppCompatActivity {
     //Put it in a "plots manager"
     public ArrayList<String> sortDates(ArrayList<String> dates) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ArrayList<Date> dateObjs = new ArrayList<Date>();
         for (String date : dates) {
             try {
