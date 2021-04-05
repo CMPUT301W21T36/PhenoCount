@@ -176,7 +176,6 @@ public class ExpManager {
         FirebaseFirestore db = dm.getDb();
         for (Trial trial: exp.getTrials()){
             if (!trial.getStatus()){
-                System.out.println("HELOOO");
                 String UUID = trial.getOwner().getUID();
                 db.collection("Experiment").document(exp.getExpID())
                         .collection("Trials")
@@ -322,6 +321,7 @@ public class ExpManager {
                         String username = (String) task.getResult().getData().get("Username");
                         exp.getOwner().getProfile().setUsername(username);
                         exp.getOwner().getProfile().setPhone(phoneNumber);
+
                     }
                 }
             });

@@ -43,8 +43,8 @@ public class SearchingActivity extends AppCompatActivity {
     private CollectionReference experimentRef = db.collection("Experiment");
 
     private SearchingManager searchManag;
-    ResultAdapter adapter;
-    ListView experimentListView;
+    private ResultAdapter adapter;
+    private ListView experimentListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class SearchingActivity extends AppCompatActivity {
 
         searchManag.getAllExp(db, expDataList, adapter);
 
-        SearchView searchView  =(SearchView) findViewById(R.id.searchView);
+        SearchView searchView = (SearchView) findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
