@@ -220,7 +220,7 @@ public class ExpManager {
                 String type = (String) doc.getData().get("type");
                 String minInt = (String) doc.getData().get("minimum_trials");
                 String reqGeo = (String) doc.getData().get("require_geolocation");
-                String mStat = (String) doc.getData().get("status");
+                String mStat = String.valueOf(doc.getData().get("status"));
                 String owner = (String) doc.getData().get("owner");
                 //String userName = (String) doc.getData().get("owner_name");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
