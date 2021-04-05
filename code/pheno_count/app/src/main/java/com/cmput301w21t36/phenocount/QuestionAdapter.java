@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,16 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
 
+
+
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.content_question,parent,false);
+        }
+
+        if (position % 2 == 1) {
+            view.setBackgroundColor(Color.parseColor("#EFCCEB"));
+        } else {
+            view.setBackgroundColor(Color.parseColor("#9AE8E1"));
         }
 
         Question question = questions.get(position);
