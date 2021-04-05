@@ -68,8 +68,8 @@ public class ProfileFragment extends DialogFragment {
         return builder
                 .setView(view)
                 .setTitle("User Profile")
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("OK", null).create();
+                .setNegativeButton("OK", null)
+                .create();
     }
 }
 
