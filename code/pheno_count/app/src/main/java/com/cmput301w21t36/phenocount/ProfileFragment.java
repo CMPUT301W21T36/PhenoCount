@@ -35,7 +35,11 @@ public class ProfileFragment extends DialogFragment {
     // thus we can set up the title and hint for it.
     public ProfileFragment(String username, String phone) {
         this.username = username;
-        this.phone = phone;
+        if(phone == null){
+            this.phone = "unknown";
+        }else{
+            this.phone = phone;
+        }
     }
 
 
@@ -57,8 +61,8 @@ public class ProfileFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_profile, null);
         nameView = view.findViewById(R.id.name_view);
         phoneView = view.findViewById(R.id.phone_view);
-        nameView.setText(username);
-        phoneView.setText(phone);
+        nameView.setText("Username: "+ username);
+        phoneView.setText("Contact information: " + phone);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
