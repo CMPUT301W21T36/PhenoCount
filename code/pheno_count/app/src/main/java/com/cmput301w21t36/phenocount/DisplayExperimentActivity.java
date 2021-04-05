@@ -298,6 +298,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     public void showProfile(View v){
         String username = exp.getOwner().getProfile().getUsername();
         String phone = exp.getOwner().getProfile().getPhone();
+        System.out.println(phone);
         new ProfileFragment(username, phone).show(getSupportFragmentManager(), "SHOW_PROFILE");
 
     }
