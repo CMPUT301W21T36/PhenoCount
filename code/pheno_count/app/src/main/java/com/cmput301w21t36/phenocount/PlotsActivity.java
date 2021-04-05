@@ -25,8 +25,8 @@ public class PlotsActivity extends AppCompatActivity {
     Experiment exp;
     ArrayList<Trial> trials;
     ArrayList<String> dates;
-    ArrayList<Long> dates_ms;
-    SimpleDateFormat formatter;
+    //ArrayList<Long> dates_ms;
+    //SimpleDateFormat formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,8 @@ public class PlotsActivity extends AppCompatActivity {
         exp = (Experiment) getIntent().getSerializableExtra("exp");//defining the Experiment object
         trials = exp.getTrials();
 
+        PlotsManager plotsManager = new PlotsManager(exp);
+
         if (trials.isEmpty()) { //empty plot
             Toast.makeText(
                     PlotsActivity.this,
@@ -51,6 +53,7 @@ public class PlotsActivity extends AppCompatActivity {
             finish();
         }
 
+        /**
         dates = new ArrayList<>(); //for unique date?
         for (Trial trial : trials) {
             if (!dates.contains(trial.getDate()))
@@ -91,7 +94,10 @@ public class PlotsActivity extends AppCompatActivity {
         for (int j = 0; j < dp.length; j++) {
             System.out.println("DATA POINT " + (j + 1) + "x : " + dp[j].getX() + ", y =" + dp[j].getY());
         }
-
+        */
+        DataPoint[] dp = plotsManager.compute();
+        dates = plotsManager.getDates();
+        //System.out.println("DATES IN PLOTS ACTIVITY "+ dates);
         final int dp_length = dp.length;
         graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
             @Override
@@ -129,7 +135,7 @@ public class PlotsActivity extends AppCompatActivity {
         expDet.setText(exp.getDescription());
 
         //graphView.getGridLabelRenderer().setVerticalAxisTitle("SUCCESSES");
-        //graphView.getGridLabelRenderer().setHorizontalLabelsAngle(15);
+        //graphView.getGridLabelRenderer().setHorizontalLabelsAngle(10);
         graphView.getGridLabelRenderer().setNumHorizontalLabels(dp_length);
 
         graphView.getGridLabelRenderer().setNumVerticalLabels(dp_length+2);
