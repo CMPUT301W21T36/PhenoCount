@@ -44,11 +44,14 @@ public class PublishExperimentActivity extends AppCompatActivity {
     String expType="";
     TextView expNum;
     CheckBox expGeoLoc;
-    String ownerName;
     String owner;
     int mode;
     Experiment exp;
     RadioGroup radioGroup;
+    RadioButton binomial;
+    RadioButton count;
+    RadioButton nonNegative;
+    RadioButton measure;
     private final String TAG = "PhenoCount";
 
     @Override
@@ -57,20 +60,21 @@ public class PublishExperimentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_experiment_publish);
         getSupportActionBar().setTitle("Publish an Experiment");
 
-
         expName = findViewById(R.id.expName);
         expDesc = findViewById(R.id.expDesc);
         expRegion = findViewById(R.id.expRegion);
         expNum = findViewById(R.id.expNum);
         expGeoLoc = findViewById(R.id.geoCheckBox);
+        binomial = findViewById(R.id.radioBinomial);
+        count = findViewById(R.id.radioCount);
+        nonNegative = findViewById(R.id.radioInt);
+        measure = findViewById(R.id.radioMeasure);
 
         Bundle bundle = getIntent().getExtras();
         mode = bundle.getInt("mode");
         if (mode == 0) {
-            ownerName = bundle.get("username").toString();
             owner = bundle.get("AutoId").toString();
         }
-
 
         if(mode == 1) {
             getSupportActionBar().setTitle("Edit Experiment");
@@ -126,6 +130,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
         if (exp.isRequireLocation()) {
             expGeoLoc.setChecked(true);
         }
+
         expType=exp.getExpType();
         if (exp.getExpType().equals("Binomial")){
             radioGroup.check(R.id.radioBinomial);
@@ -135,6 +140,17 @@ public class PublishExperimentActivity extends AppCompatActivity {
             radioGroup.check(R.id.radioInt);
         }else if (exp.getExpType().equals("Measurement")){
             radioGroup.check(R.id.radioMeasure);
+        }
+
+        binomial.setEnabled(true);
+        count.setEnabled(true);
+        nonNegative.setEnabled(true);
+        measure.setEnabled(true);
+        if (exp.getTrials().size()>0){
+            binomial.setEnabled(false);
+            count.setEnabled(false);
+            nonNegative.setEnabled(false);
+            measure.setEnabled(false);
         }
 
     }
@@ -176,7 +192,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("minimum_trials", expNum.getText().toString());
                     data.put("owner", owner);
                     data.put("status", "1");
-                    data.put("owner_name", ownerName);
+                    //data.put("owner_name", ownerName);
                     data.put("require_geolocation", "NO");
                     data.put("sub_list", sList);
                     if (expGeoLoc.isChecked()) {
@@ -211,7 +227,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("minimum_trials", expNum.getText().toString());
                     data.put("owner", exp.getOwner().getUID());
                     data.put("status", Integer.toString(exp.getExpStatus()));
-                    data.put("owner_name", exp.getOwner().getProfile().getUsername());
+                    //data.put("owner_name", exp.getOwner().getProfile().getUsername());
                     data.put("require_geolocation", "NO");
                     if (expGeoLoc.isChecked()) {
                         reqLoc = true;
@@ -256,7 +272,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
             }
         } else {
             AlertMsg Altmsg = new AlertMsg(this, "Error Message",
-                    "Description/Type of Experiment is Required, TRY AGAIN!!");
+                    "Description/Type of Experiment is Required, TRY AGAIN!!",0);
 
         }
     }

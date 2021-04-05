@@ -6,12 +6,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
@@ -28,6 +32,7 @@ public class NonNegativeCountActivity extends AppCompatActivity {
     TextView coordinates;
     DecimalFormat numberFormat;
     SharedPreferences sharedPrefs;
+    Menu expMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +47,13 @@ public class NonNegativeCountActivity extends AppCompatActivity {
         //setting user to owner of trial
         sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String username = sharedPrefs.getString("Username", "");
+        String number = sharedPrefs.getString("Number", "");
         String UUID = sharedPrefs.getString("ID", "");
-        Profile profile = new Profile(username);
+        Profile profile = new Profile(username,number);
         User user = new User(UUID,profile);
         trial = new NonNegativeCount(user);
+
+       // newexp.getDates().add(trial.getDate());
 
         //setting type of trial
         trial.setType("NonNegativeCount");
@@ -116,6 +124,27 @@ public class NonNegativeCountActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.general_menu, menu);
+        expMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.myList) {
+            Intent intent = new Intent(NonNegativeCountActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.search) {
+            Intent intent = new Intent(NonNegativeCountActivity.this, SearchingActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
     //Sends the experiment object and retrieves the updated object

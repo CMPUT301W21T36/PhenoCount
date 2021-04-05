@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="Experiment"
-        android:textSize="20dp" />
+        android:textSize="24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Owner" />
+            android:text="Owner"
+            android:textSize="24dp" />
 
         <TextView
             android:id="@+id/expStatusTextView"
@@ -31,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Status" />
+            android:text="Status"
+            android:textSize="24dp" />
 
     </LinearLayout>
 
@@ -41,6 +43,6 @@
         android:layout_height="50dp"
         android:padding="10dp"
         android:text="Experiment Description"
-        android:textSize="15dp" />
+        android:textSize="24dp" />
 
 </LinearLayout>

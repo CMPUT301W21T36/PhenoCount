@@ -2,9 +2,12 @@
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,11 +21,19 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -31,16 +42,17 @@ import java.util.HashMap;
  * or the experiment
  * @see MainActivity
  */
-public class DisplayExperimentActivity extends AppCompatActivity {
+public class DisplayExperimentActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener{
     private Experiment exp; // catch object passed from mainlist
     FirebaseFirestore db;
     private final String TAG = "PhenoCount";
     private String username;
     private String UUID;
-    private ExpManager expManager;
+    private ExpManager expManager = new ExpManager();
     Menu expMenu;
     TextView expStatus;
     CollectionReference collectionReference;
+    String phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +96,6 @@ public class DisplayExperimentActivity extends AppCompatActivity {
                 break;
             default:
                 mStat= "Added";
-
         }
         expStatus.setText(mStat);
         // Adding icon programmatically : BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
@@ -190,7 +201,9 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.item4) {
             Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
             tintent.putExtra("experiment", exp);
-            startActivity(tintent);
+            //System.out.println("IN DISPLAY EXP ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
+            int LAUNCH_THIRD_ACTIVITY = 3;
+            startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
         } else if (item.getItemId() == R.id.subscribeButton) {
             ArrayList expSubList = exp.getSubscribers();
             expSubList.add(UUID);
@@ -218,44 +231,77 @@ public class DisplayExperimentActivity extends AppCompatActivity {
             menuOpt();
 
         } else if (item.getItemId() == R.id.unpublishButton) {
-            // this query updates the unpublish status
-            db.collection("Experiment").document(exp.getExpID())
-                    .update("status", "3");
-            exp.setExpStatus(3);
-            menuOpt();
-            expStatus.setText("Unpublished");
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "Please confirm if you want to unpublish this experiment",1);
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // this query updates the unpublish status
+                    db.collection("Experiment").document(exp.getExpID())
+                            .update("status", "3");
+                    exp.setExpStatus(3);
+                    menuOpt();
+                    expStatus.setText("Unpublished");
+                    confirmMsg.cancelDialog();
+                }
+            });
         } else if (item.getItemId() == R.id.endButton){
-            db.collection("Experiment").document(exp.getExpID())
-                    .update("status", "2");
-            exp.setExpStatus(2);
-            menuOpt();
-            expStatus.setText("Ended");
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "Please confirm if you want to end this experiment",1);
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    db.collection("Experiment").document(exp.getExpID())
+                            .update("status", "2");
+                    exp.setExpStatus(2);
+                    menuOpt();
+                    expStatus.setText("Ended");
+                    //confirmMsg.alertDialog.cancel();
+                    confirmMsg.cancelDialog();
+                }
+            });
         }else if (item.getItemId() == R.id.editButton){
-            Intent eIntent = new Intent(DisplayExperimentActivity.this, PublishExperimentActivity.class);
-            eIntent.putExtra("experiment", exp);
-            eIntent.putExtra("mode", 1);
-            startActivityForResult(eIntent,1);
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "Please confirm if you want to edit this experiment",1);
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent eIntent = new Intent(DisplayExperimentActivity.this, PublishExperimentActivity.class);
+                    eIntent.putExtra("experiment", exp);
+                    eIntent.putExtra("mode", 1);
+                    startActivityForResult(eIntent, 1);
+                    confirmMsg.cancelDialog();
+                }
+            });
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     //Sends the experiment object and retrieves the updated object
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         int LAUNCH_SECOND_ACTIVITY = 1;
+        int LAUNCH_THIRD_ACTIVITY = 3;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 exp = (Experiment) data.getSerializableExtra("experiment");
-
-                SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-                sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-                username = sharedPrefs.getString("Username", "");
-                UUID = sharedPrefs.getString("ID", "");
-                expManager = new ExpManager();
                 expManager.updateTrialData(db,exp,username,UUID);
-
             }
+        }
+        if(requestCode == LAUNCH_THIRD_ACTIVITY){
+                System.out.println("Ignoring");
+                exp = (Experiment) data.getSerializableExtra("experiment");
+                //expManager = new ExpManager();
+                for(Trial trial:exp.getTrials()){
+                    System.out.println("Status: "+trial.getStatus());
+                }
+                expManager.ignoreTrial(exp);
 
         }
         if (resultCode == Activity.RESULT_CANCELED) {
@@ -263,5 +309,26 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         }
     }
 
+    public void showProfile(View v){
+        DocumentReference docRef = db.collection("User").document(UUID);
+          docRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String phoneNum = documentSnapshot.getString("ContactInfo");
+                        phone =phoneNum;
+                        }
+                });
+        String username = exp.getOwner().getProfile().getUsername();
+        System.out.println(username);
+        String phone = exp.getOwner().getProfile().getPhone();
+        System.out.println(phone);
+        new ProfileFragment(username, phone).show(getSupportFragmentManager(), "SHOW_PROFILE");
 
+    }
+
+    @Override
+    public void onOkPressedAdd(String text) {
+
+    }
 }

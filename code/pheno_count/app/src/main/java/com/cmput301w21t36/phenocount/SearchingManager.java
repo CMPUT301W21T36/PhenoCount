@@ -21,12 +21,13 @@ import java.util.ArrayList;
 public class SearchingManager {
     private ExpManager expManager = new ExpManager();
 
-    public void getAllExp(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter){
+    public void getAllExp(FirebaseFirestore db, ArrayList<Experiment> expDataList,
+                          ArrayAdapter<Experiment> expAdapter){
         db.collection("Experiment").whereNotEqualTo("status", "3").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
-                expManager.getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                expManager.getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
             }
         });
     }

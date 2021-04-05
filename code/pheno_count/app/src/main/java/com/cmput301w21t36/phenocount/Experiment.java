@@ -21,6 +21,7 @@ public class Experiment implements Serializable {
     private int subscribe = 0;
     private ArrayList subscribers = new ArrayList();
 
+
     /**
      * This constructs a new experiment object
      * with name, description, region, minimum number of trials and/or geolocation
@@ -298,4 +299,6 @@ public class Experiment implements Serializable {
     public void setSubscribers(ArrayList subscribers) {
         this.subscribers = subscribers;
     }
+
+
 }
