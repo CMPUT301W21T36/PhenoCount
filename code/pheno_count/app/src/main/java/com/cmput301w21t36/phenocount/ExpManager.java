@@ -109,12 +109,8 @@ public class ExpManager {
      * the Firestore Database
      * @param exp
      * the updated experiment object
-     * @param username
-     * the username of the owner of the trial
-     * @param UUID
-     * the unique ID of the owner of the trial
      */
-    public void updateTrialData(FirebaseFirestore db, Experiment exp,String username,String UUID){
+    public void updateTrialData(FirebaseFirestore db, Experiment exp){
 
         if (exp != null) {
 
@@ -131,8 +127,8 @@ public class ExpManager {
                 fdata.put("Latitude", "" + trial.getLatitude());
                 fdata.put("Longitude", "" + trial.getLongitude());
                 fdata.put("type", exp.getExpType());
-                fdata.put("owner", username);
-                fdata.put("userID", UUID);
+                //fdata.put("owner", username);
+                fdata.put("userID", trial.getOwner().getUID());
                 fdata.put("status",Boolean.toString(trial.getStatus()));
                 fdata.put("date",trial.getDate());
 
@@ -316,15 +312,31 @@ public class ExpManager {
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.getResult()!=null) {
+                    if (task.getResult().getData()!=null) {
                         String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
                         String username = (String) task.getResult().getData().get("Username");
                         exp.getOwner().getProfile().setUsername(username);
                         exp.getOwner().getProfile().setPhone(phoneNumber);
-
                     }
                 }
             });
+
+            //adding username and phone to each trial obj
+            for(Trial trial: exp.getTrials()){
+                Task<DocumentSnapshot> trialDocument = db.collection("User").document(trial.getOwner().getUID()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.getResult()!=null) {
+                            String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
+                            String username = (String) task.getResult().getData().get("Username");
+                            trial.getOwner().getProfile().setUsername(username);
+                            trial.getOwner().getProfile().setPhone(phoneNumber);
+                            System.out.println("NUMBER :" + phoneNumber);
+                        }
+                    }
+                });
+
+            }
         }
         expAdapter.notifyDataSetChanged();
     }

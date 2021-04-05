@@ -50,9 +50,6 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         //getting the trial object from results activity
         Trial trial = getItem(position);
 
-/*        if (!trial.getStatus()){
-            trialList.remove(position);
-        }*/
 
         //initializing textviews
         TextView trial_no = view.findViewById(R.id.trial_no);
@@ -78,6 +75,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         else {
             trial_no.setText("Trial " + (position+1));
         }
+
         //checking type of trial and setting result
         if (trial.getType().equals("Binomial")) {
             Binomial btrial = (Binomial) trial;
