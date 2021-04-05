@@ -42,6 +42,10 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         String textMessage = "Q: " + question.getText();
         queText.setText(textMessage);
 
+        TextView numText = view.findViewById(R.id.reply_num);
+        String numMessage = "Reply: " + question.getReply_num();
+        numText.setText(numMessage);
+
 
         return view;
     }

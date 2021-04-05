@@ -16,4 +16,12 @@
         android:textSize="29sp">
     </TextView>
 
+    <TextView
+        android:id="@+id/reply_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reply numbers:"
+        android:textSize="29sp">
+    </TextView>
+
 </LinearLayout>
