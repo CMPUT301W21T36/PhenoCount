@@ -101,7 +101,7 @@ public class ResultsActivity extends AppCompatActivity {
         plotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("IN RESULTS ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
+                //System.out.println("IN RESULTS ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
                 Intent intent = new Intent(ResultsActivity.this, PlotsActivity.class );
                 intent.putExtra("exp", exp);
                 startActivity(intent);

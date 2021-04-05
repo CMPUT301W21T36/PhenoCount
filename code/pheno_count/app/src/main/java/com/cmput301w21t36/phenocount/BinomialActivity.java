@@ -57,15 +57,16 @@ public class BinomialActivity extends AppCompatActivity {
         //setting user to owner of trial
         sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String username = sharedPrefs.getString("Username", "");
+        String number = sharedPrefs.getString("Number", "");
         String UUID = sharedPrefs.getString("ID", "");
-        Profile profile = new Profile(username);
+        Profile profile = new Profile(username,number);
         User user = new User(UUID,profile);
         trial = new Binomial(user);
         //newexp.getDates().add(trial.getDate()); //rao
 
         //setting type of trial
         trial.setType("Binomial");
-        System.out.println("DAYYY" + new Date(trial.getDate()));
+      //  System.out.println("DAYYY" + new Date(trial.getDate()));
 
         // Capture the layout's TextView and set the string as its text
         TextView desc = findViewById(R.id.desc1);

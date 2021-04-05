@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        phoneNumber = sharedPrefs.getString("Number", "");
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
@@ -131,18 +132,14 @@ public class MainActivity extends AppCompatActivity {
     public void addExperiment(View view){
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         String mstr = UUID;
-
-        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-        username = sharedPrefs.getString("Username", "");
-
         intent.putExtra("AutoId",mstr);
-        intent.putExtra("username",username);
         intent.putExtra("mode",0);
         startActivity(intent);
-
     }
 
     public void showSubList(View view){
+        //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        //phoneNumber = sharedPrefs.getString("Number", "");
         Intent intent = new Intent(this, ShowSubscribedListActivity.class);
         intent.putExtra("owner",UUID);
         startActivity(intent);
@@ -154,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void openSearch() {
         Intent intent = new Intent(this, SearchingActivity.class);
-        intent.putExtra("expID",UUID);
         startActivity(intent);
     }
 

@@ -34,8 +34,12 @@ public class ProfileFragment extends DialogFragment {
     //constructor of fragment, you have to know the type,
     // thus we can set up the title and hint for it.
     public ProfileFragment(String username, String phone) {
-        this.username = username;
-        if(phone == null){
+        if(username == null || username == ""){
+            this.username = "unknown";
+        }else{
+            this.username = username;
+        }
+        if(phone == null || phone == ""){
             this.phone = "unknown";
         }else{
             this.phone = phone;
@@ -62,7 +66,7 @@ public class ProfileFragment extends DialogFragment {
         nameView = view.findViewById(R.id.name_view);
         phoneView = view.findViewById(R.id.phone_view);
         nameView.setText("Username: "+ username);
-        phoneView.setText("Contact information: " + phone);
+        phoneView.setText("Contact: " + phone);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
         return builder

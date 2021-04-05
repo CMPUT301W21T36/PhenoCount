@@ -42,26 +42,36 @@ public class ExperimentAdapter extends ArrayAdapter<Experiment> {
                 expName.setText(experiment.getDescription());
         }
 
+        expName.setTextColor(Color.parseColor("#FF69B4"));
+        if (experiment.getExpType().equals("Binomial")){
+            expName.setTextColor(Color.parseColor("#008000"));
+        } else if (experiment.getExpType().equals("Count")){
+            expName.setTextColor(Color.parseColor("#8B4513"));
+        } else if (experiment.getExpType().equals("NonNegativeCount")){
+            expName.setTextColor(Color.parseColor("#191970"));
+
+        }
+
         String mStat = "" ;
         switch(experiment.getExpStatus()){
             case 1:
                 mStat = "Published";
-                expName.setTextColor(Color.parseColor("#FF018786"));
+                //expName.setTextColor(Color.parseColor("#FF018786"));
                 expstatus.setTextColor(Color.parseColor("#FF018786"));
                 break;
             case 2:
                 mStat= "Ended";
-                expName.setTextColor(Color.parseColor("#B00200"));
+                //expName.setTextColor(Color.parseColor("#B00200"));
                 expstatus.setTextColor(Color.parseColor("#B00200"));
                 break;
             case 3:
                 mStat = "Unpublished";
-                expName.setTextColor(Color.parseColor("#FF8800"));
+                //expName.setTextColor(Color.parseColor("#FF8800"));
                 expstatus.setTextColor(Color.parseColor("#FF8800"));
                 break;
             default:
                 mStat= "Added";
-                expName.setTextColor(Color.parseColor("#7189FF"));
+                //expName.setTextColor(Color.parseColor("#7189FF"));
                 expstatus.setTextColor(Color.parseColor("#7189FF"));
 
         }

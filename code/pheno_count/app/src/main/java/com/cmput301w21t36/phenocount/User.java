@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class User implements Serializable {
     private ArrayList<Experiment> expPublished;
-    private ArrayList<Experiment> expSubscribed;
+    private ArrayList<Experiment> expSubscribed = new ArrayList<>();
     private String UID;
     private Profile profile;
 
@@ -47,4 +47,11 @@ public class User implements Serializable {
         return profile;
     }
 
+    public ArrayList<Experiment> getExpSubscribed() {
+        return expSubscribed;
+    }
+
+    public void setExpSubscribed(ArrayList<Experiment> expSubscribed) {
+        this.expSubscribed = expSubscribed;
+    }
 }

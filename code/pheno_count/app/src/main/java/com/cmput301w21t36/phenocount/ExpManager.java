@@ -8,6 +8,7 @@ import java.util.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +40,31 @@ import java.util.List;
 public class ExpManager {
     private final String TAG = "PhenoCount";
 
+    /*public String getPhoneNumber(FirebaseFirestore db, String UUID){
+        /*ds.collection("User").whereEqualTo("UID", UUID)
+            .addSnapshotListener((queryDocumentSnapshots, error) -> {
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    Log.d("pheno", String.valueOf(doc.getId()));
+                    phoneNumber = (String) doc.getData().get("ContactInfo");
+                }
+            });
+
+
+        Task<DocumentSnapshot> userDocument = db.collection("User")
+                .document(UUID).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult()!=null) {
+                    phoneNumber = (String) task.getResult().getData().get("ContactInfo");
+                    String username = (String) task.getResult().getData().get("Username");
+                }
+            }
+        });
+        return phoneNumber;
+    }
+
+     */
 
     /**
      * This method populates the list of current user's experiments in the MainActivity
@@ -48,27 +74,29 @@ public class ExpManager {
      * @param UUID
      * @see MainActivity
      */
-    public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
+    public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
+                           ArrayAdapter<Experiment> expAdapter, String UUID){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
         db.collection("Experiment")
-            .whereEqualTo("owner",UUID)
+            .whereEqualTo("owner",UUID).orderBy("status")
             .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
-                getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
             }
         });
     }
 
-    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
+    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
+                              ArrayAdapter<Experiment> expAdapter, String UUID){
         db.collection("Experiment")
-                .whereArrayContains("sub_list",UUID)
+                .whereArrayContains("sub_list",UUID).orderBy("status")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                             FirebaseFirestoreException error) {
-                        getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                        getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
                     }
                 });
     }
@@ -90,7 +118,7 @@ public class ExpManager {
 
         if (exp != null) {
 
-            db = FirebaseFirestore.getInstance();
+            //db = FirebaseFirestore.getInstance();
             final CollectionReference collectionReference = db.collection("Trials");
 
             HashMap<String, String> fdata = new HashMap<>();
@@ -106,7 +134,7 @@ public class ExpManager {
                 fdata.put("owner", username);
                 fdata.put("userID", UUID);
                 fdata.put("status",Boolean.toString(trial.getStatus()));
-                fdata.put("date",Long.toString(trial.getDate()));
+                fdata.put("date",trial.getDate());
 
                 if (exp.getExpType().equals("Binomial")) {
                     Binomial btrial = (Binomial) exp.getTrials().get(exp.getTrials().size() - 1);
@@ -178,8 +206,8 @@ public class ExpManager {
      * @param error
      */
     public void getdata(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                        ArrayAdapter<Experiment> expAdapter,QuerySnapshot queryDocumentSnapshots,
-                        FirebaseFirestoreException error){
+                        ArrayAdapter<Experiment> expAdapter,
+                        QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException error){
         expDataList.clear();
         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
@@ -194,7 +222,7 @@ public class ExpManager {
                 String reqGeo = (String) doc.getData().get("require_geolocation");
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
-                String userName = (String) doc.getData().get("owner_name");
+                //String userName = (String) doc.getData().get("owner_name");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
 
 
@@ -211,13 +239,12 @@ public class ExpManager {
                 int expStatus = 0;
                 if (!mStat.isEmpty()) {
                     expStatus = Integer.parseInt(mStat);
-                }
+               }
 
                 Experiment newExp = new Experiment(name, description, region, type, minTrial,
                         reqLoc, expStatus, expID);
 
-                //creating a profile object
-                Profile newProfile = new Profile(userName);
+                Profile newProfile = new Profile();
                 User currentUser = new User(owner, newProfile);
                 newExp.setOwner(currentUser);
                 newExp.setSubscribers(sList);
@@ -243,71 +270,59 @@ public class ExpManager {
                         String latitude = (String) doc.getData().get("Latitude");
                         String longitude = (String) doc.getData().get("Longitude");
                         String status = (String) doc.getData().get("status");
-                        String date = (String) doc.getData().get("date"); ///////////////////////
-                        //String date = "1617574055";
-                        System.out.println("WHAT IS THE DATE "+ date);
+                        String date = (String) doc.getData().get("date");
                         String ttype = exp.getExpType();
 
-                        Profile profile = new Profile(username);
+                        Profile profile = new Profile();
+                        profile.setUsername(username);
                         User user = new User(userID,profile);
 
-/*                      if(latitude !=null && longitude != null){
-                            trial.setLatitude(Float.parseFloat(latitude));
-                            trial.setLongitude(Float.parseFloat(longitude));///////////////
-                        }*/
-
-
-
+                        Binomial newtrial = new Binomial(user);
+                        Trial trial = newtrial;
+                        trial.setType(ttype);
+                        trial.setDate(date);
+                        trial.setStatus(Boolean.parseBoolean(status));
+                        trial.setLatitude(Float.parseFloat(latitude));
+                        trial.setLongitude(Float.parseFloat(longitude));
 
                         //retrieving result from firebase
                         String result = (String) doc.getData().get("result");
                         if (result != null) {
                             if (ttype.equals("Binomial")) {
-                                Binomial trial = new Binomial(user);
-                                trial.setResult(Boolean.parseBoolean(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                Binomial btrial = (Binomial) trial;
+                                btrial.setResult(Boolean.parseBoolean(result));
                                 trials.add(trial);
                             } else if (ttype.equals("Count")) {
-                                Count trial = new Count(user);
-                                trial.setCount(Integer.parseInt(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                Count ctrial = new Count(user);
+                                ctrial.setCount(Integer.parseInt(result));
                                 trials.add(trial);
                             } else if (ttype.equals("Measurement")) {
-                                Measurement trial = new Measurement(user);
-                                trial.setMeasurement(Float.parseFloat(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                Measurement mtrial = new Measurement(user);
+                                mtrial.setMeasurement(Float.parseFloat(result));
                                 trials.add(trial);
                             } else if (ttype.equals("NonNegativeCount")) {
-                                NonNegativeCount trial = new NonNegativeCount(user);
-                                trial.setValue(Integer.parseInt(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                NonNegativeCount ntrial = new NonNegativeCount(user);
+                                ntrial.setValue(Integer.parseInt(result));
                                 trials.add(trial);
                             }
                         }
                     }
                     exp.setTrials(trials);
                     expDataList.set(finalI,exp); //adding updated trial object to original list
+                }
+            });
 
+            Task<DocumentSnapshot> userDocument = db.collection("User")
+                    .document(exp.getOwner().getUID()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.getResult()!=null) {
+                        String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
+                        String username = (String) task.getResult().getData().get("Username");
+                        exp.getOwner().getProfile().setUsername(username);
+                        exp.getOwner().getProfile().setPhone(phoneNumber);
+                    }
                 }
             });
         }
