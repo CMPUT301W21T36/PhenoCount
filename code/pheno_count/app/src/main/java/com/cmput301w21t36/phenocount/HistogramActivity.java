@@ -53,15 +53,40 @@ public class HistogramActivity extends AppCompatActivity {
         String[] dates = new String[datesList.size()];
         dates = datesList.toArray(dates);
 
-//        String[] dates = new String[] {"today", "tomorrow"};
+        XAxis xAxisline = lineChart.getXAxis();
+        xAxisline.setValueFormatter(new XAxisFormatter(dates));
+        xAxisline.setLabelRotationAngle(-45);
+        xAxisline.setTextSize(10);
+        xAxisline.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-//        String date = trialList.get(0).getDate();
-//        date = date.substring(0, 2);
+        Description description = new Description();
+        description.setTextColor(Color.BLACK);
+        description.setTextSize(10);
+
+        barchart.animateXY(3000, 3000);
+        lineChart.animateXY(3000, 3000);
 
         int i = 0;
         int j = 0;
         switch (type) {
             case "Binomial":
+                BarDataSet barDataSet = new BarDataSet(dataSet1, "Success");
+                barDataSet.setColor(Color.GREEN);
+                BarDataSet failset = new BarDataSet(dataSet2, "Fails");
+                failset.setColor(Color.RED);
+
+                BarData binomialData = new BarData();
+                binomialData.addDataSet(barDataSet);
+                binomialData.addDataSet(failset);
+                barchart.setData(binomialData);
+
+                description.setText("Coin Flip Histogram");
+                barchart.setDescription(description);
+
+                XAxis xAxisBar;
+                xAxisBar = barchart.getXAxis();
+                xAxisBar.setEnabled(false);
+
                 barchart.setVisibility(View.VISIBLE);
                 int successCount = 0;
                 int failCount = 0;
@@ -103,12 +128,11 @@ public class HistogramActivity extends AppCompatActivity {
                     LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
                     set1.setLineWidth(10);
 
-                    LineData data = new LineData();
-                    data.addDataSet(set1);
+                    LineData countData = new LineData();
+                    countData.addDataSet(set1);
 
-                    lineChart.setData(data);
+                    lineChart.setData(countData);
                 }
-
 
                 //                trial = String.valueOf(((Count) trialList.get(position)).getCount());
                 break;
@@ -119,38 +143,6 @@ public class HistogramActivity extends AppCompatActivity {
                 //                trial = String.valueOf(((Measurement) trialList.get(position)).getMeasurement());
                 break;
         }
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setValueFormatter(new XAxisFormatter(dates));
-        xAxis.setLabelRotationAngle(-45);
-        xAxis.setTextSize(10);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-//        BarDataSet barDataSet = new BarDataSet(dataSet1, "Success");
-//        barDataSet.setColor(Color.GREEN);
-//
-//        BarDataSet failset = new BarDataSet(dataSet2, "Fails");
-//        failset.setColor(Color.RED);
-//
-//
-//        Description description = new Description();
-//        description.setText("Coin Flip Histogram");
-//        description.setTextColor(Color.BLACK);
-//        description.setTextSize(10);
-//        barchart.setDescription(description);
-//
-//        XAxis xAxisBar;
-//        xAxisBar = barchart.getXAxis();
-//        xAxisBar.setEnabled(false);
-//
-//        barchart.animateXY(3000, 3000);
-//
-//        BarData data = new BarData();
-//        data.addDataSet(barDataSet);
-//        data.addDataSet(failset);
-//        barchart.setData(data);
-//        barchart.setTouchEnabled(true);
-//        barchart.setDragEnabled(true);
     }
 
     public class XAxisFormatter implements IAxisValueFormatter {
