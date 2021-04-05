@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
+import java.util.Date;
 
 /**
  * This class represents binomial trials and is part of the GUI
@@ -64,6 +65,7 @@ public class BinomialActivity extends AppCompatActivity {
 
         //setting type of trial
         trial.setType("Binomial");
+        System.out.println("DAYYY" + new Date(trial.getDate()));
 
         // Capture the layout's TextView and set the string as its text
         TextView desc = findViewById(R.id.desc1);

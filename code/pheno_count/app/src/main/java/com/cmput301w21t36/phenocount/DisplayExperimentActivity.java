@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -181,6 +182,7 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.item4) {
             Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
             tintent.putExtra("experiment", exp);
+            //System.out.println("IN DISPLAY EXP ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
             int LAUNCH_THIRD_ACTIVITY = 3;
             startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
         } else if (item.getItemId() == R.id.subscribeButton) {
