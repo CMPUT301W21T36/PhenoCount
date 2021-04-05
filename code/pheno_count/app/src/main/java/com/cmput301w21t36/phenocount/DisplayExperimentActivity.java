@@ -130,7 +130,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DisplayExperimentActivity.this, HistogramActivity.class);
-                i.putExtra("trials", exp.getTrials());
+                i.putExtra("experiment", exp);
                 startActivity(i);
             }
         });
