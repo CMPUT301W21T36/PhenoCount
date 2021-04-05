@@ -162,7 +162,5 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         editor.putString("Number",contact);
         editor.apply();
 
-        profile.setUsername(username);
-        profile.setPhone(contact);
     }
 }

@@ -68,6 +68,11 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         TextView expType = findViewById(R.id.expTypeText);
         TextView expReqLoc = findViewById(R.id.reqLocText);
 
+        String phone = exp.getOwner().getProfile().getUsername();
+        System.out.println(username);
+        System.out.println(phone);
+
+
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
         expOwner.setText(exp.getOwner().getProfile().getUsername());
@@ -298,6 +303,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     public void showProfile(View v){
         String username = exp.getOwner().getProfile().getUsername();
         String phone = exp.getOwner().getProfile().getPhone();
+        System.out.println(username);
         System.out.println(phone);
         new ProfileFragment(username, phone).show(getSupportFragmentManager(), "SHOW_PROFILE");
 
