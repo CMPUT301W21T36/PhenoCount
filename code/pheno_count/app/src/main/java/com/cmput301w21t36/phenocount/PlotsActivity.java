@@ -26,27 +26,173 @@ public class PlotsActivity extends AppCompatActivity {
     ArrayList<String> dates;
     ArrayList<Long> dates_ms;
     SimpleDateFormat formatter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plots);
         graphView = (GraphView) findViewById(R.id.graph);
-        dates = new ArrayList<>();
-        dates_ms = new ArrayList<>();
+
+        graphView.getViewport().setScrollable(true);
+        graphView.getViewport().setScalable(true);
+        graphView.getViewport().setScalableY(true);
+        graphView.getViewport().setScrollableY(true);
+        graphView.getGridLabelRenderer().setHighlightZeroLines(true);
+
         exp = (Experiment) getIntent().getSerializableExtra("exp");//defining the Experiment object
-        //System.out.println(exp.getName());
         trials = exp.getTrials();
 
-        //System.out.println("one of the trial "+ new Date(trials.get(trials.size()-1).getDate()));
-        if(trials.isEmpty()){
+        if (trials.isEmpty()) { //empty plot
             Toast.makeText(
                     PlotsActivity.this,
-                    "No Plot to show",
+                    "No Data to show",
                     Toast.LENGTH_LONG).show();
             finish();
         }
 
-        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        dates = new ArrayList<>(); //for unique date?
+        for (Trial trial : trials) {
+            if (!dates.contains(trial.getDate()))
+                dates.add(trial.getDate());
+        }
+
+        System.out.println("UNIQUE DATES " + dates);
+        //sorting according to date
+        dates = sortDates(dates);
+
+        ArrayList<DataPoint> dpList = new ArrayList<>();
+        int i = 0;
+        //Collections.sort(dates);
+        int success_count = 0;
+        for (String date : dates) {
+
+            for (Trial trial : trials) {
+
+                Binomial bTrial = (Binomial) trial;
+
+                if (bTrial.getDate().equals(date) && bTrial.getResult() == true && bTrial.getStatus()) {
+                    success_count++;
+                    //ms = bTrial.getDate();
+                }
+            }
+            System.out.println("Success " + success_count);
+            //Long date_mili = dates_ms.get(dates.indexOf(date));
+            dpList.add(new DataPoint(i, success_count));
+            System.out.println("SIZE OF ARRAY " + dpList.size());
+            i++;
+
+        }
+
+        //dpList.add(new DataPoint(1617648045000L, 5));
+        DataPoint[] dp = new DataPoint[dpList.size()];
+        dp = dpList.toArray(dp);
+        System.out.println("SIZE OF ARRAY " + dp.length);
+        for (int j = 0; j < dp.length; j++) {
+            System.out.println("DATA POINT " + (j + 1) + "x : " + dp[j].getX() + ", y =" + dp[j].getY());
+        }
+
+        final int dp_length = dp.length;
+        graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                //System.out.println("VALUE inside "+ (long)value);
+                if(isValueX && value < dp_length){
+                    System.out.println("VALUE = "+ value);
+                    return dates.get((int)value);
+                    //return "lol";
+                }
+                return super.formatLabel(value, isValueX);
+            }
+
+        });
+
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(dp_length);
+
+
+        pointSeries = new PointsGraphSeries<>(dp);
+        series = new LineGraphSeries<>(dp);
+        graphView.addSeries(series);
+        graphView.addSeries(pointSeries);
+
+        graphView.getViewport().setScrollable(true);
+        graphView.getViewport().setScalable(true);
+        graphView.getViewport().setScalableY(true);
+        graphView.getViewport().setScrollableY(true);
+
+        //graphView.getGridLabelRenderer().setHorizontalLabels
+    }
+
+
+    //Put it in a "plots manager"
+    public ArrayList<String> sortDates(ArrayList<String> dates) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        ArrayList<Date> dateObjs = new ArrayList<Date>();
+        for (String date : dates) {
+            try {
+                Date obj = formatter.parse(date);
+                dateObjs.add(obj);
+            } catch (Exception e) {
+                System.out.println("FAIL");
+            }
+
+        }
+        Collections.sort(dateObjs);
+        ArrayList<String> sorted_str_dates = new ArrayList<>();
+
+        for (Date date : dateObjs) {
+            sorted_str_dates.add(formatter.format(date));
+        }
+
+        return (sorted_str_dates);
+
+
+    }
+}
+
+        /**
+        //final String datesString[] = new String[];
+        final int dp_length = dp.length;
+        graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                //System.out.println("VALUE inside "+ (long)value);
+                if(isValueX && value < dp_length){
+                    System.out.println("VALUE = "+ value);
+                    return dates.get((int)value);
+                    //return "lol";
+                }
+                return super.formatLabel(value, isValueX);
+            }
+
+        });
+
+        pointSeries.setShape(PointsGraphSeries.Shape.POINT);
+        pointSeries.setSize(12);
+        series.setColor(R.color.purple_200);
+        graphView.getGridLabelRenderer().setHorizontalAxisTitle("DATE");
+        graphView.getGridLabelRenderer().setHorizontalAxisTitleTextSize(40f);
+        graphView.getGridLabelRenderer().setVerticalAxisTitle("SUCCESSES");
+        graphView.getGridLabelRenderer().setHorizontalLabelsAngle(15);
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+
+
+
+
+        /**
+        //graphView.getViewport().setXAxisBoundsManual(true);
+        dates = new ArrayList<>();
+        dates_ms = new ArrayList<>();
+
+
+
+        //graphView.getViewport().setMinX();
+
+        //System.out.println("one of the trial "+ new Date(trials.get(trials.size()-1).getDate()));
+
+
+
+        formatter = new SimpleDateFormat("dd MM/yyyy");
         for(Trial trial: trials){
 
             Date dateObj = new Date(trial.getDate());
@@ -61,7 +207,12 @@ public class PlotsActivity extends AppCompatActivity {
         System.out.println("all the unique dates that exist" + dates);
         Collections.sort(dates_ms);
 
-        String pattern = "dd/MM";
+
+
+
+
+
+        String pattern = "dd MMM";
         DateFormat df = new SimpleDateFormat(pattern);
 
 
@@ -86,10 +237,7 @@ public class PlotsActivity extends AppCompatActivity {
 
 
 
-            graphView.getViewport().setScrollable(true);
-            graphView.getViewport().setScalable(true);
-            graphView.getViewport().setScalableY(true);
-            graphView.getViewport().setScrollableY(true);
+
             pointSeries.setShape(PointsGraphSeries.Shape.POINT);
             pointSeries.setSize(12);
             series.setColor(R.color.purple_200);
@@ -97,6 +245,12 @@ public class PlotsActivity extends AppCompatActivity {
             graphView.getGridLabelRenderer().setHorizontalAxisTitleTextSize(40f);
             graphView.getGridLabelRenderer().setVerticalAxisTitle("SUCCESSES");
             graphView.getGridLabelRenderer().setHorizontalLabelsAngle(15);
+            graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+
+            final String[] xlabels = new String[] {
+                    "foo", "bar", "third", "bla", "more"
+            };
+
             //graphView.getViewport().scrollToEnd();
 
             graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
@@ -104,12 +258,12 @@ public class PlotsActivity extends AppCompatActivity {
             public String formatLabel(double value, boolean isValueX) {
                 //System.out.println("VALUE inside "+ (long)value);
                 if(isValueX){
-
+                    System.out.println("VALUE = "+ value);
                     Date date = new Date((long)value);
                     //System.out.println("IS DATE PROPER? "+ date);
-                    String str = df.format(date);
+                    //String str = df.format(date);
                     //System.out.println("FORMATTER "+ str);
-                    return str;
+                    return xlabels[(int)value];
                     //return "$$" + super.formatLabel(value, isValueX);
                 }
                 return super.formatLabel(value, isValueX);
@@ -123,7 +277,7 @@ public class PlotsActivity extends AppCompatActivity {
         private DataPoint[] getDataPoint() throws ParseException {
 
             ArrayList<DataPoint> dpList = new ArrayList<>();
-
+            int i = 0;
             //Collections.sort(dates);
             int success_count = 0;
             for(String date: dates){
@@ -142,7 +296,9 @@ public class PlotsActivity extends AppCompatActivity {
                 }
                 System.out.println("Success "+success_count);
                 //Long date_mili = dates_ms.get(dates.indexOf(date));
-                dpList.add(new DataPoint(ms,success_count));
+                dpList.add(new DataPoint(i,success_count));
+                System.out.println("SIZE OF ARRAY "+ dpList.size());
+                i++;
 
             }
 
@@ -152,7 +308,11 @@ public class PlotsActivity extends AppCompatActivity {
             //DataPoint[] dp = new DataPoint[]{new DataPoint(date_1.getTime(), 30),
                    // new DataPoint(date_2.getTime(), 35),new DataPoint(date_2.getTime(),37), new DataPoint(date_3.getTime(),32),
             //};
+
             return dp;
         }
 
+
+
     }
+         */

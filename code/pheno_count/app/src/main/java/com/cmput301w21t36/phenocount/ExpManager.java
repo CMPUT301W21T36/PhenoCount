@@ -134,7 +134,7 @@ public class ExpManager {
                 fdata.put("owner", username);
                 fdata.put("userID", UUID);
                 fdata.put("status",Boolean.toString(trial.getStatus()));
-                fdata.put("date",Long.toString(trial.getDate()));
+                fdata.put("date",trial.getDate());
 
                 if (exp.getExpType().equals("Binomial")) {
                     Binomial btrial = (Binomial) exp.getTrials().get(exp.getTrials().size() - 1);
@@ -280,7 +280,7 @@ public class ExpManager {
                         Binomial newtrial = new Binomial(user);
                         Trial trial = newtrial;
                         trial.setType(ttype);
-                        trial.setDate(Long.parseLong(date));
+                        trial.setDate(date);
                         trial.setStatus(Boolean.parseBoolean(status));
                         trial.setLatitude(Float.parseFloat(latitude));
                         trial.setLongitude(Float.parseFloat(longitude));
