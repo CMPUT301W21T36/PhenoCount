@@ -198,8 +198,8 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("minimum_trials", expNum.getText().toString());
                     data.put("owner", owner);
                     data.put("status", "1");
-                    data.put("owner_name", ownerName);
-                    data.put("number",number);
+                    //data.put("owner_name", ownerName);
+                    //data.put("number",number); // changed
                     data.put("require_geolocation", "NO");
                     data.put("sub_list", sList);
                     if (expGeoLoc.isChecked()) {

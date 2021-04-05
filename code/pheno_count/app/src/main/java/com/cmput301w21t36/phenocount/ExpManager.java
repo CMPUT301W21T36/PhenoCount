@@ -195,18 +195,9 @@ public class ExpManager {
                 String reqGeo = (String) doc.getData().get("require_geolocation");
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
-                String userName = (String) doc.getData().get("owner_name");
-                String phoneNumber = (String) doc.getData().get("number");
+                //String userName = (String) doc.getData().get("owner_name");
+                //String phoneNumber = (String) doc.getData().get("number");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
-
-/*                //query to get the phone number from
-                Task<DocumentSnapshot> userDocument = db.collection("User").document(owner).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        String number = (String) task.getResult().getData().get("ContactInfo");
-                        System.out.println("NUMBER :"+ number);
-                    }
-                });*/
 
                 boolean reqLoc;
                 if (reqGeo.equals("YES")) {
@@ -227,7 +218,7 @@ public class ExpManager {
                         reqLoc, expStatus, expID);
 
                 //creating a profile object
-                Profile newProfile = new Profile(userName,phoneNumber);
+                Profile newProfile = new Profile(); ///changed
                 User currentUser = new User(owner, newProfile);
                 newExp.setOwner(currentUser);
                 newExp.setSubscribers(sList);
@@ -256,7 +247,8 @@ public class ExpManager {
                         String date = (String) doc.getData().get("date");
                         String ttype = exp.getExpType();
 
-                        Profile profile = new Profile(username);
+                        Profile profile = new Profile();
+                        profile.setUsername(username);
                         User user = new User(userID,profile);
 
                         Binomial newtrial = new Binomial(user);
@@ -291,7 +283,21 @@ public class ExpManager {
                     }
                     exp.setTrials(trials);
                     expDataList.set(finalI,exp); //adding updated trial object to original list
+                }
+            });
 
+            //trying to query phone number here
+            System.out.println("Owner: "+exp.getOwner().getUID());
+            Task<DocumentSnapshot> userDocument = db.collection("User").document(exp.getOwner().getUID()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.getResult()!=null) {
+                        String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
+                        String username = (String) task.getResult().getData().get("Username");
+                        exp.getOwner().getProfile().setUsername(username);
+                        exp.getOwner().getProfile().setPhone(phoneNumber);
+                        System.out.println("NUMBER :" + phoneNumber);
+                    }
                 }
             });
         }

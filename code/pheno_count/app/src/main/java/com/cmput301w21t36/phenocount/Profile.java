@@ -26,9 +26,7 @@ public class Profile implements Serializable {
      * in the cases where a phone number is not needed
      * @param username String representing a sequence of characters the user chooses
      */
-    public Profile(String username) {
-        this.username = username;
-    }
+    public Profile() {}
 
     /**
      * Getter for a Profile's username

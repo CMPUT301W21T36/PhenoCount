@@ -57,8 +57,9 @@ public class BinomialActivity extends AppCompatActivity {
         //setting user to owner of trial
         sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         String username = sharedPrefs.getString("Username", "");
+        String number = sharedPrefs.getString("Number", "");
         String UUID = sharedPrefs.getString("ID", "");
-        Profile profile = new Profile(username);
+        Profile profile = new Profile(username,number);
         User user = new User(UUID,profile);
         trial = new Binomial(user);
         //newexp.getDates().add(trial.getDate()); //rao

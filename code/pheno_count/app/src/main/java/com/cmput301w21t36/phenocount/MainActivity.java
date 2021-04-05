@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         intent.putExtra("AutoId",mstr);
         intent.putExtra("username",username);
-        intent.putExtra("number",phoneNumber);
+        intent.putExtra("number",phoneNumber); //changed
         intent.putExtra("mode",0);
         startActivity(intent);
     }
