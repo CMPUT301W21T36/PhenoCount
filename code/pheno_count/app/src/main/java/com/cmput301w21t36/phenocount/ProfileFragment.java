@@ -64,7 +64,7 @@ public class ProfileFragment extends DialogFragment {
         nameView.setText("Username: "+ username);
         phoneView.setText("Contact information: " + phone);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
         return builder
                 .setView(view)
                 .setTitle("User Profile")
