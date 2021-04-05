@@ -11,7 +11,7 @@
         android:layout_marginLeft="5dp"
         android:text="Username:"
         android:background="#A4E5E8"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/phone_view"
@@ -20,6 +20,6 @@
         android:layout_marginLeft="5dp"
         android:background="#F7DDFA"
         android:text="Phone:"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
 </LinearLayout>
