@@ -68,7 +68,8 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         TextView expType = findViewById(R.id.expTypeText);
         TextView expReqLoc = findViewById(R.id.reqLocText);
 
-        String phone = exp.getOwner().getProfile().getUsername();
+        String username = exp.getOwner().getProfile().getUsername();
+        String phone = exp.getOwner().getProfile().getPhone();
         System.out.println(username);
         System.out.println(phone);
 
