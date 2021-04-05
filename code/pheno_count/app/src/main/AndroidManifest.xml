@@ -29,6 +29,7 @@
         android:theme="@style/Theme.PhenoCount">
         <activity android:name=".PlotsActivity"></activity>
         <activity android:name=".TrialMapsActivity" />
+        <activity android:name=".HistogramActivity" />
         <activity android:name=".SearchingActivity" />
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />
