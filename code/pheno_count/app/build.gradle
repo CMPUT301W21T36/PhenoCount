@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.cmput301w21t36.phenocount"
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
