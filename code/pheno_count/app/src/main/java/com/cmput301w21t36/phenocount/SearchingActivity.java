@@ -61,21 +61,6 @@ public class SearchingActivity extends AppCompatActivity {
 
         searchManag.getAllExp(db, expDataList, adapter);
 
-        SearchView searchView = (SearchView) findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                adapter.getFilter().filter(s);
-                experimentListView.setAdapter(adapter);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
-                return false;
-            }
-        });
 
 
         // When experiment in listview is clicked, we open it and call new activity

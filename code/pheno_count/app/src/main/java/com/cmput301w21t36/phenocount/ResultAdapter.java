@@ -19,6 +19,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
     private ArrayList<Experiment> experiments = null;
     private ArrayList<Experiment> filteredExperiments = null;
     private Context context;
+    private Filter mFilter = null;
 
     public ResultAdapter(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);
@@ -41,7 +42,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
     public long getItemId(int position) {
         return position;
     }
-    
+
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
@@ -103,23 +104,30 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
         return view;
     }
 
+
+
+
+
+
+
+    // Doesn't work
     /*
     public Filter getFilter() {
-        if (mFliter == null)
-            mFliter = new CustomFilter();
-        return mFliter;
+        if (mFilter == null)
+            mFilter = new CustomFilter();
+        return mFilter;
 
     }
     private class CustomFilter extends Filter {
-        // called when adpater filter method is called
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             constraint = constraint.toString().toLowerCase();
             FilterResults result = new FilterResults();
             if (constraint != null && constraint.toString().length() > 0) {
-                ArrayList<CustomObject> filt = new ArrayList<CustomObject>(); //filtered list
-                for (int i = 0; i < originalList.size(); i++) {
-                    CustomObject m = originalList.get(i);
+                ArrayList<Experiment> filt = new ArrayList<Experiment>(); //filtered list
+                for (int i = 0; i < experiments.size(); i++) {
+                    Experiment m = experiments.get(i);
                     if (m.getName().toLowerCase().contains(constraint)) {
                         filt.add(m); //add only items which matches
                     }
@@ -128,8 +136,8 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
                 result.values = filt;
             } else { // return original list
                 synchronized (this) {
-                    result.values = originalList;
-                    result.count = originalList.size();
+                    result.values = experiments;
+                    result.count = experiments.size();
                 }
             }
             return result;
@@ -139,18 +147,20 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
             if (results != null) {
-                setList((ArrayList<CustomObject>) results.values); // notify data set changed
+                setList((ArrayList<Experiment>) results.values); // notify data set changed
             } else {
-                setList((ArrayList<CarObject>) originalList);
+                setList(experiments);
             }
         }
     }
 
-    public void setList(ArrayList<CarObject> data) {
-        mList = data; // set the adapter list to data
-        YourAdapter.this.notifyDataSetChanged(); // notify data set change
+    public void setList(ArrayList<Experiment> data) {
+        //mList = data; // set the adapter list to data
+        ResultAdapter.this.notifyDataSetChanged(); // notify data set change
     }
 
      */
+
+
 
 }

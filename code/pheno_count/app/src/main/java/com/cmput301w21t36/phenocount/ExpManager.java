@@ -221,7 +221,7 @@ public class ExpManager {
                 String reqGeo = (String) doc.getData().get("require_geolocation");
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
-                //String userName = (String) doc.getData().get("owner_name");
+                String userName = (String) doc.getData().get("owner_name");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
 
 
@@ -317,6 +317,7 @@ public class ExpManager {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.getResult()!=null) {
+
                         String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
                         String username = (String) task.getResult().getData().get("Username");
                         exp.getOwner().getProfile().setUsername(username);
