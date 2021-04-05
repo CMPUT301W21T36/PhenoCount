@@ -2,7 +2,6 @@
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,15 +20,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -48,11 +40,10 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     private final String TAG = "PhenoCount";
     private String username;
     private String UUID;
-    private ExpManager expManager = new ExpManager();
+    private ExpManager expManager;
     Menu expMenu;
     TextView expStatus;
     CollectionReference collectionReference;
-    String phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +67,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         expStatus = findViewById(R.id.statusTextView);
         TextView expType = findViewById(R.id.expTypeText);
         TextView expReqLoc = findViewById(R.id.reqLocText);
+
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
@@ -281,13 +273,14 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 exp = (Experiment) data.getSerializableExtra("experiment");
-                expManager.updateTrialData(db,exp,username,UUID);
+                expManager = new ExpManager();
+                expManager.updateTrialData(db,exp);
             }
         }
         if(requestCode == LAUNCH_THIRD_ACTIVITY){
                 System.out.println("Ignoring");
                 exp = (Experiment) data.getSerializableExtra("experiment");
-                //expManager = new ExpManager();
+                expManager = new ExpManager();
                 for(Trial trial:exp.getTrials()){
                     System.out.println("Status: "+trial.getStatus());
                 }
@@ -300,18 +293,9 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     }
 
     public void showProfile(View v){
-        DocumentReference docRef = db.collection("User").document(UUID);
-          docRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        String phoneNum = documentSnapshot.getString("ContactInfo");
-                        phone =phoneNum;
-                        }
-                });
         String username = exp.getOwner().getProfile().getUsername();
-        System.out.println(username);
         String phone = exp.getOwner().getProfile().getPhone();
+        System.out.println(username);
         System.out.println(phone);
         new ProfileFragment(username, phone).show(getSupportFragmentManager(), "SHOW_PROFILE");
 
