@@ -60,6 +60,9 @@ public class Profile implements Serializable {
      */
     public void setPhone(String phone) {
         this.phone = phone;
+        System.out.println("From profile");
+        System.out.println(phone);
+
     }
 }
 
