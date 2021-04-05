@@ -22,11 +22,9 @@ public class Profile implements Serializable {
     }
 
     /**
-     * Constructor for profile that will utilize just a username
-     * in the cases where a phone number is not needed
-     * @param username String representing a sequence of characters the user chooses
+     * Constructor for Profile
      */
-    public Profile() {}
+    public Profile(){}
 
     /**
      * Getter for a Profile's username
@@ -41,7 +39,7 @@ public class Profile implements Serializable {
      * @param username String representing a username
      */
     public void setUsername(String username) {
-        this.username = username;
+      this.username = username;
     }
 
     /**

@@ -40,6 +40,31 @@ import java.util.List;
 public class ExpManager {
     private final String TAG = "PhenoCount";
 
+    /*public String getPhoneNumber(FirebaseFirestore db, String UUID){
+        /*ds.collection("User").whereEqualTo("UID", UUID)
+            .addSnapshotListener((queryDocumentSnapshots, error) -> {
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    Log.d("pheno", String.valueOf(doc.getId()));
+                    phoneNumber = (String) doc.getData().get("ContactInfo");
+                }
+            });
+
+
+        Task<DocumentSnapshot> userDocument = db.collection("User")
+                .document(UUID).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult()!=null) {
+                    phoneNumber = (String) task.getResult().getData().get("ContactInfo");
+                    String username = (String) task.getResult().getData().get("Username");
+                }
+            }
+        });
+        return phoneNumber;
+    }
+
+     */
 
     /**
      * This method populates the list of current user's experiments in the MainActivity
@@ -49,7 +74,8 @@ public class ExpManager {
      * @param UUID
      * @see MainActivity
      */
-    public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
+    public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
+                           ArrayAdapter<Experiment> expAdapter, String UUID){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
         db.collection("Experiment")
             .whereEqualTo("owner",UUID)
@@ -57,19 +83,20 @@ public class ExpManager {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
-                getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
             }
         });
     }
 
-    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
+    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
+                              ArrayAdapter<Experiment> expAdapter, String UUID){
         db.collection("Experiment")
                 .whereArrayContains("sub_list",UUID)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                             FirebaseFirestoreException error) {
-                        getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                        getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
                     }
                 });
     }
@@ -91,7 +118,7 @@ public class ExpManager {
 
         if (exp != null) {
 
-            db = FirebaseFirestore.getInstance();
+            //db = FirebaseFirestore.getInstance();
             final CollectionReference collectionReference = db.collection("Trials");
 
             HashMap<String, String> fdata = new HashMap<>();
@@ -179,8 +206,8 @@ public class ExpManager {
      * @param error
      */
     public void getdata(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                        ArrayAdapter<Experiment> expAdapter,QuerySnapshot queryDocumentSnapshots,
-                        FirebaseFirestoreException error){
+                        ArrayAdapter<Experiment> expAdapter,
+                        QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException error){
         expDataList.clear();
         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
@@ -196,8 +223,8 @@ public class ExpManager {
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
                 //String userName = (String) doc.getData().get("owner_name");
-                //String phoneNumber = (String) doc.getData().get("number");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
+
 
                 boolean reqLoc;
                 if (reqGeo.equals("YES")) {
@@ -217,8 +244,7 @@ public class ExpManager {
                 Experiment newExp = new Experiment(name, description, region, type, minTrial,
                         reqLoc, expStatus, expID);
 
-                //creating a profile object
-                Profile newProfile = new Profile(); ///changed
+                Profile newProfile = new Profile();
                 User currentUser = new User(owner, newProfile);
                 newExp.setOwner(currentUser);
                 newExp.setSubscribers(sList);
@@ -286,9 +312,9 @@ public class ExpManager {
                 }
             });
 
-            //trying to query phone number here
-            System.out.println("Owner: "+exp.getOwner().getUID());
-            Task<DocumentSnapshot> userDocument = db.collection("User").document(exp.getOwner().getUID()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            Task<DocumentSnapshot> userDocument = db.collection("User")
+                    .document(exp.getOwner().getUID()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.getResult()!=null) {
@@ -296,7 +322,6 @@ public class ExpManager {
                         String username = (String) task.getResult().getData().get("Username");
                         exp.getOwner().getProfile().setUsername(username);
                         exp.getOwner().getProfile().setPhone(phoneNumber);
-                        System.out.println("NUMBER :" + phoneNumber);
                     }
                 }
             });

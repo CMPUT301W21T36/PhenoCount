@@ -44,8 +44,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
     String expType="";
     TextView expNum;
     CheckBox expGeoLoc;
-    String ownerName;
-    String number;
     String owner;
     int mode;
     Experiment exp;
@@ -62,7 +60,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_experiment_publish);
         getSupportActionBar().setTitle("Publish an Experiment");
 
-
         expName = findViewById(R.id.expName);
         expDesc = findViewById(R.id.expDesc);
         expRegion = findViewById(R.id.expRegion);
@@ -76,11 +73,8 @@ public class PublishExperimentActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         mode = bundle.getInt("mode");
         if (mode == 0) {
-            ownerName = bundle.get("username").toString();
-            number = bundle.get("number").toString();
             owner = bundle.get("AutoId").toString();
         }
-
 
         if(mode == 1) {
             getSupportActionBar().setTitle("Edit Experiment");
@@ -199,7 +193,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("owner", owner);
                     data.put("status", "1");
                     //data.put("owner_name", ownerName);
-                    //data.put("number",number); // changed
                     data.put("require_geolocation", "NO");
                     data.put("sub_list", sList);
                     if (expGeoLoc.isChecked()) {
@@ -234,7 +227,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("minimum_trials", expNum.getText().toString());
                     data.put("owner", exp.getOwner().getUID());
                     data.put("status", Integer.toString(exp.getExpStatus()));
-                    data.put("owner_name", exp.getOwner().getProfile().getUsername());
+                    //data.put("owner_name", exp.getOwner().getProfile().getUsername());
                     data.put("require_geolocation", "NO");
                     if (expGeoLoc.isChecked()) {
                         reqLoc = true;
