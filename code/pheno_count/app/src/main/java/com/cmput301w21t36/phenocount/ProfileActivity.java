@@ -31,14 +31,16 @@ import java.util.UUID;
  */
 public class ProfileActivity extends AppCompatActivity implements ProfileDialog.ProfileDialogListener {
 
-    private Profile profile;
-    TextView UIDTextView;
-    TextView usernameTextView;
-    TextView contactTextView;
-    Button editButton;
+    private String defaultUsername = "Username";
+    private String defaultContact = "Contact info";
 
-    String defaultUsername = "Username";
-    String defaultContact = "Contact info";
+    private Profile profile = new Profile(defaultUsername, defaultContact);;
+    private TextView UIDTextView;
+    private TextView usernameTextView;
+    private TextView contactTextView;
+    private Button editButton;
+
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -57,8 +59,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         DocumentReference docRef = db.collection("User").document(UUID);
 
         UIDTextView.setText(UUID);
-
-        profile = new Profile(defaultUsername, defaultContact);
 
         usernameTextView.setText(profile.getUsername());
         contactTextView.setText(profile.getPhone());
@@ -161,5 +161,8 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         editor.putString("Username", username);
         editor.putString("Number",contact);
         editor.apply();
+
+        profile.setUsername(username);
+        profile.setPhone(contact);
     }
 }
