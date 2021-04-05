@@ -281,6 +281,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                 SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 username = sharedPrefs.getString("Username", "");
+                //put phone number here
                 UUID = sharedPrefs.getString("ID", "");
                 expManager = new ExpManager();
                 expManager.updateTrialData(db,exp,username,UUID);

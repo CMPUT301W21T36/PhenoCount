@@ -45,6 +45,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
     TextView expNum;
     CheckBox expGeoLoc;
     String ownerName;
+    String number;
     String owner;
     int mode;
     Experiment exp;
@@ -76,6 +77,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
         mode = bundle.getInt("mode");
         if (mode == 0) {
             ownerName = bundle.get("username").toString();
+            number = bundle.get("number").toString();
             owner = bundle.get("AutoId").toString();
         }
 
@@ -197,6 +199,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("owner", owner);
                     data.put("status", "1");
                     data.put("owner_name", ownerName);
+                    data.put("number",number);
                     data.put("require_geolocation", "NO");
                     data.put("sub_list", sList);
                     if (expGeoLoc.isChecked()) {

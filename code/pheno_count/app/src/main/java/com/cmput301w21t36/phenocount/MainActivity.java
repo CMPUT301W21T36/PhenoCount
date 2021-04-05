@@ -134,12 +134,13 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         username = sharedPrefs.getString("Username", "");
+        phoneNumber = sharedPrefs.getString("Number","");
 
         intent.putExtra("AutoId",mstr);
         intent.putExtra("username",username);
+        intent.putExtra("number",phoneNumber);
         intent.putExtra("mode",0);
         startActivity(intent);
-
     }
 
     public void showSubList(View view){

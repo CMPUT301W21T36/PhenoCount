@@ -8,6 +8,7 @@ import java.util.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -195,8 +196,17 @@ public class ExpManager {
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
                 String userName = (String) doc.getData().get("owner_name");
+                String phoneNumber = (String) doc.getData().get("number");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
 
+/*                //query to get the phone number from
+                Task<DocumentSnapshot> userDocument = db.collection("User").document(owner).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        String number = (String) task.getResult().getData().get("ContactInfo");
+                        System.out.println("NUMBER :"+ number);
+                    }
+                });*/
 
                 boolean reqLoc;
                 if (reqGeo.equals("YES")) {
@@ -217,7 +227,7 @@ public class ExpManager {
                         reqLoc, expStatus, expID);
 
                 //creating a profile object
-                Profile newProfile = new Profile(userName);
+                Profile newProfile = new Profile(userName,phoneNumber);
                 User currentUser = new User(owner, newProfile);
                 newExp.setOwner(currentUser);
                 newExp.setSubscribers(sList);
@@ -243,64 +253,38 @@ public class ExpManager {
                         String latitude = (String) doc.getData().get("Latitude");
                         String longitude = (String) doc.getData().get("Longitude");
                         String status = (String) doc.getData().get("status");
-                        String date = (String) doc.getData().get("date"); ///////////////////////
-                        //String date = "1617574055";
-                        System.out.println("WHAT IS THE DATE "+ date);
+                        String date = (String) doc.getData().get("date");
                         String ttype = exp.getExpType();
 
                         Profile profile = new Profile(username);
                         User user = new User(userID,profile);
 
-/*                      if(latitude !=null && longitude != null){
-                            trial.setLatitude(Float.parseFloat(latitude));
-                            trial.setLongitude(Float.parseFloat(longitude));///////////////
-                        }*/
-
-
-
+                        Binomial newtrial = new Binomial(user);
+                        Trial trial = newtrial;
+                        trial.setType(ttype);
+                        trial.setDate(Long.parseLong(date));
+                        trial.setStatus(Boolean.parseBoolean(status));
+                        trial.setLatitude(Float.parseFloat(latitude));
+                        trial.setLongitude(Float.parseFloat(longitude));
 
                         //retrieving result from firebase
                         String result = (String) doc.getData().get("result");
                         if (result != null) {
                             if (ttype.equals("Binomial")) {
-                                Binomial trial = new Binomial(user);
-                                trial.setResult(Boolean.parseBoolean(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                Binomial btrial = (Binomial) trial;
+                                btrial.setResult(Boolean.parseBoolean(result));
                                 trials.add(trial);
                             } else if (ttype.equals("Count")) {
-                                Count trial = new Count(user);
-                                trial.setCount(Integer.parseInt(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                Count ctrial = new Count(user);
+                                ctrial.setCount(Integer.parseInt(result));
                                 trials.add(trial);
                             } else if (ttype.equals("Measurement")) {
-                                Measurement trial = new Measurement(user);
-                                trial.setMeasurement(Float.parseFloat(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                Measurement mtrial = new Measurement(user);
+                                mtrial.setMeasurement(Float.parseFloat(result));
                                 trials.add(trial);
                             } else if (ttype.equals("NonNegativeCount")) {
-                                NonNegativeCount trial = new NonNegativeCount(user);
-                                trial.setValue(Integer.parseInt(result));
-                                trial.setOwner(user);
-                                trial.setType(ttype);
-                                trial.setDate(Long.parseLong(date));
-                                trial.setStatus(Boolean.parseBoolean(status));
-                                trial.setLatitude(Float.parseFloat(latitude));
-                                trial.setLongitude(Float.parseFloat(longitude));
+                                NonNegativeCount ntrial = new NonNegativeCount(user);
+                                ntrial.setValue(Integer.parseInt(result));
                                 trials.add(trial);
                             }
                         }
