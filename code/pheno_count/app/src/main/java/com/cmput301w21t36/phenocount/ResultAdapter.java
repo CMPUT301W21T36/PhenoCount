@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class ResultAdapter extends ArrayAdapter<Experiment> {
+public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterable {
     private ArrayList<Experiment> experiments;
     private Context context;
 
@@ -35,7 +36,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         TextView expStatus = view.findViewById(R.id.expStatusTextView);
         TextView expDescription = view.findViewById(R.id.expDescriptionTextView);
 
-        Experiment exp = getItem(position);
+        Experiment exp = experiments.get(position);
 
         expName.setText(exp.getName());
         expOwner.setText(exp.getOwner().getProfile().getUsername());
@@ -83,7 +84,6 @@ public class ResultAdapter extends ArrayAdapter<Experiment> {
         }
         expStatus.setText(expStat);
         expDescription.setText(exp.getDescription());
-
 
 
         return view;
