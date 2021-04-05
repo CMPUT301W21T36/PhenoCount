@@ -2,6 +2,8 @@ package com.cmput301w21t36.phenocount;
 
 
 import java.io.Serializable;
+import java.util.Date;
+
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -15,6 +17,8 @@ public abstract class Trial implements Serializable {
     private String type;
     private double Latitude;
     private double Longitude;
+    private boolean status;
+    private long date;
 
     /**
      * constructor for new Trial object
@@ -22,16 +26,15 @@ public abstract class Trial implements Serializable {
      * This is an object of type User that stores the owner of the trial
      */
     public Trial(User owner){
+
         this.owner = owner;
         this.type = "";
-
-/*        this.count = 0;
-        this.measurement=0;
-        this.value =0;
-        this.result = false;*/
-
+        this.status = true;
+        this.date = 0; //stores date and time at which trial was recorded
         this.Latitude = 200; //@rao: these values are outside the range of latitude and longitude.
         this.Longitude = 200; //If these values are encountered, that means location has not been added yet.
+        this.date = new Date().getTime();
+        //System.out.println("DATE IN TRIAL CLASS" + dateObj);
     }
 
 
@@ -43,6 +46,8 @@ public abstract class Trial implements Serializable {
     }
     void setType(String type){this.type = type;}
     void setOwner(User owner){this.owner = owner;}
+    void setStatus(Boolean status){this.status = status;}
+    public void setDate(long date) { this.date = date; }
 
     public double getLatitude() {
         return Latitude;
@@ -56,4 +61,8 @@ public abstract class Trial implements Serializable {
     public String getType() {
         return type;
     }
+    public boolean getStatus(){return status;}
+    public long getDate() { return date; }
+
+
 }

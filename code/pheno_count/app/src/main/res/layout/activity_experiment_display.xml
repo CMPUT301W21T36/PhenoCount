@@ -86,7 +86,9 @@
         android:textSize="14dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView1" />
+        app:layout_constraintStart_toEndOf="@+id/textView1"
+        android:onClick="showProfile"
+        android:clickable="true"/>
 
     <TextView
         android:id="@+id/textView12"

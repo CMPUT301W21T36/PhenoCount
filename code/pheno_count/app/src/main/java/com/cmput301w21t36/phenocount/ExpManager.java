@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.common.primitives.Booleans;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -18,8 +19,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.v1.Target;
+
 import android.content.SharedPreferences;
 
 import java.lang.reflect.Array;
@@ -34,16 +38,6 @@ import java.util.List;
  */
 public class ExpManager {
     private final String TAG = "PhenoCount";
-    int numOfSuccess = 0;
-    double mean = 0.0;
-    double median = 0.0;
-    double sd = 0.0;
-    double q1 = 0.0;
-    double q3 = 0.0;
-    int count = 0;
-    int value = 0;
-    float measurement=0;
-
 
 
     /**
@@ -56,7 +50,9 @@ public class ExpManager {
      */
     public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
-        db.collection("Experiment").whereEqualTo("owner",UUID).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Experiment")
+            .whereEqualTo("owner",UUID)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
@@ -65,6 +61,17 @@ public class ExpManager {
         });
     }
 
+    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList, ArrayAdapter<Experiment> expAdapter, String UUID){
+        db.collection("Experiment")
+                .whereArrayContains("sub_list",UUID)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                            FirebaseFirestoreException error) {
+                        getdata(db,expDataList,expAdapter,queryDocumentSnapshots,error);
+                    }
+                });
+    }
 
     /**
      * This method is called to update trial data received from the respective trial classes
@@ -90,50 +97,78 @@ public class ExpManager {
             String id = collectionReference.document().getId();
 
             //common attributes
-            Trial trial = exp.getTrials().get(exp.getTrials().size()-1);
-            fdata.put("Latitude",""+trial.getLatitude());
-            fdata.put("Longitude",""+trial.getLongitude());
-            fdata.put("type", exp.getExpType());
-            fdata.put("owner", username);
-            fdata.put("userID",UUID);
+            System.out.println("SIZE:"+exp.getTrials().size());
+            if(exp.getTrials().size()!=0) {
+                Trial trial = exp.getTrials().get(exp.getTrials().size() - 1);
+                fdata.put("Latitude", "" + trial.getLatitude());
+                fdata.put("Longitude", "" + trial.getLongitude());
+                fdata.put("type", exp.getExpType());
+                fdata.put("owner", username);
+                fdata.put("userID", UUID);
+                fdata.put("status",Boolean.toString(trial.getStatus()));
+                fdata.put("date",Long.toString(trial.getDate()));
 
-            if(exp.getExpType().equals("Binomial")) {
-                Binomial btrial = (Binomial) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(btrial.getResult()));
-            }
-            else if (exp.getExpType().equals("Count")) {
-                Count ctrial = (Count) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(ctrial.getCount()));
-            }
-            else if (exp.getExpType().equals("Measurement")){
-                Measurement mtrial = (Measurement) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(mtrial.getMeasurement()));
-            }
-            else if (exp.getExpType().equals("NonNegativeCount")){
-                NonNegativeCount ntrial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size()-1);
-                fdata.put("result",String.valueOf(ntrial.getValue()));
-            }
+                if (exp.getExpType().equals("Binomial")) {
+                    Binomial btrial = (Binomial) exp.getTrials().get(exp.getTrials().size() - 1);
+                    fdata.put("result", String.valueOf(btrial.getResult()));
+                } else if (exp.getExpType().equals("Count")) {
+                    Count ctrial = (Count) exp.getTrials().get(exp.getTrials().size() - 1);
+                    fdata.put("result", String.valueOf(ctrial.getCount()));
+                } else if (exp.getExpType().equals("Measurement")) {
+                    Measurement mtrial = (Measurement) exp.getTrials().get(exp.getTrials().size() - 1);
+                    fdata.put("result", String.valueOf(mtrial.getMeasurement()));
+                } else if (exp.getExpType().equals("NonNegativeCount")) {
+                    NonNegativeCount ntrial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size() - 1);
+                    fdata.put("result", String.valueOf(ntrial.getValue()));
+                }
 
-            //adding data to firebase
-            db.collection("Experiment")
-                    .document(exp.getExpID()).collection("Trials")
-                    .add(fdata)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "Data added successfully!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // These are a method which gets executed if there’s any problem
-                            Log.d(TAG, "Data could not be added!" + e.toString());
-                        }
-                    });
+                //adding data to firebase
+                db.collection("Experiment")
+                        .document(exp.getExpID()).collection("Trials")
+                        .add(fdata)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "Data added successfully!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // These are a method which gets executed if there’s any problem
+                                Log.d(TAG, "Data could not be added!" + e.toString());
+                            }
+                        });
+            }
         }
     }
 
+    public void ignoreTrial(Experiment exp){
+        DatabaseManager dm = new DatabaseManager();
+        FirebaseFirestore db = dm.getDb();
+        for (Trial trial: exp.getTrials()){
+            if (!trial.getStatus()){
+                System.out.println("HELOOO");
+                String UUID = trial.getOwner().getUID();
+                db.collection("Experiment").document(exp.getExpID())
+                        .collection("Trials")
+                        .whereEqualTo("userID",UUID)
+                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                for (QueryDocumentSnapshot document : value) {
+                                    if(error ==null){
+                                        db.collection("Experiment")
+                                                .document(exp.getExpID()).collection("Trials")
+                                                .document(document.getId())
+                                                .update("status","false");
+                                    }
+                                }
+                            }
+                        });
+            }
+        }
+    }
     /**
      * General method for querying the Experiment collection in fireStore
      * @param db
@@ -160,6 +195,8 @@ public class ExpManager {
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
                 String userName = (String) doc.getData().get("owner_name");
+                ArrayList sList = (ArrayList) doc.getData().get("sub_list");
+
 
                 boolean reqLoc;
                 if (reqGeo.equals("YES")) {
@@ -183,6 +220,8 @@ public class ExpManager {
                 Profile newProfile = new Profile(userName);
                 User currentUser = new User(owner, newProfile);
                 newExp.setOwner(currentUser);
+                newExp.setSubscribers(sList);
+
                 expDataList.add(newExp);
             }
         }
@@ -203,6 +242,10 @@ public class ExpManager {
                         String userID = (String) doc.getData().get("userID");
                         String latitude = (String) doc.getData().get("Latitude");
                         String longitude = (String) doc.getData().get("Longitude");
+                        String status = (String) doc.getData().get("status");
+                        String date = (String) doc.getData().get("date"); ///////////////////////
+                        //String date = "1617574055";
+                        System.out.println("WHAT IS THE DATE "+ date);
                         String ttype = exp.getExpType();
 
                         Profile profile = new Profile(username);
@@ -214,6 +257,8 @@ public class ExpManager {
                         }*/
 
 
+
+
                         //retrieving result from firebase
                         String result = (String) doc.getData().get("result");
                         if (result != null) {
@@ -222,6 +267,8 @@ public class ExpManager {
                                 trial.setResult(Boolean.parseBoolean(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
+                                trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
@@ -230,6 +277,8 @@ public class ExpManager {
                                 trial.setCount(Integer.parseInt(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
+                                trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
@@ -238,6 +287,8 @@ public class ExpManager {
                                 trial.setMeasurement(Float.parseFloat(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
+                                trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
@@ -246,6 +297,8 @@ public class ExpManager {
                                 trial.setValue(Integer.parseInt(result));
                                 trial.setOwner(user);
                                 trial.setType(ttype);
+                                trial.setDate(Long.parseLong(date));
+                                trial.setStatus(Boolean.parseBoolean(status));
                                 trial.setLatitude(Float.parseFloat(latitude));
                                 trial.setLongitude(Float.parseFloat(longitude));
                                 trials.add(trial);
@@ -259,120 +312,5 @@ public class ExpManager {
             });
         }
         expAdapter.notifyDataSetChanged();
-    }
-    public double getMean(ArrayList<Trial> trials,String expType){
-        if (expType.equals("Binomial")){
-            for(Trial trial : trials){
-                Binomial btrial = (Binomial) trial;
-                if(btrial.getResult()){
-                    numOfSuccess++;
-                }
-            }
-            mean = (double) numOfSuccess/(double) trials.size();
-        }
-        if(expType.equals("Count")){
-            for(Trial trial : trials){
-                Count ctrial = (Count) trial;
-                count = count + ctrial.getCount();
-            }
-            mean = (double)count/(double)trials.size();
-        }
-        if (expType.equals("NonNegativeCount")){
-            for(Trial trial : trials){
-                NonNegativeCount ntrial = (NonNegativeCount) trial;
-                value = value + ntrial.getValue();
-            }
-            mean = (double)value/(double)trials.size();
-        }
-        if (expType.equals("Measurement")){
-            for(Trial trial : trials){
-                Measurement mtrial = (Measurement) trial;
-                measurement = measurement + mtrial.getMeasurement();
-            }
-            mean = (double)measurement/(double)trials.size();
-        }
-        return mean;
-    }
-
-    public double getMedian(ArrayList<Trial> trials,String expType){
-        ArrayList<Integer> intList = new ArrayList<>();
-        ArrayList<Float> floatList = new ArrayList<>();
-        int size = trials.size();
-        if (expType.equals("Binomial")){
-            for(Trial trial : trials){
-                Binomial btrial = (Binomial) trial;
-                if(btrial.getResult()){
-                    intList.add(1);
-                }
-                else {
-                    intList.add(0);
-                }
-            }
-        }
-        if(expType.equals("Count")){
-            for(Trial trial : trials){
-                Count ctrial = (Count) trial;
-                intList.add(ctrial.getCount());
-            }
-        }
-        if (expType.equals("NonNegativeCount")){
-            for(Trial trial : trials){
-                NonNegativeCount ntrial = (NonNegativeCount) trial;
-                intList.add(ntrial.getValue());
-            }
-        }
-        if (!intList.isEmpty()){
-            Collections.sort(intList);
-            //calculating st dev
-            for (int num : intList){
-                sd = sd + Math.pow(num - mean,2);
-            }
-            sd = Math.sqrt(sd/(double) floatList.size());
-            //calculating Q1
-            q1 = intList.get((intList.size())/4);
-            //calculating Q3
-            q3 = intList.get(((3*(intList.size()))/4));
-            //q3 = 1.0;
-            if (size % 2 != 0) {
-                //if list size is odd
-                median = (double) intList.get(size / 2);
-            }
-            //if list size is even
-            median = (double)(intList.get((size - 1) / 2) + intList.get(size / 2)) / 2.0;
-        }
-
-        if (expType.equals("Measurement")){
-            for(Trial trial : trials){
-                Measurement mtrial = (Measurement) trial;
-                floatList.add(mtrial.getMeasurement());
-            }
-            Collections.sort(floatList);
-            //calculating st dev
-            System.out.println("MEAN:"+mean);
-            for (float num : floatList){
-                sd = sd + Math.pow(num - mean,2);
-            }
-            sd = Math.sqrt(sd/(double) floatList.size());
-            //calculating Q1
-            q1 = floatList.get((floatList.size()+1)/4);
-            //calculating Q3
-            q3 = floatList.get((3*(floatList.size()))/4);
-            if (size % 2 != 0)
-                //if list size is odd
-                return floatList.get(size/ 2);
-            //if list size is even
-            return (floatList.get((size - 1) / 2) + floatList.get(size / 2)) / 2.0;
-        }
-        return median;
-    }
-
-    public double getQ1(){
-        return q1;
-    }
-    public double getQ3(){
-        return q3;
-    }
-    public double getSd(){
-        return sd;
     }
 }

@@ -1,12 +1,17 @@
 package com.cmput301w21t36.phenocount;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -30,7 +35,7 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     private Experiment experiment;
     private Question question;
     private DiscussionManager disManager;
-
+    private Menu expMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,4 +101,26 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         Toast.makeText(QuestionActivity.this, "A new reply is posted!", Toast.LENGTH_SHORT).show();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.general_menu, menu);
+        expMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.myList) {
+            Intent intent = new Intent(QuestionActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.search) {
+            Intent intent = new Intent(QuestionActivity.this, SearchingActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

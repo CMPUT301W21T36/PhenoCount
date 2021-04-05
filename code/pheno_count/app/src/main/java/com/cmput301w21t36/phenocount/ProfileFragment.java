@@ -13,16 +13,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 
-public class ShowFragment extends DialogFragment {
-    private String type; //to add a question or a reply
-    private EditText body;
-    private String title;
+public class ProfileFragment extends DialogFragment {
+    private TextView nameView;
+    private TextView phoneView;
+    private String username;
+    private String phone;
     private OnFragmentInteractionListener listener;
 
     public interface OnFragmentInteractionListener {
@@ -31,15 +33,12 @@ public class ShowFragment extends DialogFragment {
 
     //constructor of fragment, you have to know the type,
     // thus we can set up the title and hint for it.
-    public ShowFragment(String type) {
-        this.type = type;
-
-        if(type == "question"){
-            QuestionActivity newQue = new QuestionActivity(); //may have to pass user and experiment to it
-            title = "Ask a Question";
-        }else if (type == "reply"){
-            //Reply newRep = new Reply(displayName); //may have to pass user and experiment to it
-            title = "Give a Reply";
+    public ProfileFragment(String username, String phone) {
+        this.username = username;
+        if(phone == null){
+            this.phone = "unknown";
+        }else{
+            this.phone = phone;
         }
     }
 
@@ -59,20 +58,18 @@ public class ShowFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         //may change the name of this layout later
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_question_reply, null);
-        body = view.findViewById(R.id.body_edit_text);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_profile, null);
+        nameView = view.findViewById(R.id.name_view);
+        phoneView = view.findViewById(R.id.phone_view);
+        nameView.setText("Username: "+ username);
+        phoneView.setText("Contact information: " + phone);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
                 .setView(view)
-                .setTitle(title)
+                .setTitle("User Profile")
                 .setNegativeButton("Cancel", null)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String bodyText = body.getText().toString();
-                        listener.onOkPressedAdd(bodyText);
-                    }}).create();
+                .setPositiveButton("OK", null).create();
     }
 }
 
