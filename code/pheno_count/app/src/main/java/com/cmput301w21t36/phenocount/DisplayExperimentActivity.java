@@ -34,7 +34,7 @@ import java.util.HashMap;
  * or the experiment
  * @see MainActivity
  */
-public class DisplayExperimentActivity extends AppCompatActivity {
+public class DisplayExperimentActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener{
     private Experiment exp; // catch object passed from mainlist
     FirebaseFirestore db;
     private final String TAG = "PhenoCount";
@@ -295,5 +295,15 @@ public class DisplayExperimentActivity extends AppCompatActivity {
         }
     }
 
+    public void showProfile(View v){
+        String username = exp.getOwner().getProfile().getUsername();
+        String phone = exp.getOwner().getProfile().getPhone();
+        new ProfileFragment(username, phone).show(getSupportFragmentManager(), "SHOW_PROFILE");
 
+    }
+
+    @Override
+    public void onOkPressedAdd(String text) {
+
+    }
 }

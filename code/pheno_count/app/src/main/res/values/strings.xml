@@ -20,5 +20,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="radio_text">Type of Trial <font color='#FF0000'>*</font></string>
     <string name="desc_hint">Description <font color='#FF0000'>*</font></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
