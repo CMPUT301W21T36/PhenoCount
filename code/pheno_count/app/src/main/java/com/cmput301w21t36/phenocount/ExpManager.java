@@ -91,7 +91,7 @@ public class ExpManager {
     public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
                               ArrayAdapter<Experiment> expAdapter, String UUID){
         db.collection("Experiment")
-                .whereArrayContains("sub_list",UUID).orderBy("status")
+                .whereArrayContains("sub_list",UUID)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
