@@ -61,16 +61,16 @@ public class NonNegativeCountActivity extends AppCompatActivity {
 
         // Capture the layout's TextView and set the string as its text
         TextView desc = findViewById(R.id.desc4);
-        desc.setText("Description:" + String.valueOf(newexp.getDescription()));
+        desc.setText("" + String.valueOf(newexp.getDescription()));
 
         TextView owner = findViewById(R.id.owner4);
-        owner.setText("Owner:" + newexp.getOwner().getProfile().getUsername());
+        owner.setText("Owner: " + newexp.getOwner().getProfile().getUsername());
 
         TextView status = findViewById(R.id.status4);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
         TextView exptype= findViewById(R.id.exptype4);
-        exptype.setText("Experiment Type: Non-Negative Count");
+        exptype.setText("Type: Non-Negative Count");
 
         EditText count = findViewById(R.id.count_editText);
 
