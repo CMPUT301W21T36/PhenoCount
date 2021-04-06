@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Trial "
+        android:elevation="2dp"
         android:textColor="@color/purple_700"
         android:textSize="20dp" />
 
