@@ -3,10 +3,9 @@
     <item android:drawable = "@color/white"/>
 
 
-
     <item android:drawable = "@drawable/ic_pheno_count"
         android:gravity = "center"/>
-
+    
     
 
 </layer-list>
