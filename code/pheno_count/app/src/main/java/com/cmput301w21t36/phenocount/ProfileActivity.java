@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_profile);
 
         // Set all TextView variables
@@ -78,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
                         editor.putString("Username", username);
-                        editor.putString("Number", contact);
+                        editor.putString("ContactInfo", contact);
                         editor.apply();
                     }
                 });
@@ -159,7 +160,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
             }
         });
         editor.putString("Username", username);
-        editor.putString("Number",contact);
+        editor.putString("ContactInfo",contact);
         editor.apply();
 
         profile.setUsername(username);

@@ -24,6 +24,7 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_trial_maps);
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.trialsMap);
         mapFrag.getMapAsync(this);
@@ -34,10 +35,18 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
     public void onMapReady(GoogleMap googleMap) {
 
         ArrayList<Trial> trials = (ArrayList<Trial>) getIntent().getSerializableExtra("trials");
-        if(trials.size() == 0){
+        //checking if any locations were added to trial at all
+        boolean locations_exist = false;
+        for(Trial trial: trials){
+            if(trial.getLongitude()!= 200 && trial.getLatitude() != 200){
+                locations_exist = true;
+                break;
+            }
+        }
+        if(trials.size() == 0 || !locations_exist){
             Toast.makeText(
                     TrialMapsActivity.this,
-                    "No Locations to show",
+                    "No Locations to show.",
                     Toast.LENGTH_LONG).show();
             finish();
         }

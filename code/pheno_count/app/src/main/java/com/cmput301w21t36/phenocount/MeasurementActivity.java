@@ -37,6 +37,7 @@ public class MeasurementActivity extends AppCompatActivity {
 
         // receiving intent object
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.trial_measurement);
         numberFormat = new DecimalFormat("#.0000");
 

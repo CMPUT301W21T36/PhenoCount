@@ -38,6 +38,7 @@ public class NonNegativeCountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.trial_non_negative_count);
         numberFormat = new DecimalFormat("#.0000");
 

@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("My Experiments");
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPrefs.edit();
 
                         editor.putString("Username", username);
-                        editor.putString("Number",phoneNumber);
+                        editor.putString("ContactInfo",phoneNumber);
                         editor.apply();
                     }
                 });
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        phoneNumber = sharedPrefs.getString("Number", "");
+        phoneNumber = sharedPrefs.getString("ContactInfo", "");
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);

@@ -62,7 +62,7 @@ public class ShowFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_question_reply, null);
         body = view.findViewById(R.id.body_edit_text);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),AlertDialog.THEME_HOLO_LIGHT);
         return builder
                 .setView(view)
                 .setTitle(title)

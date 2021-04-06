@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.cmput301w21t36.phenocount"
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -75,6 +75,8 @@ dependencies {
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
 
     implementation 'com.jjoe64:graphview:4.2.2'
 

@@ -39,6 +39,7 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_question);
         getSupportActionBar().setTitle("Replies");
 
