@@ -132,6 +132,7 @@ public class HistogramActivity extends AppCompatActivity {
                 break;
             case "NonNegativeCount":
 
+
                 int barRange = 10;
 //                for (i = 0; i < trialList.size(); i++) {
 //                        for (j = 0; j < trialList.size(); j++) {
