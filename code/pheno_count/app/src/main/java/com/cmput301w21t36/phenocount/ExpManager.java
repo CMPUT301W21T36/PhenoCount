@@ -110,7 +110,7 @@ public class ExpManager {
      * @param exp
      * the updated experiment object
      */
-    public void updateTrialData(FirebaseFirestore db, Experiment exp){
+    public void updateTrialData(FirebaseFirestore db, Experiment exp,String username){
 
         if (exp != null) {
 
@@ -127,7 +127,7 @@ public class ExpManager {
                 fdata.put("Latitude", "" + trial.getLatitude());
                 fdata.put("Longitude", "" + trial.getLongitude());
                 fdata.put("type", exp.getExpType());
-                //fdata.put("owner", username);
+                fdata.put("owner", username);
                 fdata.put("userID", trial.getOwner().getUID());
                 fdata.put("status",Boolean.toString(trial.getStatus()));
                 fdata.put("date",trial.getDate());

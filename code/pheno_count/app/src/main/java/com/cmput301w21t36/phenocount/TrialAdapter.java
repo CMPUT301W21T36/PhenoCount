@@ -70,6 +70,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
 
         //setting common trial attributes
         trial_owner.setText(trial.getOwner().getProfile().getUsername());
+        System.out.println("OWNERRR"+trial.getOwner().getProfile().getUsername());
 
         //checking if trial is ignored
         if (!trial.getStatus()){

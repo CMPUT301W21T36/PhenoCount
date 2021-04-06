@@ -274,8 +274,12 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 exp = (Experiment) data.getSerializableExtra("experiment");
+                SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                username = sharedPrefs.getString("Username", "");
+                UUID = sharedPrefs.getString("ID", "");
                 expManager = new ExpManager();
-                expManager.updateTrialData(db,exp);
+                expManager.updateTrialData(db,exp,username);
             }
         }
         if(requestCode == LAUNCH_THIRD_ACTIVITY){
