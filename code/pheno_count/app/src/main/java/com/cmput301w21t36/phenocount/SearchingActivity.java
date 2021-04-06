@@ -19,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.Index;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,6 +66,11 @@ public class SearchingActivity extends AppCompatActivity {
         experimentListView.setAdapter(adapter);
 
         searchManag.getAllExp(db, expDataList, adapter);
+
+        Client client = new Client("87SDM4TVNJ", "e28b7da170079f2b1862683cdf7ead4d");
+        Index index = client.getIndex("experiments");
+
+
 
         // When experiment in listview is clicked, we open it and call new activity
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

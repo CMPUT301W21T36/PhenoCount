@@ -102,10 +102,6 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
 
 
 
-
-
-
-
     // Doesn't work
     /*
     public Filter getFilter() {
