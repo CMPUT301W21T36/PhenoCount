@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_exp"
+            android:title="My Owned Experiments "
+            android:icon="@drawable/ic_nav_menu"
+            android:iconTint="@color/white"/>
+
+        <item
+            android:id="@+id/nav_sub_exp"
+            android:title="My Subscribed Experiments "
+            android:icon="@android:drawable/sym_contact_card"/>
+
+        <item
+            android:id="@+id/nav_add"
+            android:title="Add an Experiment"
+            android:icon="@drawable/ic_baseline_add_24"/>
+
+        <item
+            android:id="@+id/nav_search"
+            android:title="Search For Experiments"
+            android:icon="@drawable/ic_magnify"/>
+
+        <item
+            android:id="@+id/nav_user"
+            android:title="User Profile"
+            android:icon="@drawable/ic_user"/>
+
+
+    </group>
+</menu>
