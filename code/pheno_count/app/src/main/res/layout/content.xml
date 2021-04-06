@@ -14,9 +14,10 @@
         android:padding="20dp"
         android:text="Experiment"
         android:textAlignment="textStart"
-        android:textColor="@color/black"
         android:textColorHint="#FFFFFF"
-        android:textSize="26sp">
+        android:textSize="30sp"
+        android:fontFamily="@font/open_sans_light"
+        android:textColor="#000000">
 
     </TextView>
 
@@ -28,6 +29,8 @@
         android:hint="Status"
         android:padding="15sp"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:fontFamily="@font/open_sans_light"
+        android:textColor="#000000"/>
 
 </LinearLayout>

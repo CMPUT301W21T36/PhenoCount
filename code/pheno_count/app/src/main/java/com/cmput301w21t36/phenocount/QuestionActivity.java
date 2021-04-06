@@ -41,7 +41,7 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_question);
-        getSupportActionBar().setTitle("Replies");
+        //getSupportActionBar().setTitle("Replies");
 
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         question = (Question) getIntent().getSerializableExtra("question");//defining the Experiment object
