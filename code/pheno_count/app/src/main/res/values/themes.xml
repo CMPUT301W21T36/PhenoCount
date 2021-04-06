@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PhenoCount" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.PhenoCount" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -17,7 +17,7 @@
     
     <style name="SplashScreenTheme" parent = "Theme.MaterialComponents.Light.NoActionBar">
         <item name = "android:windowBackground">@drawable/splash_screen</item>
-        <item name = "android:statusBarColor">@color/white</item>
+        <item name = "android:statusBarColor">@color/purple_200</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
