@@ -16,8 +16,13 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
-/** REFERENCES
- Yuriy Budiyev, 06-12-18,  MIT License, https://github.com/yuriy-budiyev/code-scanner */
+/**
+ * Scans a barcode and uses the data to be added as a measurement
+ *
+ * Uses the code-scanner library
+ * REFERENCES
+ * Yuriy Budiyev, 06-12-18,  MIT License, https://github.com/yuriy-budiyev/code-scanner
+ */
 
 public class ScanBarcodeActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;

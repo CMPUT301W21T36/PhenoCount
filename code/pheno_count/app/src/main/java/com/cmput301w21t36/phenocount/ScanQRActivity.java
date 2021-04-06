@@ -17,7 +17,13 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
-
+/**
+ * Scans a Qr code and creates the appropriate trial
+ *
+ * Uses the code-scanner library
+ * REFERENCES
+ * Yuriy Budiyev, 06-12-18,  MIT License, https://github.com/yuriy-budiyev/code-scanner
+ */
 
 public class ScanQRActivity extends AppCompatActivity {
     Experiment experiment;
