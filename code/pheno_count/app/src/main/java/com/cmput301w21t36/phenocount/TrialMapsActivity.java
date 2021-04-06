@@ -70,12 +70,15 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
         }
         if (!markers.isEmpty()) {
             LatLngBounds bounds = builder.build();
-            int padding = 50; // offset from edges of the map in pixels
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.12);
+            //int padding = 50; // offset from edges of the map in pixels
             CameraUpdate cu;
             if (markers.size() == 1)
                 cu = CameraUpdateFactory.newLatLng(markers.get(0).getPosition());
             else
-                cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                cu = CameraUpdateFactory.newLatLngBounds(bounds,width,height,padding);
 
             googleMap.moveCamera(cu);
         }

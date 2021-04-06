@@ -4,10 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -15,15 +14,12 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
-import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * Gets the trial data for the experiment
@@ -42,6 +38,8 @@ public class HistogramActivity extends AppCompatActivity {
     XAxis xAxis;
     YAxis yLeftAxis;
     YAxis yRightAxis;
+    TextView title;
+    TextView desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,15 @@ public class HistogramActivity extends AppCompatActivity {
 
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//get the experiment from intent
 
-        barchart = (BarChart) findViewById(R.id.bargraph);
+        barchart = findViewById(R.id.barChart);
+        title = findViewById(R.id.titleText);
+        desc = findViewById(R.id.descriptionText);
+
+        String barColour = "#F8B7CD";
+
+        //set title and description of experiment
+        title.setText(experiment.getName());
+        desc.setText(experiment.getDescription());
 
         barData = new BarData(); //data to put into the bar charts
 
@@ -68,22 +74,19 @@ public class HistogramActivity extends AppCompatActivity {
         xAxis.setTextSize(15);
         xAxis.setLabelRotationAngle(-45);
 
-        Description description = new Description(); //create a description
-        description.setTextColor(Color.BLACK);
-        description.setTextSize(10);
+        yLeftAxis = barchart.getAxisLeft(); //get a reference to the y-axis
+        yLeftAxis.setGranularity(1);
+        yRightAxis = barchart.getAxisRight(); //get a reference to the y-axis
+        yRightAxis.setGranularity(1);
 
+        barchart.getDescription().setEnabled(false); //hide the decription
         barchart.animateXY(3000, 3000); //animate the bar graphs
 
         int i = 0;
         int j = 0;
-        int barRange = 10;
-        int num = 0;
-        int numAdded = 0;
-        float measurement = 0;
         switch (type) {
             case "Binomial":
                 final String[] labels = new String[] {"Success", "Fail"};
-                description.setText("Binomial Trial Histogram");
 
                 //calculate the amount of success and failures logged in the experiment
                 int successCount = 0;
@@ -96,8 +99,8 @@ public class HistogramActivity extends AppCompatActivity {
                     }
                 }
 
+                //set the x-axis labels
                 String[] binomialLabel = new String[] {"Fail", "Success"};
-
                 xAxis.setValueFormatter(new LabelFormatter(binomialLabel));
                 xAxis.setGranularity(1);
 
@@ -107,10 +110,10 @@ public class HistogramActivity extends AppCompatActivity {
 
                 //create the bar data sets
                 BarDataSet successDataSet = new BarDataSet(dataSet1, "Success");
-                successDataSet.setColor(Color.GREEN);
+                successDataSet.setColor(Color.parseColor("#A6f18e"));
                 successDataSet.setValueTextSize(10);
                 BarDataSet failDataSet = new BarDataSet(dataSet2, "Fails");
-                failDataSet.setColor(Color.RED);
+                failDataSet.setColor(Color.parseColor("#F58c8c"));
                 failDataSet.setValueTextSize(10);
 
                 //add the data to the bar graphs
@@ -121,12 +124,13 @@ public class HistogramActivity extends AppCompatActivity {
                 int count = 0;
                 String currentDate = null;
 
-                description.setText("Count Trial Histogram");
-
                 //get the dates for the trials and put them in an array
                 for (i = 0; i < trialList.size(); i++){
                     datesList.add(trialList.get(i).getDate());
                 }
+
+                datesList = sortDates(datesList);
+
                 String[] dates = new String[datesList.size()];
                 dates = datesList.toArray(dates);
 
@@ -147,20 +151,11 @@ public class HistogramActivity extends AppCompatActivity {
                     xAxis.setValueFormatter(new LabelFormatter(dates));
                     xAxis.setGranularity(1);
 
-                    //change y-axis label ranges
-                    YAxis yRightAxis2;
-                    yRightAxis2 = barchart.getAxisRight();
-                    yRightAxis2.setGranularity(1);
-
-                    YAxis yLeftAxis2;
-                    yLeftAxis2 = barchart.getAxisLeft();
-                    yLeftAxis2.setGranularity(1);
-
                     //add the data to the bar data sets
                     BarDataSet CountDataSet = new BarDataSet(dataSet1, "Counts");
+                    CountDataSet.setColor(Color.parseColor(barColour));
                     barData.addDataSet(CountDataSet);
                 }
-
                 break;
             case "Measurement":
                 // get smallest value in list
@@ -172,31 +167,38 @@ public class HistogramActivity extends AppCompatActivity {
                     }
                 }
 
-                description.setText("Measurement Trial Histogram");
-
+                //create the data sets
                 processData(type, trialList, measurementLabels, dataSet1, min);
 
                 //add the data to the bar data sets
                 BarDataSet measurementDataSet = new BarDataSet(dataSet1, "Measurements");
+                measurementDataSet.setColor(Color.parseColor(barColour));
                 barData.addDataSet(measurementDataSet);
                 break;
             case "NonNegativeCount":
-                description.setText("Non-Negative Count Histogram");
-
+                //create the data sets
                 processData(type, trialList, measurementLabels, dataSet1, 0);
 
                 //add the data to the bar data sets
                 BarDataSet nonNegDataSet = new BarDataSet(dataSet1, "Measurements");
+                nonNegDataSet.setColor(Color.parseColor(barColour));
                 barData.addDataSet(nonNegDataSet);
                 break;
         }
 
-        barchart.setDescription(description);
+        //put the data sets into the histogram
         barData.setValueTextSize(0);
-//        barData.setBarWidth(7);
         barchart.setData(barData);
     }
 
+    /**
+     * gets all the data from the experiment and groups them into the appropriate ranges
+     * @param expType
+     * @param trialList
+     * @param measurementLabels
+     * @param dataSet1
+     * @param min
+     */
     public void processData(String expType, ArrayList<Trial> trialList, ArrayList<String> measurementLabels, ArrayList<BarEntry> dataSet1, double min) {
         int barRange = 10;
         int num = 0;
@@ -205,12 +207,16 @@ public class HistogramActivity extends AppCompatActivity {
         int barMultiplier = 1;
         double barMultiplierFloat = 0;
 
+        barData.setBarWidth(7);
+
+        //check which way to round the multiplier
         if (min >= 0) {
             barMultiplierFloat = Math.floor(min/barRange);
         } else {
             barMultiplierFloat = Math.ceil(min/barRange);
         }
 
+        //group the trial data into the appropriate bar ranges
         while (numAdded != trialList.size()) {
             for (int i = 0; i < trialList.size(); i++) {
                 if (expType.equals("Measurement")) {
@@ -225,6 +231,8 @@ public class HistogramActivity extends AppCompatActivity {
                     }
                 }
             }
+
+            //create the x-axis labels
             if (expType.equals("Measurement")) {
                 measurementLabels.add(String.valueOf(barRange * barMultiplierFloat));
                 dataSet1.add(new BarEntry((float)(barRange * barMultiplierFloat), num));
@@ -239,17 +247,42 @@ public class HistogramActivity extends AppCompatActivity {
             num = 0;
         }
 
+        //set the axis label interval
         xAxis = barchart.getXAxis();
         xAxis.setGranularity(10);
-
-        yLeftAxis = barchart.getAxisLeft();
-        yLeftAxis.setGranularity(1);
-
-        yRightAxis = barchart.getAxisRight();
-        yRightAxis.setGranularity(1);
     }
 
+    /**
+     * Sort the dates in ascending order
+     * @param dates
+     * @return
+     */
+    public ArrayList<String> sortDates(ArrayList<String> dates) {
 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        ArrayList<Date> dateObjs = new ArrayList<Date>();
+        for (String date : dates) {
+            try {
+                Date obj = formatter.parse(date);
+                dateObjs.add(obj);
+            } catch (Exception e) {
+                System.out.println("FAIL");
+            }
+
+        }
+        Collections.sort(dateObjs);
+        ArrayList<String> sorted_str_dates = new ArrayList<>();
+
+        for (Date date : dateObjs) {
+            sorted_str_dates.add(formatter.format(date));
+        }
+
+        return (sorted_str_dates);
+    }
+
+    /**
+     * used to format the labels for the axises
+     */
     public class LabelFormatter implements IAxisValueFormatter {
         private final String[] mLabels;
 
