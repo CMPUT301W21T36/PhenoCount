@@ -50,7 +50,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_experiment_display);
-        getSupportActionBar().setTitle("Experiment Info");
+        //getSupportActionBar().setTitle("Experiment Info");
 
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         db = FirebaseFirestore.getInstance();
