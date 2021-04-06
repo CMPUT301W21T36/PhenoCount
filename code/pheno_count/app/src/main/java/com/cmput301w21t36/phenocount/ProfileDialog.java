@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -57,6 +58,14 @@ public class ProfileDialog extends AppCompatDialogFragment {
 
         editTextUsername = view.findViewById(R.id.editUsername);
         editTextContact = view.findViewById(R.id.editContact);
+
+        SharedPreferences sharedPrefs = getContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
+        String username = sharedPrefs.getString("Username", "");
+        String contact = sharedPrefs.getString("ContactInfo", "");
+
+        editTextUsername.setText(username);
+        editTextContact.setText(contact);
+
 
         return builder.create();
     }
