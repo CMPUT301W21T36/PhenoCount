@@ -2,6 +2,7 @@ package com.cmput301w21t36.phenocount;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Measure;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 
@@ -58,6 +60,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         TextView trial_no = view.findViewById(R.id.trial_no);
         TextView trial_owner = view.findViewById(R.id.trial_owner);
         TextView trial_outcome = view.findViewById(R.id.trial_outcome);
+        TextView trial_date = view.findViewById(R.id.trial_date);
         ImageView deleteImage =  view.findViewById(R.id.image_delete);
 
         //showing ImageView only if current user is owner of exp
@@ -70,7 +73,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
 
         //setting common trial attributes
         trial_owner.setText(trial.getOwner().getProfile().getUsername());
-        System.out.println("OWNERRR"+trial.getOwner().getProfile().getUsername());
+        trial_date.setText(trial.getDate());
 
         //checking if trial is ignored
         if (!trial.getStatus()){
@@ -83,41 +86,52 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         if (trial.getType().equals("Binomial")) {
             Binomial btrial = (Binomial) getItem(position);
             if (btrial.getResult()){
-                trial_outcome.setText("Result: Success");
+                trial_outcome.setText("Success");
             }
             else{
-                trial_outcome.setText("Result: Failure");
+                trial_outcome.setText("Failure");
             }
         }
         if (trial.getType().equals("Count")) {
             Count ctrial = (Count) getItem(position);
-            trial_outcome.setText("Result: "+ctrial.getCount());
+            trial_outcome.setText(""+ctrial.getCount());
         }
         if (trial.getType().equals("Measurement")) {
             Measurement mtrial = (Measurement) getItem(position);
-            trial_outcome.setText("Result: "+mtrial.getMeasurement());
+            trial_outcome.setText(""+mtrial.getMeasurement());
         }
         if (trial.getType().equals("NonNegativeCount")) {
             NonNegativeCount ntrial = (NonNegativeCount) getItem(position) ;
-            trial_outcome.setText("Result: "+ntrial.getValue());
+            trial_outcome.setText(""+ntrial.getValue());
         }
         //to delete a trial
         deleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trial.setStatus(false);
-                for (Trial trial:trialList){
-                    if(!trial.getStatus()) {
-                        String UUID = trial.getOwner().getUID();
-                        blacklist.add(UUID);
-                    }
-                }
-                for (Trial trial : trialList){
-                    if(blacklist.contains(trial.getOwner().getUID())){
-                        trial.setStatus(false);
-                    }
-                }
-                //trialList.remove(position);
+                /////////
+                new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setTitle("Confirmation")
+                        .setMessage("Do you want to ignore this experimenter")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                trial.setStatus(false);
+                                for (Trial trial:trialList){
+                                    if(!trial.getStatus()) {
+                                        String UUID = trial.getOwner().getUID();
+                                        blacklist.add(UUID);
+                                    }
+                                }
+                                for (Trial trial : trialList){
+                                    if(blacklist.contains(trial.getOwner().getUID())){
+                                        trial.setStatus(false);
+                                    }
+                                }
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
                 notifyDataSetChanged();
             }
         });
