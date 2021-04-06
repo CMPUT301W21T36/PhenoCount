@@ -56,6 +56,7 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
     private SearchingManager searchManag;
     private ResultAdapter adapter;
     private ListView experimentListView;
+    private ArrayList<Experiment> expDataList = new ArrayList<Experiment>();
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     androidx.appcompat.widget.Toolbar toolbar;
@@ -70,7 +71,6 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         experimentListView = findViewById(R.id.listView);
 
         searchManag = new SearchingManager();
-        ArrayList<Experiment> expDataList = new ArrayList<Experiment>();
 
         adapter = new ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
@@ -111,17 +111,24 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                searchExperiments(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                searchExperiments(newText);
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+    public void searchExperiments(String keyword) {
+        keyword = keyword.toLowerCase();
+    }
+
+
 
     public void navigationSettings(){
         drawerLayout=findViewById(R.id.drawer_layout);
