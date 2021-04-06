@@ -56,6 +56,7 @@ public class UpdateProfileTest {
         solo.assertCurrentActivity("Wrong Activity", ProfileActivity.class);
 
         solo.clickOnView((Button) solo.getView(R.id.profileButton));
+        solo.enterText((EditText) solo.getView(R.id.expName), "Red Cars");
 
     }
 
