@@ -27,7 +27,7 @@ public class ShowSubscribedListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_show_subscribed_list);
-        getSupportActionBar().setTitle("My Subscribed Experiments");
+        //getSupportActionBar().setTitle("My Subscribed Experiments");
 
         db = dbManager.getDb();
         UUID = getIntent().getExtras().getString("owner");

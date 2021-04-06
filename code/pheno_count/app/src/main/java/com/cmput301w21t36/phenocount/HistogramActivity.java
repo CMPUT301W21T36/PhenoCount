@@ -22,6 +22,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HistogramActivity extends AppCompatActivity {
     BarChart barchart;
@@ -49,13 +50,6 @@ public class HistogramActivity extends AppCompatActivity {
         ArrayList<String> datesList = new ArrayList<>();
 
         type = experiment.getExpType();
-
-        for (int i = 0; i < trialList.size(); i++){
-            datesList.add(trialList.get(i).getDate());
-        }
-
-        String[] dates = new String[datesList.size()];
-        dates = datesList.toArray(dates);
 
         XAxis xAxis = barchart.getXAxis();
 //        xAxis.setValueFormatter(new LabelFormatter(labels));
@@ -96,50 +90,118 @@ public class HistogramActivity extends AppCompatActivity {
                 failDataSet.setColor(Color.RED);
                 failDataSet.setValueTextSize(10);
 
-                xAxis.setGranularity(1);
-
                 barData.addDataSet(successDataSet);
                 barData.addDataSet(failDataSet);
                 barchart.setData(barData);
 
                 break;
             case "Count":
-//                int count = 0;
-//                String currentDate = null;
-//                if (trialList.size() != 0) {
+                int count = 0;
+                String currentDate = null;
+
+                for (i = 0; i < trialList.size(); i++){
+                    datesList.add(trialList.get(i).getDate());
+                }
+
+                String[] dates = new String[datesList.size()];
+                dates = datesList.toArray(dates);
+
+                if (trialList.size() != 0) {
 //                    currentDate = trialList.get(0).getDate();
-//
-//                    for (i = 0; i < trialList.size(); i++) {
-//                        for (j = 0; j < trialList.size(); j++) {
-//                            if (trialList.get(0).getDate().equals(currentDate)) {
-//                                count++;
-//                            }
-//                        }
-//
-//                        yValues.add(new Entry(i, count));
-//                        count = 0;
+
+                    for (i = 0; i < trialList.size(); i++) {
+                        currentDate = trialList.get(i).getDate();
+                        for (j = 0; j < trialList.size(); j++) {
+                            if (trialList.get(0).getDate().equals(currentDate)) {
+                                count++;
+                            }
+                        }
+
+                        dataSet1.add(new BarEntry(i, count));
+                        count = 0;
 //                        if (currentDate.equals(trialList.get(i).getDate())) {
 //                            i = trialList.size() + 1;
 //                        } else {
 //                            currentDate = trialList.get(i).getDate();
 //                        }
-//                    }
-//
-//                    LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
-//                    set1.setLineWidth(10);
-//
-//                    LineData countData = new LineData();
-//                    countData.addDataSet(set1);
-//
-//                    lineChart.setData(countData);
-//                }
+                    }
+
+                    xAxis.setValueFormatter(new LabelFormatter(dates));
+
+                    xAxis.setGranularity(1);
+                    xAxis.setLabelRotationAngle(-45);
+
+                    YAxis yRightAxis2;
+                    yRightAxis2 = barchart.getAxisRight();
+                    yRightAxis2.setGranularity(1);
+
+                    YAxis yLeftAxis2;
+                    yLeftAxis2 = barchart.getAxisLeft();
+                    yLeftAxis2.setGranularity(1);
+
+                    BarDataSet CountDataSet = new BarDataSet(dataSet1, "Counts");
+                    barData.addDataSet(CountDataSet);
+                    barData.setValueTextSize(0);
+                    barData.setBarWidth(7);
+                    barchart.setData(barData);
+                }
 
                 //                trial = String.valueOf(((Count) trialList.get(position)).getCount());
                 break;
-            case "NonNegativeCount":
-                //                trial = String.valueOf(((NonNegativeCount) trialList.get(position)).getValue());
-                break;
             case "Measurement":
+                // get smallest value in list
+                float min = ((Measurement) trialList.get(0)).getMeasurement();
+                for (i = 1; i < trialList.size(); i++) {
+                    float value = ((Measurement) trialList.get(i)).getMeasurement();
+                    if (value < min) {
+                        min = value;
+                    }
+                }
+
+                int barRange1 = 10;
+                float barMultiplier1 = min/10;
+                int num1 = 0;
+                int numAdded1 = 0;
+                float measurement1 = 0;
+
+                ArrayList<String> measurementLabels1 = new ArrayList<>();
+                while (numAdded1 != trialList.size()) {
+                    for (j = 0; j < trialList.size(); j++) {
+                        measurement1 = ((Measurement) trialList.get(j)).getMeasurement();
+                        if ((measurement1 <= barRange1*barMultiplier1) && (measurement1 > barRange1*(barMultiplier1-1))) {
+                            num1++;
+                        }
+                    }
+                    measurementLabels1.add(String.valueOf(barRange1*barMultiplier1));
+                    dataSet1.add(new BarEntry(barRange1*barMultiplier1, num1));
+                    if (num1 > 0) {
+                        numAdded1 += num1;
+                    }
+                    num1 = 0;
+                    barMultiplier1++;
+                }
+
+                xAxis.setGranularity(10);
+
+                YAxis yLeftAxis1;
+                yLeftAxis1 = barchart.getAxisLeft();
+                yLeftAxis1.setGranularity(1);
+
+                YAxis yRightAxis1;
+                yRightAxis1 = barchart.getAxisRight();
+                yRightAxis1.setGranularity(1);
+
+                description.setText("Measurement Trial Histogram");
+                barchart.setDescription(description);
+
+                BarDataSet measurementDataSet1 = new BarDataSet(dataSet1, "Measurements");
+                barData.addDataSet(measurementDataSet1);
+                barData.setValueTextSize(0);
+                barData.setBarWidth(7);
+                barchart.setData(barData);
+
+                break;
+            case "NonNegativeCount":
                 int barRange = 10;
                 int barMultiplier = 1;
                 int num = 0;
@@ -149,7 +211,7 @@ public class HistogramActivity extends AppCompatActivity {
                 ArrayList<String> measurementLabels = new ArrayList<>();
                 while (numAdded != trialList.size()) {
                     for (j = 0; j < trialList.size(); j++) {
-                        measurement = ((Measurement) trialList.get(j)).getMeasurement();
+                        measurement = ((NonNegativeCount) trialList.get(j)).getValue();
                         if ((measurement <= barRange*barMultiplier) && (measurement > barRange*(barMultiplier-1))) {
                             num++;
                         }
@@ -163,9 +225,6 @@ public class HistogramActivity extends AppCompatActivity {
                     barMultiplier++;
                 }
 
-//                String[] measurementsList = new String[measurementLabels.size()];
-//                measurementsList = measurementLabels.toArray(measurementsList);
-//                xAxis.setValueFormatter(new LabelFormatter(measurementsList));
                 xAxis.setGranularity(10);
 
                 YAxis yLeftAxis;

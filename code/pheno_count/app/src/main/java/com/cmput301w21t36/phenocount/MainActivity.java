@@ -1,21 +1,30 @@
 package com.cmput301w21t36.phenocount;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,7 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * a search button to search the databse for experiments,
  * a profile button to view and/or edit the profile of the current user
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseFirestore db;
     ListView experiments;
     Button searchButton;
@@ -39,13 +48,20 @@ public class MainActivity extends AppCompatActivity {
     private String UUID;
     private String username;
     private String phoneNumber;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("My Experiments");
+
+        TextView toolBarTitle = (TextView)findViewById(R.id.toolbar_title);
+        toolBarTitle.setText("My Experiments");
+
+        navigationSettings();
 
         experiments = findViewById(R.id.expList);
         expDataList = new ArrayList<>();
@@ -85,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.apply();
                     }
                 });
-
+        /*
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 openProfile();
             }
-        });
+        }); */
 
         phoneNumber = sharedPrefs.getString("ContactInfo", "");
 
@@ -128,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the addButton is clicked and Switches MainActivity to
      * PublishExperimentActivity
      */
-    public void addExperiment(View view){
+    public void addExperiment(){
         Intent intent = new Intent(this, PublishExperimentActivity.class);
         String mstr = UUID;
         intent.putExtra("AutoId",mstr);
@@ -136,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showSubList(View view){
+    public void showSubList(){
         //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         //phoneNumber = sharedPrefs.getString("Number", "");
         Intent intent = new Intent(this, ShowSubscribedListActivity.class);
@@ -187,5 +203,52 @@ public class MainActivity extends AppCompatActivity {
         user.put("ContactInfo", "No contact info");
 
         db.collection("User").document(UUID).set(user);
+    }
+
+    public void navigationSettings(){
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        //setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+        super.onBackPressed();
+    }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_my_exp:
+                onBackPressed();
+                break;
+            case R.id.nav_search:
+                openSearch();
+                break;
+            case R.id.nav_user:
+                openProfile();
+                break;
+            case R.id.nav_add:
+                addExperiment();
+                break;
+            case R.id.nav_sub_exp:
+                showSubList();
+                break;
+
+        }
+        return true;
     }
 }
