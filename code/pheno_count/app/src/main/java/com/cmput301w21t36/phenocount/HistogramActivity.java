@@ -27,6 +27,7 @@ public class HistogramActivity extends AppCompatActivity {
     BarChart barchart;
     Experiment experiment;
     String type;
+    BarData barData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class HistogramActivity extends AppCompatActivity {
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");
 
         barchart = (BarChart) findViewById(R.id.bargraph);
+
+        barData = new BarData();
 
         ArrayList<Trial> trialList = experiment.getTrials();
         ArrayList<BarEntry> dataSet1 = new ArrayList<>();
@@ -56,7 +59,6 @@ public class HistogramActivity extends AppCompatActivity {
 
         XAxis xAxis = barchart.getXAxis();
 //        xAxis.setValueFormatter(new LabelFormatter(labels));
-        xAxis.setGranularity(1);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(15);
 
@@ -87,15 +89,18 @@ public class HistogramActivity extends AppCompatActivity {
                 dataSet1.add(new BarEntry(0, successCount));
                 dataSet2.add(new BarEntry(1, failCount));
 
-                BarDataSet barDataSet = new BarDataSet(dataSet1, "Success");
-                barDataSet.setColor(Color.GREEN);
-                BarDataSet failset = new BarDataSet(dataSet2, "Fails");
-                failset.setColor(Color.RED);
+                BarDataSet successDataSet = new BarDataSet(dataSet1, "Success");
+                successDataSet.setColor(Color.GREEN);
+                successDataSet.setValueTextSize(10);
+                BarDataSet failDataSet = new BarDataSet(dataSet2, "Fails");
+                failDataSet.setColor(Color.RED);
+                failDataSet.setValueTextSize(10);
 
-                BarData binomialData = new BarData();
-                binomialData.addDataSet(barDataSet);
-                binomialData.addDataSet(failset);
-                barchart.setData(binomialData);
+                xAxis.setGranularity(1);
+
+                barData.addDataSet(successDataSet);
+                barData.addDataSet(failDataSet);
+                barchart.setData(barData);
 
                 break;
             case "Count":
@@ -132,32 +137,59 @@ public class HistogramActivity extends AppCompatActivity {
                 //                trial = String.valueOf(((Count) trialList.get(position)).getCount());
                 break;
             case "NonNegativeCount":
-
-
-                int barRange = 10;
-//                for (i = 0; i < trialList.size(); i++) {
-//                        for (j = 0; j < trialList.size(); j++) {
-//                            if (trialList.get(0).) {
-//                                count++;
-//                            }
-//                        }
-//
-//                        yValues.add(new Entry(i, count));
-//                        count = 0;
-//                        if (currentDate.equals(trialList.get(i).getDate())) {
-//                            i = trialList.size() + 1;
-//                        } else {
-//                            currentDate = trialList.get(i).getDate();
-//                        }
-//                    }
-
                 //                trial = String.valueOf(((NonNegativeCount) trialList.get(position)).getValue());
                 break;
             case "Measurement":
-                //                trial = String.valueOf(((Measurement) trialList.get(position)).getMeasurement());
+                int barRange = 10;
+                int barMultiplier = 1;
+                int num = 0;
+                int numAdded = 0;
+                float measurement = 0;
+
+                ArrayList<String> measurementLabels = new ArrayList<>();
+                while (numAdded != trialList.size()) {
+                    for (j = 0; j < trialList.size(); j++) {
+                        measurement = ((Measurement) trialList.get(j)).getMeasurement();
+                        if ((measurement <= barRange*barMultiplier) && (measurement > barRange*(barMultiplier-1))) {
+                            num++;
+                        }
+                    }
+                    measurementLabels.add(String.valueOf(barRange*barMultiplier));
+                    dataSet1.add(new BarEntry(barRange*barMultiplier, num));
+                    if (num > 0) {
+                        numAdded += num;
+                    }
+                    num = 0;
+                    barMultiplier++;
+                }
+
+//                String[] measurementsList = new String[measurementLabels.size()];
+//                measurementsList = measurementLabels.toArray(measurementsList);
+//                xAxis.setValueFormatter(new LabelFormatter(measurementsList));
+                xAxis.setGranularity(10);
+
+                YAxis yLeftAxis;
+                yLeftAxis = barchart.getAxisLeft();
+                yLeftAxis.setGranularity(1);
+
+                YAxis yRightAxis;
+                yRightAxis = barchart.getAxisRight();
+                yRightAxis.setGranularity(1);
+
+                description.setText("Measurement Trial Histogram");
+                barchart.setDescription(description);
+
+                BarDataSet measurementDataSet = new BarDataSet(dataSet1, "Measurements");
+                barData.addDataSet(measurementDataSet);
+                barData.setValueTextSize(0);
+                barData.setBarWidth(7);
+                barchart.setData(barData);
+
                 break;
         }
     }
+
+
 
     public class LabelFormatter implements IAxisValueFormatter {
         private final String[] mLabels;
