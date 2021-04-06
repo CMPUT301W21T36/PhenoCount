@@ -124,7 +124,41 @@ public class PlotsManager implements Serializable {
     }
 
     public DataPoint[] measurement_plot(){
-        return new DataPoint[]{};
+        System.out.println("MEASUREMENT WORKING");
+        ArrayList<DataPoint> dpList = new ArrayList<>();
+        int i = 0;
+        //Collections.sort(dates);
+
+        for (String date : dates) {
+            double trials_sum = 0;
+            int count = 0;
+            for (Trial trial : trials) {
+
+                Measurement mTrial = (Measurement) trial;
+                System.out.println(date + "===" + mTrial.getDate());
+                if (mTrial.getDate().equals(date) && mTrial.getStatus()) {
+                    trials_sum += mTrial.getMeasurement();
+                    count++;
+                    //ms = bTrial.getDate();
+                }
+
+            }
+            System.out.println("Total " + trials_sum);
+            //Long date_mili = dates_ms.get(dates.indexOf(date));
+            double mean = (double)trials_sum/count;
+            dpList.add(new DataPoint(i, mean));
+            System.out.println("SIZE OF ARRAY " + dpList.size());
+            i++;
+
+        }
+        DataPoint[] dp = new DataPoint[dpList.size()];
+        dp = dpList.toArray(dp);
+        System.out.println("SIZE OF ARRAY " + dp.length);
+        for (int j = 0; j < dp.length; j++) {
+            System.out.println("DATA POINT " + (j + 1) + "x : " + dp[j].getX() + ", y =" + dp[j].getY());
+        }
+
+        return dp;
     }
 
     public DataPoint[] nonNegative_plot(){
