@@ -16,7 +16,10 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 /**
  * Gets the trial data for the experiment
@@ -125,6 +128,9 @@ public class HistogramActivity extends AppCompatActivity {
                 for (i = 0; i < trialList.size(); i++){
                     datesList.add(trialList.get(i).getDate());
                 }
+
+                datesList = sortDates(datesList);
+
                 String[] dates = new String[datesList.size()];
                 dates = datesList.toArray(dates);
 
@@ -244,6 +250,34 @@ public class HistogramActivity extends AppCompatActivity {
         //set the axis label interval
         xAxis = barchart.getXAxis();
         xAxis.setGranularity(10);
+    }
+
+    /**
+     * Sort the dates in ascending order
+     * @param dates
+     * @return
+     */
+    public ArrayList<String> sortDates(ArrayList<String> dates) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        ArrayList<Date> dateObjs = new ArrayList<Date>();
+        for (String date : dates) {
+            try {
+                Date obj = formatter.parse(date);
+                dateObjs.add(obj);
+            } catch (Exception e) {
+                System.out.println("FAIL");
+            }
+
+        }
+        Collections.sort(dateObjs);
+        ArrayList<String> sorted_str_dates = new ArrayList<>();
+
+        for (Date date : dateObjs) {
+            sorted_str_dates.add(formatter.format(date));
+        }
+
+        return (sorted_str_dates);
     }
 
     /**
