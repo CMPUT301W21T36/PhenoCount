@@ -17,7 +17,7 @@
     
     <style name="SplashScreenTheme" parent = "Theme.MaterialComponents.Light.NoActionBar">
         <item name = "android:windowBackground">@drawable/splash_screen</item>
-        <item name = "android:statusBarColor">@color/white</item>
+        <item name = "android:statusBarColor">@color/purple_200</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
