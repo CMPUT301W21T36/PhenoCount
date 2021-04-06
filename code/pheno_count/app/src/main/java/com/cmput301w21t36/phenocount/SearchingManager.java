@@ -19,7 +19,9 @@ import java.util.ArrayList;
  * @see ExpManager
  */
 public class SearchingManager {
+
     private ExpManager expManager = new ExpManager();
+
 
     public void getAllExp(FirebaseFirestore db, ArrayList<Experiment> expDataList,
                           ArrayAdapter<Experiment> expAdapter){
@@ -30,6 +32,12 @@ public class SearchingManager {
                 expManager.getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
             }
         });
+    }
+
+    public void getSearchExp() {
+
+
+        //return ArrayList;
     }
 
 }
