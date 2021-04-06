@@ -54,12 +54,15 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
     private CollectionReference experimentRef = db.collection("Experiment");
 
     private SearchingManager searchManag;
+    private ArrayList<Experiment> expDataList = new ArrayList<Experiment>();
+    private ArrayList<Experiment> allExpDataList = new ArrayList<Experiment>();
     private ResultAdapter adapter;
     private ListView experimentListView;
-    private ArrayList<Experiment> expDataList = new ArrayList<Experiment>();
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +79,7 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         experimentListView.setAdapter(adapter);
 
         searchManag.getAllExp(db, expDataList, adapter);
+
 
         // Old Agnolia stuff
         //Client client = new Client("87SDM4TVNJ", "e28b7da170079f2b1862683cdf7ead4d");
@@ -126,6 +130,29 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
     public void searchExperiments(String keyword) {
         keyword = keyword.toLowerCase();
+
+        if (keyword.length() > 0) {
+
+            ArrayList<Experiment> foundExp = new ArrayList<>();
+            for (Experiment exp : expDataList) {
+                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) ){
+                    foundExp.add(exp);
+                }
+            }
+            updateList(foundExp);
+        }
+        else {
+            updateList(expDataList);
+        }
+
+    }
+
+    public void updateList(ArrayList<Experiment> listExp) {
+
+        adapter = new ResultAdapter(this, listExp);
+        experimentListView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
     }
 
 

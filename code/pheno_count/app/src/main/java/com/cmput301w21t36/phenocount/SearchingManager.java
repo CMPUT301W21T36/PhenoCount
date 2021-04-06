@@ -34,7 +34,7 @@ public class SearchingManager {
         });
     }
 
-    public void getSearchExp() {
+    public void getSearchExp(String keyword) {
 
 
         //return ArrayList;
