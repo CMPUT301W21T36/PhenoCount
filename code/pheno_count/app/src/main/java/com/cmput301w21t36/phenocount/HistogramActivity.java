@@ -31,6 +31,7 @@ public class HistogramActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_histogram);
 
         //get the experiment from intent
