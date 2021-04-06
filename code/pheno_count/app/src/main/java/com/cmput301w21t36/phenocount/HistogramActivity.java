@@ -24,11 +24,20 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Gets the trial data for the experiment
+ * Puts the trial data into bar data sets
+ * Create bar graph from the data sets
+ *
+ * Uses MPAndroidChart to create the graphs
+ * REFERENCES
+ * Philipp Jahoda, 03-19-19,  Apache License, https://github.com/PhilJay/MPAndroidChart
+ */
 public class HistogramActivity extends AppCompatActivity {
     BarChart barchart;
+    BarData barData;
     Experiment experiment;
     String type;
-    BarData barData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +45,20 @@ public class HistogramActivity extends AppCompatActivity {
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_histogram);
 
-        //get the experiment from intent
-        experiment = (Experiment) getIntent().getSerializableExtra("experiment");
+
+        experiment = (Experiment) getIntent().getSerializableExtra("experiment");//get the experiment from intent
 
         barchart = (BarChart) findViewById(R.id.bargraph);
 
-        barData = new BarData();
+        barData = new BarData(); //data to put into the bar charts
+
 
         ArrayList<Trial> trialList = experiment.getTrials();
         ArrayList<BarEntry> dataSet1 = new ArrayList<>();
         ArrayList<BarEntry> dataSet2 = new ArrayList<>();
-        ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> datesList = new ArrayList<>();
 
-        type = experiment.getExpType();
+        type = experiment.getExpType(); //
 
         XAxis xAxis = barchart.getXAxis();
 //        xAxis.setValueFormatter(new LabelFormatter(labels));
