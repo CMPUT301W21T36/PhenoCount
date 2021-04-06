@@ -11,6 +11,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -18,12 +19,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
 
 public class HistogramActivity extends AppCompatActivity {
     BarChart barchart;
-    LineChart lineChart;
     Experiment experiment;
     String type;
 
@@ -36,7 +37,6 @@ public class HistogramActivity extends AppCompatActivity {
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");
 
         barchart = (BarChart) findViewById(R.id.bargraph);
-        lineChart = (LineChart) findViewById(R.id.lineChart);
 
         ArrayList<Trial> trialList = experiment.getTrials();
         ArrayList<BarEntry> dataSet1 = new ArrayList<>();
@@ -53,41 +53,26 @@ public class HistogramActivity extends AppCompatActivity {
         String[] dates = new String[datesList.size()];
         dates = datesList.toArray(dates);
 
-        XAxis xAxisline = lineChart.getXAxis();
-        xAxisline.setValueFormatter(new XAxisFormatter(dates));
-        xAxisline.setLabelRotationAngle(-45);
-        xAxisline.setTextSize(10);
-        xAxisline.setPosition(XAxis.XAxisPosition.BOTTOM);
+        XAxis xAxis = barchart.getXAxis();
+//        xAxis.setValueFormatter(new LabelFormatter(labels));
+        xAxis.setGranularity(1);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(15);
 
         Description description = new Description();
         description.setTextColor(Color.BLACK);
         description.setTextSize(10);
 
         barchart.animateXY(3000, 3000);
-        lineChart.animateXY(3000, 3000);
 
         int i = 0;
         int j = 0;
         switch (type) {
             case "Binomial":
-                BarDataSet barDataSet = new BarDataSet(dataSet1, "Success");
-                barDataSet.setColor(Color.GREEN);
-                BarDataSet failset = new BarDataSet(dataSet2, "Fails");
-                failset.setColor(Color.RED);
-
-                BarData binomialData = new BarData();
-                binomialData.addDataSet(barDataSet);
-                binomialData.addDataSet(failset);
-                barchart.setData(binomialData);
-
-                description.setText("Coin Flip Histogram");
+                final String[] labels = new String[] {"Success", "Fail"};
+                description.setText("Binomial Trial Histogram");
                 barchart.setDescription(description);
 
-                XAxis xAxisBar;
-                xAxisBar = barchart.getXAxis();
-                xAxisBar.setEnabled(false);
-
-                barchart.setVisibility(View.VISIBLE);
                 int successCount = 0;
                 int failCount = 0;
                 for (i = 0; i < trialList.size(); i++) {
@@ -101,42 +86,68 @@ public class HistogramActivity extends AppCompatActivity {
                 dataSet1.add(new BarEntry(0, successCount));
                 dataSet2.add(new BarEntry(1, failCount));
 
+                BarDataSet barDataSet = new BarDataSet(dataSet1, "Success");
+                barDataSet.setColor(Color.GREEN);
+                BarDataSet failset = new BarDataSet(dataSet2, "Fails");
+                failset.setColor(Color.RED);
+
+                BarData binomialData = new BarData();
+                binomialData.addDataSet(barDataSet);
+                binomialData.addDataSet(failset);
+                barchart.setData(binomialData);
+
                 break;
             case "Count":
-                lineChart.setVisibility(View.VISIBLE);
-                int count = 0;
-                String currentDate = null;
-                if (trialList.size() != 0) {
-                    currentDate = trialList.get(0).getDate();
-
-                    for (i = 0; i < trialList.size(); i++) {
-                        for (j = 0; j < trialList.size(); j++) {
-                            if (trialList.get(0).getDate().equals(currentDate)) {
-                                count++;
-                            }
-                        }
-
-                        yValues.add(new Entry(i, count));
-                        count = 0;
-                        if (currentDate.equals(trialList.get(i).getDate())) {
-                            i = trialList.size() + 1;
-                        } else {
-                            currentDate = trialList.get(i).getDate();
-                        }
-                    }
-
-                    LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
-                    set1.setLineWidth(10);
-
-                    LineData countData = new LineData();
-                    countData.addDataSet(set1);
-
-                    lineChart.setData(countData);
-                }
+//                int count = 0;
+//                String currentDate = null;
+//                if (trialList.size() != 0) {
+//                    currentDate = trialList.get(0).getDate();
+//
+//                    for (i = 0; i < trialList.size(); i++) {
+//                        for (j = 0; j < trialList.size(); j++) {
+//                            if (trialList.get(0).getDate().equals(currentDate)) {
+//                                count++;
+//                            }
+//                        }
+//
+//                        yValues.add(new Entry(i, count));
+//                        count = 0;
+//                        if (currentDate.equals(trialList.get(i).getDate())) {
+//                            i = trialList.size() + 1;
+//                        } else {
+//                            currentDate = trialList.get(i).getDate();
+//                        }
+//                    }
+//
+//                    LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
+//                    set1.setLineWidth(10);
+//
+//                    LineData countData = new LineData();
+//                    countData.addDataSet(set1);
+//
+//                    lineChart.setData(countData);
+//                }
 
                 //                trial = String.valueOf(((Count) trialList.get(position)).getCount());
                 break;
             case "NonNegativeCount":
+                int barRange = 10;
+//                for (i = 0; i < trialList.size(); i++) {
+//                        for (j = 0; j < trialList.size(); j++) {
+//                            if (trialList.get(0).) {
+//                                count++;
+//                            }
+//                        }
+//
+//                        yValues.add(new Entry(i, count));
+//                        count = 0;
+//                        if (currentDate.equals(trialList.get(i).getDate())) {
+//                            i = trialList.size() + 1;
+//                        } else {
+//                            currentDate = trialList.get(i).getDate();
+//                        }
+//                    }
+
                 //                trial = String.valueOf(((NonNegativeCount) trialList.get(position)).getValue());
                 break;
             case "Measurement":
@@ -145,15 +156,16 @@ public class HistogramActivity extends AppCompatActivity {
         }
     }
 
-    public class XAxisFormatter implements IAxisValueFormatter {
-        public String[] mValues;
-        public XAxisFormatter(String[] values) {
-            this.mValues = values;
+    public class LabelFormatter implements IAxisValueFormatter {
+        private final String[] mLabels;
+
+        public LabelFormatter(String[] labels) {
+            mLabels = labels;
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            return mValues[(int)value];
+            return mLabels[(int) value];
         }
     }
 }
