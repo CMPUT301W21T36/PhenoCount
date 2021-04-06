@@ -64,7 +64,6 @@ public class SearchingActivity extends AppCompatActivity {
 
         searchManag.getAllExp(db, expDataList, adapter);
 
-
         // When experiment in listview is clicked, we open it and call new activity
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

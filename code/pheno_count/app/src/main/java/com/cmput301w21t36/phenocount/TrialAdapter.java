@@ -50,6 +50,9 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         //getting the trial object from results activity
         Trial trial = getItem(position);
 
+/*        if (!trial.getStatus()){
+            trialList.remove(position);
+        }*/
 
         //initializing textviews
         TextView trial_no = view.findViewById(R.id.trial_no);
@@ -75,10 +78,9 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         else {
             trial_no.setText("Trial " + (position+1));
         }
-
         //checking type of trial and setting result
         if (trial.getType().equals("Binomial")) {
-            Binomial btrial = (Binomial) trial;
+            Binomial btrial = (Binomial) getItem(position);
             if (btrial.getResult()){
                 trial_outcome.setText("Result: Success");
             }
@@ -87,15 +89,15 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
             }
         }
         if (trial.getType().equals("Count")) {
-            Count ctrial = (Count) trial;
+            Count ctrial = (Count) getItem(position);
             trial_outcome.setText("Result: "+ctrial.getCount());
         }
         if (trial.getType().equals("Measurement")) {
-            Measurement mtrial = (Measurement) trial;
+            Measurement mtrial = (Measurement) getItem(position);
             trial_outcome.setText("Result: "+mtrial.getMeasurement());
         }
         if (trial.getType().equals("NonNegativeCount")) {
-            NonNegativeCount ntrial = (NonNegativeCount) trial ;
+            NonNegativeCount ntrial = (NonNegativeCount) getItem(position) ;
             trial_outcome.setText("Result: "+ntrial.getValue());
         }
         //to delete a trial
