@@ -26,9 +26,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PhenoCount">
+        android:theme="@style/SplashScreenTheme">
         <activity android:name=".PlotsActivity"></activity>
         <activity android:name=".TrialMapsActivity" />
+        <activity android:name=".HistogramActivity" />
         <activity android:name=".SearchingActivity" />
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />

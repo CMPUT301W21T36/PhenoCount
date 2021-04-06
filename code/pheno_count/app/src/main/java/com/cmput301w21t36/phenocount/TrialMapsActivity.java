@@ -24,6 +24,7 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_trial_maps);
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.trialsMap);
         mapFrag.getMapAsync(this);

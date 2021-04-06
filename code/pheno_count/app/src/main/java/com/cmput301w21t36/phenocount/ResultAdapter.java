@@ -60,7 +60,6 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
 
         expName.setText(exp.getName());
         expOwner.setText(exp.getOwner().getProfile().getUsername());
-
         expName.setTextColor(Color.parseColor("#FF69B4"));
         expOwner.setTextColor(Color.parseColor("#FF69B4"));
         expDescription.setTextColor(Color.parseColor("#FF69B4"));
@@ -76,7 +75,6 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
             expName.setTextColor(Color.parseColor("#191970"));
             expOwner.setTextColor(Color.parseColor("#191970"));
             expDescription.setTextColor(Color.parseColor("#191970"));
-
         }
 
         String expStat = "";
@@ -99,8 +97,6 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
         }
         expStatus.setText(expStat);
         expDescription.setText(exp.getDescription());
-
-
         return view;
     }
 

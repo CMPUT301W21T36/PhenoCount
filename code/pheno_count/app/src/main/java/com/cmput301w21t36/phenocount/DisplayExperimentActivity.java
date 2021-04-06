@@ -48,8 +48,9 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_experiment_display);
-        getSupportActionBar().setTitle("Experiment Info");
+        //getSupportActionBar().setTitle("Experiment Info");
 
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         db = FirebaseFirestore.getInstance();
@@ -113,6 +114,16 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             public void onClick(View v) {
                 Intent i = new Intent(DisplayExperimentActivity.this, TrialMapsActivity.class);
                 i.putExtra("trials",exp.getTrials());
+                startActivity(i);
+            }
+        });
+
+        final Button histogramBtn = findViewById(R.id.histogramButton);
+        histogramBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DisplayExperimentActivity.this, HistogramActivity.class);
+                i.putExtra("experiment", exp);
                 startActivity(i);
             }
         });
@@ -273,8 +284,12 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
                 exp = (Experiment) data.getSerializableExtra("experiment");
+                SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+                username = sharedPrefs.getString("Username", "");
+                UUID = sharedPrefs.getString("ID", "");
                 expManager = new ExpManager();
-                expManager.updateTrialData(db,exp);
+                expManager.updateTrialData(db,exp,username);
             }
         }
         if(requestCode == LAUNCH_THIRD_ACTIVITY){

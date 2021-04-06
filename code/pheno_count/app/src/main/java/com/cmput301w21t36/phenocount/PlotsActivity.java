@@ -31,6 +31,7 @@ public class PlotsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_plots);
         graphView = (GraphView) findViewById(R.id.graph);
 
@@ -53,48 +54,7 @@ public class PlotsActivity extends AppCompatActivity {
             finish();
         }
 
-        /**
-        dates = new ArrayList<>(); //for unique date?
-        for (Trial trial : trials) {
-            if (!dates.contains(trial.getDate()))
-                dates.add(trial.getDate());
-        }
 
-        System.out.println("UNIQUE DATES " + dates);
-        //sorting according to date
-        dates = sortDates(dates);
-
-        ArrayList<DataPoint> dpList = new ArrayList<>();
-        int i = 0;
-        //Collections.sort(dates);
-        int success_count = 0;
-        for (String date : dates) {
-
-            for (Trial trial : trials) {
-
-                Binomial bTrial = (Binomial) trial;
-                System.out.println(date + "===" + bTrial.getDate());
-                if (bTrial.getDate().equals(date) && bTrial.getResult() == true && bTrial.getStatus()) {
-                    success_count++;
-                    //ms = bTrial.getDate();
-                }
-            }
-            System.out.println("Success " + success_count);
-            //Long date_mili = dates_ms.get(dates.indexOf(date));
-            dpList.add(new DataPoint(i, success_count));
-            System.out.println("SIZE OF ARRAY " + dpList.size());
-            i++;
-
-        }
-
-        //dpList.add(new DataPoint(1617648045000L, 5));
-        DataPoint[] dp = new DataPoint[dpList.size()];
-        dp = dpList.toArray(dp);
-        System.out.println("SIZE OF ARRAY " + dp.length);
-        for (int j = 0; j < dp.length; j++) {
-            System.out.println("DATA POINT " + (j + 1) + "x : " + dp[j].getX() + ", y =" + dp[j].getY());
-        }
-        */
         DataPoint[] dp = plotsManager.compute();
         dates = plotsManager.getDates();
         //System.out.println("DATES IN PLOTS ACTIVITY "+ dates);
@@ -122,8 +82,10 @@ public class PlotsActivity extends AppCompatActivity {
         series = new LineGraphSeries<>(dp);
         graphView.addSeries(series);
         graphView.addSeries(pointSeries);
-
+        pointSeries.setShape(PointsGraphSeries.Shape.POINT);
         series.setColor(R.color.purple_200);
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(0.2f);
 
         TextView xAxisLabel = findViewById(R.id.xAxisLabel);
         xAxisLabel.setText("TIME (Days)");
@@ -147,7 +109,12 @@ public class PlotsActivity extends AppCompatActivity {
         graphView.getViewport().setMinX(0);
         graphView.getViewport().setMaxX(dp_length-1);
         graphView.getViewport().setXAxisBoundsManual(true);
+        graphView.getViewport().setYAxisBoundsManual(true);
+        //graphView.getViewport().setMinY(dp[0].getY());
+        //graphView.getViewport().setMaxY(dp[dp_length-1].getY());
 
+
+        graphView.getGridLabelRenderer().setPadding(70);
         //graphView.getGridLabelRenderer().setHorizontalLabels
     }
 
@@ -179,169 +146,6 @@ public class PlotsActivity extends AppCompatActivity {
     }
 }
 
-        /**
-        //final String datesString[] = new String[];
-        final int dp_length = dp.length;
-        graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                //System.out.println("VALUE inside "+ (long)value);
-                if(isValueX && value < dp_length){
-                    System.out.println("VALUE = "+ value);
-                    return dates.get((int)value);
-                    //return "lol";
-                }
-                return super.formatLabel(value, isValueX);
-            }
-
-        });
-
-        pointSeries.setShape(PointsGraphSeries.Shape.POINT);
-        pointSeries.setSize(12);
-        series.setColor(R.color.purple_200);
-        graphView.getGridLabelRenderer().setHorizontalAxisTitle("DATE");
-        graphView.getGridLabelRenderer().setHorizontalAxisTitleTextSize(40f);
-        graphView.getGridLabelRenderer().setVerticalAxisTitle("SUCCESSES");
-        graphView.getGridLabelRenderer().setHorizontalLabelsAngle(15);
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
 
 
 
-
-        /**
-        //graphView.getViewport().setXAxisBoundsManual(true);
-        dates = new ArrayList<>();
-        dates_ms = new ArrayList<>();
-
-
-
-        //graphView.getViewport().setMinX();
-
-        //System.out.println("one of the trial "+ new Date(trials.get(trials.size()-1).getDate()));
-
-
-
-        formatter = new SimpleDateFormat("dd MM/yyyy");
-        for(Trial trial: trials){
-
-            Date dateObj = new Date(trial.getDate());
-
-            String strDate = formatter.format(dateObj);
-            if(dates.contains(strDate) == false) {
-                dates.add(strDate);
-                dates_ms.add(trial.getDate()); }
-
-        }
-        System.out.println();
-        System.out.println("all the unique dates that exist" + dates);
-        Collections.sort(dates_ms);
-
-
-
-
-
-
-        String pattern = "dd MMM";
-        DateFormat df = new SimpleDateFormat(pattern);
-
-
-            //graphView.getViewport().setMinY(0);
-
-
-        try {
-                pointSeries = new PointsGraphSeries<>(getDataPoint());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-
-
-            try {
-                series = new LineGraphSeries<>(getDataPoint());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            graphView.addSeries(series);
-            graphView.addSeries(pointSeries);
-
-
-
-
-            pointSeries.setShape(PointsGraphSeries.Shape.POINT);
-            pointSeries.setSize(12);
-            series.setColor(R.color.purple_200);
-            graphView.getGridLabelRenderer().setHorizontalAxisTitle("DATE");
-            graphView.getGridLabelRenderer().setHorizontalAxisTitleTextSize(40f);
-            graphView.getGridLabelRenderer().setVerticalAxisTitle("SUCCESSES");
-            graphView.getGridLabelRenderer().setHorizontalLabelsAngle(15);
-            graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
-
-            final String[] xlabels = new String[] {
-                    "foo", "bar", "third", "bla", "more"
-            };
-
-            //graphView.getViewport().scrollToEnd();
-
-            graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                //System.out.println("VALUE inside "+ (long)value);
-                if(isValueX){
-                    System.out.println("VALUE = "+ value);
-                    Date date = new Date((long)value);
-                    //System.out.println("IS DATE PROPER? "+ date);
-                    //String str = df.format(date);
-                    //System.out.println("FORMATTER "+ str);
-                    return xlabels[(int)value];
-                    //return "$$" + super.formatLabel(value, isValueX);
-                }
-                return super.formatLabel(value, isValueX);
-            }
-
-        });
-            //finish();
-            //graphView.getGridLabelRenderer().setNumHorizontalLabels(5);
-    }
-
-        private DataPoint[] getDataPoint() throws ParseException {
-
-            ArrayList<DataPoint> dpList = new ArrayList<>();
-            int i = 0;
-            //Collections.sort(dates);
-            int success_count = 0;
-            for(String date: dates){
-                long ms = 0;
-                for(Trial trial: trials){
-
-                    Binomial bTrial = (Binomial)trial;
-                    Date dateObj = new Date(bTrial.getDate());
-                    String strDate = formatter.format(dateObj);
-                    System.out.println("dates" + dateObj + "== " + success_count);
-
-                    if( strDate.equals(date) && bTrial.getResult() == true ){
-                        success_count++;
-                        ms = bTrial.getDate();
-                    }
-                }
-                System.out.println("Success "+success_count);
-                //Long date_mili = dates_ms.get(dates.indexOf(date));
-                dpList.add(new DataPoint(i,success_count));
-                System.out.println("SIZE OF ARRAY "+ dpList.size());
-                i++;
-
-            }
-
-            //dpList.add(new DataPoint(1617648045000L, 5));
-            DataPoint[] dp = new DataPoint[dpList.size()];
-            dp = dpList.toArray(dp);
-            //DataPoint[] dp = new DataPoint[]{new DataPoint(date_1.getTime(), 30),
-                   // new DataPoint(date_2.getTime(), 35),new DataPoint(date_2.getTime(),37), new DataPoint(date_3.getTime(),32),
-            //};
-
-            return dp;
-        }
-
-
-
-    }
-         */

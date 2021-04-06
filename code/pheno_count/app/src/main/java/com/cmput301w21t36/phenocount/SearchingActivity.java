@@ -52,6 +52,7 @@ public class SearchingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_searching);
 
         experimentListView = findViewById(R.id.listView);
@@ -63,7 +64,6 @@ public class SearchingActivity extends AppCompatActivity {
         experimentListView.setAdapter(adapter);
 
         searchManag.getAllExp(db, expDataList, adapter);
-
 
         // When experiment in listview is clicked, we open it and call new activity
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
