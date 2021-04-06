@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("My Experiments");
 
-
-
         experiments = findViewById(R.id.expList);
         expDataList = new ArrayList<>();
 

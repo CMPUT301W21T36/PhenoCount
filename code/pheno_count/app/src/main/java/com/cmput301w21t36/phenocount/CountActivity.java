@@ -61,16 +61,16 @@ public class CountActivity extends AppCompatActivity {
 
         // Capture the layout's TextView and set the string as its text
         TextView desc = findViewById(R.id.desc2);
-        desc.setText("Description:" + String.valueOf(newexp.getDescription()));
+        desc.setText("" + String.valueOf(newexp.getDescription()));
 
         TextView owner = findViewById(R.id.owner2);
-        owner.setText("Owner:" + newexp.getOwner().getProfile().getUsername());
+        owner.setText("Owner: " + newexp.getOwner().getProfile().getUsername());
 
         TextView status = findViewById(R.id.status2);
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
         TextView exptype= findViewById(R.id.exptype2);
-        exptype.setText("Experiment Type: Count");
+        exptype.setText("Type: Count");
 
         TextView count = findViewById(R.id.thecount);
         count.setText("Count:"+String.valueOf(trial.getCount()));

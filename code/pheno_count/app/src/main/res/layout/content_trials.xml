@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Trial "
+        android:textColor="@color/purple_700"
         android:textSize="20dp" />
 
         android:layout_width="match_parent"
@@ -27,6 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Outcome:"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/trial_date"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Date: "
         android:textSize="15dp" />
 
     <ImageView

@@ -315,7 +315,11 @@ public class ExpManager {
                         }
                     }
                     exp.setTrials(trials);
-                    expDataList.set(finalI,exp); //adding updated trial object to original list
+                    try{expDataList.set(finalI,exp); //adding updated trial object to original list
+                    } catch ( Exception e) {
+                        System.out.println("FAIL");
+                    }
+
                 }
             });
 
