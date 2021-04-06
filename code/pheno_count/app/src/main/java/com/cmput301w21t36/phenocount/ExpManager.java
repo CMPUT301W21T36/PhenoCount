@@ -330,6 +330,7 @@ public class ExpManager {
                         exp.getOwner().getProfile().setUsername(username);
                         System.out.println("USERNAME: "+exp.getOwner().getProfile().getUsername());
                         exp.getOwner().getProfile().setPhone(phoneNumber);
+                        expAdapter.notifyDataSetChanged();
                     }
                 }
             });
@@ -344,6 +345,8 @@ public class ExpManager {
                             String username = (String) task.getResult().getData().get("Username");
                             trial.getOwner().getProfile().setUsername(username);
                             trial.getOwner().getProfile().setPhone(phoneNumber);
+                            expAdapter.notifyDataSetChanged();
+
                         }
                     }
                 });

@@ -59,9 +59,7 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
         Experiment exp = experiments.get(position);
 
         expName.setText(exp.getName());
-        System.out.println("OWNERR:"+ exp.getOwner().getProfile().getUsername());
-        expOwner.setText(exp.getOwner().getProfile().getPhone());
-
+        expOwner.setText(exp.getOwner().getProfile().getUsername());
         expName.setTextColor(Color.parseColor("#FF69B4"));
         expOwner.setTextColor(Color.parseColor("#FF69B4"));
         expDescription.setTextColor(Color.parseColor("#FF69B4"));
