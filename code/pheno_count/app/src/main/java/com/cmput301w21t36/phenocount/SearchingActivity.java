@@ -83,6 +83,7 @@ public class SearchingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
+        //https://stackoverflow.com/questions/27378981/how-to-use-searchview-in-toolbar-android
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_search,menu);
 
