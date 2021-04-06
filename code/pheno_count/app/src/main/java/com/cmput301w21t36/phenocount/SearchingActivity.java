@@ -2,12 +2,17 @@ package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +29,7 @@ import com.algolia.search.saas.Index;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -42,7 +48,7 @@ import java.util.List;
  * @see SearchingManager
  * @see DisplayExperimentActivity
  */
-public class SearchingActivity extends AppCompatActivity {
+public class SearchingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference experimentRef = db.collection("Experiment");
@@ -50,12 +56,16 @@ public class SearchingActivity extends AppCompatActivity {
     private SearchingManager searchManag;
     private ResultAdapter adapter;
     private ListView experimentListView;
-
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    androidx.appcompat.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_searching);
+
+        navigationSettings();
 
         experimentListView = findViewById(R.id.listView);
 
@@ -112,6 +122,64 @@ public class SearchingActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+    public void navigationSettings(){
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String UUID = sharedPrefs.getString("ID", "");
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.nav_my_exp:
+                intent = new Intent(SearchingActivity.this,MainActivity.class);
+                break;
+            case R.id.nav_search:
+                intent = new Intent(SearchingActivity.this,SearchingActivity.class);
+                break;
+            case R.id.nav_user:
+                intent = new Intent(SearchingActivity.this,ProfileActivity.class);
+                intent.putExtra("UUID",UUID);
+                break;
+            case R.id.nav_add:
+                intent = new Intent(SearchingActivity.this,PublishExperimentActivity.class);
+                intent.putExtra("AutoId",UUID);
+                intent.putExtra("mode",0);
+                break;
+            case R.id.nav_sub_exp:
+                intent = new Intent(SearchingActivity.this,ShowSubscribedListActivity.class);
+                intent.putExtra("owner",UUID);
+                break;
+
+        }
+
+        startActivity(intent);
+        return true;
+    }
 }
+
+
 
 

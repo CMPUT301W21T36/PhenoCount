@@ -53,6 +53,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDghzugfjHeNMtS3nKC_s63cAHB2kk4m4o" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MapsActivity"
@@ -60,7 +63,8 @@
         <activity android:name=".ScanBarcodeActivity" />
         <activity android:name=".QuestionActivity" />
         <activity android:name=".ScanQRActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

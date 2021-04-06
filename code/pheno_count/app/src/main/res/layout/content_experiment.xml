@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="Experiment"
-        android:textSize="24dp" />
+        android:textSize="24dp"
+        android:fontFamily="@font/open_sans_light"
+        android:textColor="#000000"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +26,9 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="Owner"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:fontFamily="@font/open_sans_light"
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/expStatusTextView"
@@ -33,7 +37,9 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="Status"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:fontFamily="@font/open_sans_light"
+            android:textColor="#000000"/>
 
     </LinearLayout>
 
@@ -43,6 +49,8 @@
         android:layout_height="50dp"
         android:padding="10dp"
         android:text="Experiment Description"
-        android:textSize="24dp" />
+        android:textSize="24dp"
+        android:fontFamily="@font/open_sans_light"
+        android:textColor="#000000"/>
 
 </LinearLayout>

@@ -44,7 +44,7 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_discussion);
-        getSupportActionBar().setTitle("Discussion Forum");
+        //getSupportActionBar().setTitle("Discussion Forum");
 
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);

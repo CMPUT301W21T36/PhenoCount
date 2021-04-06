@@ -28,7 +28,7 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
         setContentView(R.layout.activity_trial_maps);
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.trialsMap);
         mapFrag.getMapAsync(this);
-        getSupportActionBar().setTitle("Trial Locations");
+        //getSupportActionBar().setTitle("Trial Locations");
     }
 
     @Override
@@ -43,7 +43,9 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
                 break;
             }
         }
+
         if(trials.size() == 0 || !locations_exist){
+            System.out.println("ZEROOOOO");
             Toast.makeText(
                     TrialMapsActivity.this,
                     "No Locations to show.",
@@ -58,21 +60,25 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
             markers.add(marker);
             i++;
         }
+
+        //googleMap.setMaxZoomPreference(0f);
         //https://stackoverflow.com/a/14828739
+
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Marker marker : markers) {
             builder.include(marker.getPosition());
         }
-        LatLngBounds bounds = builder.build();
-        int padding = 50; // offset from edges of the map in pixels
-        CameraUpdate cu;
-        if (markers.size() == 1)
-            cu = CameraUpdateFactory.newLatLng(markers.get(0).getPosition());
-        else
-            cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        if (!markers.isEmpty()) {
+            LatLngBounds bounds = builder.build();
+            int padding = 50; // offset from edges of the map in pixels
+            CameraUpdate cu;
+            if (markers.size() == 1)
+                cu = CameraUpdateFactory.newLatLng(markers.get(0).getPosition());
+            else
+                cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
 
-        googleMap.moveCamera(cu);
-
+            googleMap.moveCamera(cu);
+        }
 
 
         /**
