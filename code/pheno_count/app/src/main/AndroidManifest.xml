@@ -34,6 +34,7 @@
         <activity android:name=".PublishExperimentActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DisplayExperimentActivity" />
+        <activity android:name=".GifActivity" />
         <activity android:name=".BinomialActivity" />
         <activity android:name=".CountActivity" />
         <activity android:name=".MeasurementActivity" />
