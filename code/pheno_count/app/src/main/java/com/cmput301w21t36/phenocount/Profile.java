@@ -55,12 +55,7 @@ public class Profile implements Serializable {
      * @param phone String representing contact information
      */
     public void setPhone(String phone) {
-
         this.phone = phone;
-
-        System.out.println("From profile");
-        System.out.println(phone);
-
     }
 }
 

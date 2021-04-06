@@ -17,30 +17,12 @@ import java.util.ArrayList;
 
 public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterable {
     private ArrayList<Experiment> experiments = null;
-    private ArrayList<Experiment> filteredExperiments = null;
     private Context context;
-    private Filter mFilter = null;
 
     public ResultAdapter(Context context, ArrayList<Experiment> experiments) {
         super(context, 0, experiments);
         this.experiments = experiments;
-        this.filteredExperiments = experiments;
         this.context = context;
-    }
-
-    @Override
-    public int getCount() {
-        return filteredExperiments.size();
-    }
-
-    @Override
-    public Experiment getItem(int position) {
-        return filteredExperiments.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
     }
 
 
@@ -99,10 +81,6 @@ public class ResultAdapter extends ArrayAdapter<Experiment> implements Filterabl
         expDescription.setText(exp.getDescription());
         return view;
     }
-
-
-
-
 
 
 
