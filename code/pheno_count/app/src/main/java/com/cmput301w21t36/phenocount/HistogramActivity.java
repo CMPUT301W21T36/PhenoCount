@@ -85,7 +85,7 @@ public class HistogramActivity extends AppCompatActivity {
                 final String[] labels = new String[] {"Success", "Fail"};
                 description.setText("Binomial Trial Histogram");
 
-                //calcuate the amount of success and failures logged in the experiment
+                //calculate the amount of success and failures logged in the experiment
                 int successCount = 0;
                 int failCount = 0;
                 for (i = 0; i < trialList.size(); i++) {
