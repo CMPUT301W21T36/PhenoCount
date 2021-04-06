@@ -272,33 +272,45 @@ public class ExpManager {
                         profile.setUsername(username);
                         User user = new User(userID,profile);
 
-                        Binomial newtrial = new Binomial(user);
-                        Trial trial = newtrial;
-                        trial.setType(ttype);
-                        trial.setDate(date);
-                        trial.setStatus(Boolean.parseBoolean(status));
-                        trial.setLatitude(Float.parseFloat(latitude));
-                        trial.setLongitude(Float.parseFloat(longitude));
-
                         //retrieving result from firebase
                         String result = (String) doc.getData().get("result");
                         if (result != null) {
-                            if (ttype.equals("Binomial")) {
-                                Binomial btrial = (Binomial) trial;
-                                btrial.setResult(Boolean.parseBoolean(result));
-                                trials.add(trial);
-                            } else if (ttype.equals("Count")) {
+                            if (ttype.equals("Count")) {
                                 Count ctrial = new Count(user);
+                                ctrial.setType(ttype);
+                                ctrial.setDate(date);
+                                ctrial.setStatus(Boolean.parseBoolean(status));
+                                ctrial.setLatitude(Float.parseFloat(latitude));
+                                ctrial.setLongitude(Float.parseFloat(longitude));
                                 ctrial.setCount(Integer.parseInt(result));
-                                trials.add(trial);
+                                trials.add(ctrial);
+                            } else if (ttype.equals("Binomial")) {
+                                Binomial btrial = new Binomial(user);
+                                btrial.setType(ttype);
+                                btrial.setDate(date);
+                                btrial.setStatus(Boolean.parseBoolean(status));
+                                btrial.setLatitude(Float.parseFloat(latitude));
+                                btrial.setLongitude(Float.parseFloat(longitude));
+                                btrial.setResult(Boolean.parseBoolean(result));
+                                trials.add(btrial);
                             } else if (ttype.equals("Measurement")) {
                                 Measurement mtrial = new Measurement(user);
+                                mtrial.setType(ttype);
+                                mtrial.setDate(date);
+                                mtrial.setStatus(Boolean.parseBoolean(status));
+                                mtrial.setLatitude(Float.parseFloat(latitude));
+                                mtrial.setLongitude(Float.parseFloat(longitude));
                                 mtrial.setMeasurement(Float.parseFloat(result));
-                                trials.add(trial);
+                                trials.add(mtrial);
                             } else if (ttype.equals("NonNegativeCount")) {
                                 NonNegativeCount ntrial = new NonNegativeCount(user);
+                                ntrial.setType(ttype);
+                                ntrial.setDate(date);
+                                ntrial.setStatus(Boolean.parseBoolean(status));
+                                ntrial.setLatitude(Float.parseFloat(latitude));
+                                ntrial.setLongitude(Float.parseFloat(longitude));
                                 ntrial.setValue(Integer.parseInt(result));
-                                trials.add(trial);
+                                trials.add(ntrial);
                             }
                         }
                     }
@@ -317,6 +329,7 @@ public class ExpManager {
                         String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
                         String username = (String) task.getResult().getData().get("Username");
                         exp.getOwner().getProfile().setUsername(username);
+                        System.out.println("USERNAME: "+exp.getOwner().getProfile().getUsername());
                         exp.getOwner().getProfile().setPhone(phoneNumber);
                     }
                 }
@@ -332,7 +345,6 @@ public class ExpManager {
                             String username = (String) task.getResult().getData().get("Username");
                             trial.getOwner().getProfile().setUsername(username);
                             trial.getOwner().getProfile().setPhone(phoneNumber);
-                            System.out.println("NUMBER :" + phoneNumber);
                         }
                     }
                 });
