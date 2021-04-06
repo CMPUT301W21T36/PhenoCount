@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_profile);
 
         // Set all TextView variables

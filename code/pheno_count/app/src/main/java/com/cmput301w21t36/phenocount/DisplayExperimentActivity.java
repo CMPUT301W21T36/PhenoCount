@@ -48,6 +48,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_experiment_display);
         getSupportActionBar().setTitle("Experiment Info");
 

@@ -30,6 +30,7 @@ public class StatsActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_stats);
 
         //initializing attributes
