@@ -3,8 +3,7 @@
     <item android:drawable = "@color/white"/>
 
 
-    <item android:drawable = "@drawable/ic_pheno_count"
-        android:gravity = "center"/>
+    <item android:drawable = "@drawable/ic_figma1"/>
     
     
 
