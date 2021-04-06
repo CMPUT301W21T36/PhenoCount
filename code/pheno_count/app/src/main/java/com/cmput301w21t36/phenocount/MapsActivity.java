@@ -60,7 +60,7 @@ public class MapsActivity extends AppCompatActivity
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_maps);
 
-        getSupportActionBar().setTitle("Map Location Activity");
+        //getSupportActionBar().setTitle("Map Location Activity");
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 

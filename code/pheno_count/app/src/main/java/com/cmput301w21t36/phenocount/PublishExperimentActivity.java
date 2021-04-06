@@ -59,7 +59,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_experiment_publish);
-        getSupportActionBar().setTitle("Publish an Experiment");
+        //getSupportActionBar().setTitle("Publish an Experiment");
 
         expName = findViewById(R.id.expName);
         expDesc = findViewById(R.id.expDesc);
@@ -78,7 +78,7 @@ public class PublishExperimentActivity extends AppCompatActivity {
         }
 
         if(mode == 1) {
-            getSupportActionBar().setTitle("Edit Experiment");
+            //getSupportActionBar().setTitle("Edit Experiment");
             exp = (Experiment) bundle.get("experiment");
             displayExp();
         }
