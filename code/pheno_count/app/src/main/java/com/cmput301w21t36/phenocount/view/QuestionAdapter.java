@@ -33,16 +33,8 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
 
-
-
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.content_question,parent,false);
-        }
-
-        if (position % 2 == 1) {
-            view.setBackgroundColor(Color.parseColor("#EFCCEB"));
-        } else {
-            view.setBackgroundColor(Color.parseColor("#9AE8E1"));
         }
 
         Question question = questions.get(position);
@@ -54,6 +46,14 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         TextView numText = view.findViewById(R.id.reply_num);
         String numMessage = "Reply: " + question.getReply_num();
         numText.setText(numMessage);
+
+        if (position % 2 == 1) {
+            queText.setTextColor(Color.parseColor("#EFCCEB"));
+            numText.setTextColor(Color.parseColor("#EFCCEB"));
+        } else {
+            queText.setTextColor(Color.parseColor("#9AE8E1"));
+            numText.setTextColor(Color.parseColor("#9AE8E1"));
+        }
 
 
         return view;

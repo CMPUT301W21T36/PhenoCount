@@ -215,31 +215,31 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             confirmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-            ArrayList expSubList = exp.getSubscribers();
-            expSubList.add(UUID);
-            HashMap<String, Object> data = new HashMap<>();
-            String id = exp.getExpID();
-            data.put("sub_list", expSubList);
+                    ArrayList expSubList = exp.getSubscribers();
+                    expSubList.add(UUID);
+                    HashMap<String, Object> data = new HashMap<>();
+                    String id = exp.getExpID();
+                    data.put("sub_list", expSubList);
 
-            collectionReference
-                    .document(id)
-                    .update(data)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // These are a method which gets executed when the task is succeeded
-                            Log.d(TAG, "Data has been updated successfully!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // These are a method which gets executed if there’s any problem
-                            Log.d(TAG, "Data could not be updated!" + e.toString());
-                        }
-                    });
-            menuOpt();
-            confirmMsg.cancelDialog();
+                    collectionReference
+                            .document(id)
+                            .update(data)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // These are a method which gets executed when the task is succeeded
+                                    Log.d(TAG, "Data has been updated successfully!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // These are a method which gets executed if there’s any problem
+                                    Log.d(TAG, "Data could not be updated!" + e.toString());
+                                }
+                            });
+                    menuOpt();
+                    confirmMsg.cancelDialog();
                 }
             });
         }else if (item.getItemId() == R.id.unsubscribeButton){
@@ -395,9 +395,8 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     public void showProfile(View v){
         String username = exp.getOwner().getProfile().getUsername();
         String phone = exp.getOwner().getProfile().getPhone();
-        System.out.println(username);
-        System.out.println(phone);
-        new ProfileFragment(username, phone).show(getSupportFragmentManager(), "SHOW_PROFILE");
+        String UID = exp.getOwner().getUID();
+        new ProfileFragment(username, phone, UID).show(getSupportFragmentManager(), "SHOW_PROFILE");
 
     }
 

@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,13 @@ public class ReplyAdapter extends ArrayAdapter<Reply> {
         TextView repText = view.findViewById(R.id.reply_text_view_in_list);
 
         repText.setText(reply.getText());
+
+        if (position % 2 == 1) {
+            repText.setTextColor(Color.parseColor("#EFCCEB"));
+        } else {
+            repText.setTextColor(Color.parseColor("#9AE8E1"));
+        }
+
 
         return view;
     }

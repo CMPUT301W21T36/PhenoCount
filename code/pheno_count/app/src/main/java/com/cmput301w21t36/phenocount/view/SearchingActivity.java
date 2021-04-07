@@ -71,18 +71,12 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
         experimentListView = findViewById(R.id.listView);
 
-        searchManag = new SearchingManager();
+        searchManag = new SearchingManager(this);
 
         adapter = new ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
 
         searchManag.getAllExp(db, expDataList, adapter);
-
-
-        // Old Agnolia stuff
-        //Client client = new Client("87SDM4TVNJ", "e28b7da170079f2b1862683cdf7ead4d");
-        //Index index = client.getIndex("experiments");
-
 
         // When experiment in listview is clicked, we open it and call new activity
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,46 +107,18 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchExperiments(query);
+                searchManag.getSearchExp(query, adapter, expDataList, experimentListView);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchExperiments(newText);
+                searchManag.getSearchExp(newText, adapter, expDataList, experimentListView);
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-    public void searchExperiments(String keyword) {
-        keyword = keyword.toLowerCase();
-
-        if (keyword.length() > 0) {
-
-            ArrayList<Experiment> foundExp = new ArrayList<>();
-            for (Experiment exp : expDataList) {
-                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) ){
-                    foundExp.add(exp);
-                }
-            }
-            updateList(foundExp);
-        }
-        else {
-            updateList(expDataList);
-        }
-
-    }
-
-    public void updateList(ArrayList<Experiment> listExp) {
-
-        adapter = new ResultAdapter(this, listExp);
-        experimentListView.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
-    }
-
 
 
     public void navigationSettings(){

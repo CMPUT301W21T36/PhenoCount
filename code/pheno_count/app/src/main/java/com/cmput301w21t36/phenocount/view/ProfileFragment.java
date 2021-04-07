@@ -23,8 +23,12 @@ import androidx.fragment.app.DialogFragment;
 public class ProfileFragment extends DialogFragment {
     private TextView nameView;
     private TextView phoneView;
+    private TextView uidView;
+
     private String username;
     private String phone;
+    private String uid;
+
     private OnFragmentInteractionListener listener;
 
     public interface OnFragmentInteractionListener {
@@ -33,7 +37,9 @@ public class ProfileFragment extends DialogFragment {
 
     //constructor of fragment, you have to know the type,
     // thus we can set up the title and hint for it.
-    public ProfileFragment(String username, String phone) {
+    public ProfileFragment(String username, String phone, String uid) {
+        this.uid = uid;
+
         if(username == null || username == ""){
             this.username = "unknown";
         }else{
@@ -63,10 +69,14 @@ public class ProfileFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         //may change the name of this layout later
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_profile, null);
+
         nameView = view.findViewById(R.id.name_view);
         phoneView = view.findViewById(R.id.phone_view);
+        uidView = view.findViewById(R.id.uid_view);
+
         nameView.setText("Username: "+ username);
         phoneView.setText("Contact: " + phone);
+        uidView.setText("UID: " + uid);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         return builder

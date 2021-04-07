@@ -9,11 +9,16 @@
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -24,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,7 +42,7 @@ import java.util.HashMap;
  * in the bottom of the main screen/activity
  * @see MainActivity
  */
-public class PublishExperimentActivity extends AppCompatActivity {
+public class PublishExperimentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseFirestore db;
     TextView expName;
     TextView expDesc;
@@ -54,12 +60,17 @@ public class PublishExperimentActivity extends AppCompatActivity {
     RadioButton measure;
     private final String TAG = "PhenoCount";
 
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_experiment_publish);
         //getSupportActionBar().setTitle("Publish an Experiment");
+        navigationSettings();
 
         expName = findViewById(R.id.expName);
         expDesc = findViewById(R.id.expDesc);
@@ -283,4 +294,61 @@ public class PublishExperimentActivity extends AppCompatActivity {
     public void toCancel(View view) {
         finish();
     }
+
+    public void navigationSettings(){
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String UUID = sharedPrefs.getString("ID", "");
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.nav_my_exp:
+                intent = new Intent(PublishExperimentActivity.this,MainActivity.class);
+                break;
+            case R.id.nav_search:
+                intent = new Intent(PublishExperimentActivity.this, com.cmput301w21t36.phenocount.SearchingActivity.class);
+                break;
+            case R.id.nav_user:
+                intent = new Intent(PublishExperimentActivity.this,ProfileActivity.class);
+                intent.putExtra("UUID",UUID);
+                break;
+            case R.id.nav_add:
+                intent = new Intent(PublishExperimentActivity.this,PublishExperimentActivity.class);
+                intent.putExtra("AutoId",UUID);
+                intent.putExtra("mode",0);
+                break;
+            case R.id.nav_sub_exp:
+                intent = new Intent(PublishExperimentActivity.this,ShowSubscribedListActivity.class);
+                intent.putExtra("owner",UUID);
+                break;
+
+        }
+
+        startActivity(intent);
+        return true;
+    }
+
 }
