@@ -124,8 +124,8 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         mapsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DisplayExperimentActivity.this, TrialMapsActivity.class);
-                i.putExtra("trials",exp.getTrials());
+                Intent i = new Intent(DisplayExperimentActivity.this, GifActivity.class);
+                i.putExtra("gifTrials",exp.getTrials());
                 startActivity(i);
             }
         });
