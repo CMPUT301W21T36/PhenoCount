@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 /**
  * Gets the trial data for the experiment
@@ -122,6 +123,9 @@ public class HistogramActivity extends AppCompatActivity {
                 break;
             case "Count":
                 int count = 0;
+                int numAdded = 0;
+                int barIndex = 0;
+                int dateIndex = 0;
                 String currentDate = null;
 
                 //get the dates for the trials and put them in an array
@@ -129,21 +133,35 @@ public class HistogramActivity extends AppCompatActivity {
                     datesList.add(trialList.get(i).getDate());
                 }
 
+                //sort the dates in ascending order
                 datesList = sortDates(datesList);
 
-                String[] dates = new String[datesList.size()];
-                dates = datesList.toArray(dates);
+                //use a hash set to remove the duplicate dates
+                LinkedHashSet<String> hashSet = new LinkedHashSet<>(datesList);
+                ArrayList<String> datesWithoutDuplicates = new ArrayList<>(hashSet);
+
+                //convert the array list into an array
+                String[] dates = new String[datesWithoutDuplicates.size()];
+                dates = datesWithoutDuplicates.toArray(dates);
 
                 //group the counts by date
                 if (trialList.size() != 0) {
-                    for (i = 0; i < trialList.size(); i++) {
-                        currentDate = trialList.get(i).getDate();
+                    ArrayList<String> checkedDates = new ArrayList<>();
+                    while (numAdded != trialList.size()) {
+                        while (checkedDates.contains(currentDate)) {
+                            dateIndex++;
+                            currentDate = trialList.get(dateIndex).getDate();
+                        }
+                            currentDate = trialList.get(dateIndex).getDate();
+                            checkedDates.add(currentDate);
                         for (j = 0; j < trialList.size(); j++) {
-                            if (trialList.get(0).getDate().equals(currentDate)) {
+                            if (trialList.get(j).getDate().equals(currentDate)) {
                                 count++;
                             }
                         }
-                        dataSet1.add(new BarEntry(i, count));
+                        dataSet1.add(new BarEntry(barIndex, count));
+                        barIndex++;
+                        numAdded += count;
                         count = 0;
                     }
 
