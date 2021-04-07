@@ -9,8 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Trial "
+        android:fontFamily="@font/open_sans"
+        android:textStyle="bold"
         android:elevation="2dp"
-        android:textColor="@color/purple_700"
+        android:textColor="#67a3d9"
         android:textSize="20dp" />
 
         android:layout_width="match_parent"
@@ -19,6 +21,7 @@
 
     <TextView
         android:id="@+id/trial_owner"
+        android:fontFamily="@font/open_sans"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Owner :"
@@ -27,6 +30,7 @@
     <TextView
         android:id="@+id/trial_outcome"
         android:layout_width="match_parent"
+        android:fontFamily="@font/open_sans"
         android:layout_height="30dp"
         android:text="Outcome:"
         android:textSize="15dp" />
@@ -36,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Date: "
+        android:fontFamily="@font/open_sans"
         android:textSize="15dp" />
 
     <ImageView

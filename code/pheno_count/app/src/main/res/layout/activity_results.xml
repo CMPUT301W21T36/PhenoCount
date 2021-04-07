@@ -11,7 +11,7 @@
     <ListView
         android:id="@+id/trial_list"
         android:layout_width="match_parent"
-        android:layout_height="639dp"></ListView>
+        android:layout_height="585dp"></ListView>
 
     <LinearLayout
         android:id="@+id/linear3"
@@ -27,21 +27,22 @@
             android:id="@+id/plotButton"
             android:layout_width="0dp"
             android:layout_height="75dp"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:backgroundTint="#B1B1B1"
+            android:backgroundTint="#67a3d9"
+            app:icon="@drawable/ic_graph"
             android:paddingLeft="53dp"
             android:paddingRight="53dp"
-            android:text="plot"
             />
 
         <Button
             android:id="@+id/statsButton"
             android:layout_width="0dp"
             android:layout_height="75dp"
-            android:layout_gravity="right"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:backgroundTint="#CCCCCC"
+            android:backgroundTint="#67a3d9"
+            app:icon="@drawable/ic_stats"
             android:paddingLeft="53dp"
             android:paddingRight="53dp"
 
@@ -53,7 +54,7 @@
             android:layout_height="75dp"
             android:layout_gravity="right"
             android:layout_weight="1"
-            android:backgroundTint="#B1B1B1"
+            android:backgroundTint="#67a3d9"
             android:paddingLeft="53dp"
             android:paddingRight="53dp"
             android:src="@drawable/histogram"

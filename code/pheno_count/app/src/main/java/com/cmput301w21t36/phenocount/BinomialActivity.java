@@ -70,9 +70,10 @@ public class BinomialActivity extends AppCompatActivity {
       //  System.out.println("DAYYY" + new Date(trial.getDate()));
 
         // Capture the layout's TextView and set the string as its text
-        TextView desc = findViewById(R.id.desc1);
-        desc.setText("" + String.valueOf(newexp.getDescription()));
+/*        TextView desc = findViewById(R.id.desc1);
+        desc.setText("" + String.valueOf(newexp.getDescription()));*/
 
+/*
         TextView owner = findViewById(R.id.owner1);
         owner.setText("Owner: " + newexp.getOwner().getProfile().getUsername());
 
@@ -81,6 +82,7 @@ public class BinomialActivity extends AppCompatActivity {
 
         TextView exptype= findViewById(R.id.exptype1);
         exptype.setText("Type: Binomial");
+*/
 
         //setting location coordinates
         coordinates= findViewById(R.id.coordinates);
