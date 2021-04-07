@@ -110,6 +110,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UIDTextView"
-        app:srcCompat="@mipmap/resume" />
+        app:srcCompat="@mipmap/profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
