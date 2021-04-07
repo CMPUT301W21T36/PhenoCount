@@ -30,4 +30,16 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/uid_view"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/white"
+        android:fontFamily="@font/open_sans_light"
+        android:gravity="center"
+        android:text="UID:"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
 </LinearLayout>
