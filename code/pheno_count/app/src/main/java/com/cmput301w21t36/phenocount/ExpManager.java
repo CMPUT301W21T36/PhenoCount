@@ -217,7 +217,6 @@ public class ExpManager {
                 String reqGeo = (String) doc.getData().get("require_geolocation");
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
-                //String userName = (String) doc.getData().get("owner_name");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
 
 

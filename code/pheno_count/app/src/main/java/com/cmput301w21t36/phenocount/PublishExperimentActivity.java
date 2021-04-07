@@ -193,7 +193,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("minimum_trials", expNum.getText().toString());
                     data.put("owner", owner);
                     data.put("status", "1");
-                    //data.put("owner_name", ownerName);
                     data.put("require_geolocation", "NO");
                     data.put("sub_list", sList);
                     if (expGeoLoc.isChecked()) {
@@ -228,7 +227,6 @@ public class PublishExperimentActivity extends AppCompatActivity {
                     data.put("minimum_trials", expNum.getText().toString());
                     data.put("owner", exp.getOwner().getUID());
                     data.put("status", Integer.toString(exp.getExpStatus()));
-                    //data.put("owner_name", exp.getOwner().getProfile().getUsername());
                     data.put("require_geolocation", "NO");
                     if (expGeoLoc.isChecked()) {
                         reqLoc = true;
@@ -272,9 +270,9 @@ public class PublishExperimentActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         } else {
-            AlertMsg Altmsg = new AlertMsg(this, "Error Message",
+            AlertMsg altmsg = new AlertMsg(this, "Error Message",
                     "Description/Type of Experiment is Required, TRY AGAIN!!",0);
-
+            altmsg.setButtonCol();
         }
     }
 
