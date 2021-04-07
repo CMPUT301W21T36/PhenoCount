@@ -307,6 +307,7 @@
             android:padding="8dp"
             android:textColor="@color/purple_700"
             android:textSize="14dp"
+            android:visibility="gone"
             app:backgroundTint="#67a3d9"
             app:icon="@drawable/ic_camera"
             app:layout_constraintBottom_toBottomOf="parent"

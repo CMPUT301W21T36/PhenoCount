@@ -39,13 +39,13 @@ import java.util.HashMap;
  * or the experiment
  * @see MainActivity
  */
-public class DisplayExperimentActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
-    private Experiment exp; // catch object passed from mainlist
+public class DisplayExperimentActivity extends AppCompatActivity implements com.cmput301w21t36.phenocount.ProfileFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+    private com.cmput301w21t36.phenocount.Experiment exp; // catch object passed from mainlist
     FirebaseFirestore db;
     private final String TAG = "PhenoCount";
     private String username;
     private String UUID;
-    private ExpManager expManager;
+    private com.cmput301w21t36.phenocount.ExpManager expManager;
     Menu expMenu;
     TextView expStatus;
     CollectionReference collectionReference;
@@ -64,7 +64,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         TextView toolBarTitle = (TextView)findViewById(R.id.toolbar_title);
         toolBarTitle.setText("Experiment Info");
 
-        exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        exp = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("Experiment");
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
@@ -81,7 +81,11 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         expStatus = findViewById(R.id.statusTextView);
         TextView expType = findViewById(R.id.expTypeText);
         TextView expReqLoc = findViewById(R.id.reqLocText);
+        Button camerabtn = findViewById((R.id.camerabtn));
 
+        if (exp.getExpType().equals("Binomial") || exp.getExpType().equals("Count")) {
+            camerabtn.setVisibility(View.VISIBLE);
+        }
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
@@ -111,11 +115,10 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         }
         else {expReqLoc.setText("NOT REQUIRED");}
 
-        final Button camerabtn = findViewById((R.id.camerabtn));
         camerabtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DisplayExperimentActivity.this, ScanQRActivity.class);
+                Intent i = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ScanQRActivity.class);
                 i.putExtra("experiment", exp);
                 startActivityForResult(i, 1);
             }
@@ -125,7 +128,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         mapsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DisplayExperimentActivity.this, GifActivity.class);
+                Intent i = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.GifActivity.class);
                 i.putExtra("gifTrials",exp.getTrials());
                 startActivity(i);
             }
@@ -171,42 +174,42 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.addTrialButon) {
             if (exp.getExpType().equals("Binomial")) {
-                Intent bintent = new Intent(DisplayExperimentActivity.this, BinomialActivity.class);
+                Intent bintent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.BinomialActivity.class);
                 bintent.putExtra("experiment", exp);
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(bintent, LAUNCH_SECOND_ACTIVITY);
             }
             if (exp.getExpType().equals("Count")) {
-                Intent cintent = new Intent(DisplayExperimentActivity.this, CountActivity.class);
+                Intent cintent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.CountActivity.class);
                 cintent.putExtra("experiment", exp);
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(cintent, LAUNCH_SECOND_ACTIVITY);
             }
             if (exp.getExpType().equals("Measurement")) {
-                Intent mintent = new Intent(DisplayExperimentActivity.this, MeasurementActivity.class);
+                Intent mintent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.MeasurementActivity.class);
                 mintent.putExtra("experiment", exp);
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(mintent, LAUNCH_SECOND_ACTIVITY);
             }
             if (exp.getExpType().equals("NonNegativeCount")) {
-                Intent nintent = new Intent(DisplayExperimentActivity.this, NonNegativeCountActivity.class);
+                Intent nintent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.NonNegativeCountActivity.class);
                 nintent.putExtra("experiment", exp);
                 int LAUNCH_SECOND_ACTIVITY = 1;
                 startActivityForResult(nintent, LAUNCH_SECOND_ACTIVITY);
             }
         } else if (item.getItemId() == R.id.item3) {
-            Intent dintent = new Intent(DisplayExperimentActivity.this, DiscussionActivity.class);
+            Intent dintent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.DiscussionActivity.class);
             dintent.putExtra("experiment", exp);
             int LAUNCH_SECOND_ACTIVITY = 1;
             startActivity(dintent);
         } else if (item.getItemId() == R.id.item4) {
-            Intent tintent = new Intent(DisplayExperimentActivity.this, ResultsActivity.class);
+            Intent tintent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ResultsActivity.class);
             tintent.putExtra("experiment", exp);
             //System.out.println("IN DISPLAY EXP ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
             int LAUNCH_THIRD_ACTIVITY = 3;
             startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
         } else if (item.getItemId() == R.id.subscribeButton) {
-            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+            com.cmput301w21t36.phenocount.AlertMsg confirmMsg = new com.cmput301w21t36.phenocount.AlertMsg(this, "Conformation",
                     "",1);
             confirmMsg.setColour("Do you want to subscribe this experiment",14, 24);
             confirmMsg.setButtonCol();
@@ -244,7 +247,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             });
         }else if (item.getItemId() == R.id.unsubscribeButton){
             //Abhishek Maheshwari, 2019-05-21,CC BY-SA 4.0, https://stackoverflow.com/a/56236710
-            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+            com.cmput301w21t36.phenocount.AlertMsg confirmMsg = new com.cmput301w21t36.phenocount.AlertMsg(this, "Conformation",
                     "",1);
             confirmMsg.setColour("Do you want to unsubscribe this experiment",15, 26);
             confirmMsg.setButtonCol();
@@ -284,7 +287,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                 }
             });
         } else if (item.getItemId() == R.id.unpublishButton) {
-            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+            com.cmput301w21t36.phenocount.AlertMsg confirmMsg = new com.cmput301w21t36.phenocount.AlertMsg(this, "Conformation",
                     "",1);
             confirmMsg.setColour("Do you want to unpublish this experiment", 15, 24);
             confirmMsg.setButtonCol();
@@ -303,7 +306,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                 }
             });
         } else if (item.getItemId() == R.id.endButton){
-            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+            com.cmput301w21t36.phenocount.AlertMsg confirmMsg = new com.cmput301w21t36.phenocount.AlertMsg(this, "Conformation",
                     "",1);
             confirmMsg.setColour("Do you want to end this experiment",15, 18);
             confirmMsg.setButtonCol();
@@ -322,7 +325,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                 }
             });
         }else if (item.getItemId() == R.id.editButton){
-            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+            com.cmput301w21t36.phenocount.AlertMsg confirmMsg = new com.cmput301w21t36.phenocount.AlertMsg(this, "Conformation",
                     "",1);
             confirmMsg.setColour("Do you want to edit this experiment", 15, 19);
             confirmMsg.setButtonCol();
@@ -331,7 +334,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             confirmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent eIntent = new Intent(DisplayExperimentActivity.this, PublishExperimentActivity.class);
+                    Intent eIntent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.PublishExperimentActivity.class);
                     eIntent.putExtra("experiment", exp);
                     eIntent.putExtra("mode", 1);
                     startActivityForResult(eIntent, 1);
@@ -339,7 +342,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                 }
             });
         }else if (item.getItemId() == R.id.republishButton){
-            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+            com.cmput301w21t36.phenocount.AlertMsg confirmMsg = new com.cmput301w21t36.phenocount.AlertMsg(this, "Conformation",
                     "",1);
             confirmMsg.setColour("Do you want to republish this experiment", 15, 24);
             confirmMsg.setButtonCol();
@@ -368,20 +371,20 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         int LAUNCH_THIRD_ACTIVITY = 3;
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK){
-                exp = (Experiment) data.getSerializableExtra("experiment");
+                exp = (com.cmput301w21t36.phenocount.Experiment) data.getSerializableExtra("experiment");
                 SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
                 username = sharedPrefs.getString("Username", "");
                 UUID = sharedPrefs.getString("ID", "");
-                expManager = new ExpManager();
+                expManager = new com.cmput301w21t36.phenocount.ExpManager();
                 expManager.updateTrialData(db,exp,username);
             }
         }
         if(requestCode == LAUNCH_THIRD_ACTIVITY){
                 System.out.println("Ignoring");
-                exp = (Experiment) data.getSerializableExtra("experiment");
-                expManager = new ExpManager();
-                for(Trial trial:exp.getTrials()){
+                exp = (com.cmput301w21t36.phenocount.Experiment) data.getSerializableExtra("experiment");
+                expManager = new com.cmput301w21t36.phenocount.ExpManager();
+                for(com.cmput301w21t36.phenocount.Trial trial:exp.getTrials()){
                     System.out.println("Status: "+trial.getStatus());
                 }
                 expManager.ignoreTrial(exp);
@@ -396,7 +399,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         String username = exp.getOwner().getProfile().getUsername();
         String phone = exp.getOwner().getProfile().getPhone();
         String UID = exp.getOwner().getUID();
-        new ProfileFragment(username, phone, UID).show(getSupportFragmentManager(), "SHOW_PROFILE");
+        new com.cmput301w21t36.phenocount.ProfileFragment(username, phone, UID).show(getSupportFragmentManager(), "SHOW_PROFILE");
 
     }
 
@@ -435,22 +438,22 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         Intent intent = new Intent();
         switch (item.getItemId()){
             case R.id.nav_my_exp:
-                intent = new Intent(DisplayExperimentActivity.this,MainActivity.class);
+                intent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.MainActivity.class);
                 break;
             case R.id.nav_search:
-                intent = new Intent(DisplayExperimentActivity.this,SearchingActivity.class);
+                intent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.SearchingActivity.class);
                 break;
             case R.id.nav_user:
-                intent = new Intent(DisplayExperimentActivity.this,ProfileActivity.class);
+                intent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ProfileActivity.class);
                 intent.putExtra("UUID",UUID);
                 break;
             case R.id.nav_add:
-                intent = new Intent(DisplayExperimentActivity.this,PublishExperimentActivity.class);
+                intent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.PublishExperimentActivity.class);
                 intent.putExtra("AutoId",UUID);
                 intent.putExtra("mode",0);
                 break;
             case R.id.nav_sub_exp:
-                intent = new Intent(DisplayExperimentActivity.this,ShowSubscribedListActivity.class);
+                intent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ShowSubscribedListActivity.class);
                 intent.putExtra("owner",UUID);
                 break;
 
