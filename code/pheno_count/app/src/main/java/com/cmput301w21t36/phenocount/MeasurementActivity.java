@@ -57,7 +57,7 @@ public class MeasurementActivity extends AppCompatActivity {
         trial.setType("Measurement");
 
         // Capture the layout's TextView and set the string as its text
-        TextView desc = findViewById(R.id.desc3);
+/*        TextView desc = findViewById(R.id.desc3);
         desc.setText("" + String.valueOf(newexp.getDescription()));
 
         TextView owner = findViewById(R.id.owner3);
@@ -67,7 +67,7 @@ public class MeasurementActivity extends AppCompatActivity {
         status.setText("Status:" + String.valueOf(newexp.getExpStatus()));
 
         TextView exptype= findViewById(R.id.exptype3);
-        exptype.setText("Type: Measurement");
+        exptype.setText("Type: Measurement");*/
 
         EditText measurement = findViewById(R.id.measurement_editText);
 

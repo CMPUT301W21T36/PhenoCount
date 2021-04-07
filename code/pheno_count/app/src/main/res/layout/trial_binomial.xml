@@ -5,97 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/successbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="64dp"
-        android:text="Success"
-        android:textSize="20dp"
-        app:backgroundTint="@android:color/holo_green_dark"
-        app:iconTint="@color/purple_200"
-        app:layout_constraintEnd_toStartOf="@+id/failbtn"
-        app:layout_constraintHorizontal_bias="0.241"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype1" />
-
-    <Button
-        android:id="@+id/failbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="50dp"
-        android:text="Failure"
-        android:textSize="20dp"
-        app:backgroundTint="@android:color/holo_red_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype1" />
-
     <TextView
-        android:id="@+id/desc1"
+        android:id="@+id/coordinates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="488dp"
+        android:fontFamily="@font/open_sans"
         android:text="TextView"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/owner1"
+    <Button
+        android:id="@+id/failbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        android:textSize="25dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="28dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Failure"
+        android:textSize="20dp"
+        app:backgroundTint="#D97768"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc1" />
+        app:layout_constraintTop_toBottomOf="@+id/coordinates" />
 
-    <TextView
-        android:id="@+id/status1"
+    <Button
+        android:id="@+id/successbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Success"
+        android:textSize="20dp"
+        app:backgroundTint="#A4D968"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/owner1" />
-
-    <TextView
-        android:id="@+id/exptype1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status1" />
+        app:layout_constraintTop_toBottomOf="@+id/coordinates" />
 
 
-    <TextView
-        android:id="@+id/coordinates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="25dp"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="382dp"
+        android:layout_height="360dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exptype1"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.172"
+        app:srcCompat="@drawable/coinflip2" />
 
     <Button
         android:id="@+id/locationbtn"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/purple_500"
+        app:backgroundTint="#67a3d9"
         app:icon="@drawable/ic_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
