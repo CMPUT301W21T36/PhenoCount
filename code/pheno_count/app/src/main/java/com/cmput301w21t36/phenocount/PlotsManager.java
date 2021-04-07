@@ -21,7 +21,7 @@ public class PlotsManager implements Serializable {
         System.out.println("TRIALS IN PLOT MANAGER "+ trials);
     }
 
-    /** WHAT ARE THE TYPES EXACT NAME???????*/
+
     public DataPoint[] compute(){
         String type = exp.getExpType();
         DataPoint[] dp;
@@ -163,10 +163,9 @@ public class PlotsManager implements Serializable {
         ArrayList<DataPoint> dpList = new ArrayList<>();
         int i = 0;
         //Collections.sort(dates);
-
+        double trials_sum = 0;
+        int count = 0;
         for (String date : dates) {
-            double trials_sum = 0;
-            int count = 0;
             for (Trial trial : trials) {
                 Measurement mTrial = (Measurement) trial;
                 System.out.println(date + "===" + mTrial.getDate());
@@ -200,10 +199,10 @@ public class PlotsManager implements Serializable {
         ArrayList<DataPoint> dpList = new ArrayList<>();
         int i = 0;
         //Collections.sort(dates);
-
+        double trials_sum = 0;
+        int count = 0;
         for (String date : dates) {
-            double trials_sum = 0;
-            int count = 0;
+
             for (Trial trial : trials) {
                 NonNegativeCount mTrial = (NonNegativeCount) trial;
                 System.out.println(date + "===" + mTrial.getDate());
