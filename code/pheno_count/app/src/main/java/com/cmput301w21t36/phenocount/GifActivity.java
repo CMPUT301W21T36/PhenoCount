@@ -12,6 +12,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import java.util.ArrayList;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class GifActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,7 @@ public class GifActivity extends AppCompatActivity {
             setTheme(R.style.Theme_PhenoCount);
             setContentView(R.layout.activity_gif);
 
-            final TextView explore = findViewById(R.id.explore_text);
+            final GifImageView explore = findViewById(R.id.explore_text);
             explore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
