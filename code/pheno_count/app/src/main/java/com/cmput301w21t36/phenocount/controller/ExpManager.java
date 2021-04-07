@@ -328,8 +328,11 @@ public class ExpManager {
                 }
             });
 
+            System.out.println("Caleb's test" + exp.getOwner().getUID());
+
             Task<DocumentSnapshot> userDocument = db.collection("User")
-                    .document(exp.getOwner().getUID()).get()
+                    .document(exp.getOwner().getUID())
+                    .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
