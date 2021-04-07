@@ -12,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="187dp"
+        android:fontFamily="@font/open_sans_light"
         android:text="Display Username"
         android:textColor="#333"
         tools:layout_editor_absoluteX="176dp"
@@ -24,6 +25,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="238dp"
+        android:fontFamily="@font/open_sans_light"
         android:text="Contact Information"
         android:textColor="#332" />
 
@@ -34,6 +36,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
 
+        android:fontFamily="@font/open_sans_light"
         android:text="UID" />
 
     <Button
@@ -54,6 +57,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="142dp"
         android:layout_marginTop="211dp"
+        android:fontFamily="@font/open_sans_light"
         android:text="Contact Information:" />
 
     <TextView
@@ -65,6 +69,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="162dp"
         android:layout_marginTop="159dp"
+        android:fontFamily="@font/open_sans_light"
         android:text="Display name:" />
 
 </RelativeLayout>
