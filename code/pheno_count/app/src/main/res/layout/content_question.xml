@@ -12,16 +12,16 @@
         android:id="@+id/question_text_view_in_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
         android:hint="@string/question_content"
-        android:textSize="29sp">
-    </TextView>
+        android:textSize="29sp"></TextView>
 
     <TextView
         android:id="@+id/reply_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
         android:hint="Reply numbers:"
-        android:textSize="29sp">
-    </TextView>
+        android:textSize="29sp"></TextView>
 
 </LinearLayout>

@@ -18,9 +18,7 @@
         app:itemIconTint="#000000"
         app:menu="@menu/navigation_drawer" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,40 +31,27 @@
                 android:background="#67a3d9"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
-                app:layout_constraintBottom_toTopOf="@+id/name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
+
                 app:navigationIcon="@drawable/ic_nav_menu"
                 app:title="Experiment Search"
                 app:titleTextColor="@color/white"
                 app:titleTextAppearance="@style/Toolbar.TitleText">
 
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/open_sans_light"
 
-                    android:textColor="#ffff"
-                    android:textSize="25dp"
-                    android:textStyle="bold|italic" />
 
             </androidx.appcompat.widget.Toolbar>
 
             <ListView
                 android:id="@+id/listView"
-                android:dividerHeight="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="650dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/toolbar"
-                android:layout_marginTop="-6dp" />
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp" />
 
         </RelativeLayout>
-    </ScrollView>
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

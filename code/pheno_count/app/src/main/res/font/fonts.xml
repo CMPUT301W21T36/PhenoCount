@@ -5,4 +5,9 @@
         android:fontWeight="600"
         android:font="@font/open_sans_light" />
 
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="600"
+        android:font="@font/open_sans" />
+
 </font-family>

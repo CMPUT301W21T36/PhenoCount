@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/reply_content"
+        android:fontFamily="@font/open_sans"
         android:textSize="29sp">
     </TextView>
 
