@@ -17,9 +17,7 @@
         app:headerLayout="@layout/header"
         app:itemIconTint="#000000"
         app:menu="@menu/navigation_drawer" />
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginEnd="5dp"
@@ -66,7 +64,8 @@
         android:inputType="textMultiLine|textPersonName"
         android:padding="10dp"
         android:scrollHorizontally="true"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/expDesc"
@@ -78,7 +77,8 @@
         android:inputType="textMultiLine|textPersonName"
         android:padding="10dp"
         android:scrollHorizontally="true"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/expRegion"
@@ -89,7 +89,8 @@
         android:hint="Region"
         android:inputType="textPersonName"
         android:padding="10dp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <RadioGroup
         android:id="@+id/radio1"
@@ -105,7 +106,8 @@
             android:fontFamily="@font/open_sans_light"
             android:padding="5dp"
             android:text="@string/radio_text"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioBinomial"
@@ -113,7 +115,8 @@
             android:layout_height="32dp"
             android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
-            android:text="Binomial Trial" />
+            android:text="Binomial Trial"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioCount"
@@ -121,7 +124,8 @@
             android:layout_height="32dp"
             android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
-            android:text="Count Based Trial " />
+            android:text="Count Based Trial "
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioInt"
@@ -129,7 +133,8 @@
             android:layout_height="32dp"
             android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
-            android:text="Non-Negative Integer Count" />
+            android:text="Non-Negative Integer Count"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/radioMeasure"
@@ -137,7 +142,8 @@
             android:layout_height="32dp"
             android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
-            android:text="Measurement Trial" />
+            android:text="Measurement Trial"
+            android:textStyle="bold" />
 
     </RadioGroup>
 
@@ -150,7 +156,8 @@
         android:hint="Minimum number of Trials"
         android:inputType="number"
         android:padding="10dp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <CheckBox
         android:id="@+id/geoCheckBox"
@@ -163,7 +170,8 @@
         android:padding="10dp"
         android:text="Require Geolocation"
         android:textAlignment="center"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <android.widget.Space
         android:layout_width="match_parent"
@@ -190,6 +198,7 @@
             android:onClick="toAdd"
             android:text="OK"
             android:textAlignment="center"
+            android:textStyle="bold"
             app:backgroundTint="#67A3D9" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -203,6 +212,7 @@
             android:onClick="toCancel"
             android:text="Cancel"
             android:textAlignment="center"
+            android:textStyle="bold"
             app:backgroundTint="#67A3D9" />
     </FrameLayout>
 
