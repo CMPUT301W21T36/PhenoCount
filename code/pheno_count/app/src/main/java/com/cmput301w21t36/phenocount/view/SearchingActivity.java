@@ -71,7 +71,7 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
         experimentListView = findViewById(R.id.listView);
 
-        searchManag = new SearchingManager();
+        searchManag = new SearchingManager(this);
 
         adapter = new ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
@@ -83,7 +83,8 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent (SearchingActivity.this,DisplayExperimentActivity.class);
-                Experiment exp_obj = expDataList.get(position);
+                Experiment exp_obj = (Experiment) experimentListView.getAdapter().getItem(position);
+                System.out.println(position);
                 intent.putExtra("experiment",exp_obj);
                 intent.putExtra("position",position);
 
@@ -107,19 +108,20 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchExperiments(query);
+                searchManag.getSearchExp(query, adapter, expDataList, experimentListView);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchExperiments(newText);
+                searchManag.getSearchExp(newText, adapter, expDataList, experimentListView);
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
 
+    /*
     public void searchExperiments(String keyword) {
         keyword = keyword.toLowerCase();
 
@@ -147,6 +149,7 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         adapter.notifyDataSetChanged();
     }
 
+     */
 
 
     public void navigationSettings(){

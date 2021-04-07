@@ -25,12 +25,11 @@ public class SearchingManager {
     private ExpManager expManager = new ExpManager();
     private Context context;
 
-    /*
+
     public SearchingManager(Context context) {
         this.context = context;
     }
 
-     */
 
     public void getAllExp(FirebaseFirestore db, ArrayList<Experiment> expDataList,
                           ArrayAdapter<Experiment> expAdapter){
@@ -43,7 +42,6 @@ public class SearchingManager {
         });
     }
 
-    /*
     // WIP
     public void getSearchExp(String keyword, ResultAdapter adapter, ArrayList<Experiment> expDataList, ListView experimentListView) {
         keyword = keyword.toLowerCase();
@@ -70,7 +68,7 @@ public class SearchingManager {
         adapter.notifyDataSetChanged();
     }
 
-     */
+
 
 
 }
