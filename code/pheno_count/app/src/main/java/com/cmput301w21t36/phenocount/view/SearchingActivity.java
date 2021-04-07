@@ -83,7 +83,8 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent (SearchingActivity.this,DisplayExperimentActivity.class);
-                Experiment exp_obj = expDataList.get(position);
+                Experiment exp_obj = (Experiment) experimentListView.getAdapter().getItem(position);
+                System.out.println(position);
                 intent.putExtra("experiment",exp_obj);
                 intent.putExtra("position",position);
 
@@ -119,6 +120,36 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+    /*
+    public void searchExperiments(String keyword) {
+        keyword = keyword.toLowerCase();
+
+        if (keyword.length() > 0) {
+
+            ArrayList<Experiment> foundExp = new ArrayList<>();
+            for (Experiment exp : expDataList) {
+                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) ){
+                    foundExp.add(exp);
+                }
+            }
+            updateList(foundExp);
+        }
+        else {
+            updateList(expDataList);
+        }
+
+    }
+
+    public void updateList(ArrayList<Experiment> listExp) {
+
+        adapter = new ResultAdapter(this, listExp);
+        experimentListView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
+    }
+
+     */
 
 
     public void navigationSettings(){

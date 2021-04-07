@@ -25,6 +25,7 @@ public class SearchingManager {
     private ExpManager expManager = new ExpManager();
     private Context context;
 
+
     public SearchingManager(Context context) {
         this.context = context;
     }
@@ -41,6 +42,7 @@ public class SearchingManager {
         });
     }
 
+    // WIP
     public void getSearchExp(String keyword, ResultAdapter adapter, ArrayList<Experiment> expDataList, ListView experimentListView) {
         keyword = keyword.toLowerCase();
 
@@ -48,7 +50,7 @@ public class SearchingManager {
 
             ArrayList<Experiment> foundExp = new ArrayList<>();
             for (Experiment exp : expDataList) {
-                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) ){
+                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) || exp.getOwner().getProfile().getUsername().toLowerCase().contains(keyword)){
                     foundExp.add(exp);
                 }
             }
@@ -65,6 +67,8 @@ public class SearchingManager {
         experimentListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+
 
 
 }
