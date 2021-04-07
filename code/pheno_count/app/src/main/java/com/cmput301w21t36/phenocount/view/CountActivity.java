@@ -14,22 +14,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
 
 /**
  * This class represents Count trials and is part of the GUI
  */
-public class CountActivity extends AppCompatActivity {
-    Count trial;
-    Experiment newexp;//defining the Experiment object
+public class CountActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    com.cmput301w21t36.phenocount.Count trial;
+    com.cmput301w21t36.phenocount.Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
     TextView coordinates;
     SharedPreferences sharedPrefs;
     int qrCount = -1;
     Menu expMenu;
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,13 +48,14 @@ public class CountActivity extends AppCompatActivity {
         setContentView(R.layout.trial_count);
         numberFormat = new DecimalFormat("#.0000");
 
+        navigationSettings();
+
         // receiving intent object
-        newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        newexp = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
 
         // get the intent object from the Qr activity
         if (newexp == null) {
-            newexp = (Experiment) getIntent().getSerializableExtra("QrExperiment");
-            qrCount = (Integer) getIntent().getSerializableExtra("count");
+            newexp = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("QrExperiment");
         }
 
         //setting user to owner of trial
@@ -54,13 +65,16 @@ public class CountActivity extends AppCompatActivity {
         String UUID = sharedPrefs.getString("ID", "");
         Profile profile = new Profile(username,number);
         User user = new User(UUID,profile);
-        trial = new Count(user);
+        trial = new com.cmput301w21t36.phenocount.Count(user);
         //newexp.getDates().add(trial.getDate());
         //setting type of trial
         trial.setType("Count");
 
         // Capture the layout's TextView and set the string as its text
-/*        TextView desc = findViewById(R.id.desc2);
+        TextView expName = findViewById(R.id.toolbar_title);
+        expName.setText(newexp.getName());
+        /*
+        TextView desc = findViewById(R.id.desc2);
         desc.setText("" + String.valueOf(newexp.getDescription()));*/
 
 /*
@@ -110,7 +124,7 @@ public class CountActivity extends AppCompatActivity {
         });
 
         if (qrCount != -1) {
-            trial.setCount(qrCount);
+            trial.setCount(1);
             recordcountbtn.performClick();
         }
 
@@ -139,7 +153,7 @@ public class CountActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //passing trial object to get location updated
-                Intent intent = new Intent (CountActivity.this,MapsActivity.class);
+                Intent intent = new Intent (CountActivity.this, com.cmput301w21t36.phenocount.MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
@@ -159,11 +173,11 @@ public class CountActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.myList) {
-            Intent intent = new Intent(CountActivity.this, MainActivity.class);
+            Intent intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.MainActivity.class);
             startActivity(intent);
         }
         if (item.getItemId() == R.id.search) {
-            Intent intent = new Intent(CountActivity.this, SearchingActivity.class);
+            Intent intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.SearchingActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -178,7 +192,7 @@ public class CountActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 //catching the trial object back
-                trial = (Count) data.getSerializableExtra("trial_obj");
+                trial = (com.cmput301w21t36.phenocount.Count) data.getSerializableExtra("trial_obj");
 
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
@@ -190,5 +204,62 @@ public class CountActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void navigationSettings(){
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String UUID = sharedPrefs.getString("ID", "");
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.nav_my_exp:
+                intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.MainActivity.class);
+                break;
+            case R.id.nav_search:
+                intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.SearchingActivity.class);
+                break;
+            case R.id.nav_user:
+                intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.ProfileActivity.class);
+                intent.putExtra("UUID",UUID);
+                break;
+            case R.id.nav_add:
+                intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.PublishExperimentActivity.class);
+                intent.putExtra("AutoId",UUID);
+                intent.putExtra("mode",0);
+                break;
+            case R.id.nav_sub_exp:
+                intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.ShowSubscribedListActivity.class);
+                intent.putExtra("owner",UUID);
+                break;
+
+        }
+
+        startActivity(intent);
+        return true;
+    }
+
 }
 

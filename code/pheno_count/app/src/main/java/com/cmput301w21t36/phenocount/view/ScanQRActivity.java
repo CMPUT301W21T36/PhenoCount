@@ -26,7 +26,7 @@ import com.google.zxing.Result;
  */
 
 public class ScanQRActivity extends AppCompatActivity {
-    Experiment experiment;
+    com.cmput301w21t36.phenocount.Experiment experiment;
     private CodeScanner mCodeScanner;
 
     @Override
@@ -35,7 +35,7 @@ public class ScanQRActivity extends AppCompatActivity {
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_qr_scan);
 
-        experiment = (Experiment) getIntent().getSerializableExtra("experiment");
+        experiment = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("experiment");
 
         // ensure that the app has permissions to use the camera
         if (ContextCompat.checkSelfPermission(ScanQRActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
@@ -115,29 +115,20 @@ public class ScanQRActivity extends AppCompatActivity {
         Intent i;
         switch (result) {
             case "success":
-                i = new Intent(ScanQRActivity.this, BinomialActivity.class);
+                i = new Intent(ScanQRActivity.this, com.cmput301w21t36.phenocount.BinomialActivity.class);
                 i.putExtra("QrSuccess", experiment);
                 startActivityForResult(i, 1);
                 break;
             case "failure":
-                i = new Intent(ScanQRActivity.this, BinomialActivity.class);
+                i = new Intent(ScanQRActivity.this, com.cmput301w21t36.phenocount.BinomialActivity.class);
                 i.putExtra("QrFailure", experiment);
                 startActivityForResult(i, 1);
                 break;
-            default:
-                try {
-                    int count = Integer.parseInt(result);
-                    i = new Intent(ScanQRActivity.this, CountActivity.class);
-                    i.putExtra("QrExperiment", experiment);
-                    i.putExtra("count", count);
-                    startActivityForResult(i, 1);
-                    break;
-                }
-                catch (Exception e) {
-                    Toast.makeText(ScanQRActivity.this,"Invalid Entry", Toast.LENGTH_LONG).show();
-                    finish();
-                    break;
-                }
+            case "count":
+                i = new Intent(ScanQRActivity.this, com.cmput301w21t36.phenocount.CountActivity.class);
+                i.putExtra("QrExperiment", experiment);
+                startActivityForResult(i, 1);
+                break;
         }
     }
 
@@ -151,7 +142,7 @@ public class ScanQRActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
-            experiment = (Experiment) data.getSerializableExtra("experiment");
+            experiment = (com.cmput301w21t36.phenocount.Experiment) data.getSerializableExtra("experiment");
             Intent i = new Intent();
             i.putExtra("experiment", experiment);
             setResult(Activity.RESULT_OK,i);
