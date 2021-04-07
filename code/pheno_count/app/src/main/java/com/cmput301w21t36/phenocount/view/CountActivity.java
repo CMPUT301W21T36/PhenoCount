@@ -22,8 +22,8 @@ import java.text.DecimalFormat;
  * This class represents Count trials and is part of the GUI
  */
 public class CountActivity extends AppCompatActivity {
-    Count trial;
-    Experiment newexp;//defining the Experiment object
+    com.cmput301w21t36.phenocount.Count trial;
+    com.cmput301w21t36.phenocount.Experiment newexp;//defining the Experiment object
     Boolean location=false;
     DecimalFormat numberFormat;
     TextView coordinates;
@@ -39,12 +39,11 @@ public class CountActivity extends AppCompatActivity {
         numberFormat = new DecimalFormat("#.0000");
 
         // receiving intent object
-        newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
+        newexp = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
 
         // get the intent object from the Qr activity
         if (newexp == null) {
-            newexp = (Experiment) getIntent().getSerializableExtra("QrExperiment");
-            qrCount = (Integer) getIntent().getSerializableExtra("count");
+            newexp = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("QrExperiment");
         }
 
         //setting user to owner of trial
@@ -54,7 +53,7 @@ public class CountActivity extends AppCompatActivity {
         String UUID = sharedPrefs.getString("ID", "");
         Profile profile = new Profile(username,number);
         User user = new User(UUID,profile);
-        trial = new Count(user);
+        trial = new com.cmput301w21t36.phenocount.Count(user);
         //newexp.getDates().add(trial.getDate());
         //setting type of trial
         trial.setType("Count");
@@ -110,7 +109,7 @@ public class CountActivity extends AppCompatActivity {
         });
 
         if (qrCount != -1) {
-            trial.setCount(qrCount);
+            trial.setCount(1);
             recordcountbtn.performClick();
         }
 
@@ -139,7 +138,7 @@ public class CountActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //passing trial object to get location updated
-                Intent intent = new Intent (CountActivity.this,MapsActivity.class);
+                Intent intent = new Intent (CountActivity.this, com.cmput301w21t36.phenocount.MapsActivity.class);
                 intent.putExtra("trial_obj",trial);
 
                 int LAUNCH_SECOND_ACTIVITY = 1;
@@ -159,11 +158,11 @@ public class CountActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.myList) {
-            Intent intent = new Intent(CountActivity.this, MainActivity.class);
+            Intent intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.MainActivity.class);
             startActivity(intent);
         }
         if (item.getItemId() == R.id.search) {
-            Intent intent = new Intent(CountActivity.this, SearchingActivity.class);
+            Intent intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.SearchingActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -178,7 +177,7 @@ public class CountActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 location = true;
                 //catching the trial object back
-                trial = (Count) data.getSerializableExtra("trial_obj");
+                trial = (com.cmput301w21t36.phenocount.Count) data.getSerializableExtra("trial_obj");
 
                 if(trial.getLatitude() == 200 && trial.getLongitude() == 200) //location has not been added as these values can never be achieved.
                     coordinates.setText("Location : NOT ADDED");
