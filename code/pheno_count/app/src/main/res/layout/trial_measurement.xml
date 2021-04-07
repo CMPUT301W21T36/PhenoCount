@@ -1,97 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:fitsSystemWindows="true"
+    tools:openDeawer="start">
 
-    <Button
-        android:id="@+id/recordvbtn"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
-        android:fontFamily="@font/open_sans"
-        android:text="Record"
-        android:textSize="20dp"
-        app:backgroundTint="#67a3d9"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:itemIconTint="#000000"
+        app:menu="@menu/navigation_drawer" />
 
-    <EditText
-        android:id="@+id/measurement_editText"
-        android:layout_width="142dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginBottom="40dp"
-        android:ems="10"
-        android:fontFamily="@font/open_sans"
-        android:hint="Enter measurement here"
-        android:inputType="numberDecimal|numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/recordvbtn"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#67a3d9"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:navigationIcon="@drawable/ic_nav_menu"
+            app:title="  ">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:text="Value : "
-        app:layout_constraintBottom_toTopOf="@+id/locationbtn3"
-        app:layout_constraintEnd_toStartOf="@+id/measurement_editText"
-        app:layout_constraintHorizontal_bias="0.79"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/open_sans_light"
+                android:text=""
+                android:textColor="#ffff"
+                android:textSize="27dp"
+                android:textStyle="bold|italic" />
 
-    <TextView
-        android:id="@+id/coordinates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/measurement_editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.948" />
+        </androidx.appcompat.widget.Toolbar>
+        <Button
+            android:id="@+id/recordvbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="124dp"
+            android:fontFamily="@font/open_sans"
+            android:text="Record"
+            android:textSize="20dp"
+            app:backgroundTint="#67a3d9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/locationbtn3"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        app:backgroundTint="#67a3d9"
-        app:icon="@drawable/ic_location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/count"
-        app:layout_constraintVertical_bias="0.784" />
+        <EditText
+            android:id="@+id/measurement_editText"
+            android:layout_width="142dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginBottom="40dp"
+            android:ems="10"
+            android:fontFamily="@font/open_sans"
+            android:hint="Enter measurement here"
+            android:inputType="numberDecimal|numberSigned"
+            app:layout_constraintBottom_toTopOf="@+id/recordvbtn"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/cameraButton"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/purple_700"
-        android:textSize="14dp"
-        app:backgroundTint="#67a3d9"
-        app:icon="@drawable/ic_camera"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="160dp"
+            android:text="Value : "
+            app:layout_constraintBottom_toTopOf="@+id/locationbtn3"
+            app:layout_constraintEnd_toStartOf="@+id/measurement_editText"
+            app:layout_constraintHorizontal_bias="0.79"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="391dp"
-        android:layout_height="423dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/measurementt" />
+        <TextView
+            android:id="@+id/coordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/measurement_editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.948" />
+
+        <Button
+            android:id="@+id/locationbtn3"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="#67a3d9"
+            app:icon="@drawable/ic_location"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/count"
+            app:layout_constraintVertical_bias="0.784" />
+
+        <Button
+            android:id="@+id/cameraButton"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/purple_700"
+            android:textSize="14dp"
+            app:backgroundTint="#67a3d9"
+            app:icon="@drawable/ic_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="391dp"
+            android:layout_height="423dp"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/measurementt" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -14,14 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.text.DecimalFormat;
 
 /**
  * This class represents Count trials and is part of the GUI
  */
-public class CountActivity extends AppCompatActivity {
+public class CountActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     Count trial;
     Experiment newexp;//defining the Experiment object
     Boolean location=false;
@@ -30,6 +35,11 @@ public class CountActivity extends AppCompatActivity {
     SharedPreferences sharedPrefs;
     int qrCount = -1;
     Menu expMenu;
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,6 +47,8 @@ public class CountActivity extends AppCompatActivity {
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.trial_count);
         numberFormat = new DecimalFormat("#.0000");
+
+        navigationSettings();
 
         // receiving intent object
         newexp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
@@ -60,7 +72,10 @@ public class CountActivity extends AppCompatActivity {
         trial.setType("Count");
 
         // Capture the layout's TextView and set the string as its text
-/*        TextView desc = findViewById(R.id.desc2);
+        TextView expName = findViewById(R.id.toolbar_title);
+        expName.setText(newexp.getName());
+        /*
+        TextView desc = findViewById(R.id.desc2);
         desc.setText("" + String.valueOf(newexp.getDescription()));*/
 
 /*
@@ -190,5 +205,62 @@ public class CountActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void navigationSettings(){
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String UUID = sharedPrefs.getString("ID", "");
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.nav_my_exp:
+                intent = new Intent(CountActivity.this,MainActivity.class);
+                break;
+            case R.id.nav_search:
+                intent = new Intent(CountActivity.this,SearchingActivity.class);
+                break;
+            case R.id.nav_user:
+                intent = new Intent(CountActivity.this,ProfileActivity.class);
+                intent.putExtra("UUID",UUID);
+                break;
+            case R.id.nav_add:
+                intent = new Intent(CountActivity.this,PublishExperimentActivity.class);
+                intent.putExtra("AutoId",UUID);
+                intent.putExtra("mode",0);
+                break;
+            case R.id.nav_sub_exp:
+                intent = new Intent(CountActivity.this,ShowSubscribedListActivity.class);
+                intent.putExtra("owner",UUID);
+                break;
+
+        }
+
+        startActivity(intent);
+        return true;
+    }
+
 }
 
