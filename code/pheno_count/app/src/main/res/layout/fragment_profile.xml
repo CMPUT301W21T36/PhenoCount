@@ -7,19 +7,27 @@
     <TextView
         android:id="@+id/name_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginLeft="5dp"
+        android:background="@color/white"
+        android:fontFamily="@font/open_sans_light"
+        android:gravity="center"
         android:text="Username:"
-        android:background="#A4E5E8"
-        android:textSize="25dp" />
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/phone_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginLeft="5dp"
-        android:background="#F7DDFA"
+        android:background="@color/white"
+        android:fontFamily="@font/open_sans_light"
+        android:gravity="center"
         android:text="Phone:"
-        android:textSize="25dp" />
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
 </LinearLayout>
