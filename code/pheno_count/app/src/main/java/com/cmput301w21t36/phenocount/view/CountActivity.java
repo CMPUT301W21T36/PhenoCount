@@ -56,6 +56,7 @@ public class CountActivity extends AppCompatActivity implements NavigationView.O
         // get the intent object from the Qr activity
         if (newexp == null) {
             newexp = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("QrExperiment");
+            qrCount = 1;
         }
 
         //setting user to owner of trial
@@ -124,7 +125,6 @@ public class CountActivity extends AppCompatActivity implements NavigationView.O
         });
 
         if (qrCount != -1) {
-            trial.setCount(1);
             recordcountbtn.performClick();
         }
 
