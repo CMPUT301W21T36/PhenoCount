@@ -36,6 +36,7 @@
                 android:background="#67a3d9"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
+                app:menu="@menu/color_menu"
                 app:navigationIcon="@drawable/ic_nav_menu"
                 app:title="  ">
                 <!--"-->
