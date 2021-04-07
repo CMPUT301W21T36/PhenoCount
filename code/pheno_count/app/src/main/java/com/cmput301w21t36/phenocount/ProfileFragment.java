@@ -68,10 +68,10 @@ public class ProfileFragment extends DialogFragment {
         nameView.setText("Username: "+ username);
         phoneView.setText("Contact: " + phone);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         return builder
                 .setView(view)
-                .setTitle("User Profile")
+                .setTitle("User Profile").setIcon(R.drawable.ic_user)
                 .setNegativeButton("OK", null)
                 .create();
     }

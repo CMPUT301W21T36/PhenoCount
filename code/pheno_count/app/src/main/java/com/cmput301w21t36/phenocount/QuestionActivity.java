@@ -1,6 +1,7 @@
 package com.cmput301w21t36.phenocount;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,9 +13,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 /*
@@ -27,7 +32,7 @@ import java.util.ArrayList;
  * the user is transferred to the QuestionActivity page, where they can
  * browse all the replies the question has received.
  */
-public class QuestionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener{
+public class QuestionActivity extends AppCompatActivity implements ShowFragment.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener {
     //a collection of question posts of a certain experiment
     private ListView rListView;
     private ReplyAdapter repAdapter;
@@ -36,12 +41,16 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     private Question question;
     private DiscussionManager disManager;
     private Menu expMenu;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    androidx.appcompat.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_question);
         //getSupportActionBar().setTitle("Replies");
+        navigationSettings();
 
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         question = (Question) getIntent().getSerializableExtra("question");//defining the Experiment object
@@ -122,6 +131,63 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void navigationSettings(){
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        toolbar.bringToFront();
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String UUID = sharedPrefs.getString("ID", "");
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.nav_my_exp:
+                intent = new Intent(QuestionActivity.this,MainActivity.class);
+                break;
+            case R.id.nav_search:
+                intent = new Intent(QuestionActivity.this,SearchingActivity.class);
+                break;
+            case R.id.nav_user:
+                intent = new Intent(QuestionActivity.this,ProfileActivity.class);
+                intent.putExtra("UUID",UUID);
+                break;
+            case R.id.nav_add:
+                intent = new Intent(QuestionActivity.this,PublishExperimentActivity.class);
+                intent.putExtra("AutoId",UUID);
+                intent.putExtra("mode",0);
+                break;
+            case R.id.nav_sub_exp:
+                intent = new Intent(QuestionActivity.this,ShowSubscribedListActivity.class);
+                intent.putExtra("owner",UUID);
+                break;
+
+        }
+
+        startActivity(intent);
+        return true;
     }
 
 }

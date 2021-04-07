@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -37,6 +38,7 @@ public class ResultsActivity extends AppCompatActivity {
     Experiment exp;//defining the Experiment object
     ImageView qr;
     Button statsButton;
+    ImageButton histogramButton;
     Menu expMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class ResultsActivity extends AppCompatActivity {
         trialList = new ArrayList<>();
         blacklist = new ArrayList<>();
         qr = findViewById(R.id.qrView);
+        histogramButton = findViewById(R.id.histogramButtonn);
 
         //getting intent
         exp = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
@@ -106,6 +109,15 @@ public class ResultsActivity extends AppCompatActivity {
                 Intent intent = new Intent(ResultsActivity.this, PlotsActivity.class );
                 intent.putExtra("exp", exp);
                 startActivity(intent);
+            }
+        });
+
+        histogramButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ResultsActivity.this, HistogramActivity.class);
+                i.putExtra("experiment", exp);
+                startActivity(i);
             }
         });
 

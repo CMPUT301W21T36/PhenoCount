@@ -129,16 +129,6 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                 startActivity(i);
             }
         });
-
-        final Button histogramBtn = findViewById(R.id.histogramButton);
-        histogramBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DisplayExperimentActivity.this, HistogramActivity.class);
-                i.putExtra("experiment", exp);
-                startActivity(i);
-            }
-        });
     }
 
     @Override

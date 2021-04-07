@@ -55,10 +55,12 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
         int i = 1;
         ArrayList<Marker> markers = new ArrayList<>();
         for(Trial trial : trials){
+            if(trial.getLatitude() != 200.0 && trial.getLongitude() != 200.0){
             LatLng location = new LatLng(trial.getLatitude(),trial.getLongitude());
             Marker marker = googleMap.addMarker(new MarkerOptions().position(location).title("Trial "+ i));
             markers.add(marker);
             i++;
+            }
         }
 
         //googleMap.setMaxZoomPreference(0f);
@@ -68,14 +70,18 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
         for (Marker marker : markers) {
             builder.include(marker.getPosition());
         }
+        System.out.println("MARKERS "+ markers.size());
         if (!markers.isEmpty()) {
             LatLngBounds bounds = builder.build();
-            int padding = 50; // offset from edges of the map in pixels
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.12);
+            //int padding = 50; // offset from edges of the map in pixels
             CameraUpdate cu;
             if (markers.size() == 1)
                 cu = CameraUpdateFactory.newLatLng(markers.get(0).getPosition());
             else
-                cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                cu = CameraUpdateFactory.newLatLngBounds(bounds,width,height,padding);
 
             googleMap.moveCamera(cu);
         }
