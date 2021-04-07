@@ -10,14 +10,15 @@
         android:id="@+id/expname"
         android:layout_width="221dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_light"
         android:maxLength="20"
         android:padding="20dp"
         android:text="Experiment"
         android:textAlignment="textStart"
+        android:textColor="#000000"
         android:textColorHint="#FFFFFF"
         android:textSize="30sp"
-        android:fontFamily="@font/open_sans_light"
-        android:textColor="#000000">
+        android:textStyle="bold">
 
     </TextView>
 
@@ -26,11 +27,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:hint="Status"
-        android:padding="15sp"
-        android:textAlignment="center"
-        android:textSize="24sp"
         android:fontFamily="@font/open_sans_light"
-        android:textColor="#000000"/>
+        android:hint="Status"
+        android:padding="25sp"
+        android:paddingTop="50dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

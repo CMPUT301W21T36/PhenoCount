@@ -1,4 +1,5 @@
 // references: BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
+//Abhishek Maheshwari, 2019-05-21,CC BY-SA 4.0, https://stackoverflow.com/a/56236710
 package com.cmput301w21t36.phenocount;
 
 import androidx.annotation.NonNull;
@@ -146,19 +147,24 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
         expMenu.findItem(R.id.endButton).setEnabled(true);
         expMenu.findItem(R.id.addTrialButon).setEnabled(true);
         expMenu.findItem(R.id.subscribeButton).setEnabled(true);
+        expMenu.findItem(R.id.unsubscribeButton).setVisible(false);
+        expMenu.findItem(R.id.republishButton).setVisible(false);
 
         if(!(UUID.equals(exp.getOwner().getUID()))){
             expMenu.findItem(R.id.ownerAction).setVisible(false);
         }
         if (exp.getExpStatus()==3){
             expMenu.findItem(R.id.unpublishButton).setEnabled(false);
+            expMenu.findItem(R.id.republishButton).setVisible(true);
         }
         if (exp.getExpStatus()==2){
             expMenu.findItem(R.id.endButton).setEnabled(false);
             expMenu.findItem(R.id.addTrialButon).setEnabled(false);
+            expMenu.findItem(R.id.republishButton).setVisible(true);
         }
         if (exp.getSubscribers().contains(UUID)){
             expMenu.findItem(R.id.subscribeButton).setEnabled(false);
+            expMenu.findItem(R.id.unsubscribeButton).setVisible(true);
         }
     }
     @Override
@@ -200,6 +206,15 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             int LAUNCH_THIRD_ACTIVITY = 3;
             startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
         } else if (item.getItemId() == R.id.subscribeButton) {
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "",1);
+            confirmMsg.setColour("Do you want to subscribe this experiment",14, 24);
+            confirmMsg.setButtonCol();
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
             ArrayList expSubList = exp.getSubscribers();
             expSubList.add(UUID);
             HashMap<String, Object> data = new HashMap<>();
@@ -224,10 +239,55 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                         }
                     });
             menuOpt();
+            confirmMsg.cancelDialog();
+                }
+            });
+        }else if (item.getItemId() == R.id.unsubscribeButton){
+            //Abhishek Maheshwari, 2019-05-21,CC BY-SA 4.0, https://stackoverflow.com/a/56236710
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "",1);
+            confirmMsg.setColour("Do you want to unsubscribe this experiment",15, 26);
+            confirmMsg.setButtonCol();
 
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // this query updates the unsubscribe status
+                    ArrayList expSubList = exp.getSubscribers();
+                    if (expSubList.contains(UUID)) {
+                        expSubList.remove(UUID);
+                        HashMap<String, Object> data = new HashMap<>();
+                        String id = exp.getExpID();
+                        data.put("sub_list", expSubList);
+
+                        collectionReference
+                                .document(id)
+                                .update(data)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // These are a method which gets executed when the task is succeeded
+                                        Log.d(TAG, "Data has been updated successfully!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // These are a method which gets executed if there’s any problem
+                                        Log.d(TAG, "Data could not be updated!" + e.toString());
+                                    }
+                                });
+                    }
+                    menuOpt();
+                    confirmMsg.cancelDialog();
+                }
+            });
         } else if (item.getItemId() == R.id.unpublishButton) {
             AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
-                    "Please confirm if you want to unpublish this experiment",1);
+                    "",1);
+            confirmMsg.setColour("Do you want to unpublish this experiment", 15, 24);
+            confirmMsg.setButtonCol();
 
             Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -244,7 +304,9 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             });
         } else if (item.getItemId() == R.id.endButton){
             AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
-                    "Please confirm if you want to end this experiment",1);
+                    "",1);
+            confirmMsg.setColour("Do you want to end this experiment",15, 18);
+            confirmMsg.setButtonCol();
 
             Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +323,9 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
             });
         }else if (item.getItemId() == R.id.editButton){
             AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
-                    "Please confirm if you want to edit this experiment",1);
+                    "",1);
+            confirmMsg.setColour("Do you want to edit this experiment", 15, 19);
+            confirmMsg.setButtonCol();
 
             Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -271,6 +335,25 @@ public class DisplayExperimentActivity extends AppCompatActivity implements Prof
                     eIntent.putExtra("experiment", exp);
                     eIntent.putExtra("mode", 1);
                     startActivityForResult(eIntent, 1);
+                    confirmMsg.cancelDialog();
+                }
+            });
+        }else if (item.getItemId() == R.id.republishButton){
+            AlertMsg confirmMsg = new AlertMsg(this, "Conformation",
+                    "",1);
+            confirmMsg.setColour("Do you want to republish this experiment", 15, 24);
+            confirmMsg.setButtonCol();
+
+            Button confirmButton=confirmMsg.alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    db.collection("Experiment").document(exp.getExpID())
+                            .update("status", "1");
+                    exp.setExpStatus(2);
+                    menuOpt();
+                    expStatus.setText("Published");
+                    //confirmMsg.alertDialog.cancel();
                     confirmMsg.cancelDialog();
                 }
             });

@@ -29,7 +29,7 @@ public class SearchingManager {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
-                expManager.getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
+                expManager.getdata(db, expDataList, expAdapter, 0, queryDocumentSnapshots, error);
             }
         });
     }

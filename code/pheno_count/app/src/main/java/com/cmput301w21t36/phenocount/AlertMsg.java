@@ -6,7 +6,11 @@ package com.cmput301w21t36.phenocount;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Message;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 
 public class AlertMsg {
     AlertDialog alertDialog ;
@@ -40,7 +44,18 @@ public class AlertMsg {
         alertDialog.show();
     }
 
+    public void setColour(String myText, int start, int end){
+        SpannableString msg = new SpannableString(myText);
+        msg.setSpan(new ForegroundColorSpan(Color.parseColor("#FF6347")), start,
+                end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        alertDialog.setMessage(msg);
+    }
 
+    public void setButtonCol(){
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#67A3D9"));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#67A3D9"));
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.parseColor("#67A3D9"));
+    }
 
     public void cancelDialog(){
         alertDialog.cancel();

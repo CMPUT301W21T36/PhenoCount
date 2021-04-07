@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
-        manager.getExpData(db, expDataList, expAdapter, UUID); // To populate our experiment list
+        manager.getExpData(db, expDataList, expAdapter, UUID, 0); // To populate our experiment list
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

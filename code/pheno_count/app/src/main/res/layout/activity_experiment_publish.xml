@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="@font/open_sans_light"
         android:hint="Name"
         android:inputType="textMultiLine|textPersonName"
         android:padding="10dp"
@@ -25,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="@font/open_sans_light"
         android:hint="@string/desc_hint"
         android:inputType="textMultiLine|textPersonName"
         android:padding="10dp"
@@ -36,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="@font/open_sans_light"
         android:hint="Region"
         android:inputType="textPersonName"
         android:padding="10dp"
@@ -52,6 +55,7 @@
             android:id="@+id/textView"
             android:layout_width="126dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_light"
             android:padding="5dp"
             android:text="@string/radio_text"
             android:textColor="@color/black" />
@@ -60,6 +64,7 @@
             android:id="@+id/radioBinomial"
             android:layout_width="match_parent"
             android:layout_height="32dp"
+            android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
             android:text="Binomial Trial" />
 
@@ -67,6 +72,7 @@
             android:id="@+id/radioCount"
             android:layout_width="match_parent"
             android:layout_height="32dp"
+            android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
             android:text="Count Based Trial " />
 
@@ -74,6 +80,7 @@
             android:id="@+id/radioInt"
             android:layout_width="match_parent"
             android:layout_height="32dp"
+            android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
             android:text="Non-Negative Integer Count" />
 
@@ -81,6 +88,7 @@
             android:id="@+id/radioMeasure"
             android:layout_width="match_parent"
             android:layout_height="32dp"
+            android:fontFamily="@font/open_sans_light"
             android:onClick="onRadioButtonClicked"
             android:text="Measurement Trial" />
 
@@ -91,6 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="@font/open_sans_light"
         android:hint="Minimum number of Trials"
         android:inputType="number"
         android:padding="10dp"
@@ -102,6 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:drawablePadding="10dp"
+        android:fontFamily="@font/open_sans_light"
         android:layoutDirection="rtl"
         android:padding="10dp"
         android:text="Require Geolocation"
@@ -129,10 +139,11 @@
             android:layout_gravity="bottom|right|center_horizontal"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
+            android:fontFamily="@font/open_sans_light"
             android:onClick="toAdd"
             android:text="OK"
             android:textAlignment="center"
-            app:backgroundTint="@color/design_default_color_primary" />
+            app:backgroundTint="#67A3D9" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/cancelButton"
@@ -141,10 +152,11 @@
             android:layout_gravity="bottom|center_horizontal|left"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
+            android:fontFamily="@font/open_sans_light"
             android:onClick="toCancel"
             android:text="Cancel"
             android:textAlignment="center"
-            app:backgroundTint="@color/design_default_color_primary" />
+            app:backgroundTint="#67A3D9" />
     </FrameLayout>
 
 </LinearLayout>

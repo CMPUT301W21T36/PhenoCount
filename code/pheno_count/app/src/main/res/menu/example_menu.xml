@@ -7,6 +7,9 @@
     <item android:id="@+id/subscribeButton"
         android:title="Subscribe"
         app:showAsAction="never"/>
+    <item android:id="@+id/unsubscribeButton"
+        android:title="Unsubscribe"
+        app:showAsAction="never"/>
     <item android:id="@+id/item3"
         android:title="Discuss"
         app:showAsAction="never"/>
@@ -22,6 +25,9 @@
                 app:showAsAction="never"/>
             <item android:id="@+id/endButton"
                 android:title="End"
+                app:showAsAction="never"/>
+            <item android:id="@+id/republishButton"
+                android:title="Republish"
                 app:showAsAction="never"/>
             <item android:id="@+id/editButton"
                 android:title="Edit"
