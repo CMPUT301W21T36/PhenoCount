@@ -75,7 +75,7 @@ public class ExpManager {
      * @see MainActivity
      */
     public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                           ArrayAdapter<Experiment> expAdapter, String UUID){
+                           ArrayAdapter<Experiment> expAdapter, String UUID, int mode){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
         db.collection("Experiment")
             .whereEqualTo("owner",UUID).orderBy("status")
@@ -83,20 +83,20 @@ public class ExpManager {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
-                getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
+                getdata(db, expDataList, expAdapter, mode, queryDocumentSnapshots, error);
             }
         });
     }
 
     public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                              ArrayAdapter<Experiment> expAdapter, String UUID){
+                              ArrayAdapter<Experiment> expAdapter, String UUID, int mode){
         db.collection("Experiment")
                 .whereArrayContains("sub_list",UUID)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                             FirebaseFirestoreException error) {
-                        getdata(db, expDataList, expAdapter, queryDocumentSnapshots, error);
+                        getdata(db, expDataList, expAdapter, mode, queryDocumentSnapshots, error);
                     }
                 });
     }
@@ -201,7 +201,7 @@ public class ExpManager {
      * @param error
      */
     public void getdata(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                        ArrayAdapter<Experiment> expAdapter,
+                        ArrayAdapter<Experiment> expAdapter, int mode,
                         QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException error){
         expDataList.clear();
         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -217,7 +217,7 @@ public class ExpManager {
                 String reqGeo = (String) doc.getData().get("require_geolocation");
                 String mStat = (String) doc.getData().get("status");
                 String owner = (String) doc.getData().get("owner");
-                String userName = (String) doc.getData().get("owner_name");
+                //String userName = (String) doc.getData().get("owner_name");
                 ArrayList sList = (ArrayList) doc.getData().get("sub_list");
 
 
@@ -244,7 +244,13 @@ public class ExpManager {
                 newExp.setOwner(currentUser);
                 newExp.setSubscribers(sList);
 
-                expDataList.add(newExp);
+                if (mode == 1){
+                    if (!(expStatus == 3)){
+                        expDataList.add(newExp);
+                    }
+                }else if (mode == 0) {
+                    expDataList.add(newExp);
+                }
             }
         }
 
