@@ -50,7 +50,7 @@ public class SearchingManager {
 
             ArrayList<Experiment> foundExp = new ArrayList<>();
             for (Experiment exp : expDataList) {
-                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) ){
+                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) || exp.getOwner().getProfile().getUsername().toLowerCase().contains(keyword)){
                     foundExp.add(exp);
                 }
             }
