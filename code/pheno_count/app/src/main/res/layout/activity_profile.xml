@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="187dp"
+        android:layout_marginTop="157dp"
         android:fontFamily="@font/open_sans_light"
         android:text="Display Username"
         android:textColor="#333"
+        android:textSize="20dp"
         tools:layout_editor_absoluteX="176dp"
         tools:layout_editor_absoluteY="86dp" />
 
@@ -24,10 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="238dp"
+        android:layout_marginTop="235dp"
         android:fontFamily="@font/open_sans_light"
         android:text="Contact Information"
-        android:textColor="#332" />
+        android:textColor="#333"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/UIDTextView"
@@ -36,6 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
 
+        android:layout_marginTop="2dp"
         android:fontFamily="@font/open_sans_light"
         android:text="UID" />
 
@@ -45,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="283dp"
+        android:layout_marginTop="328dp"
         android:text="Edit Profile" />
 
     <TextView
@@ -55,10 +58,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="211dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="200dp"
         android:fontFamily="@font/open_sans_light"
-        android:text="Contact Information:" />
+        android:text="Contact Information:"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/usernameTitleTextView"
@@ -67,9 +71,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="159dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="122dp"
         android:fontFamily="@font/open_sans_light"
-        android:text="Display name:" />
+        android:text="Display name:"
+        android:textSize="20dp" />
 
 </RelativeLayout>

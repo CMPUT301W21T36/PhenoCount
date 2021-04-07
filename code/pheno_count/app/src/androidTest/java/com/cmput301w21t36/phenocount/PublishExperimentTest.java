@@ -57,7 +57,7 @@ public class PublishExperimentTest {
     @Test
     public void checkAddingExp(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.addButton));
+        //solo.clickOnView(solo.getView(R.id.addButton));
         solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
         solo.enterText((EditText) solo.getView(R.id.expName), "Red Cars");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "To note the number of red cars observed");
