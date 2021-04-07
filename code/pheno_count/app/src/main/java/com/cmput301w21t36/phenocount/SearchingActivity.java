@@ -71,7 +71,7 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
         experimentListView = findViewById(R.id.listView);
 
-        searchManag = new SearchingManager(this);
+        searchManag = new SearchingManager();
 
         adapter = new ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
@@ -107,18 +107,46 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchManag.getSearchExp(query, adapter, expDataList, experimentListView);
+                searchExperiments(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchManag.getSearchExp(newText, adapter, expDataList, experimentListView);
+                searchExperiments(newText);
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+    public void searchExperiments(String keyword) {
+        keyword = keyword.toLowerCase();
+
+        if (keyword.length() > 0) {
+
+            ArrayList<Experiment> foundExp = new ArrayList<>();
+            for (Experiment exp : expDataList) {
+                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) ){
+                    foundExp.add(exp);
+                }
+            }
+            updateList(foundExp);
+        }
+        else {
+            updateList(expDataList);
+        }
+
+    }
+
+    public void updateList(ArrayList<Experiment> listExp) {
+
+        adapter = new ResultAdapter(this, listExp);
+        experimentListView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
+    }
+
 
 
     public void navigationSettings(){
