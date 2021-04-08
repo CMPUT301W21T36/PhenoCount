@@ -84,13 +84,10 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         expStatus = findViewById(R.id.statusTextView);
         TextView expType = findViewById(R.id.expTypeText);
         TextView expReqLoc = findViewById(R.id.reqLocText);
-        Button camerabtn = findViewById((R.id.camerabtn));
+        //Button camerabtn = findViewById((R.id.camerabtn));
         Button qrButton = findViewById(R.id.qrButton);
         qrPicture = findViewById(R.id.qrPicture);
 
-        if (exp.getExpType().equals("Binomial") || exp.getExpType().equals("Count")) {
-            camerabtn.setVisibility(View.VISIBLE);
-        }
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
@@ -120,14 +117,14 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         }
         else {expReqLoc.setText("NOT REQUIRED");}
 
-        camerabtn.setOnClickListener(new View.OnClickListener() {
+/*        camerabtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ScanQRActivity.class);
                 i.putExtra("experiment", exp);
                 startActivityForResult(i, 1);
             }
-        });
+        });*/
 
         final Button mapsBtn = findViewById((R.id.mapsBtn));
         mapsBtn.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +148,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         qrPicture.setVisibility(View.VISIBLE);
         // Create QR Encoder with value to be encoded
         String title = exp.getName();
-        QRGEncoder qrgEncoder = new QRGEncoder(title, null, QRGContents.Type.TEXT, 500);
+        QRGEncoder qrgEncoder = new QRGEncoder(title, null, QRGContents.Type.TEXT, 400);
         try {
             // Getting QR as Bitmap
             Bitmap bitmap = qrgEncoder.getBitmap();
@@ -179,6 +176,8 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         expMenu.findItem(R.id.subscribeButton).setEnabled(true);
         expMenu.findItem(R.id.unsubscribeButton).setVisible(false);
         expMenu.findItem(R.id.republishButton).setVisible(false);
+        expMenu.findItem(R.id.generate_qr).setVisible(false);
+
 
         if(!(UUID.equals(exp.getOwner().getUID()))){
             expMenu.findItem(R.id.ownerAction).setVisible(false);
@@ -195,6 +194,9 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         if (exp.getSubscribers().contains(UUID)){
             expMenu.findItem(R.id.subscribeButton).setEnabled(false);
             expMenu.findItem(R.id.unsubscribeButton).setVisible(true);
+        }
+        if (exp.getExpType().equals("Binomial") || exp.getExpType().equals("Count")) {
+            expMenu.findItem(R.id.generate_qr).setVisible(true);
         }
     }
     @Override
@@ -235,6 +237,10 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
             //System.out.println("IN DISPLAY EXP ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
             int LAUNCH_THIRD_ACTIVITY = 3;
             startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
+        } else if(item.getItemId() == R.id.generate_qr){
+            Intent i = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ScanQRActivity.class);
+            i.putExtra("experiment", exp);
+            startActivityForResult(i, 1);
         } else if (item.getItemId() == R.id.subscribeButton) {
             com.cmput301w21t36.phenocount.AlertMsg confirmMsg = new com.cmput301w21t36.phenocount.AlertMsg(this, "Conformation",
                     "",1);

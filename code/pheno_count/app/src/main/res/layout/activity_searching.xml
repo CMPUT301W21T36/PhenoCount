@@ -73,13 +73,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="3dp"
-                android:layout_marginBottom="676dp"
+                android:layout_marginEnd="246dp"
+                android:layout_marginBottom="19dp"
                 android:backgroundTint="#67a3d9"
                 android:text="Search with QR"
                 android:textAlignment="center"
-                android:textSize="10dp"
-                />
+                android:textSize="10dp" />
 
         </RelativeLayout>
 

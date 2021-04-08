@@ -20,7 +20,7 @@
         app:menu="@menu/navigation_drawer" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+          android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".DisplayExperimentActivity">
 
@@ -312,22 +312,6 @@
             app:layout_constraintStart_toEndOf="@+id/reqLoc" />
 
         <Button
-            android:id="@+id/camerabtn"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/purple_700"
-            android:textSize="14dp"
-            android:visibility="gone"
-            app:backgroundTint="#67a3d9"
-            app:icon="@drawable/ic_camera"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/mapsBtn"
-            app:layout_constraintHorizontal_bias="0.047"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.939" />
-
-        <Button
             android:id="@+id/mapsBtn"
             android:layout_width="64dp"
             android:layout_height="51dp"
@@ -343,14 +327,14 @@
 
         <Button
             android:id="@+id/qrButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="72dp"
+            android:layout_width="64dp"
+            android:layout_height="51dp"
+            android:layout_marginBottom="40dp"
             android:backgroundTint="#D97768"
             android:text="QR"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.072"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
@@ -368,16 +352,12 @@
             android:id="@+id/qr_descp"
             android:layout_width="189dp"
             android:layout_height="43dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="48dp"
-            android:text="Generate a QR code for this experiment"
+            android:layout_marginEnd="240dp"
+            android:text="Generate QR"
             android:textAlignment="center"
             android:textColor="#C19898"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qrButton"
-            app:layout_constraintVertical_bias="0.173" />
+            app:layout_constraintTop_toBottomOf="@+id/qrButton" />
 
         <TextView
             android:id="@+id/mapTitle"
