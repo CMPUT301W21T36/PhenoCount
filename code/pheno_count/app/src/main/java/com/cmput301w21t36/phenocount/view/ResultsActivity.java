@@ -96,7 +96,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         trials.setAdapter(trialAdapter);
 
         if(trialList.size() == 0){
-            trials.setBackgroundResource(R.drawable.hint_reply);
+            trials.setBackgroundResource(R.drawable.hint_trial);
         }else{
             trials.setBackgroundResource(R.drawable.hint_white);
         }
