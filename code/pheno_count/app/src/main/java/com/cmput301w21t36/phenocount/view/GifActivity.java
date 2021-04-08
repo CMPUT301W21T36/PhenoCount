@@ -1,5 +1,11 @@
 package com.cmput301w21t36.phenocount;
 
+/*
+This class is created for showing the gif before displaying the
+map of trials in TrialMapsActivity
+ */
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
