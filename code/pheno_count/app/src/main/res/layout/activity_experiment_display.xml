@@ -11,15 +11,13 @@
     tools:openDeawer="start">
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/qrImage"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/header"
         app:itemIconTint="#000000"
         app:menu="@menu/navigation_drawer" />
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -42,7 +40,6 @@
             app:navigationIcon="@drawable/ic_nav_menu"
             app:title="  ">
             <!--"-->
-
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -344,6 +341,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.978" />
 
+        <Button
+            android:id="@+id/qrButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="QR"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

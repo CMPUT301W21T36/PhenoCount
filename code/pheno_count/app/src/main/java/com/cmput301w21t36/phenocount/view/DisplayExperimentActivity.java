@@ -10,9 +10,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,10 +29,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
 
 /**
  * This activity deals with displaying the contents of an experiment
@@ -52,6 +54,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     androidx.appcompat.widget.Toolbar toolbar;
+    ImageView qrPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,8 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         TextView expType = findViewById(R.id.expTypeText);
         TextView expReqLoc = findViewById(R.id.reqLocText);
         Button camerabtn = findViewById((R.id.camerabtn));
+        Button qrButton = findViewById(R.id.qrButton);
+        qrPicture = findViewById(R.id.qrPicture);
 
         if (exp.getExpType().equals("Binomial") || exp.getExpType().equals("Count")) {
             camerabtn.setVisibility(View.VISIBLE);
@@ -133,6 +138,28 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
                 startActivity(i);
             }
         });
+
+        qrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generateQr();
+            }
+        });
+    }
+
+    private void generateQr() {
+        qrPicture.setVisibility(View.VISIBLE);
+        // Create QR Encoder with value to be encoded
+        String title = exp.getName();
+        QRGEncoder qrgEncoder = new QRGEncoder(title, null, QRGContents.Type.TEXT, 500);
+        try {
+            // Getting QR as Bitmap
+            Bitmap bitmap = qrgEncoder.getBitmap();
+            // Set QR to ImageView
+            qrPicture.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            Log.v("Exception", e.toString());
+        }
     }
 
     @Override
@@ -410,7 +437,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
 
     public void navigationSettings(){
         drawerLayout=findViewById(R.id.drawer_layout);
-        navigationView=findViewById(R.id.nav_view);
+        navigationView=findViewById(R.id.qrImage);
         toolbar = findViewById(R.id.toolbar);
         navigationView.bringToFront();
         setSupportActionBar(toolbar);
