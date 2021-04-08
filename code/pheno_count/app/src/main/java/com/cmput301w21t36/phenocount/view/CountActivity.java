@@ -162,26 +162,7 @@ public class CountActivity extends AppCompatActivity implements NavigationView.O
         });
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.general_menu, menu);
-        expMenu = menu;
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.myList) {
-            Intent intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.MainActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.search) {
-            Intent intent = new Intent(CountActivity.this, com.cmput301w21t36.phenocount.SearchingActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     //Sends the experiment object and retrieves the updated object

@@ -85,11 +85,11 @@ public class PublishExperimentTest {
     @Test
     public void testCancelButton(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.addButton));
+        //solo.clickOnView(solo.getView(R.id.addButton));
         solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
         solo.clickOnView(solo.getView(R.id.cancelButton));
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.addButton));
+        //solo.clickOnView(solo.getView(R.id.addButton));
         solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
         solo.enterText((EditText) solo.getView(R.id.expName), "Pink Ballons");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "To note the number of pink ballons observed");

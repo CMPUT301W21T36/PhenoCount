@@ -344,7 +344,7 @@ public class ExpManager {
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.getResult()!=null) {
+                    if (task.getResult().getData()!=null) {
                         String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
                         String username = (String) task.getResult().getData().get("Username");
                         exp.getOwner().getProfile().setUsername(username);

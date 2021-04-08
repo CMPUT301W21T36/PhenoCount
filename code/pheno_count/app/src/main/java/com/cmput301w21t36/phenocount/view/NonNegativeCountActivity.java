@@ -138,26 +138,6 @@ public class NonNegativeCountActivity extends AppCompatActivity implements Navig
         });
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.general_menu, menu);
-        expMenu = menu;
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.myList) {
-            Intent intent = new Intent(NonNegativeCountActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.search) {
-            Intent intent = new Intent(NonNegativeCountActivity.this, SearchingActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressLint("SetTextI18n")
     @Override

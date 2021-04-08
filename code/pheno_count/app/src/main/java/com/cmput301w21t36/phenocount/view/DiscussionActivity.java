@@ -146,27 +146,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.general_menu, menu);
-        expMenu = menu;
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.myList) {
-            Intent intent = new Intent(DiscussionActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.search) {
-            Intent intent = new Intent(DiscussionActivity.this, SearchingActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void navigationSettings(){
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);

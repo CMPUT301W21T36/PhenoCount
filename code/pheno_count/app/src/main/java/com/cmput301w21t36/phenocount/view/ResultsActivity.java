@@ -175,29 +175,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         intent.putExtra("experiment",exp);
         startActivity(intent);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.general_menu, menu);
-        expMenu = menu;
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.myList) {
-            Intent intent = new Intent(ResultsActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("experiment", exp);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.search) {
-            Intent intent = new Intent(ResultsActivity.this, SearchingActivity.class);
-            intent.putExtra("experiment", exp);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void navigationSettings(){
         drawerLayout=findViewById(R.id.drawer_layout);

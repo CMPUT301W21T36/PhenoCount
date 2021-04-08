@@ -55,7 +55,7 @@ public class GenerateQrTest {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
 
         // create a new experiment
-        solo.clickOnView((Button) solo.getView(R.id.addButton));
+        //solo.clickOnView((Button) solo.getView(R.id.addButton));
         solo.enterText((EditText) solo.getView(R.id.expName), "Coin Flip");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "Flipping a coin");
         solo.enterText((EditText) solo.getView(R.id.expRegion), "Canada");
