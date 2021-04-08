@@ -1,5 +1,4 @@
-/* This MapsActivity class deals with the location functionality.
- * It deals with adding a location to a trial
+/** This MapsActivity class deals with the location functionality of adding a location to a trial
  * Context: Comes from add trial page.
  */
 package com.cmput301w21t36.phenocount;
