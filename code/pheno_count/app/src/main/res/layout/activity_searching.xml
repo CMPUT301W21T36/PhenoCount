@@ -68,7 +68,7 @@
             </androidx.appcompat.widget.Toolbar>
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/button"
+                android:id="@+id/QrButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
