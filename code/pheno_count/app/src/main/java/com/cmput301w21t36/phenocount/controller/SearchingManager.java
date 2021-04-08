@@ -55,6 +55,13 @@ public class SearchingManager {
                 }
             }
             adapter = new ResultAdapter(context, foundExp);
+            if(foundExp.size() == 0){
+                System.out.println("result is empty");
+                experimentListView.setBackgroundResource(R.drawable.hint_question);
+            }else{
+                System.out.println("result is empty");
+                experimentListView.setBackgroundResource(R.drawable.hint_main);
+            }
 
         }
         // Refill list with all experiments when nothing is there
