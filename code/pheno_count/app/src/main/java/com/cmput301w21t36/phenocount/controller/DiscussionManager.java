@@ -3,6 +3,7 @@ package com.cmput301w21t36.phenocount;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,8 +71,9 @@ public class DiscussionManager{
 
 
     //update the Question ListView in the discussion forum activity
-    public void updateQueData(ArrayList<Question> qDataList, QuestionAdapter qAdapter){
+    public void updateQueData(ArrayList<Question> qDataList, QuestionAdapter qAdapter, ListView qListView){
         this.queDataList = qDataList;
+
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         getQuecollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -79,11 +81,17 @@ public class DiscussionManager{
             //tracking the changes in the collection 'Question'
             public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
                 // clear the old list
+                if(questions.isEmpty()){
+                    System.out.println("question is empty");
+                    qListView.setBackgroundResource(R.drawable.hint_question);
+                }else{
+                    System.out.println("question is not empty");
+                }
                 queDataList.clear();
                 //add documents in the question collection to the list view
                 for (QueryDocumentSnapshot que : questions) {
                     if(que!= null){
-                        System.out.println("Que exist");
+                        setEmpty(false);
 
                     }else{
                         System.out.println("Que not exist");
@@ -108,6 +116,14 @@ public class DiscussionManager{
                 qAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
+    }
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public void setEmpty(boolean empty) {
+        this.empty = empty;
     }
 
     //update the Reply ListView in the question activity

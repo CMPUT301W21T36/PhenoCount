@@ -34,9 +34,8 @@
 
                 app:navigationIcon="@drawable/ic_nav_menu"
                 app:title="Experiment Search"
-                app:titleTextColor="@color/white"
-                app:titleTextAppearance="@style/Toolbar.TitleText">
-
+                app:titleTextAppearance="@style/Toolbar.TitleText"
+                app:titleTextColor="@color/white">
 
 
             </androidx.appcompat.widget.Toolbar>
@@ -48,7 +47,25 @@
                 android:layout_below="@+id/toolbar"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp" />
+                android:layout_marginTop="0dp" >
+
+            </ListView>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar2"
+                android:layout_width="41dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+
+                android:layout_marginTop="649dp"
+                android:layout_marginEnd="0dp"
+                android:background="#67a3d9"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:menu="@menu/color_menu">
+
+
+            </androidx.appcompat.widget.Toolbar>
 
         </RelativeLayout>
 

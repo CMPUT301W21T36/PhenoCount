@@ -36,6 +36,7 @@
                 android:background="#67a3d9"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
+                app:menu="@menu/color_menu"
                 app:navigationIcon="@drawable/ic_nav_menu"
                 app:title="  ">
                 <!--"-->
@@ -58,7 +59,7 @@
 
             <ListView
                 android:id="@+id/expList"
-                android:background="@drawable/hint_main"
+                android:background="@drawable/hint_question"
                 android:layout_width="match_parent"
                 android:layout_height="670dp"
                 android:layout_below="@+id/toolbar"

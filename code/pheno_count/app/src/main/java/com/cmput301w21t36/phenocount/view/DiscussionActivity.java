@@ -2,6 +2,7 @@ package com.cmput301w21t36.phenocount;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,15 +57,31 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         //getSupportActionBar().setTitle("Discussion Forum");
         navigationSettings();
 
+        boolean empty;
+
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
         queAdapter = new QuestionAdapter(this, queData);
         qListView.setAdapter(queAdapter);
 
         disManager = new DiscussionManager(experiment);
-        disManager.updateQueData(queData, queAdapter);
+        disManager.updateQueData(queData, queAdapter, qListView);
+        empty = disManager.isEmpty();
         queData = disManager.getQueDataList();
         queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
+
+
+        System.out.println("data size is: ");
+        System.out.println(queData.size());
+        System.out.println(queData);
+
+//        if (empty){
+//            System.out.println("empty is true");
+//            qListView.setBackgroundResource(R.drawable.hint_question);
+//        }else{
+//            System.out.println("empty is false");
+//
+//        }
 
         /*
         When the 'ask question' button is pressed in this activity,

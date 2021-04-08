@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/ic_menu_3"
+        android:title=""
+        app:showAsAction="always">
+    <menu>
+    <item
+        android:id="@+id/binCol"
+        android:icon="@drawable/ic_bin_24"
+        android:title="Binomial"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/countCol"
+        android:icon="@drawable/ic_count"
+        android:title="Count"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nonCol"
+        android:icon="@drawable/ic_non_neg"
+        android:title="NonNegative"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/measureCol"
+        android:icon="@drawable/ic_measure"
+        android:title="Measurement"
+        app:showAsAction="ifRoom" />
+
+    </menu>
+    </item>
+</menu>
