@@ -48,11 +48,11 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         numText.setText(numMessage);
 
         if (position % 2 == 1) {
-            queText.setTextColor(Color.parseColor("#EFCCEB"));
-            numText.setTextColor(Color.parseColor("#EFCCEB"));
+            queText.setTextColor(Color.parseColor("#2196F3"));
+            numText.setTextColor(Color.parseColor("#2196F3"));
         } else {
-            queText.setTextColor(Color.parseColor("#9AE8E1"));
-            numText.setTextColor(Color.parseColor("#9AE8E1"));
+            queText.setTextColor(Color.parseColor("#E556D2"));
+            numText.setTextColor(Color.parseColor("#E556D2"));
         }
 
 

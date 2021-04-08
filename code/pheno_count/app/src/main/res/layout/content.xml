@@ -15,7 +15,7 @@
         android:padding="20dp"
         android:text="Experiment"
         android:textAlignment="textStart"
-        android:textColor="#000000"
+        android:textColor="#E556D2"
         android:textColorHint="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold">
