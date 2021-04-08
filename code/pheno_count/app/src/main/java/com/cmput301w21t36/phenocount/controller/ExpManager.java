@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firestore.v1.Target;
 
 import android.content.SharedPreferences;
+import android.widget.ListView;
 
 import java.lang.reflect.Array;
 import java.sql.NClob;
@@ -75,7 +76,7 @@ public class ExpManager {
      * @see MainActivity
      */
     public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                           ArrayAdapter<Experiment> expAdapter, String UUID, int mode){
+                           ArrayAdapter<Experiment> expAdapter, String UUID, int mode, ListView expListView){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
         db.collection("Experiment")
             .whereEqualTo("owner",UUID).orderBy("status")
@@ -83,6 +84,13 @@ public class ExpManager {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
+                if(queryDocumentSnapshots.isEmpty()){
+                    System.out.println("question is empty");
+                    expListView.setBackgroundResource(R.drawable.hint_question);
+                }else{
+                    System.out.println("question is not empty");
+                    expListView.setBackgroundResource(R.drawable.hint_white);
+                }
                 getdata(db, expDataList, expAdapter, mode, queryDocumentSnapshots, error);
             }
         });

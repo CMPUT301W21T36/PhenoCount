@@ -86,7 +86,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // It will save over instances of the app and is only updated upon first open after install
         UUID = sharedPrefs.getString(AutoID, "");
 
-
+//        if (expDataList.size() ==0){
+//            experiments.setBackgroundResource(R.drawable.hint_question);
+//        }else{
+//            experiments.setBackgroundResource(R.drawable.splash_screen);
+//        }
 
         /**
          * Will retrieve the Username for the user and set the variable username
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         expAdapter = new ExperimentAdapter(this,expDataList);
         experiments.setAdapter(expAdapter);
-        manager.getExpData(db, expDataList, expAdapter, UUID, 0); // To populate our experiment list
+        manager.getExpData(db, expDataList, expAdapter, UUID, 0, experiments); // To populate our experiment list
 
         experiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
