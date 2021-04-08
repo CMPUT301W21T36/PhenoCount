@@ -95,6 +95,12 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         trialAdapter = new TrialAdapter(this,trialList,UUID,exp.getOwner().getUID());
         trials.setAdapter(trialAdapter);
 
+        if(trialList.size() == 0){
+            trials.setBackgroundResource(R.drawable.hint_trial);
+        }else{
+            trials.setBackgroundResource(R.drawable.hint_white);
+        }
+
         trials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
