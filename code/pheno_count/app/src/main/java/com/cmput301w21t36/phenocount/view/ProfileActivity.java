@@ -212,7 +212,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
                 intent = new Intent(ProfileActivity.this,MainActivity.class);
                 break;
             case R.id.nav_search:
-                intent = new Intent(ProfileActivity.this, com.cmput301w21t36.phenocount.SearchingActivity.class);
+                intent = new Intent(ProfileActivity.this,SearchingActivity.class);
                 break;
             case R.id.nav_user:
                 intent = new Intent(ProfileActivity.this,ProfileActivity.class);

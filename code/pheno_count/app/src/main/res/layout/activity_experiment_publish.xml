@@ -17,205 +17,196 @@
         app:headerLayout="@layout/header"
         app:itemIconTint="#000000"
         app:menu="@menu/navigation_drawer" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginEnd="5dp"
-    android:orientation="vertical"
-    android:scrollbarAlwaysDrawVerticalTrack="true"
-    android:scrollbars="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#67a3d9"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:navigationIcon="@drawable/ic_nav_menu"
-        app:title="  ">
+        android:layout_height="match_parent"
+        android:layout_marginEnd="5dp"
+        android:orientation="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/open_sans_light"
-            android:text="Publish Experiment"
-            android:textColor="#ffff"
-            android:textSize="25dp"
-            android:textStyle="bold|italic" />
+            android:background="#67a3d9"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:navigationIcon="@drawable/ic_nav_menu"
+            app:title="  ">
 
-    </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/open_sans_light"
+                android:text="Publish Experiment"
+                android:textColor="#ffff"
+                android:textSize="25dp"
+                android:textStyle="bold|italic" />
 
-    <EditText
-        android:id="@+id/expName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/open_sans_light"
-        android:hint="Name"
-        android:inputType="textMultiLine|textPersonName"
-        android:padding="10dp"
-        android:scrollHorizontally="true"
-        android:textAlignment="center"
-        android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/expDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/open_sans_light"
-        android:hint="@string/desc_hint"
-        android:inputType="textMultiLine|textPersonName"
-        android:padding="10dp"
-        android:scrollHorizontally="true"
-        android:textAlignment="center"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/expRegion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/open_sans_light"
-        android:hint="Region"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:textStyle="bold" />
-
-    <RadioGroup
-        android:id="@+id/radio1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textDirection="ltr">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="126dp"
+        <EditText
+            android:id="@+id/expName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:fontFamily="@font/open_sans_light"
-            android:padding="5dp"
-            android:text="@string/radio_text"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:hint="Name"
+            android:inputType="textMultiLine|textPersonName"
+            android:padding="10dp"
+            android:scrollHorizontally="true"
+            android:textAlignment="center" />
 
-        <RadioButton
-            android:id="@+id/radioBinomial"
+        <EditText
+            android:id="@+id/expDesc"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:fontFamily="@font/open_sans_light"
-            android:onClick="onRadioButtonClicked"
-            android:text="Binomial Trial"
-            android:textStyle="bold" />
-
-        <RadioButton
-            android:id="@+id/radioCount"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:fontFamily="@font/open_sans_light"
-            android:onClick="onRadioButtonClicked"
-            android:text="Count Based Trial "
-            android:textStyle="bold" />
-
-        <RadioButton
-            android:id="@+id/radioInt"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:fontFamily="@font/open_sans_light"
-            android:onClick="onRadioButtonClicked"
-            android:text="Non-Negative Integer Count"
-            android:textStyle="bold" />
-
-        <RadioButton
-            android:id="@+id/radioMeasure"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:fontFamily="@font/open_sans_light"
-            android:onClick="onRadioButtonClicked"
-            android:text="Measurement Trial"
-            android:textStyle="bold" />
-
-    </RadioGroup>
-
-    <EditText
-        android:id="@+id/expNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/open_sans_light"
-        android:hint="Minimum number of Trials"
-        android:inputType="number"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:textStyle="bold" />
-
-    <CheckBox
-        android:id="@+id/geoCheckBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/open_sans_light"
-        android:layoutDirection="rtl"
-        android:padding="10dp"
-        android:text="Require Geolocation"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
-
-    <android.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:minHeight="1dp" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="123dp"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/okButton"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right|center_horizontal"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
+            android:ems="10"
             android:fontFamily="@font/open_sans_light"
-            android:onClick="toAdd"
-            android:text="OK"
+            android:hint="@string/desc_hint"
+            android:inputType="textMultiLine|textPersonName"
+            android:padding="10dp"
+            android:scrollHorizontally="true"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/expRegion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/open_sans_light"
+            android:hint="Region"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textAlignment="center" />
+
+        <RadioGroup
+            android:id="@+id/radio1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textDirection="ltr">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_light"
+                android:padding="5dp"
+                android:text="@string/radio_text"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/radioBinomial"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:fontFamily="@font/open_sans_light"
+                android:onClick="onRadioButtonClicked"
+                android:text="Binomial Trial" />
+
+            <RadioButton
+                android:id="@+id/radioCount"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:fontFamily="@font/open_sans_light"
+                android:onClick="onRadioButtonClicked"
+                android:text="Count Based Trial " />
+
+            <RadioButton
+                android:id="@+id/radioInt"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:fontFamily="@font/open_sans_light"
+                android:onClick="onRadioButtonClicked"
+                android:text="Non-Negative Integer Count" />
+
+            <RadioButton
+                android:id="@+id/radioMeasure"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:fontFamily="@font/open_sans_light"
+                android:onClick="onRadioButtonClicked"
+                android:text="Measurement Trial" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/expNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/open_sans_light"
+            android:hint="Minimum number of Trials"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/geoCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/open_sans_light"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="Require Geolocation"
             android:textAlignment="center"
-            android:textStyle="bold"
-            app:backgroundTint="#67A3D9" />
+            android:textColor="@android:color/black" />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal|left"
-            android:layout_marginTop="24dp"
+        <android.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:fontFamily="@font/open_sans_light"
-            android:onClick="toCancel"
-            android:text="Cancel"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            app:backgroundTint="#67A3D9" />
-    </FrameLayout>
+            android:minHeight="1dp" />
 
-</LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="123dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/okButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right|center_horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/open_sans_light"
+                android:onClick="toAdd"
+                android:text="OK"
+                android:textAlignment="center"
+                app:backgroundTint="#67A3D9" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal|left"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/open_sans_light"
+                android:onClick="toCancel"
+                android:text="Cancel"
+                android:textAlignment="center"
+                app:backgroundTint="#67A3D9" />
+        </FrameLayout>
+
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

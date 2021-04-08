@@ -13,12 +13,14 @@ public class PlotsManager implements Serializable {
     Experiment exp;
     ArrayList<Trial> trials;
     ArrayList<String> dates;
+    String yTitle;
+
 
     public PlotsManager(Experiment exp) {
         this.exp = exp;//defining the Experiment object
         trials = exp.getTrials();
         dates = new ArrayList<>();
-        System.out.println("TRIALS IN PLOT MANAGER "+ trials);
+        yTitle = "";
     }
 
 
@@ -83,6 +85,7 @@ public class PlotsManager implements Serializable {
 
         System.out.println("BINOMIAL WORKING");
         //probably separate date too
+        yTitle = "SUCCESSES";
 
 
         ArrayList<DataPoint> dpList = new ArrayList<>();
@@ -123,7 +126,7 @@ public class PlotsManager implements Serializable {
         System.out.println("COUNT WORKING");
         //probably separate date too
 
-
+        yTitle = "COUNT";
         ArrayList<DataPoint> dpList = new ArrayList<>();
         int i = 0;
         //Collections.sort(dates);
@@ -162,6 +165,7 @@ public class PlotsManager implements Serializable {
         System.out.println("MEASUREMENT WORKING");
         ArrayList<DataPoint> dpList = new ArrayList<>();
         int i = 0;
+        yTitle = "MEAN";
         //Collections.sort(dates);
         double trials_sum = 0;
         int count = 0;
@@ -196,6 +200,7 @@ public class PlotsManager implements Serializable {
 
     public DataPoint[] nonNegative_plot(){
         System.out.println("NON NEGATIVE WORKING");
+        yTitle = "MEAN";
         ArrayList<DataPoint> dpList = new ArrayList<>();
         int i = 0;
         //Collections.sort(dates);

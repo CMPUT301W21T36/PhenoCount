@@ -32,8 +32,8 @@ public class MapsActivityTest {
     @Test
     public void checkLocation(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        
-        solo.clickOnView((Button) solo.getView(R.id.addButton));
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Add an Experiment");
         solo.enterText((EditText) solo.getView(R.id.expName), "Cupcake count");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "How many cupcakes did you have today? ");
         solo.enterText((EditText) solo.getView(R.id.expRegion), "Middle East");

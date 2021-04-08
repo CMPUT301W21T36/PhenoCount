@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,8 +22,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,15 +55,19 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference experimentRef = db.collection("Experiment");
 
-    private SearchingManager searchManag;
-    private ArrayList<Experiment> expDataList = new ArrayList<Experiment>();
-    private ArrayList<Experiment> allExpDataList = new ArrayList<Experiment>();
-    private ResultAdapter adapter;
+    private com.cmput301w21t36.phenocount.SearchingManager searchManag;
+    private ArrayList<com.cmput301w21t36.phenocount.Experiment> expDataList = new ArrayList<com.cmput301w21t36.phenocount.Experiment>();
+    private ArrayList<com.cmput301w21t36.phenocount.Experiment> allExpDataList = new ArrayList<com.cmput301w21t36.phenocount.Experiment>();
+    private com.cmput301w21t36.phenocount.ResultAdapter adapter;
     private ListView experimentListView;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     androidx.appcompat.widget.Toolbar toolbar;
+
+    String searchText;
+
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,19 +79,18 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
         experimentListView = findViewById(R.id.listView);
 
-        searchManag = new SearchingManager(this);
+        searchManag = new com.cmput301w21t36.phenocount.SearchingManager(this);
 
-        adapter = new ResultAdapter(this, expDataList);
+        adapter = new com.cmput301w21t36.phenocount.ResultAdapter(this, expDataList);
         experimentListView.setAdapter(adapter);
 
         searchManag.getAllExp(db, expDataList, adapter);
-
         // When experiment in listview is clicked, we open it and call new activity
         experimentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent (SearchingActivity.this,DisplayExperimentActivity.class);
-                Experiment exp_obj = (Experiment) experimentListView.getAdapter().getItem(position);
+                Intent intent = new Intent (SearchingActivity.this, com.cmput301w21t36.phenocount.DisplayExperimentActivity.class);
+                com.cmput301w21t36.phenocount.Experiment exp_obj = (com.cmput301w21t36.phenocount.Experiment) experimentListView.getAdapter().getItem(position);
                 System.out.println(position);
                 intent.putExtra("experiment",exp_obj);
                 intent.putExtra("position",position);
@@ -96,14 +103,23 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         //https://stackoverflow.com/questions/27378981/how-to-use-searchview-in-toolbar-android
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_search,menu);
 
         MenuItem menuItem = menu.findItem(R.id.searchView);
 
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        Button button = findViewById(R.id.button);
+
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchingActivity.this, com.cmput301w21t36.phenocount.ScanBarcodeActivity.class);
+                startActivityForResult(i, 1);
+//                searchView.setQuery(searchText, true);
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -183,22 +199,22 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         Intent intent = new Intent();
         switch (item.getItemId()){
             case R.id.nav_my_exp:
-                intent = new Intent(SearchingActivity.this,MainActivity.class);
+                intent = new Intent(SearchingActivity.this, com.cmput301w21t36.phenocount.MainActivity.class);
                 break;
             case R.id.nav_search:
                 intent = new Intent(SearchingActivity.this,SearchingActivity.class);
                 break;
             case R.id.nav_user:
-                intent = new Intent(SearchingActivity.this,ProfileActivity.class);
+                intent = new Intent(SearchingActivity.this, com.cmput301w21t36.phenocount.ProfileActivity.class);
                 intent.putExtra("UUID",UUID);
                 break;
             case R.id.nav_add:
-                intent = new Intent(SearchingActivity.this,PublishExperimentActivity.class);
+                intent = new Intent(SearchingActivity.this, com.cmput301w21t36.phenocount.PublishExperimentActivity.class);
                 intent.putExtra("AutoId",UUID);
                 intent.putExtra("mode",0);
                 break;
             case R.id.nav_sub_exp:
-                intent = new Intent(SearchingActivity.this,ShowSubscribedListActivity.class);
+                intent = new Intent(SearchingActivity.this, com.cmput301w21t36.phenocount.ShowSubscribedListActivity.class);
                 intent.putExtra("owner",UUID);
                 break;
 
@@ -206,6 +222,22 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
         startActivity(intent);
         return true;
+    }
+
+    @Override
+    //Sends the experiment object and retrieves the updated object
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String scannedText = data.getSerializableExtra("scannedText").toString();
+                searchView.setQuery(scannedText, true);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                System.out.println("No Data");
+            }
+        }
+
     }
 }
 

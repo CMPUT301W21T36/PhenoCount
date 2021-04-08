@@ -6,18 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".PlotsActivity">
 
-    <TextView
-        android:id="@+id/expDetails"
-        android:layout_width="342dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/graph"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#67a3d9"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="  "
+        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79" />
+        app:layout_constraintVertical_bias="0.0">
+        <!--"-->
+
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/open_sans_light"
+            android:textColor="#ffff"
+            android:text="PLOTS  "
+            android:textSize="25dp"
+            android:textStyle="bold|italic" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/expDetails"
+        android:layout_width="347dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/open_sans"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#9dc183"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/graph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
@@ -26,8 +60,25 @@
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.644" />
+
+    <TextView
+        android:id="@+id/yAxisLabel"
+        android:layout_width="239dp"
+        android:layout_height="344dp"
+        android:fontFamily="@font/open_sans"
+        android:rotation="270"
+        android:text="TextView"
+        android:textColor="#9dc183"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.341" />
 
     <TextView
         android:id="@+id/xAxisLabel"
@@ -35,39 +86,30 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="84dp"
         android:text="TextView"
+        android:fontFamily="@font/open_sans"
+        android:textColor="#9dc183"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/graph"
         app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/yAxisLabel"
-        android:layout_width="239dp"
-        android:layout_height="344dp"
-        android:rotation="270"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.366"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
 
     <TextView
         android:id="@+id/expName"
         android:layout_width="225dp"
         android:layout_height="28dp"
         android:layout_marginTop="28dp"
+        android:fontFamily="@font/open_sans"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="#9dc183"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/graph"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211" />
+        app:layout_constraintVertical_bias="0.483" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

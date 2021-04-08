@@ -254,7 +254,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 openProfile();
                 break;
             case R.id.nav_add:
+                drawerLayout.closeDrawer(GravityCompat.START);
                 addExperiment();
+
                 break;
             case R.id.nav_sub_exp:
                 showSubList();
