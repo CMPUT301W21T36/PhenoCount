@@ -45,7 +45,7 @@ public class ShowSubscribedListActivity extends AppCompatActivity implements Nav
         expDataList = new ArrayList<>();
         expAdapter = new ExperimentAdapter(this,expDataList);
         subExperiments.setAdapter(expAdapter);
-        manager.getSubExpData(db, expDataList, expAdapter, UUID, 1); // To populate our experiment list
+        manager.getSubExpData(db, expDataList, expAdapter, UUID, 1, subExperiments); // To populate our experiment list
 
         subExperiments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
