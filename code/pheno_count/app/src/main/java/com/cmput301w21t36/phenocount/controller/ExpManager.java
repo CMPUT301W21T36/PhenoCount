@@ -105,10 +105,8 @@ public class ExpManager {
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                             FirebaseFirestoreException error) {
                         if(queryDocumentSnapshots.isEmpty()){
-                            System.out.println("question is empty");
-                            subListView.setBackgroundResource(R.drawable.hint_question);
+                            subListView.setBackgroundResource(R.drawable.hint_sub);
                         }else{
-                            System.out.println("question is not empty");
                             subListView.setBackgroundResource(R.drawable.hint_white);
                         }
                         getdata(db, expDataList, expAdapter, mode, queryDocumentSnapshots, error);
