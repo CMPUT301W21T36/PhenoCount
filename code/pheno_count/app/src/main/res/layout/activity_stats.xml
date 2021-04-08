@@ -36,93 +36,103 @@
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
-        android:id="@+id/iqr"
-        android:layout_width="350dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/open_sans_light"
-        android:text="TextView"
-        android:textColor="@color/purple_700"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544" />
-
-    <TextView
-        android:id="@+id/sd"
-        android:layout_width="350dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/open_sans_light"
-        android:text="TextView"
-        android:textColor="@color/purple_700"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888" />
-
-    <TextView
         android:id="@+id/median"
-        android:layout_width="350dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/open_sans_light"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/open_sans"
         android:text="TextView"
-        android:textColor="@color/purple_700"
-        android:textSize="30dp"
+        android:textColor="#67a3d9"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintVertical_bias="0.742" />
 
     <TextView
         android:id="@+id/q3"
-        android:layout_width="350dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/open_sans_light"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/open_sans"
         android:text="TextView"
-        android:textColor="@color/purple_700"
-        android:textSize="30dp"
+        android:textColor="#67a3d9"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintVertical_bias="0.813" />
 
     <TextView
-        android:id="@+id/q1"
-        android:layout_width="350dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/open_sans_light"
+        android:id="@+id/iqr"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/open_sans"
         android:text="TextView"
-        android:textColor="@color/purple_700"
-        android:textSize="30dp"
+        android:textColor="#67a3d9"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.742" />
+
+    <TextView
+        android:id="@+id/sd"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/open_sans"
+        android:text="TextView"
+        android:textColor="#67a3d9"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.813" />
 
     <TextView
         android:id="@+id/mean"
-        android:layout_width="350dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/open_sans_light"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/open_sans"
         android:text="TextView"
-        android:textColor="@color/purple_700"
-        android:textSize="30dp"
+        android:textColor="#67a3d9"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.669" />
+
+    <TextView
+        android:id="@+id/q1"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/open_sans"
+        android:text="TextView"
+        android:textColor="#67a3d9"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.669" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="391dp"
+        android:layout_height="361dp"
+        app:layout_constraintBottom_toTopOf="@+id/q1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/stats" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
