@@ -57,8 +57,8 @@ public class PublishExperimentTest {
     @Test
     public void checkAddingExp(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        //solo.clickOnView(solo.getView(R.id.addButton));
-        solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Publish an Experiment");
         solo.enterText((EditText) solo.getView(R.id.expName), "Red Cars");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "To note the number of red cars observed");
         solo.enterText((EditText) solo.getView(R.id.expRegion), "Edmonton");
@@ -85,11 +85,13 @@ public class PublishExperimentTest {
     @Test
     public void testCancelButton(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        //solo.clickOnView(solo.getView(R.id.addButton));
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Publish an Experiment");
         solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
         solo.clickOnView(solo.getView(R.id.cancelButton));
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        //solo.clickOnView(solo.getView(R.id.addButton));
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Publish an Experiment");
         solo.assertCurrentActivity("Wrong Activity", PublishExperimentActivity.class);
         solo.enterText((EditText) solo.getView(R.id.expName), "Pink Ballons");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "To note the number of pink ballons observed");
@@ -109,7 +111,5 @@ public class PublishExperimentTest {
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
     }
-
-
 
 }
