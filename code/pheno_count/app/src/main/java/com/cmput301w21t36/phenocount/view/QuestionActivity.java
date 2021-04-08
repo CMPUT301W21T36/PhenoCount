@@ -60,7 +60,7 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
         rListView.setAdapter(repAdapter);
 
         disManager = new DiscussionManager(experiment, question);
-        disManager.updateRepData(repData, repAdapter);
+        disManager.updateRepData(repData, repAdapter,rListView);
         repData = disManager.getRepDataList();
         repAdapter.notifyDataSetChanged();
 

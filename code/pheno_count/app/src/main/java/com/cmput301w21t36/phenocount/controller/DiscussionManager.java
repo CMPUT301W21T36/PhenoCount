@@ -114,7 +114,7 @@ public class DiscussionManager{
     }
 
     //update the Reply ListView in the question activity
-    public void updateRepData(ArrayList<Reply> rDataList, ReplyAdapter rAdapter){
+    public void updateRepData(ArrayList<Reply> rDataList, ReplyAdapter rAdapter, ListView rListView){
         this.repDataList = rDataList;
         // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
         // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
@@ -122,6 +122,13 @@ public class DiscussionManager{
             @Override
             //tracking the changes in the collection 'Reply'
             public void onEvent(@Nullable QuerySnapshot replies, @Nullable FirebaseFirestoreException e) {
+                if(replies.isEmpty()){
+                    System.out.println("question is empty");
+                    rListView.setBackgroundResource(R.drawable.hint_question);
+                }else{
+                    System.out.println("question is not empty");
+                    rListView.setBackgroundResource(R.drawable.hint_white);
+                }
                 // clear the old list
                 repDataList.clear();
                 //add documents in the question collection to the list view
