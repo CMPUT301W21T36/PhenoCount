@@ -90,7 +90,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <Button
+            <ImageButton
                 android:id="@+id/plotButton"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
@@ -99,24 +99,26 @@
                 android:backgroundTint="#67a3d9"
                 android:paddingLeft="53dp"
                 android:paddingRight="53dp"
-                app:icon="@drawable/ic_graph" />
+                android:src="@drawable/ic_line_chart"
+                android:scaleType="centerCrop"/>
 
             <Button
                 android:id="@+id/statsButton"
-                android:layout_width="0dp"
+                android:layout_width="29dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:backgroundTint="#67a3d9"
                 android:paddingLeft="53dp"
                 android:paddingRight="53dp"
-                app:icon="@drawable/ic_stats"
-
+                android:text="STATS"
+                android:textColor="@color/black"
+                android:textSize="10dp"
                 />
 
             <ImageButton
                 android:id="@+id/histogramButtonn"
-                android:layout_width="20dp"
+                android:layout_width="4dp"
                 android:layout_height="75dp"
                 android:layout_gravity="right"
                 android:layout_weight="1"

@@ -113,7 +113,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         returnIntent.putExtra("experiment", exp);
         setResult(Activity.RESULT_OK,returnIntent);
 
-        Button plotsButton = findViewById(R.id.plotButton);
+        ImageButton plotsButton =(ImageButton)findViewById(R.id.plotButton);
         plotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

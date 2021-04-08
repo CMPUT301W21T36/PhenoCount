@@ -97,13 +97,18 @@ public class ExpManager {
     }
 
     public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                              ArrayAdapter<Experiment> expAdapter, String UUID, int mode){
+                              ArrayAdapter<Experiment> expAdapter, String UUID, int mode, ListView subListView){
         db.collection("Experiment")
                 .whereArrayContains("sub_list",UUID)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                             FirebaseFirestoreException error) {
+                        if(queryDocumentSnapshots.isEmpty()){
+                            subListView.setBackgroundResource(R.drawable.hint_sub);
+                        }else{
+                            subListView.setBackgroundResource(R.drawable.hint_white);
+                        }
                         getdata(db, expDataList, expAdapter, mode, queryDocumentSnapshots, error);
                     }
                 });
