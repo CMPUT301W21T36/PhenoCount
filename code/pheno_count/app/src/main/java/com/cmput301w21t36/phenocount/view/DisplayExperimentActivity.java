@@ -176,7 +176,9 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         expMenu.findItem(R.id.subscribeButton).setEnabled(true);
         expMenu.findItem(R.id.unsubscribeButton).setVisible(false);
         expMenu.findItem(R.id.republishButton).setVisible(false);
-        expMenu.findItem(R.id.generate_qr).setVisible(false);
+        expMenu.findItem(R.id.add_qr).setVisible(false);
+        expMenu.findItem(R.id.add_qr).setEnabled(true);
+
 
 
         if(!(UUID.equals(exp.getOwner().getUID()))){
@@ -189,6 +191,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         if (exp.getExpStatus()==2){
             expMenu.findItem(R.id.endButton).setEnabled(false);
             expMenu.findItem(R.id.addTrialButon).setEnabled(false);
+            expMenu.findItem(R.id.add_qr).setEnabled(false);
             expMenu.findItem(R.id.republishButton).setVisible(true);
         }
         if (exp.getSubscribers().contains(UUID)){
@@ -196,7 +199,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
             expMenu.findItem(R.id.unsubscribeButton).setVisible(true);
         }
         if (exp.getExpType().equals("Binomial") || exp.getExpType().equals("Count")) {
-            expMenu.findItem(R.id.generate_qr).setVisible(true);
+            expMenu.findItem(R.id.add_qr).setVisible(true);
         }
     }
     @Override
@@ -237,7 +240,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
             //System.out.println("IN DISPLAY EXP ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
             int LAUNCH_THIRD_ACTIVITY = 3;
             startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
-        } else if(item.getItemId() == R.id.generate_qr){
+        } else if(item.getItemId() == R.id.add_qr){
             Intent i = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ScanQRActivity.class);
             i.putExtra("experiment", exp);
             startActivityForResult(i, 1);

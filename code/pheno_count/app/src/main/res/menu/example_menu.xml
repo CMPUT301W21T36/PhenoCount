@@ -4,7 +4,7 @@
     <item android:id="@+id/addTrialButon"
         android:title="Add Trial"
         app:showAsAction="never"/>
-    <item android:id="@+id/generate_qr"
+    <item android:id="@+id/add_qr"
         android:title="Add Trial with QR"
         app:showAsAction="never"/>
     <item android:id="@+id/subscribeButton"
