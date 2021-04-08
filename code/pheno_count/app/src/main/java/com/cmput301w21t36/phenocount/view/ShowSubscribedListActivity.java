@@ -68,7 +68,6 @@ public class ShowSubscribedListActivity extends AppCompatActivity implements Nav
         navigationView=findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         navigationView.bringToFront();
-        setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
