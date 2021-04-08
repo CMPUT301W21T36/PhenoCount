@@ -50,6 +50,8 @@
 
         <ListView
             android:id="@+id/question_list_view"
+            android:focusableInTouchMode="false"
+            android:isScrollContainer="false"
             android:layout_width="match_parent"
             android:layout_height="670dp"
             android:layout_below="@+id/toolbar"
