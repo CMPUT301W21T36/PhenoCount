@@ -327,7 +327,7 @@ public class ExpManager {
 
                 }
             });
-
+            System.out.println("HELLOO"+ exp.getOwner().getUID() +"uuuuu");
             System.out.println("Caleb's test" + exp.getOwner().getUID());
 
             Task<DocumentSnapshot> userDocument = db.collection("User")

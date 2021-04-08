@@ -115,7 +115,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         expStatus.setText(mStat);
         // Adding icon programmatically : BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
         if(exp.isRequireLocation()== true) {
-            expReqLoc.setText(" REQUIRED");
+            expReqLoc.setText("WARNING: REQUIRED");
             expReqLoc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0);
         }
         else {expReqLoc.setText("NOT REQUIRED");}
