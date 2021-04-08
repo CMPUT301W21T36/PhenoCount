@@ -86,16 +86,11 @@ public class DiscussionManager{
                     qListView.setBackgroundResource(R.drawable.hint_question);
                 }else{
                     System.out.println("question is not empty");
+                    qListView.setBackgroundResource(R.drawable.hint_white);
                 }
                 queDataList.clear();
                 //add documents in the question collection to the list view
                 for (QueryDocumentSnapshot que : questions) {
-                    if(que!= null){
-                        setEmpty(false);
-
-                    }else{
-                        System.out.println("Que not exist");
-                    }
                     String qID =  que.getId();
                     Log.d(TAG, qID);
                     String qText = (String) que.getData().get("text");
@@ -116,14 +111,6 @@ public class DiscussionManager{
                 qAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
             }
         });
-    }
-
-    public boolean isEmpty() {
-        return empty;
-    }
-
-    public void setEmpty(boolean empty) {
-        this.empty = empty;
     }
 
     //update the Reply ListView in the question activity

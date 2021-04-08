@@ -57,8 +57,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         //getSupportActionBar().setTitle("Discussion Forum");
         navigationSettings();
 
-        boolean empty;
-
         experiment = (Experiment) getIntent().getSerializableExtra("experiment");//defining the Experiment object
         qListView = findViewById(R.id.question_list_view);
         queAdapter = new QuestionAdapter(this, queData);
@@ -66,7 +64,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
 
         disManager = new DiscussionManager(experiment);
         disManager.updateQueData(queData, queAdapter, qListView);
-        empty = disManager.isEmpty();
         queData = disManager.getQueDataList();
         queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
 
@@ -74,14 +71,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         System.out.println("data size is: ");
         System.out.println(queData.size());
         System.out.println(queData);
-
-//        if (empty){
-//            System.out.println("empty is true");
-//            qListView.setBackgroundResource(R.drawable.hint_question);
-//        }else{
-//            System.out.println("empty is false");
-//
-//        }
 
         /*
         When the 'ask question' button is pressed in this activity,
