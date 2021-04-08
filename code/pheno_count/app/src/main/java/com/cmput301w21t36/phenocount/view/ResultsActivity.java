@@ -18,11 +18,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
 import com.cmput301w21t36.phenocount.Trial;
+import com.google.android.material.navigation.NavigationView;
 
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -32,7 +36,7 @@ import androidmads.library.qrgenearator.QRGEncoder;
  * This model class passes a trials list to TrialAdapter to display results of the trials conducted
  * It also generates and displays a Qr code when a trial is clicked in the list
  */
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ListView trials;
     ArrayAdapter<Trial> trialAdapter;
     ArrayList<Trial> trialList;
@@ -42,12 +46,18 @@ public class ResultsActivity extends AppCompatActivity {
     Button statsButton;
     ImageButton histogramButton;
     Menu expMenu;
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    androidx.appcompat.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_results);
+
+        navigationSettings();
 
         //initializing attributes
         trials =findViewById(R.id.trial_list);
@@ -187,6 +197,62 @@ public class ResultsActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void navigationSettings(){
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        String UUID = sharedPrefs.getString("ID", "");
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.nav_my_exp:
+                intent = new Intent(ResultsActivity.this,MainActivity.class);
+                break;
+            case R.id.nav_search:
+                intent = new Intent(ResultsActivity.this,SearchingActivity.class);
+                break;
+            case R.id.nav_user:
+                intent = new Intent(ResultsActivity.this,ProfileActivity.class);
+                intent.putExtra("UUID",UUID);
+                break;
+            case R.id.nav_add:
+                intent = new Intent(ResultsActivity.this,PublishExperimentActivity.class);
+                intent.putExtra("AutoId",UUID);
+                intent.putExtra("mode",0);
+                break;
+            case R.id.nav_sub_exp:
+                intent = new Intent(ResultsActivity.this,ShowSubscribedListActivity.class);
+                intent.putExtra("owner",UUID);
+                break;
+
+        }
+
+        startActivity(intent);
+        return true;
     }
 
 

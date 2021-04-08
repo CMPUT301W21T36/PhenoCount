@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cmput301w21t36.phenocount.PlotsManager;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -63,34 +64,37 @@ public class PlotsActivity extends AppCompatActivity {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 //System.out.println("VALUE inside "+ (long)value);
-                if (value == (int)value){
+
                     if (isValueX) {
+                        if (value == (int)value){
                         System.out.println("VALUE = " + value);
                         return dates.get((int) value);
+                        }
                         //return "lol";
                     }
                     return super.formatLabel(value, isValueX);
-                }
-                return "";
+
+
             }
 
         });
 
 
-
+        graphView.invalidate();
         pointSeries = new PointsGraphSeries<>(dp);
         series = new LineGraphSeries<>(dp);
         graphView.addSeries(series);
         graphView.addSeries(pointSeries);
         pointSeries.setShape(PointsGraphSeries.Shape.POINT);
-        series.setColor(R.color.purple_200);
+        pointSeries.setColor(R.color.purple_200);
+        //series.setColor(R.color.teal_700);
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(0.2f);
-
+        String yAxis = plotsManager.yTitle;
         TextView xAxisLabel = findViewById(R.id.xAxisLabel);
         xAxisLabel.setText("TIME (Days)");
         TextView yAxisLabel = findViewById(R.id.yAxisLabel);
-        yAxisLabel.setText("SUCCESSES");
+        yAxisLabel.setText(yAxis);
         TextView expName = findViewById(R.id.expName);
         expName.setText(exp.getName());
         TextView expDet = findViewById(R.id.expDetails);
@@ -111,7 +115,7 @@ public class PlotsActivity extends AppCompatActivity {
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setYAxisBoundsManual(true);
         //graphView.getViewport().setMinY(dp[0].getY());
-        //graphView.getViewport().setMaxY(dp[dp_length-1].getY());
+       // graphView.getViewport().setMaxY(dp[dp_length-1].getY());
 
 
         graphView.getGridLabelRenderer().setPadding(70);
