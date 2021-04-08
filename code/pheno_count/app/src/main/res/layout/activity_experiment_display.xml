@@ -20,7 +20,7 @@
         app:menu="@menu/navigation_drawer" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".DisplayExperimentActivity">
 
@@ -350,13 +350,14 @@
 
         <TextView
             android:id="@+id/qr_descp"
-            android:layout_width="189dp"
-            android:layout_height="43dp"
-            android:layout_marginEnd="240dp"
+            android:layout_width="89dp"
+            android:layout_height="30dp"
             android:text="Generate QR"
             android:textAlignment="center"
             android:textColor="#C19898"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mapTitle"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qrButton" />
 
         <TextView
