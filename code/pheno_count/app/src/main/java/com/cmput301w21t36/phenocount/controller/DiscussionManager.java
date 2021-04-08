@@ -123,10 +123,8 @@ public class DiscussionManager{
             //tracking the changes in the collection 'Reply'
             public void onEvent(@Nullable QuerySnapshot replies, @Nullable FirebaseFirestoreException e) {
                 if(replies.isEmpty()){
-                    System.out.println("question is empty");
-                    rListView.setBackgroundResource(R.drawable.hint_question);
+                    rListView.setBackgroundResource(R.drawable.hint_reply);
                 }else{
-                    System.out.println("question is not empty");
                     rListView.setBackgroundResource(R.drawable.hint_white);
                 }
                 // clear the old list
