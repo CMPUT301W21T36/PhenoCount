@@ -41,9 +41,11 @@
             </androidx.appcompat.widget.Toolbar>
 
             <ListView
+                android:focusableInTouchMode="false"
+                android:isScrollContainer="false"
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/toolbar"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
@@ -68,7 +70,7 @@
             </androidx.appcompat.widget.Toolbar>
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/button"
+                android:id="@+id/QrButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

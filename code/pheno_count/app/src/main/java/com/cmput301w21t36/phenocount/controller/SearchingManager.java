@@ -55,6 +55,11 @@ public class SearchingManager {
                 }
             }
             adapter = new ResultAdapter(context, foundExp);
+            if(foundExp.size() == 0){
+                experimentListView.setBackgroundResource(R.drawable.hint_search);
+            }else{
+                experimentListView.setBackgroundResource(R.drawable.hint_white);
+            }
 
         }
         // Refill list with all experiments when nothing is there
