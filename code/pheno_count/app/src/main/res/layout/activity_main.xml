@@ -58,7 +58,6 @@
 
             <ListView
                 android:id="@+id/expList"
-                android:background="@drawable/hint_question"
                 android:layout_width="match_parent"
                 android:layout_height="670dp"
                 android:layout_below="@+id/toolbar"

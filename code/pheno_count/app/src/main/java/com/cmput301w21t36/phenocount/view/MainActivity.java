@@ -86,10 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // It will save over instances of the app and is only updated upon first open after install
         UUID = sharedPrefs.getString(AutoID, "");
 
-        if(expDataList.size() != 0){
-            experiments.setBackgroundColor(Color.WHITE);
-
-        }
 
 
         /**
