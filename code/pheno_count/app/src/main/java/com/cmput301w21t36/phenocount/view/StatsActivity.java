@@ -69,7 +69,7 @@ public class StatsActivity extends AppCompatActivity implements Serializable {
         quartile1.setText(String.format("1st Quartile: %.2f",q1));
         quartile3.setText(String.format("3rd Quartile: %.2f", q3));
         IQR.setText(String.format("IQR: %.2f", iqr));
-        stdev.setText(String.format("Standard Deviation: %.2f", sd));
+        stdev.setText(String.format("Std Dev: %.2f", sd));
 
     }
     @Override
