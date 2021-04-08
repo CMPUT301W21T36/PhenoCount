@@ -67,11 +67,19 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-            <Button
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="676dp"
+                android:backgroundTint="#67a3d9"
+                android:text="Search with QR"
+                android:textAlignment="center"
+                android:textSize="10dp"
+                />
 
         </RelativeLayout>
 
