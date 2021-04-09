@@ -106,10 +106,7 @@ public class ExpManager {
      * the updated experiment object
      */
     public void updateTrialData(FirebaseFirestore db, Experiment exp,String username){
-
         if (exp != null) {
-
-            //db = FirebaseFirestore.getInstance();
             final CollectionReference collectionReference = db.collection("Trials");
 
             HashMap<String, String> fdata = new HashMap<>();
@@ -323,6 +320,8 @@ public class ExpManager {
                     }
                 });
                 // To remove the unpublished experiments from the subscribed experiment list
+                // mode 0 for search and owner's experiment list
+                // mode 1 for subscribed experiment list
                 if (mode == 1){
                     if (!(expStatus == 3)){
                         expDataList.add(newExp);
