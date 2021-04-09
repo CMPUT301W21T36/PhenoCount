@@ -1,4 +1,5 @@
 # PhenoCount
+####PhenoCount, short for Phenomena Counter, is a mobile application that allows crowd-sourced testing of phenomena.
 
 ### Note -: 
 * If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
@@ -9,7 +10,7 @@
 
 ### Possible Issues -:
 #### Due to time constraints,some unexpected behavior might not have been handled. This will be addressed in the future.
-* When viewing the project with certain IDE such as Android Studio, code might reflect red errors due to inconsistency within pacakges. Ignore this as the project will still build and run smoothly.
+* When viewing the project with certain IDE such as Android Studio, code might reflect red errors due to inconsistency within packages. Ignore this as the project will still build and run smoothly.
 
 ### References:
 
