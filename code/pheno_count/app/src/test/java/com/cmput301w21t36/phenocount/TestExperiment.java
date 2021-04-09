@@ -100,19 +100,6 @@ public class TestExperiment {
     }
 
     /**
-     * Tests the isSubscribed method of Experiment class
-     * which returns a boolean and checks the status to the
-     * experiment object
-     */
-    @Test
-    public void testIsSubscribed(){
-        Experiment exp = mockExp();
-        assertEquals(false,exp.isSubscribed());
-        exp.setSubscribe(1);
-        assertEquals(true,exp.isSubscribed());
-    }
-
-    /**
      * Tests the removeTrial method of Experiment class
      * which removes the trial at a specified index from Experiment
      * object's array list of trials

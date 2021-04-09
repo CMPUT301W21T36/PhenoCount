@@ -41,32 +41,6 @@ import java.util.List;
 public class ExpManager {
     private final String TAG = "PhenoCount";
 
-    /*public String getPhoneNumber(FirebaseFirestore db, String UUID){
-        /*ds.collection("User").whereEqualTo("UID", UUID)
-            .addSnapshotListener((queryDocumentSnapshots, error) -> {
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    Log.d("pheno", String.valueOf(doc.getId()));
-                    phoneNumber = (String) doc.getData().get("ContactInfo");
-                }
-            });
-
-
-        Task<DocumentSnapshot> userDocument = db.collection("User")
-                .document(UUID).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.getResult()!=null) {
-                    phoneNumber = (String) task.getResult().getData().get("ContactInfo");
-                    String username = (String) task.getResult().getData().get("Username");
-                }
-            }
-        });
-        return phoneNumber;
-    }
-
-     */
-
     /**
      * This method populates the list of current user's experiments in the MainActivity
      * @param db
@@ -96,6 +70,16 @@ public class ExpManager {
         });
     }
 
+    /**
+     * This method populates the list of current user's subcribed experiments
+     * in the ShowSubscribedListActivity
+     * @param db
+     * @param expDataList
+     * @param expAdapter
+     * @param UUID
+     * @param mode
+     * @param subListView
+     */
     public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
                               ArrayAdapter<Experiment> expAdapter, String UUID, int mode, ListView subListView){
         db.collection("Experiment")
@@ -180,6 +164,10 @@ public class ExpManager {
         }
     }
 
+    /**
+     * Method for ignoring the trials
+     * @param exp
+     */
     public void ignoreTrial(Experiment exp){
         DatabaseManager dm = new DatabaseManager();
         FirebaseFirestore db = dm.getDb();
@@ -256,6 +244,7 @@ public class ExpManager {
                 newExp.setOwner(currentUser);
                 newExp.setSubscribers(sList);
 
+                // To remove the unpublished experiments from the subscribed experiment list
                 if (mode == 1){
                     if (!(expStatus == 3)){
                         expDataList.add(newExp);
@@ -340,8 +329,6 @@ public class ExpManager {
 
                 }
             });
-            System.out.println("HELLOO"+ exp.getOwner().getUID() +"uuuuu");
-            System.out.println("Caleb's test" + exp.getOwner().getUID());
 
             Task<DocumentSnapshot> userDocument = db.collection("User")
                     .document(exp.getOwner().getUID())
@@ -379,6 +366,4 @@ public class ExpManager {
         }
         expAdapter.notifyDataSetChanged();
     }
-
-
 }

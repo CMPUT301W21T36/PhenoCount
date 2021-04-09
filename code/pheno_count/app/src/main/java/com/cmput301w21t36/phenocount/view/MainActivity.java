@@ -41,21 +41,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * a profile button to view and/or edit the profile of the current user
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    FirebaseFirestore db;
-    ListView experiments;
-    Button searchButton;
-    Button profileButton;
-    ArrayList<Experiment> expDataList;
-    ArrayAdapter<Experiment> expAdapter;
-    ExpManager manager = new ExpManager();
-    DatabaseManager dbManager = new DatabaseManager();
+    private FirebaseFirestore db;
+    private ListView experiments;
+    private ArrayList<Experiment> expDataList;
+    private ArrayAdapter<Experiment> expAdapter;
+    private ExpManager manager = new ExpManager();
+    private DatabaseManager dbManager = new DatabaseManager();
     static final String AutoID = "ID";
     private String UUID;
     private String username;
     private String phoneNumber;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -228,7 +226,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -261,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_sub_exp:
                 showSubList();
                 break;
-
         }
         return true;
     }

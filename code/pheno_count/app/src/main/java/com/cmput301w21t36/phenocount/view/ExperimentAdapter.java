@@ -14,6 +14,11 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * It helps to display contents of an experiment
+ * in the listview in MoinActivity and ShowSubscribedListActivity.
+ */
+
 public class ExperimentAdapter extends ArrayAdapter<Experiment> {
     private ArrayList<Experiment> experiments;
     private Context context;
@@ -42,6 +47,7 @@ public class ExperimentAdapter extends ArrayAdapter<Experiment> {
                 expName.setText(experiment.getDescription());
         }
 
+        // color coding w.r.t the type of the experiment
         expName.setTextColor(Color.parseColor("#FF69B4"));
         if (experiment.getExpType().equals("Binomial")){
             expName.setTextColor(Color.parseColor("#008000"));
