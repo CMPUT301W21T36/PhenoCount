@@ -1,7 +1,4 @@
-/**
- * This PlotsManager class provides as a helper for the PlotsActivity class and has functionality
- * that helps with computing data points fot the plots.
- */
+
 package com.cmput301w21t36.phenocount;
 
 import com.jjoe64.graphview.series.DataPoint;
@@ -13,14 +10,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-
+/**
+ * This PlotsManager class provides as a helper for the PlotsActivity class and has functionality
+ * that helps with computing data points for the plots.
+ */
 public class PlotsManager implements Serializable {
 
-    Experiment exp;
-    ArrayList<Trial> trials;
-    ArrayList<String> dates;
-    String yTitle;
+    private Experiment exp;
+    private ArrayList<Trial> trials;
+    private ArrayList<String> dates;
+    private String yTitle;
 
+    public String getyTitle() {
+        return yTitle;
+    }
+
+    public void setyTitle(String yTitle) {
+        this.yTitle = yTitle;
+    }
 
     public PlotsManager(Experiment exp) {
         this.exp = exp;//defining the Experiment object
@@ -29,7 +36,12 @@ public class PlotsManager implements Serializable {
         yTitle = "";
     }
 
-
+    /**
+     * This method computes the list of data points for plotting an experiment's line chart
+     * @return
+     * Data Points for experiment
+     * @see PlotsActivity
+     */
     public DataPoint[] compute() {
         String type = exp.getExpType();
         DataPoint[] dp;
@@ -45,6 +57,11 @@ public class PlotsManager implements Serializable {
         return dp;
     }
 
+    /**
+     * This function gets all dates a trial was conducted on.
+     * @return
+     * Unique String array with dates.
+     */
     public ArrayList<String> getDates() {
         for (Trial trial : trials) {
             if (!dates.contains(trial.getDate()))
@@ -56,7 +73,12 @@ public class PlotsManager implements Serializable {
 
     }
 
-    //sorts dates that are in string format
+    /**
+     * This function sorts dates that are in a string format
+     * @param dates
+     * @return
+     * Sorted array with dates to be plotted on x axis
+     */
     public ArrayList<String> sortDates(ArrayList<String> dates) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -81,6 +103,12 @@ public class PlotsManager implements Serializable {
     }
 
     //each activity has different way of computing data points
+
+    /**
+     * This function computes data points for an experiment of binomial type.
+     * @return
+     * Data points to be plotted
+     */
     public DataPoint[] binomial_plot() {
 
         yTitle = "SUCCESSES";
@@ -107,7 +135,11 @@ public class PlotsManager implements Serializable {
 
         return dp;
     }
-
+    /**
+     * This function computes data points for an experiment of count type.
+     * @return
+     * Data points to be plotted
+     */
     public DataPoint[] count_plot() {
         yTitle = "COUNT";
         ArrayList<DataPoint> dpList = new ArrayList<>();
@@ -131,7 +163,11 @@ public class PlotsManager implements Serializable {
         dp = dpList.toArray(dp);
         return dp;
     }
-
+    /**
+     * This function computes data points for an experiment of measurement type.
+     * @return
+     * Data points to be plotted
+     */
     public DataPoint[] measurement_plot() {
         ArrayList<DataPoint> dpList = new ArrayList<>();
         int i = 0;
@@ -158,6 +194,11 @@ public class PlotsManager implements Serializable {
         return dp;
     }
 
+    /**
+     * This function computes data points for an experiment of non-negative count type.
+     * @return
+     * Data points to be plotted
+     */
     public DataPoint[] nonNegative_plot() {
         yTitle = "MEAN";
         ArrayList<DataPoint> dpList = new ArrayList<>();
