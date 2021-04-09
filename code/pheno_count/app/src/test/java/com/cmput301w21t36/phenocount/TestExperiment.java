@@ -98,19 +98,4 @@ public class TestExperiment {
         exp.setExpStatus(3);
         assertEquals(true,exp.isUnpublished());
     }
-
-    /**
-     * Tests the removeTrial method of Experiment class
-     * which removes the trial at a specified index from Experiment
-     * object's array list of trials
-     */
-    @Test
-    public void testRemoveTrial(){
-        Experiment exp = mockExp();
-        Trial trial = mockTrial();
-        assertEquals ( 1 , exp.getTrials().size()) ;
-        //assertTrue(exp.getTrials().contains(trial));
-        exp.removeTrial(0);
-        assertEquals ( 0 , exp.getTrials().size()) ;
-    }
 }

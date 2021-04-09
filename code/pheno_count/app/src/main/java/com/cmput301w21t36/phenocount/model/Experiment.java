@@ -91,13 +91,6 @@ public class  Experiment implements Serializable {
     }
 
     /**
-     * This method reomves the trial from the trials list of experiment
-     * @param index
-     * This the index of the trial in the trials' list to be removed/ignored
-     */
-    public void removeTrial(int index){ trials.remove(index); }
-
-    /**
      * This method returns the name of the experiment
      * @return
      * returns the name of the experiment
