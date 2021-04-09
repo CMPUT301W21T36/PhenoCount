@@ -1,5 +1,5 @@
 # PhenoCount
-####PhenoCount, short for Phenomena Counter, is a mobile application that allows crowd-sourced testing of phenomena.
+#### PhenoCount, short for Phenomena Counter, is a mobile application that allows crowd-sourced testing of phenomena.
 
 ### Note -: 
 * If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
