@@ -27,8 +27,8 @@ import static org.junit.Assert.*;
 public class GenerateQrTest {
     private Solo solo;
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<com.cmput301w21t36.phenocount.MainActivity> rule =
+            new ActivityTestRule<>(com.cmput301w21t36.phenocount.MainActivity.class, true, true);
     /**
      * Runs before all tests and creates solo instance.
      * @throws Exception
@@ -46,30 +46,36 @@ public class GenerateQrTest {
         Activity activity = rule.getActivity();
     }
     /**
-     * Add a city to the listview and check the city name using assertTrue
-     * Clear all the cities from the listview and check again with assertFalse
+     * Add an experiment to the list and check the name using assertTrue
      */
     @Test
     public void testGenerateQr(){
         // asserts that the current activity is the MainActivity
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", com.cmput301w21t36.phenocount.MainActivity.class);
 
         // create a new experiment
-        //solo.clickOnView((Button) solo.getView(R.id.addButton));
+        solo.assertCurrentActivity("Wrong Activity", com.cmput301w21t36.phenocount.MainActivity.class);
+        solo.clickOnImageButton(0);
+        solo.clickOnText("Publish an Experiment");
         solo.enterText((EditText) solo.getView(R.id.expName), "Coin Flip");
         solo.enterText((EditText) solo.getView(R.id.expDesc), "Flipping a coin");
         solo.enterText((EditText) solo.getView(R.id.expRegion), "Canada");
-        solo.clickOnView((Button) solo.getView(R.id.radioBinomial));
-        solo.enterText((EditText) solo.getView(R.id.expNum), "2");
-        solo.clickOnView((Button) solo.getView(R.id.okButton));
+        solo.clickOnView(solo.getView(R.id.radioBinomial));
+        solo.enterText((EditText) solo.getView(R.id.expNum), "20");
+        solo.clickOnView( solo.getView(R.id.okButton));
+
+        // generate a QR for the experiment
+        solo.clickOnText("Coin Flip");
+        solo.clickOnView(solo.getView(R.id.qrButton));
+        assertTrue(solo.getView(R.id.qrButton).isShown());
 
         // add a trial
-        solo.clickOnText("Coin Flip");
         solo.clickOnMenuItem("Add Trial");
         solo.clickOnButton("Success");
 
-        // generate qr
+        // generate a QR for an individual trial
         solo.clickOnMenuItem("See Results");
         solo.clickInList(0);
+        assertTrue(solo.getView(R.id.qrView).isShown());
     }
 }
