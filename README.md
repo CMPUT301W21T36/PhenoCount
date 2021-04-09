@@ -52,3 +52,7 @@
 * Philipp Jahoda, 03-19-19,  Apache License, https://github.com/PhilJay/MPAndroidChart
 
 * Yuriy Budiyev, 06-12-18,  MIT License, https://github.com/yuriy-budiyev/code-scanner
+
+* Except for the icon used for app (we designed by oursleves), all the other icons used in the hint UI are from: https://www.flaticon.com/
+
+* The gif for the globe is from: https://giphy.com/
