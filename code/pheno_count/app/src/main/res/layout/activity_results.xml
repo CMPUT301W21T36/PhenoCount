@@ -102,19 +102,16 @@
                 android:src="@drawable/ic_line_chart"
                 android:scaleType="centerCrop"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/statsButton"
-                android:layout_width="29dp"
-                android:layout_height="75dp"
+                android:layout_width="75dp"
+                android:layout_height="73dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:backgroundTint="#67a3d9"
                 android:paddingLeft="53dp"
                 android:paddingRight="53dp"
-                android:text="STATS"
-                android:textColor="@color/black"
-                android:textSize="10dp"
-                />
+                android:src="@mipmap/ic_stats_foreground" />
 
             <ImageButton
                 android:id="@+id/histogramButtonn"
