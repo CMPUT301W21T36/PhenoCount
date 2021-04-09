@@ -34,7 +34,7 @@ import java.util.LinkedHashSet;
 public class HistogramActivity extends AppCompatActivity {
     BarChart barchart;
     BarData barData;
-    Experiment experiment;
+    com.cmput301w21t36.phenocount.Experiment experiment;
     String type;
     XAxis xAxis;
     YAxis yLeftAxis;
@@ -48,7 +48,7 @@ public class HistogramActivity extends AppCompatActivity {
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_histogram);
 
-        experiment = (Experiment) getIntent().getSerializableExtra("experiment");//get the experiment from intent
+        experiment = (com.cmput301w21t36.phenocount.Experiment) getIntent().getSerializableExtra("experiment");//get the experiment from intent
 
         barchart = findViewById(R.id.barChart);
         title = findViewById(R.id.titleText);
@@ -62,7 +62,7 @@ public class HistogramActivity extends AppCompatActivity {
 
         barData = new BarData(); //data to put into the bar charts
 
-        ArrayList<Trial> trialList = experiment.getTrials();
+        ArrayList<com.cmput301w21t36.phenocount.Trial> trialList = experiment.getTrials();
         ArrayList<BarEntry> dataSet1 = new ArrayList<>();
         ArrayList<BarEntry> dataSet2 = new ArrayList<>();
         ArrayList<String> datesList = new ArrayList<>();
@@ -93,10 +93,12 @@ public class HistogramActivity extends AppCompatActivity {
                 int successCount = 0;
                 int failCount = 0;
                 for (i = 0; i < trialList.size(); i++) {
-                    if (((Binomial) trialList.get(i)).getResult()) {
-                        successCount++;
-                    } else {
-                        failCount++;
+                    if (trialList.get(i).getStatus()) { //check if the trial has been ignored
+                        if (((com.cmput301w21t36.phenocount.Binomial) trialList.get(i)).getResult()) {
+                            successCount++;
+                        } else {
+                            failCount++;
+                        }
                     }
                 }
 
@@ -126,11 +128,14 @@ public class HistogramActivity extends AppCompatActivity {
                 int numAdded = 0;
                 int barIndex = 0;
                 int dateIndex = 0;
+                int numIgnored = 0;
                 String currentDate = null;
 
                 //get the dates for the trials and put them in an array
                 for (i = 0; i < trialList.size(); i++){
-                    datesList.add(trialList.get(i).getDate());
+                    if (trialList.get(i).getStatus()) {
+                        datesList.add(trialList.get(i).getDate());
+                    }
                 }
 
                 //sort the dates in ascending order
@@ -147,16 +152,26 @@ public class HistogramActivity extends AppCompatActivity {
                 //group the counts by date
                 if (trialList.size() != 0) {
                     ArrayList<String> checkedDates = new ArrayList<>();
-                    while (numAdded != trialList.size()) {
+                    while ((numAdded + numIgnored) != trialList.size()) {
                         while (checkedDates.contains(currentDate)) {
                             dateIndex++;
-                            currentDate = trialList.get(dateIndex).getDate();
+                            if (trialList.get(dateIndex).getStatus()) { //check if the trial has been ignored
+                                currentDate = trialList.get(dateIndex).getDate();
+                            } else {
+                                dateIndex++;
+                                numIgnored++;
+                                currentDate = trialList.get(dateIndex).getDate();
+                            }
                         }
                             currentDate = trialList.get(dateIndex).getDate();
                             checkedDates.add(currentDate);
-                        for (j = 0; j < trialList.size(); j++) {
-                            if (trialList.get(j).getDate().equals(currentDate)) {
-                                count++;
+                        for (i = 0; i < trialList.size(); i++) {
+                            if (trialList.get(i).getStatus()) {
+                                if (trialList.get(i).getDate().equals(currentDate)) {
+                                    count++;
+                                }
+                            } else {
+                                numIgnored++;
                             }
                         }
                         dataSet1.add(new BarEntry(barIndex, count));
@@ -166,8 +181,10 @@ public class HistogramActivity extends AppCompatActivity {
                     }
 
                     //set the x-axis labels to the dates
-                    xAxis.setValueFormatter(new LabelFormatter(dates));
-                    xAxis.setGranularity(1);
+                    if (dates.length != 0) {
+                        xAxis.setValueFormatter(new LabelFormatter(dates));
+                        xAxis.setGranularity(1);
+                    }
 
                     //add the data to the bar data sets
                     BarDataSet CountDataSet = new BarDataSet(dataSet1, "Counts");
@@ -177,11 +194,13 @@ public class HistogramActivity extends AppCompatActivity {
                 break;
             case "Measurement":
                 // get smallest value in list
-                double min = ((Measurement) trialList.get(0)).getMeasurement();
+                double min = ((com.cmput301w21t36.phenocount.Measurement) trialList.get(0)).getMeasurement();
                 for (i = 1; i < trialList.size(); i++) {
-                    float value = ((Measurement) trialList.get(i)).getMeasurement();
-                    if (value < min) {
-                        min = value;
+                    if (trialList.get(i).getStatus()) { //check if the trial has been ignored
+                        float value = ((com.cmput301w21t36.phenocount.Measurement) trialList.get(i)).getMeasurement();
+                        if (value < min) {
+                            min = value;
+                        }
                     }
                 }
 
@@ -217,10 +236,11 @@ public class HistogramActivity extends AppCompatActivity {
      * @param dataSet1
      * @param min
      */
-    public void processData(String expType, ArrayList<Trial> trialList, ArrayList<String> measurementLabels, ArrayList<BarEntry> dataSet1, double min) {
+    public void processData(String expType, ArrayList<com.cmput301w21t36.phenocount.Trial> trialList, ArrayList<String> measurementLabels, ArrayList<BarEntry> dataSet1, double min) {
         int barRange = 10;
         int num = 0;
         int numAdded = 0;
+        int numIgnored = 0;
         float measurement = 0;
         int barMultiplier = 1;
         double barMultiplierFloat = 0;
@@ -235,18 +255,22 @@ public class HistogramActivity extends AppCompatActivity {
         }
 
         //group the trial data into the appropriate bar ranges
-        while (numAdded != trialList.size()) {
+        while ((numAdded + numIgnored) != trialList.size()) {
             for (int i = 0; i < trialList.size(); i++) {
-                if (expType.equals("Measurement")) {
-                    measurement = ((Measurement) trialList.get(i)).getMeasurement();
-                    if ((measurement <= barRange * barMultiplierFloat) && (measurement > barRange * (barMultiplierFloat - 1))) {
-                        num++;
+                if (trialList.get(i).getStatus()) { //check if the trial has been ignored
+                    if (expType.equals("Measurement")) {
+                        measurement = ((com.cmput301w21t36.phenocount.Measurement) trialList.get(i)).getMeasurement();
+                        if ((measurement <= barRange * barMultiplierFloat) && (measurement > barRange * (barMultiplierFloat - 1))) {
+                            num++;
+                        }
+                    } else {
+                        measurement = ((com.cmput301w21t36.phenocount.NonNegativeCount) trialList.get(i)).getValue();
+                        if ((measurement <= barRange * barMultiplier) && (measurement > barRange * (barMultiplier - 1))) {
+                            num++;
+                        }
                     }
                 } else {
-                    measurement = ((NonNegativeCount) trialList.get(i)).getValue();
-                    if ((measurement <= barRange * barMultiplier) && (measurement > barRange * (barMultiplier - 1))) {
-                        num++;
-                    }
+                    numIgnored++;
                 }
             }
 
