@@ -1,4 +1,5 @@
 package com.cmput301w21t36.phenocount;
+import com.cmput301w21t36.phenocount.MainActivity;
 
 import android.app.Activity;
 import android.widget.Button;
@@ -42,9 +43,51 @@ public class SearchingTest {
         Activity activity = rule.getActivity();
     }
 
+    /**
+     * Check that searching can be opened
+     */
     @Test
     public void openSearching() {
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnImageButton(0);
+        solo.waitForText("Search For Experiments");
+        solo.clickOnText("Search For Experiments");
+        solo.assertCurrentActivity("Wrong Activity", SearchingActivity.class);
+    }
 
+    /**
+     * Add an experiment and see if it can be searched for and ensure nothing else won't
+     */
+    @Test
+    public void searchExperiment() {
+        // Make a new experiment for searching
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+        solo.clickOnImageButton(0);
+        solo.waitForText("Publish an Experiment");
+        solo.clickOnText("Publish an Experiment");
+        solo.enterText((EditText) solo.getView(R.id.expDesc), "Count how many Blue jays you saw today");
+        solo.clickOnView(solo.getView(R.id.radioCount));
+        solo.enterText((EditText) solo.getView(R.id.expNum), "10");
+        solo.clickOnView(solo.getView(R.id.okButton));
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+
+        // Now actually search for it
+        solo.clickOnImageButton(0);
+        solo.waitForText("Search For Experiments");
+        solo.clickOnText("Search For Experiments");
+        solo.assertCurrentActivity("Wrong Activity", SearchingActivity.class);
+
+        // Type in keyword
+        solo.clickOnView(solo.getView(R.id.searchView));
+        solo.enterText(0, "blue jay");
+        solo.pressSoftKeyboardSearchButton();
+
+        // Show the experiment is there
+        assertTrue(solo.searchText("Count how many Blue"));
+        // Make sure that something that isn't there won't be there
+        assertFalse(solo.searchText("This will not show because no experiment has this"));
     }
 
 
