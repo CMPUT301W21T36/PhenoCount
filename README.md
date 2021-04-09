@@ -8,24 +8,24 @@
 
 ### References:
 
-Android Developers, 2020-11-18, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
+* Android Developers, 2020-11-18, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
 
-BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
+* BrainCrash,2011-09-03,CC BY-SA 3.0, https://stackoverflow.com/a/6932112
 
-Gabriele Mariotti, 2020-05-05, CC BY-SA 4.0,https://stackoverflow.com/a/61622809
+* Gabriele Mariotti, 2020-05-05, CC BY-SA 4.0,https://stackoverflow.com/a/61622809
 
-Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
+* Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
 
-CMPUT301 TAs, LAB7, 2021-03-11, Open Source, https://eclass.srv.ualberta.ca/pluginfile.php/6714096/mod_resource/content/1/Lab7%20Instructions.pdf
+* CMPUT301 TAs, LAB7, 2021-03-11, Open Source, https://eclass.srv.ualberta.ca/pluginfile.php/6714096/mod_resource/content/1/Lab7%20Instructions.pdf
 
-Daniel Nugent, 2018-04-24,CC BY-SA 4.0,stackoverflow, https://stackoverflow.com/a/44993694
+* Daniel Nugent, 2018-04-24,CC BY-SA 4.0,stackoverflow, https://stackoverflow.com/a/44993694
 
-Urmi, 2013-10-11, CC BY-SA 4.0,stackoverflow, https://stackoverflow.com/a/19903520
+* Urmi, 2013-10-11, CC BY-SA 4.0,stackoverflow, https://stackoverflow.com/a/19903520
 
-Alexander Filbert, LAB5, 2021-02-25, https://eclass.srv.ualberta.ca/pluginfile.php/6714046/mod_resource/content/0/Lab%205%20Firestore%20Integration%20Instructions.pdf
+* Alexander Filbert, LAB5, 2021-02-25,    https://eclass.srv.ualberta.ca/pluginfile.php/6714046/mod_resource/content/0/Lab%205%20Firestore%20Integration%20Instructions.pdf
 
-Jeeva, 2019-04-15, CC BY-SA 4.0, https://stackoverflow.com/a/55685054
+* Jeeva, 2019-04-15, CC BY-SA 4.0, https://stackoverflow.com/a/55685054
 
-<div>Plot Icons made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+* <div>Plot Icons made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
-Sagar Maiyad, 2014-12-15, CC BY-SA 4.0, https://stackoverflow.com/a/27482902
+* Sagar Maiyad, 2014-12-15, CC BY-SA 4.0, https://stackoverflow.com/a/27482902
