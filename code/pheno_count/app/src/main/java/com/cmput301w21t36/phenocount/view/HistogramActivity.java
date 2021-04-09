@@ -32,15 +32,15 @@ import java.util.LinkedHashSet;
  * Philipp Jahoda, 03-19-19,  Apache License, https://github.com/PhilJay/MPAndroidChart
  */
 public class HistogramActivity extends AppCompatActivity {
-    BarChart barchart;
-    BarData barData;
-    com.cmput301w21t36.phenocount.Experiment experiment;
-    String type;
-    XAxis xAxis;
-    YAxis yLeftAxis;
-    YAxis yRightAxis;
-    TextView title;
-    TextView desc;
+    private BarChart barchart;
+    private BarData barData;
+    private com.cmput301w21t36.phenocount.Experiment experiment;
+    private String type;
+    private XAxis xAxis;
+    private YAxis yLeftAxis;
+    private YAxis yRightAxis;
+    private TextView title;
+    private TextView desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
