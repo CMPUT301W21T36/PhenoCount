@@ -43,7 +43,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     ArrayList<String> blacklist;
     Experiment exp;//defining the Experiment object
     ImageView qr;
-    Button statsButton;
+    ImageButton statsButton;
     ImageButton histogramButton;
     Menu expMenu;
 

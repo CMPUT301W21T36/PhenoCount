@@ -27,16 +27,16 @@ import java.util.ArrayList;
  */
 
 public class ShowSubscribedListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    FirebaseFirestore db;
-    ListView subExperiments;
-    ArrayList<Experiment> expDataList;
-    ArrayAdapter<Experiment> expAdapter;
-    ExpManager manager = new ExpManager();
-    String UUID;
-    DatabaseManager dbManager = new DatabaseManager();
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private FirebaseFirestore db;
+    private ListView subExperiments;
+    private ArrayList<Experiment> expDataList;
+    private ArrayAdapter<Experiment> expAdapter;
+    private ExpManager manager = new ExpManager();
+    private String UUID;
+    private DatabaseManager dbManager = new DatabaseManager();
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
