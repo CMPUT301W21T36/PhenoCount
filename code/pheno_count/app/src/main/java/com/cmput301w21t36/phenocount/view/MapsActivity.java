@@ -43,14 +43,14 @@ import java.util.List;
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
-    GoogleMap mGoogleMap;
-    SupportMapFragment mapFrag;
-    LocationRequest mLocationRequest;
-    Location mLastLocation;
-    Marker mCurrLocationMarker;
-    FusedLocationProviderClient mFusedLocationClient;
-    LatLng ChosenLocation;
-    Trial trial;
+    private GoogleMap mGoogleMap;
+    private SupportMapFragment mapFrag;
+    private LocationRequest mLocationRequest;
+    private Location mLastLocation;
+    private Marker mCurrLocationMarker;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LatLng ChosenLocation;
+    private Trial trial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
