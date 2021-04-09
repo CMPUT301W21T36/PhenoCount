@@ -5,6 +5,7 @@
 * Please grant necessary location permissions to be able to use location functionalities.
 * No need to provide your own API key in the local.properties file.
 * If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
+* Owner can only edit the type of an experiment if there are no trials recorded.
 
 ### References:
 
@@ -37,3 +38,9 @@
 * Coding With Tea, 2020-01-04, YouTube, https://www.youtube.com/watch?v=lt6xbth-yQo&ab_channel=CodingWithTea
 
 * andr, 2013-02-12, CC BY-SA 4.0, stackoverflow, https://stackoverflow.com/a/14828739
+
+* Abhishek Maheshwari, 2019-05-21,CC BY-SA 4.0, https://stackoverflow.com/a/56236710
+
+* Arash GM,2013-01-01, CC BY-SA 4.0,https://stackoverflow.com/a/14112280
+
+* codedmin, 2017-10-26, https://www.codingdemos.com/android-options-menu-icon/#:~:text=Click%20res%20%E2%86%92%20New%20%E2%86%92,grouped%20under%20a%20single%20Menu%20.
