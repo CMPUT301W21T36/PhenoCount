@@ -66,6 +66,8 @@ public class GenerateQrTest {
 
         // generate a QR for the experiment
         solo.clickOnText("Coin Flip");
+        //solo.waitForView(2131362188);
+        solo.sleep(6000);
         solo.clickOnView(solo.getView(R.id.qrButton));
         assertTrue(solo.getView(R.id.qrButton).isShown());
 
@@ -75,7 +77,11 @@ public class GenerateQrTest {
 
         // generate a QR for an individual trial
         solo.clickOnMenuItem("See Results");
+        solo.sleep(4000);
         solo.clickInList(0);
+        solo.sleep(4000);
+        solo.waitForView(solo.getView(R.id.qrView));
+        solo.sleep(4000);
         assertTrue(solo.getView(R.id.qrView).isShown());
     }
 }
