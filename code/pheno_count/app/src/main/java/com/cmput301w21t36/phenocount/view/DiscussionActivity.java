@@ -67,11 +67,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
         queData = disManager.getQueDataList();
         queAdapter.notifyDataSetChanged(); // Notifying the adapter to render any new data fetched from the cloud.
 
-
-        System.out.println("data size is: ");
-        System.out.println(queData.size());
-        System.out.println(queData);
-
         /*
         When the 'ask question' button is pressed in this activity,
         a fragment will display to let the user ask a new question.
@@ -91,7 +86,6 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //when you click on a question for browsing/add replies
-                System.out.println("WHAT IS THIS GIVING? " + queData.get(position).getID());
                 Question queTarget = queData.get(position);
                 browseReplies(queTarget);
             }

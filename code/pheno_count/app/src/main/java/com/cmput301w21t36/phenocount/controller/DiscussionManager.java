@@ -23,7 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-/*
+/**
  * Role: controller
  * Goal: This class is used to manage the question list in the DiscussionActivity,
  * and reply list in the QuestionActivity
@@ -50,16 +50,30 @@ public class DiscussionManager{
         String qID = question.getID();
         setUpRepCol(expID, qID);
     }
+
+    /**
+     * get the database from DatabaseManager
+     * @return
+     */
     public FirebaseFirestore getDb() {
         return dbManager.getDb();
     }
 
+    /**
+     * set up the collection reference for a Question collection of a certain experiment
+     * @param expID
+     */
     private void setUpQueCol(String expID) {
         setQuecollectionReference(getDb().collection("Experiment")
                 .document(expID)
                 .collection("Question"));
     }
 
+    /**
+     * set up the collection reference for a Reply collection of a certain question
+     * @param expID
+     * @param qID
+     */
     private void setUpRepCol(String expID, String qID) {
         setRepcollectionReference(getDb().collection("Experiment")
                 .document(expID)
@@ -69,23 +83,23 @@ public class DiscussionManager{
     }
 
 
-
+    /**
+     * update the data in the question collection and put them to the question's data list.
+     * @param qDataList
+     * @param qAdapter
+     * @param qListView
+     */
     //update the Question ListView in the discussion forum activity
     public void updateQueData(ArrayList<Question> qDataList, QuestionAdapter qAdapter, ListView qListView){
         this.queDataList = qDataList;
-
-        // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
-        // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         getQuecollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Question'
             public void onEvent(@Nullable QuerySnapshot questions, @Nullable FirebaseFirestoreException e) {
                 // clear the old list
                 if(questions.isEmpty()){
-                    System.out.println("question is empty");
                     qListView.setBackgroundResource(R.drawable.hint_question);
                 }else{
-                    System.out.println("question is not empty");
                     qListView.setBackgroundResource(R.drawable.hint_white);
                 }
                 queDataList.clear();
@@ -94,14 +108,6 @@ public class DiscussionManager{
                     String qID =  que.getId();
                     Log.d(TAG, qID);
                     String qText = (String) que.getData().get("text");
-
-                    if(que.getData().get("text") != null){
-                        System.out.println("Text is: ");
-                        System.out.println((String) que.getData().get("text"));
-                    }
-                    if(que.getData().get("reply") != null){
-                        System.out.println("Reply data is not null!");
-                    }
                     long qReply = (long) que.getData().get("reply");
                     Question newQue = new Question(qText);
                     newQue.setID(qID);
@@ -113,11 +119,15 @@ public class DiscussionManager{
         });
     }
 
+    /**
+     * update the data in the reply collection and put them to the reply's data list.
+     * @param rDataList
+     * @param rAdapter
+     * @param rListView
+     */
     //update the Reply ListView in the question activity
     public void updateRepData(ArrayList<Reply> rDataList, ReplyAdapter rAdapter, ListView rListView){
         this.repDataList = rDataList;
-        // Now listening to all the changes in the database and get notified, note that offline support is enabled by default.
-        // Note: The data stored in Firestore is sorted alphabetically and per their ASCII values. Therefore, adding a new city will not be appended to the list.
         getRepcollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             //tracking the changes in the collection 'Reply'
@@ -143,7 +153,10 @@ public class DiscussionManager{
         });
     }
 
-
+    /**
+     * add a new question documents to the question's collection.
+     * @param text
+     */
     public void addQueDoc(String text){
         //Use HashMap to store a key-value pair in firestore.
         HashMap<String, Object> data = new HashMap<>();
@@ -173,6 +186,10 @@ public class DiscussionManager{
         }
     }
 
+    /**
+     * add a new reply document to the reply collection.
+     * @param text
+     */
     public void addRepDoc(String text){
         //Use HashMap to store a key-value pair in firestore.
         HashMap<String, String> data = new HashMap<>();
@@ -210,9 +227,6 @@ public class DiscussionManager{
                     }
                 }
             });
-            System.out.println("Original replies: ");
-            System.out.println(replies[0]);
-
 
             data.put("text", text);
             // The set method sets a unique id for the document.
