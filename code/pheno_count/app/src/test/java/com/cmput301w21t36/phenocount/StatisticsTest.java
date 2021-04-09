@@ -54,23 +54,14 @@ public class StatisticsTest {
     public void testStatistics(){
         Experiment exp = mockExp();
         Statistic statistic = mockStatistic();
+        Measurement trial = new Measurement(mockUser());
+        trial.setMeasurement(6.5f);
+        assertEquals(6.5f,trial.getMeasurement());
+        exp.getTrials().add(trial);
+        //System.out.println(exp.getTrials().get(1));
         double mean = statistic.getMean(exp.getTrials(),exp.getExpType());
         double median = statistic.getMedian(exp.getTrials(),exp.getExpType());
-        assertEquals(5,mean);
-        assertEquals(5,median);
-        Trial trial = new Measurement(mockUser());
-        trial.setMeasurement(6.5f);
-        ArrayList<Trial> trials = exp.getTrials();
-        trials.add(trial);
-        exp.setTrials(trials);
-        //System.out.println(exp.getTrials().get(1));
-        mean = statistic.getMean(exp.getTrials(),exp.getExpType());
-        median = statistic.getMedian(exp.getTrials(),exp.getExpType());
         assertEquals(5.75,mean);
         assertEquals(5.75,median);
-
-
-
-
     }
 }

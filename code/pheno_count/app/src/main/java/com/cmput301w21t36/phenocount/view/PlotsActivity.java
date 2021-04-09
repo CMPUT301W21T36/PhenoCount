@@ -1,7 +1,4 @@
-/** This PlotsActivity deals with the functionality of displaying an experiment's result's
- * line plot
- * Context: Comes from trial result's page.
- */
+
 package com.cmput301w21t36.phenocount;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +18,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+/** This PlotsActivity deals with the functionality of displaying an experiment's result's
+ * line plot
+ * Context: Comes from trial result's page.
+ */
 public class PlotsActivity extends AppCompatActivity {
 
     GraphView graphView;
