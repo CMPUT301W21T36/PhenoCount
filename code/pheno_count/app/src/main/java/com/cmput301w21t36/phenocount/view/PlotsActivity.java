@@ -91,7 +91,7 @@ public class PlotsActivity extends AppCompatActivity {
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(0.2f);
         //more graph properties
-        String yAxis = plotsManager.yTitle;
+        String yAxis = plotsManager.getyTitle();
         TextView xAxisLabel = findViewById(R.id.xAxisLabel);
         xAxisLabel.setText("TIME (Days)");
         TextView yAxisLabel = findViewById(R.id.yAxisLabel);
