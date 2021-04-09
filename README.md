@@ -7,6 +7,7 @@
 * No need to provide your own API key in the local.properties file.
 * Owner can only edit the type of an experiment if there are no trials recorded.
 * On clicking the button for viewing trials' locations, the "Click to Explore" gif requires you to click on the globe :) 
+* To view another user's information - in the experiment information page, click on the user(person) icon.
 
 ### Possible Issues -:
 #### Due to time constraints,some unexpected behavior might not have been handled. This will be addressed in the future.
