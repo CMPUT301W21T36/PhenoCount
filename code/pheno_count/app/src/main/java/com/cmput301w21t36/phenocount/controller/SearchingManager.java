@@ -25,12 +25,17 @@ public class SearchingManager {
     private ExpManager expManager = new ExpManager();
     private Context context;
 
-
     public SearchingManager(Context context) {
         this.context = context;
     }
 
-
+    /**
+     * Utilizes expManager getData method to fill the list with all experiments in the database except those unpublished
+     * @param db
+     * @param expDataList
+     * @param expAdapter
+     * @see ExpManager
+     */
     public void getAllExp(FirebaseFirestore db, ArrayList<Experiment> expDataList,
                           ArrayAdapter<Experiment> expAdapter){
         db.collection("Experiment").whereNotEqualTo("status", "3").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -42,7 +47,13 @@ public class SearchingManager {
         });
     }
 
-    // WIP
+    /**
+     * Takes in a key word, will see which experiments in ArrayList satisfy the conditions and update the adapter and listView
+     * @param keyword
+     * @param adapter
+     * @param expDataList
+     * @param experimentListView
+     */
     public void getSearchExp(String keyword, ResultAdapter adapter, ArrayList<Experiment> expDataList, ListView experimentListView) {
         keyword = keyword.toLowerCase();
 
@@ -72,8 +83,5 @@ public class SearchingManager {
         experimentListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
-
-
 
 }

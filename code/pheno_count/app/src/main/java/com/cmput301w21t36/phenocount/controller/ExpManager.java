@@ -244,6 +244,88 @@ public class ExpManager {
                 newExp.setOwner(currentUser);
                 newExp.setSubscribers(sList);
 
+                Task<DocumentSnapshot> userDocument = db.collection("User")
+                        .document(newExp.getOwner().getUID())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.getResult().getData()!=null) {
+                                    String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
+                                    String username = (String) task.getResult().getData().get("Username");
+                                    newExp.getOwner().getProfile().setUsername(username);
+                                    System.out.println("USERNAME: "+newExp.getOwner().getProfile().getUsername());
+                                    newExp.getOwner().getProfile().setPhone(phoneNumber);
+                                    expAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
+
+                //adding the list of trials to each exp object
+                db.collection("Experiment").document(newExp.getExpID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        ArrayList<Trial> trials = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                            Log.d("pheno", String.valueOf(doc.getId()));
+
+                            String username = (String) doc.getData().get("owner");
+                            String userID = (String) doc.getData().get("userID");
+                            String latitude = (String) doc.getData().get("Latitude");
+                            String longitude = (String) doc.getData().get("Longitude");
+                            String status = (String) doc.getData().get("status");
+                            String date = (String) doc.getData().get("date");
+                            String ttype = newExp.getExpType();
+
+                            Profile profile = new Profile();
+                            profile.setUsername(username);
+                            User user = new User(userID,profile);
+
+                            //retrieving result from firebase
+                            String result = (String) doc.getData().get("result");
+                            if (result != null) {
+                                if (ttype.equals("Count")) {
+                                    Count ctrial = new Count(user);
+                                    ctrial.setType(ttype);
+                                    ctrial.setDate(date);
+                                    ctrial.setStatus(Boolean.parseBoolean(status));
+                                    ctrial.setLatitude(Float.parseFloat(latitude));
+                                    ctrial.setLongitude(Float.parseFloat(longitude));
+                                    ctrial.setCount(Integer.parseInt(result));
+                                    trials.add(ctrial);
+                                } else if (ttype.equals("Binomial")) {
+                                    Binomial btrial = new Binomial(user);
+                                    btrial.setType(ttype);
+                                    btrial.setDate(date);
+                                    btrial.setStatus(Boolean.parseBoolean(status));
+                                    btrial.setLatitude(Float.parseFloat(latitude));
+                                    btrial.setLongitude(Float.parseFloat(longitude));
+                                    btrial.setResult(Boolean.parseBoolean(result));
+                                    trials.add(btrial);
+                                } else if (ttype.equals("Measurement")) {
+                                    Measurement mtrial = new Measurement(user);
+                                    mtrial.setType(ttype);
+                                    mtrial.setDate(date);
+                                    mtrial.setStatus(Boolean.parseBoolean(status));
+                                    mtrial.setLatitude(Float.parseFloat(latitude));
+                                    mtrial.setLongitude(Float.parseFloat(longitude));
+                                    mtrial.setMeasurement(Float.parseFloat(result));
+                                    trials.add(mtrial);
+                                } else if (ttype.equals("NonNegativeCount")) {
+                                    NonNegativeCount ntrial = new NonNegativeCount(user);
+                                    ntrial.setType(ttype);
+                                    ntrial.setDate(date);
+                                    ntrial.setStatus(Boolean.parseBoolean(status));
+                                    ntrial.setLatitude(Float.parseFloat(latitude));
+                                    ntrial.setLongitude(Float.parseFloat(longitude));
+                                    ntrial.setValue(Integer.parseInt(result));
+                                    trials.add(ntrial);
+                                }
+                            }
+                        }
+                        newExp.setTrials(trials);
+                    }
+                });
                 // To remove the unpublished experiments from the subscribed experiment list
                 if (mode == 1){
                     if (!(expStatus == 3)){
@@ -252,116 +334,6 @@ public class ExpManager {
                 }else if (mode == 0) {
                     expDataList.add(newExp);
                 }
-            }
-        }
-
-        //loops through the exp objects and adds trials to it from firebase
-        for(int i = 0;i<expDataList.size();i++) {
-
-            Experiment exp = expDataList.get(i);
-            int finalI = i;
-            db.collection("Experiment").document(exp.getExpID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                    ArrayList<Trial> trials = new ArrayList<>();
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                        Log.d("pheno", String.valueOf(doc.getId()));
-
-                        String username = (String) doc.getData().get("owner");
-                        String userID = (String) doc.getData().get("userID");
-                        String latitude = (String) doc.getData().get("Latitude");
-                        String longitude = (String) doc.getData().get("Longitude");
-                        String status = (String) doc.getData().get("status");
-                        String date = (String) doc.getData().get("date");
-                        String ttype = exp.getExpType();
-
-                        Profile profile = new Profile();
-                        profile.setUsername(username);
-                        User user = new User(userID,profile);
-
-                        //retrieving result from firebase
-                        String result = (String) doc.getData().get("result");
-                        if (result != null) {
-                            if (ttype.equals("Count")) {
-                                Count ctrial = new Count(user);
-                                ctrial.setType(ttype);
-                                ctrial.setDate(date);
-                                ctrial.setStatus(Boolean.parseBoolean(status));
-                                ctrial.setLatitude(Float.parseFloat(latitude));
-                                ctrial.setLongitude(Float.parseFloat(longitude));
-                                ctrial.setCount(Integer.parseInt(result));
-                                trials.add(ctrial);
-                            } else if (ttype.equals("Binomial")) {
-                                Binomial btrial = new Binomial(user);
-                                btrial.setType(ttype);
-                                btrial.setDate(date);
-                                btrial.setStatus(Boolean.parseBoolean(status));
-                                btrial.setLatitude(Float.parseFloat(latitude));
-                                btrial.setLongitude(Float.parseFloat(longitude));
-                                btrial.setResult(Boolean.parseBoolean(result));
-                                trials.add(btrial);
-                            } else if (ttype.equals("Measurement")) {
-                                Measurement mtrial = new Measurement(user);
-                                mtrial.setType(ttype);
-                                mtrial.setDate(date);
-                                mtrial.setStatus(Boolean.parseBoolean(status));
-                                mtrial.setLatitude(Float.parseFloat(latitude));
-                                mtrial.setLongitude(Float.parseFloat(longitude));
-                                mtrial.setMeasurement(Float.parseFloat(result));
-                                trials.add(mtrial);
-                            } else if (ttype.equals("NonNegativeCount")) {
-                                NonNegativeCount ntrial = new NonNegativeCount(user);
-                                ntrial.setType(ttype);
-                                ntrial.setDate(date);
-                                ntrial.setStatus(Boolean.parseBoolean(status));
-                                ntrial.setLatitude(Float.parseFloat(latitude));
-                                ntrial.setLongitude(Float.parseFloat(longitude));
-                                ntrial.setValue(Integer.parseInt(result));
-                                trials.add(ntrial);
-                            }
-                        }
-                    }
-                    exp.setTrials(trials);
-                    try{expDataList.set(finalI,exp); //adding updated trial object to original list
-                    } catch ( Exception e) {
-                        System.out.println("FAIL");
-                    }
-
-                }
-            });
-
-            Task<DocumentSnapshot> userDocument = db.collection("User")
-                    .document(exp.getOwner().getUID())
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.getResult().getData()!=null) {
-                        String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
-                        String username = (String) task.getResult().getData().get("Username");
-                        exp.getOwner().getProfile().setUsername(username);
-                        System.out.println("USERNAME: "+exp.getOwner().getProfile().getUsername());
-                        exp.getOwner().getProfile().setPhone(phoneNumber);
-                        expAdapter.notifyDataSetChanged();
-                    }
-                }
-            });
-
-            //adding username and phone to each trial obj
-            for(Trial trial: exp.getTrials()){
-                Task<DocumentSnapshot> trialDocument = db.collection("User").document(trial.getOwner().getUID()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.getResult()!=null) {
-                            String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
-                            String username = (String) task.getResult().getData().get("Username");
-                            trial.getOwner().getProfile().setUsername(username);
-                            trial.getOwner().getProfile().setPhone(phoneNumber);
-                            expAdapter.notifyDataSetChanged();
-
-                        }
-                    }
-                });
             }
         }
         expAdapter.notifyDataSetChanged();

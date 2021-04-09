@@ -19,73 +19,74 @@
         app:menu="@menu/navigation_drawer" />
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="#67a3d9"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#67a3d9"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-
-                app:navigationIcon="@drawable/ic_nav_menu"
-                app:title="Experiment Search"
-                app:titleTextAppearance="@style/Toolbar.TitleText"
-                app:titleTextColor="@color/white">
+            app:navigationIcon="@drawable/ic_nav_menu"
+            app:title="Experiment Search"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/white">
 
 
-            </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-            <ListView
-                android:focusableInTouchMode="false"
-                android:isScrollContainer="false"
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/toolbar"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:dividerHeight="1dp"
-                android:divider="@color/bar_blue"
-                >
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:divider="@color/bar_blue"
+            android:dividerHeight="1dp"
+            android:focusableInTouchMode="false"
+            android:isScrollContainer="false">
 
-            </ListView>
+        </ListView>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar2"
-                android:layout_width="41dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="41dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
 
-                android:layout_marginTop="649dp"
-                android:layout_marginEnd="0dp"
-                android:background="#67a3d9"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:menu="@menu/color_menu">
+            android:layout_marginTop="649dp"
+            android:layout_marginEnd="0dp"
+            android:background="#67a3d9"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:menu="@menu/color_menu">
 
 
-            </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/QrButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="246dp"
-                android:layout_marginBottom="19dp"
-                android:backgroundTint="#67a3d9"
-                android:text="Search with QR"
-                android:textAlignment="center"
-                android:textSize="10dp" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/QrButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="246dp"
+            android:layout_marginBottom="19dp"
+            android:backgroundTint="#67a3d9"
+            android:text="Search with QR"
+            android:textAlignment="center"
+            android:textSize="10dp" />
 
-        </RelativeLayout>
+
+    </RelativeLayout>
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

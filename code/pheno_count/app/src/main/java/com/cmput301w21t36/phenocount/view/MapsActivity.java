@@ -1,6 +1,3 @@
-/** This MapsActivity class deals with the location functionality of adding a location to a trial
- * Context: Comes from add trial page.
- */
 package com.cmput301w21t36.phenocount;
 
 import android.Manifest;
@@ -40,7 +37,9 @@ import java.util.List;
 
 // REFERENCES
     //Daniel Nugent, "How to get current Location in GoogleMap using FusedLocationProviderClient", 24-04-18, stackoverflow, https://stackoverflow.com/a/44993694 */
-
+/** This MapsActivity class deals with the location functionality of adding a location to a trial
+ * Context: Comes from add trial page.
+ */
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 

@@ -3,6 +3,9 @@ package com.cmput301w21t36.phenocount;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This model class deals with displaying statistics for the trials of an experiment
+ */
 public class Statistic {
 
     int numOfSuccess = 0;

@@ -1,7 +1,3 @@
-/** This TrialMapsActivity deals with the location functionality of viewing an experiment's
- * trials' locations in a map.
- * Context: Comes from Experiment info page.
- */
 package com.cmput301w21t36.phenocount;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +17,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+/** This TrialMapsActivity deals with the location functionality of viewing an experiment's
+ * trials' locations in a map.
+ * Context: Comes from Experiment info page.
+ */
 public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     SupportMapFragment mapFrag;
     @Override

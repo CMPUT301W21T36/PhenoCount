@@ -1,3 +1,5 @@
+// CMPUT301 TAs, LAB7, 2021-03-11, Open Source, https://eclass.srv.ualberta.ca/pluginfile.php/6714096/mod_resource/content/1/Lab7%20Instructions.pdf
+
 package com.cmput301w21t36.phenocount;
 import com.cmput301w21t36.phenocount.MainActivity;
 

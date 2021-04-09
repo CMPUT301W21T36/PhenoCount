@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This Controller/View class accepts parameters from Statistics and displays the statistics
+ * of the trials
+ */
 public class StatsActivity extends AppCompatActivity implements Serializable {
     Experiment exp;
     private Statistic statManager;
@@ -63,11 +67,11 @@ public class StatsActivity extends AppCompatActivity implements Serializable {
             sd = statManager.getSd();
         }
 
-        //setting values of textviews
+        //setting values of text    views
         meanView.setText(String.format("Mean: %.2f", mean));
         medianView.setText(String.format("Median: %.2f", median));
-        quartile1.setText(String.format("1st Quartile: %.2f",q1));
-        quartile3.setText(String.format("3rd Quartile: %.2f", q3));
+        quartile1.setText(String.format("Q1: %.2f",q1));
+        quartile3.setText(String.format("Q3: %.2f", q3));
         IQR.setText(String.format("IQR: %.2f", iqr));
         stdev.setText(String.format("Std Dev: %.2f", sd));
 

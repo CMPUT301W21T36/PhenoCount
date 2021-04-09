@@ -39,7 +39,6 @@ public abstract class Trial implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = Calendar.getInstance().getTime(); //current date and time
         date = dateFormat.format(today);
-        System.out.println("DATE IN TRIAL CLASS" + date);
     }
 
 
