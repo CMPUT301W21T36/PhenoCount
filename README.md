@@ -56,3 +56,5 @@
 * Except for the icon used for app (we designed by oursleves), all the other icons used in the hint UI are from: https://www.flaticon.com/
 
 * The gif for the globe is from: https://giphy.com/
+
+* Programiz, https://www.programiz.com/java-programming/examples/standard-deviation
