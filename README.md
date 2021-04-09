@@ -1,11 +1,15 @@
 # PhenoCount
 
 ### Note -: 
+* If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
 * To get your current location when running the app on an AVD, set it manually by clicking on the menu button (...) and then clicking on "Location" from the left side bar. 
 * Please grant necessary location permissions to be able to use location functionalities.
 * No need to provide your own API key in the local.properties file.
-* If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
 * Owner can only edit the type of an experiment if there are no trials recorded.
+
+### Possible Issues -:
+#### Due to time constraints,some unexpected behavior might not have been handled. This will be addressed in the future.
+* When viewing the project with certain IDE such as Android Studio, code might reflect red errors due to inconsistency within pacakges. Ignore this as the project will still build and run smoothly.
 
 ### References:
 
@@ -44,3 +48,7 @@
 * Arash GM,2013-01-01, CC BY-SA 4.0,https://stackoverflow.com/a/14112280
 
 * codedmin, 2017-10-26, https://www.codingdemos.com/android-options-menu-icon/#:~:text=Click%20res%20%E2%86%92%20New%20%E2%86%92,grouped%20under%20a%20single%20Menu%20.
+
+* Philipp Jahoda, 03-19-19,  Apache License, https://github.com/PhilJay/MPAndroidChart
+
+* Yuriy Budiyev, 06-12-18,  MIT License, https://github.com/yuriy-budiyev/code-scanner
