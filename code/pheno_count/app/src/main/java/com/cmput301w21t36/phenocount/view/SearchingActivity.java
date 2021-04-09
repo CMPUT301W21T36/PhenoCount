@@ -45,9 +45,9 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
     private com.cmput301w21t36.phenocount.ResultAdapter adapter;
     private ListView experimentListView;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     private SearchView searchView;
 

@@ -66,7 +66,6 @@ public class GenerateQrTest {
 
         // generate a QR for the experiment
         solo.clickOnText("Coin Flip");
-        //solo.waitForView(2131362188);
         solo.sleep(6000);
         solo.clickOnView(solo.getView(R.id.qrButton));
         assertTrue(solo.getView(R.id.qrButton).isShown());
