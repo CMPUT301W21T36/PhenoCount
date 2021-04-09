@@ -151,7 +151,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     /**
-     * This method is called when the addButton is clicked and Switches MainActivity to
+     * This method is called when the option to
+     * Publish an experiment is clicked and Switches to
      * PublishExperimentActivity
      */
     public void addExperiment(){
@@ -162,6 +163,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    /**
+     * This method is called when the option to
+     * view the subscribe list of experiments is clicked
+     * and Switches to ShowSubscribedListActivity
+     *
+     */
     public void showSubList(){
         //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         //phoneNumber = sharedPrefs.getString("Number", "");
