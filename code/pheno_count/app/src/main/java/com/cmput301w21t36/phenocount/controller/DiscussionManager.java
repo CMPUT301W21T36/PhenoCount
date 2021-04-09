@@ -1,8 +1,6 @@
 package com.cmput301w21t36.phenocount;
 
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -35,17 +33,17 @@ import java.util.HashMap;
  */
 
 public class DiscussionManager{
-    private ArrayList<Question> queDataList = new ArrayList<>();
-    private ArrayList<Reply> repDataList = new ArrayList<>();
-    private DatabaseManager dbManager = new DatabaseManager();
+    private ArrayList<com.cmput301w21t36.phenocount.Question> queDataList = new ArrayList<>();
+    private ArrayList<com.cmput301w21t36.phenocount.Reply> repDataList = new ArrayList<>();
+    private com.cmput301w21t36.phenocount.DatabaseManager dbManager = new com.cmput301w21t36.phenocount.DatabaseManager();
     private String TAG = "Discussion";
 
-    public DiscussionManager(Experiment experiment){
+    public DiscussionManager(com.cmput301w21t36.phenocount.Experiment experiment){
         String expID = experiment.getExpID();
         setUpQueCol(expID);
     }
 
-    public DiscussionManager(Experiment experiment, Question question){
+    public DiscussionManager(com.cmput301w21t36.phenocount.Experiment experiment, com.cmput301w21t36.phenocount.Question question){
         String expID = experiment.getExpID();
         String qID = question.getID();
         setUpRepCol(expID, qID);
@@ -90,7 +88,7 @@ public class DiscussionManager{
      * @param qListView
      */
     //update the Question ListView in the discussion forum activity
-    public void updateQueData(ArrayList<Question> qDataList, QuestionAdapter qAdapter, ListView qListView){
+    public void updateQueData(ArrayList<com.cmput301w21t36.phenocount.Question> qDataList, com.cmput301w21t36.phenocount.QuestionAdapter qAdapter, ListView qListView){
         this.queDataList = qDataList;
         getQuecollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -109,7 +107,7 @@ public class DiscussionManager{
                     Log.d(TAG, qID);
                     String qText = (String) que.getData().get("text");
                     long qReply = (long) que.getData().get("reply");
-                    Question newQue = new Question(qText);
+                    com.cmput301w21t36.phenocount.Question newQue = new com.cmput301w21t36.phenocount.Question(qText);
                     newQue.setID(qID);
                     newQue.setReply_num(qReply);
                     queDataList.add(newQue);
@@ -126,7 +124,7 @@ public class DiscussionManager{
      * @param rListView
      */
     //update the Reply ListView in the question activity
-    public void updateRepData(ArrayList<Reply> rDataList, ReplyAdapter rAdapter, ListView rListView){
+    public void updateRepData(ArrayList<com.cmput301w21t36.phenocount.Reply> rDataList, com.cmput301w21t36.phenocount.ReplyAdapter rAdapter, ListView rListView){
         this.repDataList = rDataList;
         getRepcollectionReference().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -144,7 +142,7 @@ public class DiscussionManager{
                     String rID =  rep.getId();
                     Log.d(TAG, rID);
                     String rText = (String) rep.getData().get("text");
-                    Reply newRep = new Reply(rText);
+                    com.cmput301w21t36.phenocount.Reply newRep = new com.cmput301w21t36.phenocount.Reply(rText);
                     newRep.setID(rID);
                     repDataList.add(newRep);
                 }
@@ -251,11 +249,11 @@ public class DiscussionManager{
 
     }
 
-    public ArrayList<Question> getQueDataList() {
+    public ArrayList<com.cmput301w21t36.phenocount.Question> getQueDataList() {
         return queDataList;
     }
 
-    public ArrayList<Reply> getRepDataList() {
+    public ArrayList<com.cmput301w21t36.phenocount.Reply> getRepDataList() {
         return repDataList;
     }
 

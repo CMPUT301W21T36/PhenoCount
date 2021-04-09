@@ -3,9 +3,6 @@ package com.cmput301w21t36.phenocount;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.icu.util.Measure;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +20,15 @@ import java.util.ArrayList;
  * This Controller/View class accepts parameters from ResultsActivity and displays the results
  * of the trials
  */
-public class TrialAdapter extends ArrayAdapter<Trial> {
-    private ArrayList<Trial> trialList;
+public class TrialAdapter extends ArrayAdapter<com.cmput301w21t36.phenocount.Trial> {
+    private ArrayList<com.cmput301w21t36.phenocount.Trial> trialList;
     private Context context;
     private String user;
     private String owner;
     private ArrayList<String> blacklist;
 
 
-    public TrialAdapter(Context context, ArrayList<Trial> trialList,String currentUser,String owner) {
+    public TrialAdapter(Context context, ArrayList<com.cmput301w21t36.phenocount.Trial> trialList, String currentUser, String owner) {
         super(context,0,trialList);
         this.trialList = trialList;
         this.context = context;
@@ -50,7 +47,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         }
 
         //getting the trial object from results activity
-        Trial trial = getItem(position);
+        com.cmput301w21t36.phenocount.Trial trial = getItem(position);
 
 /*        if (!trial.getStatus()){
             trialList.remove(position);
@@ -64,9 +61,6 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         ImageView deleteImage =  view.findViewById(R.id.image_delete);
 
         //showing ImageView only if current user is owner of exp
-        System.out.println("UUID: "+user);
-        System.out.println("OWNER: "+owner);
-
         if (!user.equals(owner)) {
             deleteImage.setVisibility(View.GONE);
         }
@@ -84,7 +78,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
         }
         //checking type of trial and setting result
         if (trial.getType().equals("Binomial")) {
-            Binomial btrial = (Binomial) getItem(position);
+            com.cmput301w21t36.phenocount.Binomial btrial = (com.cmput301w21t36.phenocount.Binomial) getItem(position);
             if (btrial.getResult()){
                 trial_outcome.setText("Success");
             }
@@ -93,15 +87,15 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
             }
         }
         if (trial.getType().equals("Count")) {
-            Count ctrial = (Count) getItem(position);
+            com.cmput301w21t36.phenocount.Count ctrial = (com.cmput301w21t36.phenocount.Count) getItem(position);
             trial_outcome.setText(""+ctrial.getCount());
         }
         if (trial.getType().equals("Measurement")) {
-            Measurement mtrial = (Measurement) getItem(position);
+            com.cmput301w21t36.phenocount.Measurement mtrial = (com.cmput301w21t36.phenocount.Measurement) getItem(position);
             trial_outcome.setText(""+mtrial.getMeasurement());
         }
         if (trial.getType().equals("NonNegativeCount")) {
-            NonNegativeCount ntrial = (NonNegativeCount) getItem(position) ;
+            com.cmput301w21t36.phenocount.NonNegativeCount ntrial = (com.cmput301w21t36.phenocount.NonNegativeCount) getItem(position) ;
             trial_outcome.setText(""+ntrial.getValue());
         }
         //to delete a trial
@@ -117,15 +111,16 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 trial.setStatus(false);
-                                for (Trial trial:trialList){
+                                for (com.cmput301w21t36.phenocount.Trial trial:trialList){
                                     if(!trial.getStatus()) {
                                         String UUID = trial.getOwner().getUID();
                                         blacklist.add(UUID);
                                     }
                                 }
-                                for (Trial trial : trialList){
+                                for (com.cmput301w21t36.phenocount.Trial trial : trialList){
                                     if(blacklist.contains(trial.getOwner().getUID())){
                                         trial.setStatus(false);
+                                        notifyDataSetChanged();
                                     }
                                 }
                             }

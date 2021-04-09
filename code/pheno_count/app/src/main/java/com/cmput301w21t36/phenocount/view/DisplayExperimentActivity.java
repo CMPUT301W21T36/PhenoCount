@@ -410,11 +410,7 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
                 System.out.println("Ignoring");
                 exp = (com.cmput301w21t36.phenocount.Experiment) data.getSerializableExtra("experiment");
                 expManager = new com.cmput301w21t36.phenocount.ExpManager();
-                for(com.cmput301w21t36.phenocount.Trial trial:exp.getTrials()){
-                    System.out.println("Status: "+trial.getStatus());
-                }
                 expManager.ignoreTrial(exp);
-
         }
         if (resultCode == Activity.RESULT_CANCELED) {
             System.out.println("No Data");

@@ -17,10 +17,10 @@ public class Statistic {
     private int value = 0;
     private float measurement = 0;
 
-    public double getMean(ArrayList<Trial> trials, String expType){
+    public double getMean(ArrayList<com.cmput301w21t36.phenocount.Trial> trials, String expType){
         if (expType.equals("Binomial")){
-            for(Trial trial : trials){
-                Binomial btrial = (Binomial) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.Binomial btrial = (com.cmput301w21t36.phenocount.Binomial) trial;
                 if(btrial.getResult()){
                     numOfSuccess++;
                 }
@@ -28,22 +28,22 @@ public class Statistic {
             mean = (double) numOfSuccess/(double) trials.size();
         }
         if(expType.equals("Count")){
-            for(Trial trial : trials){
-                Count ctrial = (Count) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.Count ctrial = (com.cmput301w21t36.phenocount.Count) trial;
                 count = count + ctrial.getCount();
             }
             mean = (double)count/(double)trials.size();
         }
         if (expType.equals("NonNegativeCount")){
-            for(Trial trial : trials){
-                NonNegativeCount ntrial = (NonNegativeCount) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.NonNegativeCount ntrial = (com.cmput301w21t36.phenocount.NonNegativeCount) trial;
                 value = value + ntrial.getValue();
             }
             mean = (double)value/(double)trials.size();
         }
         if (expType.equals("Measurement")){
-            for(Trial trial : trials){
-                Measurement mtrial = (Measurement) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.Measurement mtrial = (com.cmput301w21t36.phenocount.Measurement) trial;
                 measurement = measurement + mtrial.getMeasurement();
             }
             mean = (double)measurement/(double)trials.size();
@@ -51,13 +51,13 @@ public class Statistic {
         return mean;
     }
 
-    public double getMedian(ArrayList<Trial> trials,String expType){
+    public double getMedian(ArrayList<com.cmput301w21t36.phenocount.Trial> trials, String expType){
         ArrayList<Integer> intList = new ArrayList<>();
         ArrayList<Float> floatList = new ArrayList<>();
         int size = trials.size();
         if (expType.equals("Binomial")){
-            for(Trial trial : trials){
-                Binomial btrial = (Binomial) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.Binomial btrial = (com.cmput301w21t36.phenocount.Binomial) trial;
                 if(btrial.getResult()){
                     intList.add(1);
                 }
@@ -67,14 +67,14 @@ public class Statistic {
             }
         }
         if(expType.equals("Count")){
-            for(Trial trial : trials){
-                Count ctrial = (Count) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.Count ctrial = (com.cmput301w21t36.phenocount.Count) trial;
                 intList.add(ctrial.getCount());
             }
         }
         if (expType.equals("NonNegativeCount")){
-            for(Trial trial : trials){
-                NonNegativeCount ntrial = (NonNegativeCount) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.NonNegativeCount ntrial = (com.cmput301w21t36.phenocount.NonNegativeCount) trial;
                 intList.add(ntrial.getValue());
             }
         }
@@ -99,13 +99,12 @@ public class Statistic {
         }
 
         if (expType.equals("Measurement")){
-            for(Trial trial : trials){
-                Measurement mtrial = (Measurement) trial;
+            for(com.cmput301w21t36.phenocount.Trial trial : trials){
+                com.cmput301w21t36.phenocount.Measurement mtrial = (com.cmput301w21t36.phenocount.Measurement) trial;
                 floatList.add(mtrial.getMeasurement());
             }
             Collections.sort(floatList);
             //calculating st dev
-            System.out.println("MEAN:"+mean);
             for (float num : floatList){
                 sd = sd + Math.pow(num - mean,2);
             }

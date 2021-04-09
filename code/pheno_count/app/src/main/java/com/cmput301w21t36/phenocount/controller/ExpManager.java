@@ -1,9 +1,8 @@
 package com.cmput301w21t36.phenocount;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import java.util.*;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,28 +11,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.common.primitives.Booleans;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firestore.v1.Target;
 
-import android.content.SharedPreferences;
-import android.widget.ListView;
-
-import java.lang.reflect.Array;
-import java.sql.NClob;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * This Class acts as an controller class for Experiments
@@ -49,8 +37,8 @@ public class ExpManager {
      * @param UUID
      * @see MainActivity
      */
-    public void getExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                           ArrayAdapter<Experiment> expAdapter, String UUID, int mode, ListView expListView){
+    public void getExpData(FirebaseFirestore db, ArrayList<com.cmput301w21t36.phenocount.Experiment> expDataList,
+                           ArrayAdapter<com.cmput301w21t36.phenocount.Experiment> expAdapter, String UUID, int mode, ListView expListView){
         //Google Developers, 2021-02-11, CCA 4.0/ Apache 2.0, https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/Query
         db.collection("Experiment")
             .whereEqualTo("owner",UUID).orderBy("status")
@@ -78,8 +66,8 @@ public class ExpManager {
      * @param mode
      * @param subListView
      */
-    public void getSubExpData(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                              ArrayAdapter<Experiment> expAdapter, String UUID, int mode, ListView subListView){
+    public void getSubExpData(FirebaseFirestore db, ArrayList<com.cmput301w21t36.phenocount.Experiment> expDataList,
+                              ArrayAdapter<com.cmput301w21t36.phenocount.Experiment> expAdapter, String UUID, int mode, ListView subListView){
         db.collection("Experiment")
                 .whereArrayContains("sub_list",UUID)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -105,7 +93,7 @@ public class ExpManager {
      * @param exp
      * the updated experiment object
      */
-    public void updateTrialData(FirebaseFirestore db, Experiment exp,String username){
+    public void updateTrialData(FirebaseFirestore db, com.cmput301w21t36.phenocount.Experiment exp, String username){
         if (exp != null) {
             final CollectionReference collectionReference = db.collection("Trials");
 
@@ -114,7 +102,7 @@ public class ExpManager {
 
             //common attributes
             if(exp.getTrials().size()!=0) {
-                Trial trial = exp.getTrials().get(exp.getTrials().size() - 1);
+                com.cmput301w21t36.phenocount.Trial trial = exp.getTrials().get(exp.getTrials().size() - 1);
                 fdata.put("Latitude", "" + trial.getLatitude());
                 fdata.put("Longitude", "" + trial.getLongitude());
                 fdata.put("type", exp.getExpType());
@@ -124,16 +112,16 @@ public class ExpManager {
                 fdata.put("date",trial.getDate());
 
                 if (exp.getExpType().equals("Binomial")) {
-                    Binomial btrial = (Binomial) exp.getTrials().get(exp.getTrials().size() - 1);
+                    com.cmput301w21t36.phenocount.Binomial btrial = (com.cmput301w21t36.phenocount.Binomial) exp.getTrials().get(exp.getTrials().size() - 1);
                     fdata.put("result", String.valueOf(btrial.getResult()));
                 } else if (exp.getExpType().equals("Count")) {
-                    Count ctrial = (Count) exp.getTrials().get(exp.getTrials().size() - 1);
+                    com.cmput301w21t36.phenocount.Count ctrial = (com.cmput301w21t36.phenocount.Count) exp.getTrials().get(exp.getTrials().size() - 1);
                     fdata.put("result", String.valueOf(ctrial.getCount()));
                 } else if (exp.getExpType().equals("Measurement")) {
-                    Measurement mtrial = (Measurement) exp.getTrials().get(exp.getTrials().size() - 1);
+                    com.cmput301w21t36.phenocount.Measurement mtrial = (com.cmput301w21t36.phenocount.Measurement) exp.getTrials().get(exp.getTrials().size() - 1);
                     fdata.put("result", String.valueOf(mtrial.getMeasurement()));
                 } else if (exp.getExpType().equals("NonNegativeCount")) {
-                    NonNegativeCount ntrial = (NonNegativeCount) exp.getTrials().get(exp.getTrials().size() - 1);
+                    com.cmput301w21t36.phenocount.NonNegativeCount ntrial = (com.cmput301w21t36.phenocount.NonNegativeCount) exp.getTrials().get(exp.getTrials().size() - 1);
                     fdata.put("result", String.valueOf(ntrial.getValue()));
                 }
 
@@ -162,10 +150,10 @@ public class ExpManager {
      * Method for ignoring the trials
      * @param exp
      */
-    public void ignoreTrial(Experiment exp){
-        DatabaseManager dm = new DatabaseManager();
+    public void ignoreTrial(com.cmput301w21t36.phenocount.Experiment exp){
+        com.cmput301w21t36.phenocount.DatabaseManager dm = new com.cmput301w21t36.phenocount.DatabaseManager();
         FirebaseFirestore db = dm.getDb();
-        for (Trial trial: exp.getTrials()){
+        for (com.cmput301w21t36.phenocount.Trial trial: exp.getTrials()){
             if (!trial.getStatus()){
                 String UUID = trial.getOwner().getUID();
                 db.collection("Experiment").document(exp.getExpID())
@@ -195,8 +183,8 @@ public class ExpManager {
      * @param queryDocumentSnapshots
      * @param error
      */
-    public void getdata(FirebaseFirestore db, ArrayList<Experiment> expDataList,
-                        ArrayAdapter<Experiment> expAdapter, int mode,
+    public void getdata(FirebaseFirestore db, ArrayList<com.cmput301w21t36.phenocount.Experiment> expDataList,
+                        ArrayAdapter<com.cmput301w21t36.phenocount.Experiment> expAdapter, int mode,
                         QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException error){
         expDataList.clear();
         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -230,7 +218,7 @@ public class ExpManager {
                     expStatus = Integer.parseInt(mStat);
                }
 
-                Experiment newExp = new Experiment(name, description, region, type, minTrial,
+                com.cmput301w21t36.phenocount.Experiment newExp = new com.cmput301w21t36.phenocount.Experiment(name, description, region, type, minTrial,
                         reqLoc, expStatus, expID);
 
                 Profile newProfile = new Profile();
@@ -258,7 +246,7 @@ public class ExpManager {
                 db.collection("Experiment").document(newExp.getExpID()).collection("Trials").addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                        ArrayList<Trial> trials = new ArrayList<>();
+                        ArrayList<com.cmput301w21t36.phenocount.Trial> trials = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                             Log.d("pheno", String.valueOf(doc.getId()));
 
@@ -278,7 +266,7 @@ public class ExpManager {
                             String result = (String) doc.getData().get("result");
                             if (result != null) {
                                 if (ttype.equals("Count")) {
-                                    Count ctrial = new Count(user);
+                                    com.cmput301w21t36.phenocount.Count ctrial = new com.cmput301w21t36.phenocount.Count(user);
                                     ctrial.setType(ttype);
                                     ctrial.setDate(date);
                                     ctrial.setStatus(Boolean.parseBoolean(status));
@@ -287,7 +275,7 @@ public class ExpManager {
                                     ctrial.setCount(Integer.parseInt(result));
                                     trials.add(ctrial);
                                 } else if (ttype.equals("Binomial")) {
-                                    Binomial btrial = new Binomial(user);
+                                    com.cmput301w21t36.phenocount.Binomial btrial = new com.cmput301w21t36.phenocount.Binomial(user);
                                     btrial.setType(ttype);
                                     btrial.setDate(date);
                                     btrial.setStatus(Boolean.parseBoolean(status));
@@ -296,7 +284,7 @@ public class ExpManager {
                                     btrial.setResult(Boolean.parseBoolean(result));
                                     trials.add(btrial);
                                 } else if (ttype.equals("Measurement")) {
-                                    Measurement mtrial = new Measurement(user);
+                                    com.cmput301w21t36.phenocount.Measurement mtrial = new com.cmput301w21t36.phenocount.Measurement(user);
                                     mtrial.setType(ttype);
                                     mtrial.setDate(date);
                                     mtrial.setStatus(Boolean.parseBoolean(status));
@@ -305,7 +293,7 @@ public class ExpManager {
                                     mtrial.setMeasurement(Float.parseFloat(result));
                                     trials.add(mtrial);
                                 } else if (ttype.equals("NonNegativeCount")) {
-                                    NonNegativeCount ntrial = new NonNegativeCount(user);
+                                    com.cmput301w21t36.phenocount.NonNegativeCount ntrial = new com.cmput301w21t36.phenocount.NonNegativeCount(user);
                                     ntrial.setType(ttype);
                                     ntrial.setDate(date);
                                     ntrial.setStatus(Boolean.parseBoolean(status));

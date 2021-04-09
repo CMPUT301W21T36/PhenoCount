@@ -1,9 +1,9 @@
 package com.cmput301w21t36.phenocount;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,10 +36,10 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        ArrayList<Trial> trials = (ArrayList<Trial>) getIntent().getSerializableExtra("trials");
+        ArrayList<com.cmput301w21t36.phenocount.Trial> trials = (ArrayList<com.cmput301w21t36.phenocount.Trial>) getIntent().getSerializableExtra("trials");
         //checking if any locations were added to trial at all
         boolean locations_exist = false;
-        for(Trial trial: trials){
+        for(com.cmput301w21t36.phenocount.Trial trial: trials){
             if(trial.getLongitude()!= 200 && trial.getLatitude() != 200){
                 locations_exist = true;
                 break;
@@ -55,7 +55,7 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
         }
         int i = 1;
         ArrayList<Marker> markers = new ArrayList<>();
-        for(Trial trial : trials){
+        for(com.cmput301w21t36.phenocount.Trial trial : trials){
             if(trial.getLatitude() != 200.0 && trial.getLongitude() != 200.0){
             LatLng location = new LatLng(trial.getLatitude(),trial.getLongitude());
             Marker marker = googleMap.addMarker(new MarkerOptions().position(location).title("Trial "+ i));
@@ -69,7 +69,6 @@ public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCa
         for (Marker marker : markers) {
             builder.include(marker.getPosition());
         }
-        System.out.println("MARKERS "+ markers.size());
         if (!markers.isEmpty()) {
             LatLngBounds bounds = builder.build();
             int width = getResources().getDisplayMetrics().widthPixels;
