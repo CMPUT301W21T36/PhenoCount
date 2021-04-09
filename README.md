@@ -6,6 +6,7 @@
 * Please grant necessary location permissions to be able to use location functionalities.
 * No need to provide your own API key in the local.properties file.
 * Owner can only edit the type of an experiment if there are no trials recorded.
+* On clicking the button for viewing trials' locations, the "Click to Explore" gif requires you to click on the globe :) 
 
 ### Possible Issues -:
 #### Due to time constraints,some unexpected behavior might not have been handled. This will be addressed in the future.
@@ -52,9 +53,3 @@
 * Philipp Jahoda, 03-19-19,  Apache License, https://github.com/PhilJay/MPAndroidChart
 
 * Yuriy Budiyev, 06-12-18,  MIT License, https://github.com/yuriy-budiyev/code-scanner
-
-* Except for the icon used for app (we designed by oursleves), all the other icons used in the hint UI are from: https://www.flaticon.com/
-
-* The gif for the globe is from: https://giphy.com/
-
-* Programiz, https://www.programiz.com/java-programming/examples/standard-deviation
