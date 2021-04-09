@@ -228,7 +228,6 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         } else if (item.getItemId() == R.id.item4) {
             Intent tintent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ResultsActivity.class);
             tintent.putExtra("experiment", exp);
-            //System.out.println("IN DISPLAY EXP ACTIVITY "+ new Date(exp.getTrials().get(0).getDate()));
             int LAUNCH_THIRD_ACTIVITY = 3;
             startActivityForResult(tintent,LAUNCH_THIRD_ACTIVITY);
         } else if(item.getItemId() == R.id.add_qr){

@@ -59,10 +59,8 @@ public class ExpManager {
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
                     FirebaseFirestoreException error) {
                 if(queryDocumentSnapshots.isEmpty()){
-                    System.out.println("experiment is empty");
                     expListView.setBackgroundResource(R.drawable.hint_main);
                 }else{
-                    System.out.println("experiment is not empty");
                     expListView.setBackgroundResource(R.drawable.hint_white);
                 }
                 getdata(db, expDataList, expAdapter, mode, queryDocumentSnapshots, error);
@@ -118,7 +116,6 @@ public class ExpManager {
             String id = collectionReference.document().getId();
 
             //common attributes
-            System.out.println("SIZE:"+exp.getTrials().size());
             if(exp.getTrials().size()!=0) {
                 Trial trial = exp.getTrials().get(exp.getTrials().size() - 1);
                 fdata.put("Latitude", "" + trial.getLatitude());
@@ -254,7 +251,6 @@ public class ExpManager {
                                     String phoneNumber = (String) task.getResult().getData().get("ContactInfo");
                                     String username = (String) task.getResult().getData().get("Username");
                                     newExp.getOwner().getProfile().setUsername(username);
-                                    System.out.println("USERNAME: "+newExp.getOwner().getProfile().getUsername());
                                     newExp.getOwner().getProfile().setPhone(phoneNumber);
                                     expAdapter.notifyDataSetChanged();
                                 }

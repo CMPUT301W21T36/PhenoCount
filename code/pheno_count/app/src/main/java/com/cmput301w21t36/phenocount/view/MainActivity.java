@@ -84,12 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // It will save over instances of the app and is only updated upon first open after install
         UUID = sharedPrefs.getString(AutoID, "");
 
-//        if (expDataList.size() ==0){
-//            experiments.setBackgroundResource(R.drawable.hint_question);
-//        }else{
-//            experiments.setBackgroundResource(R.drawable.splash_screen);
-//        }
-
         /**
          * Will retrieve the Username for the user and set the variable username
          * to the returned String
@@ -110,22 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         editor.apply();
                     }
                 });
-        /*
-        searchButton = findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSearch();
-            }
-        });
-
-        profileButton = findViewById(R.id.profileButton);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openProfile();
-            }
-        }); */
 
         phoneNumber = sharedPrefs.getString("ContactInfo", "");
 
@@ -170,8 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      *
      */
     public void showSubList(){
-        //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-        //phoneNumber = sharedPrefs.getString("Number", "");
         Intent intent = new Intent(this, ShowSubscribedListActivity.class);
         intent.putExtra("owner",UUID);
         startActivity(intent);
@@ -227,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView=findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         navigationView.bringToFront();
-        //setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
