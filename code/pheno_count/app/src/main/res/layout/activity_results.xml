@@ -92,7 +92,7 @@
 
             <ImageButton
                 android:id="@+id/plotButton"
-                android:layout_width="0dp"
+                android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -115,7 +115,7 @@
 
             <ImageButton
                 android:id="@+id/histogramButtonn"
-                android:layout_width="4dp"
+                android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="right"
                 android:layout_weight="1"
