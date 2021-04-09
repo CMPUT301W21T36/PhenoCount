@@ -36,9 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * This is the MainActivity and the every first screen of the app
- * It has an add button to publish an experiment,
- * a search button to search the databse for experiments,
- * a profile button to view and/or edit the profile of the current user
+ * and displays the experiments owned by the current user
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseFirestore db;
@@ -154,7 +152,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * This method is called when the searchButton is clicked and Switches MainActivity to
+     * This method is called when the option to
+     * search is clicked and Switches to
      * SearchingActivity
      */
     public void openSearch() {
@@ -163,7 +162,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * This method is called when the profileButton is clicked and Switches MainActivity to
+     * This method is called when the option to view
+     * profile is clicked and Switches to
      * ProfileActivity
      */
     public void openProfile() {
@@ -174,6 +174,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    /**
+     * It creates a new user
+     * @param sharedPrefs
+     * @param db
+     */
     public void makeUser(SharedPreferences sharedPrefs, FirebaseFirestore db) {
         final DocumentReference userReference = db.collection("User").document();
         // Auto-ID created for the document
@@ -198,12 +203,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         db.collection("User").document(UUID).set(user);
     }
 
+    /**
+     * Settings for the navigation drawer
+     */
     public void navigationSettings(){
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         navigationView.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,
+                R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 

@@ -43,26 +43,25 @@ import java.util.HashMap;
  * @see MainActivity
  */
 public class PublishExperimentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    FirebaseFirestore db;
-    TextView expName;
-    TextView expDesc;
-    TextView expRegion;
-    String expType="";
-    TextView expNum;
-    CheckBox expGeoLoc;
-    String owner;
-    int mode;
-    Experiment exp;
-    RadioGroup radioGroup;
-    RadioButton binomial;
-    RadioButton count;
-    RadioButton nonNegative;
-    RadioButton measure;
+    private FirebaseFirestore db;
+    private TextView expName;
+    private TextView expDesc;
+    private TextView expRegion;
+    private String expType="";
+    private TextView expNum;
+    private CheckBox expGeoLoc;
+    private String owner;
+    private int mode;
+    private Experiment exp;
+    private RadioGroup radioGroup;
+    private RadioButton binomial;
+    private RadioButton count;
+    private RadioButton nonNegative;
+    private RadioButton measure;
     private final String TAG = "PhenoCount";
-
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +133,9 @@ public class PublishExperimentActivity extends AppCompatActivity implements Navi
         }
     }
 
+    /**
+     * To display the fields for editing
+     */
     public void displayExp(){
         radioGroup = findViewById(R.id.radio1);
         expName.setText(exp.getName());
