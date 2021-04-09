@@ -8,9 +8,11 @@ import java.io.Serializable;
  */
 public class Question extends Post implements Serializable {
     private long reply_num = 0;
+
     public Question(String text){
         super(text);
     }
+
     public Question(){
     }
 

@@ -37,19 +37,20 @@ import androidmads.library.qrgenearator.QRGEncoder;
  * It also generates and displays a Qr code when a trial is clicked in the list
  */
 public class ResultsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    ListView trials;
-    ArrayAdapter<Trial> trialAdapter;
-    ArrayList<Trial> trialList;
-    ArrayList<String> blacklist;
-    Experiment exp;//defining the Experiment object
-    ImageView qr;
-    ImageButton statsButton;
-    ImageButton histogramButton;
-    Menu expMenu;
+    private ListView trials;
+    private ArrayAdapter<Trial> trialAdapter;
+    private ArrayList<Trial> trialList;
+    private ArrayList<String> blacklist;
+    private Experiment exp;//defining the Experiment object
+    private ImageView qr;
+    private ImageButton statsButton;
+    private ImageButton histogramButton;
+    private Menu expMenu;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

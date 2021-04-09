@@ -27,18 +27,18 @@ import java.text.DecimalFormat;
  * This class represents Count trials and is part of the GUI
  */
 public class CountActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    com.cmput301w21t36.phenocount.Count trial;
-    com.cmput301w21t36.phenocount.Experiment newexp;//defining the Experiment object
-    Boolean location=false;
-    DecimalFormat numberFormat;
-    TextView coordinates;
-    SharedPreferences sharedPrefs;
-    int qrCount = -1;
-    Menu expMenu;
+    private com.cmput301w21t36.phenocount.Count trial;
+    private com.cmput301w21t36.phenocount.Experiment newexp;//defining the Experiment object
+    private Boolean location=false;
+    private DecimalFormat numberFormat;
+    private TextView coordinates;
+    private SharedPreferences sharedPrefs;
+    private int qrCount = -1;
+    private Menu expMenu;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

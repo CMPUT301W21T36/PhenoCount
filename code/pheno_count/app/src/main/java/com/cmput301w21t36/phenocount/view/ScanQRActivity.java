@@ -26,7 +26,7 @@ import com.google.zxing.Result;
  */
 
 public class ScanQRActivity extends AppCompatActivity {
-    com.cmput301w21t36.phenocount.Experiment experiment;
+    private com.cmput301w21t36.phenocount.Experiment experiment;
     private CodeScanner mCodeScanner;
 
     @Override

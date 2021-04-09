@@ -24,12 +24,12 @@ import java.util.Date;
  */
 public class PlotsActivity extends AppCompatActivity {
 
-    GraphView graphView;
-    LineGraphSeries<DataPoint> series;
-    PointsGraphSeries<DataPoint> pointSeries;
-    Experiment exp;
-    ArrayList<Trial> trials;
-    ArrayList<String> dates;
+    private GraphView graphView;
+    private LineGraphSeries<DataPoint> series;
+    private PointsGraphSeries<DataPoint> pointSeries;
+    private Experiment exp;
+    private ArrayList<Trial> trials;
+    private ArrayList<String> dates;
 
 
     @Override

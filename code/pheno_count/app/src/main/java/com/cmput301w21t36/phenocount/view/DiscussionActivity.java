@@ -45,9 +45,9 @@ public class DiscussionActivity extends AppCompatActivity implements ShowFragmen
     private DiscussionManager disManager;
     private Menu expMenu;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

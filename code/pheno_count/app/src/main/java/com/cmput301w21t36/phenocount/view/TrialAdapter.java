@@ -28,7 +28,7 @@ public class TrialAdapter extends ArrayAdapter<Trial> {
     private Context context;
     private String user;
     private String owner;
-    ArrayList<String> blacklist;
+    private ArrayList<String> blacklist;
 
 
     public TrialAdapter(Context context, ArrayList<Trial> trialList,String currentUser,String owner) {

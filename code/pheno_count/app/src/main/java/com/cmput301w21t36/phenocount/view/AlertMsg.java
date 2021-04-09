@@ -15,7 +15,7 @@ import android.text.style.ForegroundColorSpan;
  * Represents the alert message boxes and confirmation boxes
  */
 public class AlertMsg {
-    AlertDialog alertDialog ;
+    public AlertDialog alertDialog ;
     private final Message NO_HANDLER = null;
 
     /**
