@@ -29,3 +29,11 @@
 * <div>Plot Icons made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 * Sagar Maiyad, 2014-12-15, CC BY-SA 4.0, https://stackoverflow.com/a/27482902
+
+* jjoe64, 2016, Apache 2.0, https://github.com/jjoe64/GraphView
+
+* Sarthi Technology, 2017-08-06, YouTube, https://www.youtube.com/watch?v=knlbFXRHff8&ab_channel=SarthiTechnology
+
+* Coding With Tea, 2020-01-04, YouTube, https://www.youtube.com/watch?v=lt6xbth-yQo&ab_channel=CodingWithTea
+
+* andr, 2013-02-12, CC BY-SA 4.0, stackoverflow, https://stackoverflow.com/a/14828739
