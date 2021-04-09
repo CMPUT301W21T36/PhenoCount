@@ -40,21 +40,23 @@ import androidmads.library.qrgenearator.QRGEncoder;
  * To access this activity: Open the app -> click on the listView
  * or the experiment
  * @see MainActivity
+ * @see ShowSubscribedListActivity
+ * @see SearchingActivity
  */
 public class DisplayExperimentActivity extends AppCompatActivity implements com.cmput301w21t36.phenocount.ProfileFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
     private com.cmput301w21t36.phenocount.Experiment exp; // catch object passed from mainlist
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
     private final String TAG = "PhenoCount";
     private String username;
     private String UUID;
     private com.cmput301w21t36.phenocount.ExpManager expManager;
-    Menu expMenu;
-    TextView expStatus;
-    CollectionReference collectionReference;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
-    ImageView qrPicture;
+    private Menu expMenu;
+    private TextView expStatus;
+    private CollectionReference collectionReference;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
+    private ImageView qrPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,6 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         username = sharedPrefs.getString("Username", "");
         UUID = sharedPrefs.getString("ID", "");
 
-
         TextView expName = findViewById(R.id.nameTextView);
         TextView expDesc = findViewById(R.id.descTextView);
         TextView expOwner = findViewById(R.id.ownerTextView);
@@ -84,10 +85,8 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         expStatus = findViewById(R.id.statusTextView);
         TextView expType = findViewById(R.id.expTypeText);
         TextView expReqLoc = findViewById(R.id.reqLocText);
-        //Button camerabtn = findViewById((R.id.camerabtn));
         Button qrButton = findViewById(R.id.qrButton);
         qrPicture = findViewById(R.id.qrPicture);
-
 
         expName.setText(exp.getName());
         expDesc.setText(exp.getDescription());
@@ -116,15 +115,6 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
             expReqLoc.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0);
         }
         else {expReqLoc.setText("NOT REQUIRED");}
-
-/*        camerabtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ScanQRActivity.class);
-                i.putExtra("experiment", exp);
-                startActivityForResult(i, 1);
-            }
-        });*/
 
         final Button mapsBtn = findViewById((R.id.mapsBtn));
         mapsBtn.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +158,9 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         return true;
     }
 
+    /**
+     * To set the menu according to the required functionalities
+     */
     void menuOpt() {
         expMenu.findItem(R.id.ownerAction).setVisible(true);
         expMenu.findItem(R.id.unpublishButton).setEnabled(true);
@@ -178,8 +171,6 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         expMenu.findItem(R.id.republishButton).setVisible(false);
         expMenu.findItem(R.id.add_qr).setVisible(false);
         expMenu.findItem(R.id.add_qr).setEnabled(true);
-
-
 
         if(!(UUID.equals(exp.getOwner().getUID()))){
             expMenu.findItem(R.id.ownerAction).setVisible(false);
@@ -436,7 +427,6 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
         String phone = exp.getOwner().getProfile().getPhone();
         String UID = exp.getOwner().getUID();
         new com.cmput301w21t36.phenocount.ProfileFragment(username, phone, UID).show(getSupportFragmentManager(), "SHOW_PROFILE");
-
     }
 
     @Override
@@ -492,7 +482,6 @@ public class DisplayExperimentActivity extends AppCompatActivity implements com.
                 intent = new Intent(DisplayExperimentActivity.this, com.cmput301w21t36.phenocount.ShowSubscribedListActivity.class);
                 intent.putExtra("owner",UUID);
                 break;
-
         }
 
         startActivity(intent);

@@ -20,6 +20,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+/**
+ * This is the ShowSubscribedListActivity and displays the
+ * subscribed list of the experiments that the user
+ * subscribed to
+ */
+
 public class ShowSubscribedListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseFirestore db;
     ListView subExperiments;
@@ -73,7 +79,6 @@ public class ShowSubscribedListActivity extends AppCompatActivity implements Nav
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -111,7 +116,6 @@ public class ShowSubscribedListActivity extends AppCompatActivity implements Nav
                 intent = new Intent(ShowSubscribedListActivity.this,ShowSubscribedListActivity.class);
                 intent.putExtra("owner",uUID);
                 break;
-
         }
 
         startActivity(intent);

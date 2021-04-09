@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * This class represents the Experiment objects
  */
-public class Experiment implements Serializable {
+public class  Experiment implements Serializable {
     private String expID; //store the ID inside this Experiment, so we can know which document it is
     private String name;
     private String description;
@@ -16,9 +16,7 @@ public class Experiment implements Serializable {
     private boolean requireLocation;
     private User owner;
     private ArrayList<Trial> trials = new ArrayList<>();
-    private Statistic stats;
     private int expStatus = -1; // 0 for add, 1 for published, 2 for ended, 3 for unpublished
-    private int subscribe = 0;
     private ArrayList subscribers = new ArrayList();
 
 
@@ -93,26 +91,6 @@ public class Experiment implements Serializable {
     }
 
     /**
-     * This method checks if the Experiment is subscribed or not
-     * @return
-     * a boolean value; true if the experiment is subscribed
-     * false if the experiment's status is not subscribed
-     */
-    public boolean isSubscribed() {
-        if (subscribe==1){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * This method reomves the trial from the trials list of experiment
-     * @param index
-     * This the index of the trial in the trials' list to be removed/ignored
-     */
-    public void removeTrial(int index){ trials.remove(index); }
-
-    /**
      * This method returns the name of the experiment
      * @return
      * returns the name of the experiment
@@ -181,20 +159,6 @@ public class Experiment implements Serializable {
      * array list of trial of the experiment that has to be saved/added
      */
     public void setTrials(ArrayList<Trial> trials) { this.trials = trials; }
-
-    /**
-     * This method returns the statistics of the experiment
-     * @return
-     * returns the statistics for the experiment
-     */
-    public Statistic getStats() {return stats;}
-
-    /**
-     * This method saves/adds the the statistics for the experiment
-     * @param stats
-     * the statistics for the experiment
-     */
-    public void setStats(Statistic stats) { this.stats = stats; }
 
     /**
      * This method returns the status of the experiment
@@ -269,20 +233,6 @@ public class Experiment implements Serializable {
     public void setExpID(String expID) { this.expID = expID; }
 
     /**
-     * This method saves/adds the flag for subscribed/unsubscribed status to the experiment
-     * @param subscribe
-     * 0 for unsubscribed and 1 for subscribed
-     */
-    public void setSubscribe(int subscribe) { this.subscribe = subscribe; }
-
-    /**
-     * This method returns the flag for subcribed/unsubscribed status of the experiment
-     * @return
-     * 0 for unsubscribed and 1 for subscribed
-     */
-    public int getSubscribe() { return subscribe; }
-
-    /**
      * This method returns the list of subcribers of the experiment
      * @return
      * returns the list of subcribers of the experiment
@@ -299,6 +249,4 @@ public class Experiment implements Serializable {
     public void setSubscribers(ArrayList subscribers) {
         this.subscribers = subscribers;
     }
-
-
 }

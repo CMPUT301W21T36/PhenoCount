@@ -83,6 +83,8 @@ public class PublishExperimentActivity extends AppCompatActivity implements Navi
         measure = findViewById(R.id.radioMeasure);
 
         Bundle bundle = getIntent().getExtras();
+
+        //mode 0 is for publishing and 1 for editing an experiment
         mode = bundle.getInt("mode");
         if (mode == 0) {
             owner = bundle.get("AutoId").toString();
@@ -158,6 +160,7 @@ public class PublishExperimentActivity extends AppCompatActivity implements Navi
         count.setEnabled(true);
         nonNegative.setEnabled(true);
         measure.setEnabled(true);
+        // Edit allows to change the type only if there are no trials
         if (exp.getTrials().size()>0){
             binomial.setEnabled(false);
             count.setEnabled(false);
@@ -344,7 +347,6 @@ public class PublishExperimentActivity extends AppCompatActivity implements Navi
                 intent = new Intent(PublishExperimentActivity.this,ShowSubscribedListActivity.class);
                 intent.putExtra("owner",UUID);
                 break;
-
         }
 
         startActivity(intent);

@@ -42,21 +42,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseFirestore db;
-
     private ListView experiments;
     private ArrayList<Experiment> expDataList;
     private ArrayAdapter<Experiment> expAdapter;
     private ExpManager manager = new ExpManager();
     private DatabaseManager dbManager = new DatabaseManager();
-
     static final String AutoID = "ID";
     private String UUID;
     private String username;
     private String phoneNumber;
-
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -154,7 +151,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     /**
-     * This method is called when the addButton is clicked and Switches MainActivity to
+     * This method is called when the option to
+     * Publish an experiment is clicked and Switches to
      * PublishExperimentActivity
      */
     public void addExperiment(){
@@ -165,6 +163,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    /**
+     * This method is called when the option to
+     * view the subscribe list of experiments is clicked
+     * and Switches to ShowSubscribedListActivity
+     *
+     */
     public void showSubList(){
         //SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         //phoneNumber = sharedPrefs.getString("Number", "");
@@ -229,7 +233,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -262,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_sub_exp:
                 showSubList();
                 break;
-
         }
         return true;
     }
