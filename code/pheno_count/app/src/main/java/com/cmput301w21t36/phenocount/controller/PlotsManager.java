@@ -16,10 +16,10 @@ import java.util.Date;
 
 public class PlotsManager implements Serializable {
 
-    Experiment exp;
-    ArrayList<Trial> trials;
-    ArrayList<String> dates;
-    String yTitle;
+    private Experiment exp;
+    public ArrayList<Trial> trials;
+    public ArrayList<String> dates;
+    public String yTitle;
 
 
     public PlotsManager(Experiment exp) {

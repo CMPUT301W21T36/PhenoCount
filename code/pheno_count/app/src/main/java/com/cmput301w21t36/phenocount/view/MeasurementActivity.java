@@ -30,17 +30,17 @@ import java.util.ArrayList;
  * sets measurement to 0.0 if field is left blank
  */
 public class MeasurementActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    Measurement trial;
-    Experiment newexp;//defining the Experiment object
-    Boolean location=false;
-    TextView coordinates;
-    DecimalFormat numberFormat;
-    SharedPreferences sharedPrefs;
-    Menu expMenu;
+    private Measurement trial;
+    private Experiment newexp;//defining the Experiment object
+    private Boolean location=false;
+    private TextView coordinates;
+    private DecimalFormat numberFormat;
+    private SharedPreferences sharedPrefs;
+    private Menu expMenu;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

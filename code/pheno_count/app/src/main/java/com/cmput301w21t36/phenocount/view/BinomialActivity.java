@@ -29,18 +29,18 @@ import java.util.Date;
  */
 
 public class BinomialActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    Binomial trial;
-    Experiment newexp;//defining the Experiment object
-    Boolean location=false;
-    DecimalFormat numberFormat;
-    TextView coordinates;
-    SharedPreferences sharedPrefs;
-    Menu expMenu;
-    int qr = -1;
+    private Binomial trial;
+    private Experiment newexp;//defining the Experiment object
+    private Boolean location=false;
+    private DecimalFormat numberFormat;
+    private TextView coordinates;
+    private SharedPreferences sharedPrefs;
+    private Menu expMenu;
+    private int qr = -1;
 
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
 
 
     @SuppressLint("SetTextI18n")

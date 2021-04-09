@@ -25,6 +25,7 @@ public class SearchingManager {
     private ExpManager expManager = new ExpManager();
     private Context context;
 
+    // Constructor that will take the searching activity as context
     public SearchingManager(Context context) {
         this.context = context;
     }

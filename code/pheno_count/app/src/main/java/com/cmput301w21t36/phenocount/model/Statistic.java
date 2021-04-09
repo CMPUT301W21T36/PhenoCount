@@ -8,15 +8,15 @@ import java.util.Collections;
  */
 public class Statistic {
 
-    int numOfSuccess = 0;
-    double mean = 0.0;
-    double median = 0.0;
-    double sd = 0.0;
-    double q1 = 0.0;
-    double q3 = 0.0;
-    int count = 0;
-    int value = 0;
-    float measurement=0;
+    private int numOfSuccess = 0;
+    private double mean = 0.0;
+    private double median = 0.0;
+    private double sd = 0.0;
+    private double q1 = 0.0;
+    private double q3 = 0.0;
+    private int count = 0;
+    private int value = 0;
+    private float measurement = 0;
 
     public double getMean(ArrayList<Trial> trials, String expType){
         if (expType.equals("Binomial")){

@@ -19,16 +19,18 @@ import java.util.ArrayList;
  * of the trials
  */
 public class StatsActivity extends AppCompatActivity implements Serializable {
-    Experiment exp;
+    private Experiment exp;
     private Statistic statManager;
     private ArrayList<Trial> acceptedTrials;
-    double mean = 0.0;
-    double median = 0.0;
-    double sd = 0.0;
-    double q1 = 0.0;
-    double q3 = 0.0;
-    double iqr = 0.0;
-    Menu expMenu;
+
+    private double mean = 0.0;
+    private double median = 0.0;
+    private double sd = 0.0;
+    private double q1 = 0.0;
+    private double q3 = 0.0;
+    private double iqr = 0.0;
+    private Menu expMenu;
+
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

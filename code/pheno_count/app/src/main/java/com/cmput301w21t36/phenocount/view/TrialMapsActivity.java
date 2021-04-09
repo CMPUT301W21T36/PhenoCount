@@ -22,9 +22,9 @@ import java.util.ArrayList;
  * Context: Comes from Experiment info page.
  */
 public class TrialMapsActivity extends AppCompatActivity implements OnMapReadyCallback {
-    SupportMapFragment mapFrag;
-    @Override
+    private SupportMapFragment mapFrag;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);

@@ -41,9 +41,11 @@ public class QuestionActivity extends AppCompatActivity implements ShowFragment.
     private Question question;
     private DiscussionManager disManager;
     private Menu expMenu;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    androidx.appcompat.widget.Toolbar toolbar;
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -15,9 +15,8 @@ import java.time.LocalDateTime;
  */
 public abstract class Post implements Serializable {
     protected String ID = "";
-    //protected String author; //not necessary
     protected String text;
-    protected LocalDateTime date; //not necessary
+    protected LocalDateTime date;
 
 
     public Post(String text){
