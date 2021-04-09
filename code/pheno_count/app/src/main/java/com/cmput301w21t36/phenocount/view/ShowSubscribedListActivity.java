@@ -43,7 +43,6 @@ public class ShowSubscribedListActivity extends AppCompatActivity implements Nav
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_show_subscribed_list);
-        //getSupportActionBar().setTitle("My Subscribed Experiments");
         navigationSettings();
         db = dbManager.getDb();
         UUID = getIntent().getExtras().getString("owner");
@@ -121,6 +120,4 @@ public class ShowSubscribedListActivity extends AppCompatActivity implements Nav
         startActivity(intent);
         return true;
     }
-
-
 }

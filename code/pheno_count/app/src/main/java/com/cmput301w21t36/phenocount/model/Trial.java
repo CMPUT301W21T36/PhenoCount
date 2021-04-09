@@ -15,7 +15,6 @@ import com.google.android.gms.maps.model.LatLng;
  * , NonNegativeCount, Measurement
  */
 public abstract class Trial implements Serializable {
-
     private User owner;
     private String type;
     private double Latitude;
@@ -40,7 +39,6 @@ public abstract class Trial implements Serializable {
         Date today = Calendar.getInstance().getTime(); //current date and time
         date = dateFormat.format(today);
     }
-
 
     void setLongitude(double longitude){
         this.Longitude = longitude;

@@ -6,7 +6,6 @@ import java.io.Serializable;
  * This class represents objects used in Measurement trials
  */
 public class Measurement extends Trial implements Serializable {
-
     private float measurement;
 
     /**
@@ -19,7 +18,6 @@ public class Measurement extends Trial implements Serializable {
         measurement = 0;
 
     }
-
 
     public float getMeasurement() {
         return measurement;

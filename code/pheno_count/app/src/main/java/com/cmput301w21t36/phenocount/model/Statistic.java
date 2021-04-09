@@ -7,7 +7,6 @@ import java.util.Collections;
  * This model class deals with displaying statistics for the trials of an experiment
  */
 public class Statistic {
-
     int numOfSuccess = 0;
     double mean = 0.0;
     double median = 0.0;

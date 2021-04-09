@@ -6,9 +6,7 @@ import java.io.Serializable;
  * This class represents objects used in binomial trials
  */
 public class Binomial extends Trial implements Serializable {
-
     private boolean result;
-
 
     /**
      * constructor for new Binomial object
@@ -31,11 +29,9 @@ public class Binomial extends Trial implements Serializable {
      */
     void isFailure() {this.result = false;}
 
-
     public void setResult(boolean result) {
         this.result = result;
     }
-
 
     public boolean getResult() {
         return this.result;

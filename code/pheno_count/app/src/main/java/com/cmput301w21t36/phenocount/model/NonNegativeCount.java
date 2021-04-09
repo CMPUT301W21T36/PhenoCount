@@ -6,7 +6,6 @@ import java.io.Serializable;
  * This class represents objects used in NonNegativeCount trials
  */
 public class NonNegativeCount extends Trial implements Serializable {
-
     private int value;
     /**
      * constructor for new Trial object
@@ -17,7 +16,6 @@ public class NonNegativeCount extends Trial implements Serializable {
         super(owner);
         value = 0;
     }
-
 
     public int getValue() {
         return value;

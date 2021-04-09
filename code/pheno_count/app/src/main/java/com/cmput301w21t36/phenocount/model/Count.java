@@ -5,7 +5,6 @@ import java.io.Serializable;
  * This class represents objects used in Count trials
  */
 public class Count extends Trial implements Serializable {
-
     private int count;
 
     /**
@@ -18,18 +17,14 @@ public class Count extends Trial implements Serializable {
         count = 0;
     }
 
-
     /**
      * This method increments count by 1
      */
     void isCount(){this.count++;}
 
-
-
     public int getCount() {
         return count;
     }
-
 
     public void setCount(int count) {
         this.count = count;
