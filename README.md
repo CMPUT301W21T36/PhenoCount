@@ -1,11 +1,15 @@
 # PhenoCount
 
 ### Note -: 
+* If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
 * To get your current location when running the app on an AVD, set it manually by clicking on the menu button (...) and then clicking on "Location" from the left side bar. 
 * Please grant necessary location permissions to be able to use location functionalities.
 * No need to provide your own API key in the local.properties file.
-* If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
 * Owner can only edit the type of an experiment if there are no trials recorded.
+
+### Possible Issues -:
+#### Due to time constraints,some unexpected behavior might not have been handled. This will be addressed in the future.
+* When viewing the project with certain IDE such as Android Studio, code might reflect red errors due to inconsistency within pacakges. Ignore this as the project will still build and run smoothly.
 
 ### References:
 
