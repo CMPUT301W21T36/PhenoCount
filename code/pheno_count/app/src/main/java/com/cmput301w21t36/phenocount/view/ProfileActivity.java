@@ -59,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
         setTheme(R.style.Theme_PhenoCount);
         setContentView(R.layout.activity_profile);
         navigationSettings();
+
         // Set all TextView variables
         UIDTextView = (TextView) findViewById(R.id.UIDTextView);
         usernameTextView = (TextView) findViewById(R.id.displayNameTextView);
@@ -105,7 +106,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
     public void openDialog() {
         ProfileDialog profileDialog = new ProfileDialog();
         profileDialog.show(getSupportFragmentManager(), "Profile Dialog");
-
     }
 
     @Override
@@ -125,23 +125,6 @@ public class ProfileActivity extends AppCompatActivity implements ProfileDialog.
 
         SharedPreferences sharedPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
-
-/*
-        // this query updates the old username in the users old experiments
-        db.collection("Experiment").whereEqualTo("owner",UID).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                for (QueryDocumentSnapshot doc : value) {
-
-                    if (error == null) {
-                        String expID = doc.getId();
-                        db.collection("Experiment").document(expID).update("owner_name",username);
-                    }
-                }
-            }
-        });
-
- */
 
         // this query updates the old username in the users old trials
         db.collection("Experiment").addSnapshotListener(new EventListener<QuerySnapshot>() {

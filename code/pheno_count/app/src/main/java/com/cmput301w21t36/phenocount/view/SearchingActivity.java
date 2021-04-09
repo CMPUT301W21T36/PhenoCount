@@ -49,7 +49,7 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
     NavigationView navigationView;
     androidx.appcompat.widget.Toolbar toolbar;
 
-    SearchView searchView;
+    private SearchView searchView;
 
     @SuppressLint("ResourceType")
     @Override
@@ -86,7 +86,10 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //https://stackoverflow.com/questions/27378981/how-to-use-searchview-in-toolbar-android
+        // https://stackoverflow.com/a/27482902
+        // https://stackoverflow.com/users/1581185/sagar-maiyad
+        // https://stackoverflow.com/posts/27482902/revisions
+
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_search,menu);
 
@@ -100,7 +103,6 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
             public void onClick(View v) {
                 Intent i = new Intent(SearchingActivity.this, com.cmput301w21t36.phenocount.ScanBarcodeActivity.class);
                 startActivityForResult(i, 1);
-//                searchView.setQuery(searchText, true);
             }
         });
 
@@ -119,37 +121,6 @@ public class SearchingActivity extends AppCompatActivity implements NavigationVi
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-    /*
-    public void searchExperiments(String keyword) {
-        keyword = keyword.toLowerCase();
-
-        if (keyword.length() > 0) {
-
-            ArrayList<Experiment> foundExp = new ArrayList<>();
-            for (Experiment exp : expDataList) {
-                if (exp.getDescription().toLowerCase().contains(keyword) || exp.getName().toLowerCase().contains(keyword) ){
-                    foundExp.add(exp);
-                }
-            }
-            updateList(foundExp);
-        }
-        else {
-            updateList(expDataList);
-        }
-
-    }
-
-    public void updateList(ArrayList<Experiment> listExp) {
-
-        adapter = new ResultAdapter(this, listExp);
-        experimentListView.setAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
-    }
-
-     */
-
 
     public void navigationSettings(){
         drawerLayout=findViewById(R.id.drawer_layout);
