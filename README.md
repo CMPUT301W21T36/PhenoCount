@@ -1,6 +1,31 @@
-# PhenoCount
+# Welcome to PhenoCount!
 
-### Note -: 
+PhenoCount, short for Phenomena Counter, is a mobile application that allows for crowdsourcing of phenomena. 
+
+With the intent to inspire others to get involved in research and scientific observation, we designed an easy to learn, user friendly layout application that provides the basic tools for publishing an experiment. 
+
+Our goal is to provide a convenient and streamlined process for anyone to contribute to other experiments, and receive data for their own experiments. 
+
+The application is targeted for younger or casual users, and is not intended to support a tenured researcher at a post-secondary institution. 
+
+We are confident our application will encourage others to get involved in science and develop a critical thinking mindset. PhenoCount opens up a whole new world in your hands and will allow you to create, connect, and converse with others on phenomena happening across the globe.
+
+#### Check out the promotional video : https://drive.google.com/file/d/1t8RYNnhXsLN4yXCe0hD6vP0yoSJxQwOu/view
+
+## To test
+
+Clone this github repository on your system and open/run it using Android Studio.
+
+## Features
+
+* Create customized experiments and participate in them from around the world!
+* Search for experiments using the interactive search bar!
+* Discuss about experiments in the discussion forum!
+* See statistics / plots of experiments' data!
+* See map of all the locations where trials have been conducted!
+* Use adavanced features such as QR/Bar codes for most functionalities!
+
+## Note -: 
 * If you want a display name to be associated to your published experiments, you will need to open up the profile tab first.
 * To get your current location when running the app on an AVD, set it manually by clicking on the menu button (...) and then clicking on "Location" from the left side bar. 
 * Please grant necessary location permissions to be able to use location functionalities.
@@ -9,11 +34,11 @@
 * On clicking the button for viewing trials' locations, the "Click to Explore" gif requires you to click on the globe :) 
 * To view another user's information - in the experiment information page, click on the user(person) icon.
 
-### Possible Issues -:
+## Possible Issues -:
 #### Due to time constraints,some unexpected behavior might not have been handled. This will be addressed in the future.
 * When viewing the project with certain IDE such as Android Studio, code might reflect red errors due to inconsistency within pacakges. Ignore this as the project will still build and run smoothly.
 
-### References:
+## References:
 
 * Android Developers, 2020-11-18, Apache 2.0, https://developer.android.com/guide/topics/ui/controls/radiobutton#java
 
