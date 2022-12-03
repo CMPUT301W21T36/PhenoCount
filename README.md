@@ -10,7 +10,7 @@ The application is targeted for younger or casual users, and is not intended to 
 
 We are confident our application will encourage others to get involved in science and develop a critical thinking mindset. PhenoCount opens up a whole new world in your hands and will allow you to create, connect, and converse with others on phenomena happening across the globe.
 
-#### [Check out the promotional video!](https://www.kapwing.com/videos/60a41371d264f300d609dbee)
+#### [Check out the promotional video!](https://drive.google.com/file/d/1t8RYNnhXsLN4yXCe0hD6vP0yoSJxQwOu/view)
 
 ## To test
 
